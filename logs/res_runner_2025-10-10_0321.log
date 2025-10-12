@@ -1,0 +1,14 @@
+nohup: ignoring input
+Namespace(in_dataset='CIFAR-10', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=500, batch_size=512, lr=0.5, weight_decay=1e-06, print_every=50, fine_tune=False, temp=0.1, cosine=True, warm=True, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='checkpoints/CIFAR-10-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=True, residual_space=True, residual_dim=None, residual_mode='dcc', residual_norm='l2', residual_cache='cache', residual_basis_path=None, residual_projector_path='/home/shaokun/PALM/cache/resnet34-supcon/CIFAR-100/residual_projector.pt', save_residual_basis_path=None, save_residual_projector_path=None, argument=True, warmup_from=0.01, warm_epochs=10, warmup_to=0.4995071754249608)
+Files already downloaded and verified
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21605312
+[incremental] resumed from checkpoints/CIFAR-10-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+  0%|          | 0/500 [00:00<?, ?it/s]  0%|          | 0/500 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/main.py", line 158, in <module>
+    main()
+  File "/home/shaokun/PALM/main.py", line 102, in main
+    loss = trainer(args, train_loader, model, criterion, optimizer, epoch, scaler=scaler)
+  File "/home/shaokun/PALM/trainer.py", line 41, in train_palm
+    features = features @ projector  # (B, D)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (1024x128 and 100x100)

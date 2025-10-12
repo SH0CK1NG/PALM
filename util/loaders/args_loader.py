@@ -69,6 +69,8 @@ def get_args():
                         help='dropout probability (default: 0.0)')
     parser.add_argument('--save-path', default="CIFAR-10-ResNet18.pt",
                         type=str, help="the path to save the trained model")
+    parser.add_argument('--load-path', default=None, type=str,
+                        help='optional path to load pretrained/previous checkpoint; separate from save-path')
     parser.add_argument('--reduce', default=0.5, type=float,
                         help='compression rate in transition stage (default: 0.5)')
     parser.add_argument('--score', default="mahalanobis", type=str,
@@ -87,6 +89,30 @@ def get_args():
     # loss config
     parser.add_argument('--lambda_pcon', default=1., type=float)
     parser.add_argument('--epsilon', default=0.05, type=float)
+    
+    # incremental + residual-space learning options
+    parser.add_argument('--incremental', action='store_true', default=False,
+                        help='enable incremental learning; resume from --save-path if exists')
+    parser.add_argument('--residual_space', action='store_true', default=False,
+                        help='enable residual-space projection for updates')
+    parser.add_argument('--residual_dim', type=int, default=None,
+                        help='dim of residual basis; if None, auto by backbone')
+    parser.add_argument('--residual_mode', type=str, default='dcc', choices=['dcc','wdisc'],
+                        help='residual basis mode: dcc (class-centered cov eig min) or wdisc (orthogonal complement)')
+    parser.add_argument('--residual_norm', type=str, default='l2', choices=['none','l2'],
+                        help='feature normalization before residual computation')
+    parser.add_argument('--residual_cache', type=str, default='cache',
+                        help='directory to store/load residual basis if precomputed')
+    parser.add_argument('--residual_basis_path', type=str, default=None,
+                        help='path to precomputed residual basis (R x D) torch .pt/.pth or .npy')
+    parser.add_argument('--residual_projector_path', type=str, default=None,
+                        help='path to precomputed residual projector (D x D) torch .pt/.pth or .npy')
+    parser.add_argument('--residual_at', type=str, default='encoder', choices=['encoder','embedding'],
+                        help='where to build/apply residual projection: encoder output or embedding')
+    parser.add_argument('--save_residual_basis_path', type=str, default=None,
+                        help='path to save computed residual basis (R x D) .pt')
+    parser.add_argument('--save_residual_projector_path', type=str, default=None,
+                        help='path to save computed residual projector (D x D) .pt')
     
     args = parser.parse_args()
     

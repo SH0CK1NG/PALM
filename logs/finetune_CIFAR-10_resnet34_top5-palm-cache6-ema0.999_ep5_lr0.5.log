@@ -1,0 +1,6 @@
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21605312
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [01:04<04:19, 64.82s/it] 40%|████      | 2/5 [02:08<03:11, 63.91s/it] 60%|██████    | 3/5 [03:11<02:07, 63.59s/it] 80%|████████  | 4/5 [04:14<01:03, 63.33s/it]100%|██████████| 5/5 [05:16<00:00, 63.00s/it]100%|██████████| 5/5 [05:16<00:00, 63.33s/it]
+Finetuned checkpoint saved to checkpoints/CIFAR-10-resnet34-top5-palm-cache6-ema0.999-finetune-ep5-lr0p5.pt

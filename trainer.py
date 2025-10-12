@@ -3,6 +3,7 @@ import numpy as np
 from tqdm import tqdm
 
 from util.train_utils import adjust_learning_rate, AverageMeter
+import torch.nn.functional as F
 
 
 def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=None):
@@ -30,7 +31,25 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                 if args.fine_tune:
                     features = model.fine_tune_forward(images)
                 else:
-                    features = model(images)
+                    # allow projection at encoder output if requested
+                    if getattr(args, 'residual_space', False) and getattr(args, 'residual_at', 'encoder') == 'encoder' and hasattr(args, 'residual_projector') and args.residual_projector is not None:
+                        # compute encoder features then project, then pass through head
+                        with torch.cuda.amp.autocast(enabled=False):
+                            enc = model.encoder(images)
+                            projector = args.residual_projector
+                            if getattr(args, 'residual_norm', 'l2') == 'l2':
+                                enc = F.normalize(enc, dim=-1)
+                            enc = enc @ projector
+                        # now through head (kept in autocast)
+                        features = model.project(enc)
+                    else:
+                        features = model(images)
+                # residual-space projection on embedding (optional)
+                if getattr(args, 'residual_space', False) and getattr(args, 'residual_at', 'encoder') == 'embedding' and hasattr(args, 'residual_projector') and args.residual_projector is not None:
+                    projector = args.residual_projector
+                    if getattr(args, 'residual_norm', 'l2') == 'l2':
+                        features = F.normalize(features, dim=-1)
+                    features = features @ projector  # (B, D)
                 if twocrop:
                     f1, f2 = torch.split(features, [bsz, bsz], dim=0)
                     features = torch.cat([f1.unsqueeze(1), f2.unsqueeze(1)], dim=1)
