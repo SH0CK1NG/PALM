@@ -11,8 +11,32 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
 
     losses = AverageMeter()
     sub_loss = {}
+    # optional: cache the very first batch for fixed-batch debugging
+    use_fixed = bool(getattr(args, 'debug_fixed_batch', False))
+    fixed_batch = None
+    steps_limit = int(getattr(args, 'debug_fixed_batch_steps', 50)) if use_fixed else None
 
-    for step, (images, labels) in enumerate((train_loader), start=epoch * len(train_loader)):
+    step_iterable = enumerate(train_loader, start=epoch * len(train_loader)) if not use_fixed else None
+    step_count = 0
+    while True:
+        if use_fixed:
+            if fixed_batch is None:
+                try:
+                    # pull one real batch from loader to cache it
+                    fixed_batch = next(iter(train_loader))
+                except Exception:
+                    break
+            images, labels = fixed_batch
+        else:
+            try:
+                step, (images, labels) = next(step_iter := (step_iterable if 'step_iter' in locals() else iter(train_loader)))
+                step_iterable = step_iter
+            except StopIteration:
+                break
+        step = (epoch * len(train_loader)) + step_count
+        step_count += 1
+        if use_fixed and step_count > steps_limit:
+            break
         # detect two-crop before any concatenation
         twocrop = isinstance(images, (list, tuple)) and len(images) == 2
 

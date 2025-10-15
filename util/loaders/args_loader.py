@@ -147,6 +147,12 @@ def get_args():
                         help='when forgetting is configured, also draw a retain-vs-forget UMAP figure')
     parser.add_argument('--keep_cache', action='store_true', default=False,
                         help='do not delete cached features after evaluation')
+
+    # Debug: fixed-batch training for LoRA diagnostics
+    parser.add_argument('--debug_fixed_batch', action='store_true', default=False,
+                        help='repeat training on a single fixed batch to observe loss changes')
+    parser.add_argument('--debug_fixed_batch_steps', type=int, default=50,
+                        help='number of steps per epoch when using fixed-batch debug mode')
     
     args = parser.parse_args()
     
