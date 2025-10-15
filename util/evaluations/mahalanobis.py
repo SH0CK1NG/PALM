@@ -6,6 +6,7 @@ import torch
 import numpy as np
 from util.evaluations.write_to_csv import write_csv
 from util.evaluations.metrics import plot_kde
+from typing import List
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -178,5 +179,106 @@ def eval_maha(args):
     args.score = "mahalanobis"
     write_csv(args, all_results)
     print(time.time() - begin)
+    
+    # === Optional: UMAP visualization ===
+    if getattr(args, 'umap_enable', False):
+        try:
+            import umap.umap_ as umap
+            import matplotlib.pyplot as plt
+            # gather features and labels
+            base = os.path.join("cache", f"{args.backbone}-{args.method}", args.in_dataset)
+            X_list: List[np.ndarray] = []
+            y_list: List[str] = []
+            # ID retain (val) as domain retain
+            fx = ftest
+            X_list.append(fx)
+            y_list += ["retain"] * fx.shape[0]
+            # OOD including forget
+            for name in list(args.out_datasets):
+                food = food_all.get(name, None)
+                if food is None:
+                    continue
+                X_list.append(food)
+                y_list += [name] * food.shape[0]
+            if len(forget_classes) > 0:
+                # fmask defined earlier for val set
+                X_list.append(ftest[fmask])
+                y_list += ["forget"] * int(fmask.sum())
+            X = np.concatenate(X_list, axis=0)
+            # subsample
+            max_points = int(getattr(args, 'umap_max_points', 20000))
+            if X.shape[0] > max_points:
+                rng = np.random.RandomState(0)
+                idx = rng.choice(X.shape[0], max_points, replace=False)
+                X = X[idx]
+                y_list = [y_list[i] for i in idx]
+            reducer = umap.UMAP(n_neighbors=int(getattr(args,'umap_neighbors',15)),
+                                min_dist=float(getattr(args,'umap_min_dist',0.05)),
+                                metric=str(getattr(args,'umap_metric','cosine')),
+                                random_state=0)
+            emb = reducer.fit_transform(X)
+            # draw
+            plt.figure(figsize=(8,6), dpi=120)
+            uniq = sorted(set(y_list))
+            colors = plt.cm.tab20(np.linspace(0,1,len(uniq)))
+            color_map = {k:c for k,c in zip(uniq, colors)}
+            for k in uniq:
+                m = [i for i,t in enumerate(y_list) if t==k]
+                if len(m)==0: continue
+                plt.scatter(emb[m,0], emb[m,1], s=4, c=[color_map[k]], label=k, alpha=0.7, linewidths=0)
+            plt.legend(markerscale=2, frameon=False, ncol=3)
+            plt.title(f"UMAP - {args.in_dataset} ({args.backbone}-{args.method})")
+            os.makedirs("figs", exist_ok=True)
+            save_path = getattr(args,'umap_save_path', None)
+            if not save_path:
+                save_path = os.path.join("figs", f"umap_{args.in_dataset}_{args.backbone}_{args.method}_domain.png")
+            plt.tight_layout()
+            plt.savefig(save_path)
+            print("[umap] saved to", save_path)
+
+            # Optional extra figure: retain vs forget only
+            if bool(getattr(args, 'umap_rf_only', False)) and (len(forget_classes) > 0):
+                try:
+                    X2_list: List[np.ndarray] = []
+                    y2_list: List[str] = []
+                    # retain vs forget from val set split
+                    if (~fmask).sum() > 0:
+                        X2_list.append(ftest[~fmask])
+                        y2_list += ["retain"] * int((~fmask).sum())
+                    if fmask.sum() > 0:
+                        X2_list.append(ftest[fmask])
+                        y2_list += ["forget"] * int(fmask.sum())
+                    if len(X2_list) >= 1:
+                        X2 = np.concatenate(X2_list, axis=0)
+                        max_points2 = int(getattr(args, 'umap_max_points', 20000))
+                        if X2.shape[0] > max_points2:
+                            rng2 = np.random.RandomState(1)
+                            idx2 = rng2.choice(X2.shape[0], max_points2, replace=False)
+                            X2 = X2[idx2]
+                            y2_list = [y2_list[i] for i in idx2]
+                        reducer2 = umap.UMAP(n_neighbors=int(getattr(args,'umap_neighbors',15)),
+                                             min_dist=float(getattr(args,'umap_min_dist',0.05)),
+                                             metric=str(getattr(args,'umap_metric','cosine')),
+                                             random_state=1)
+                        emb2 = reducer2.fit_transform(X2)
+                        plt.figure(figsize=(8,6), dpi=120)
+                        uniq2 = sorted(set(y2_list))
+                        colors2 = plt.cm.Set1(np.linspace(0,1,len(uniq2)))
+                        cmap2 = {k:c for k,c in zip(uniq2, colors2)}
+                        for k in uniq2:
+                            m2 = [i for i,t in enumerate(y2_list) if t==k]
+                            if len(m2)==0: continue
+                            plt.scatter(emb2[m2,0], emb2[m2,1], s=6, c=[cmap2[k]], label=k, alpha=0.8, linewidths=0)
+                        plt.legend(markerscale=2, frameon=False)
+                        plt.title(f"UMAP RF - {args.in_dataset} ({args.backbone}-{args.method})")
+                        os.makedirs("figs", exist_ok=True)
+                        save_path2 = os.path.join("figs", f"umap_{args.in_dataset}_{args.backbone}_{args.method}_rf.png")
+                        plt.tight_layout()
+                        plt.savefig(save_path2)
+                        print("[umap] saved to", save_path2)
+                except Exception as e:
+                    print("[umap] rf-only visualization failed:", e)
+        except Exception as e:
+            print("[umap] visualization failed:", e)
     
     

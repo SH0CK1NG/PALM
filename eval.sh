@@ -4,7 +4,7 @@ set -e
 # Usage:
 #   bash eval.sh <in_dataset> "<out_datasets>" <backbone> <method> <ckpt_path> [score] [cache_size] [epochs]
 # Example:
-#   bash eval.sh CIFAR-10 "SVHN places365 LSUN iSUN dtd" resnet34 top5-palm-cache6-ema0.999 checkpoints/C10-...pt mahalanobis 6 0 [adapter_path] [forget_csv] [forget_list_path] [forget_center_set] [forget_lambda] [lora_r] [lora_alpha] [lora_dropout]
+#   bash eval.sh CIFAR-10 "SVHN places365 LSUN iSUN dtd" resnet34 top5-palm-cache6-ema0.999 checkpoints/C10-...pt mahalanobis 6 0 [adapter_path] [forget_csv] [forget_list_path] [forget_center_set] [forget_lambda] [lora_r] [lora_alpha] [lora_dropout] [lora_target] [umap_enable] [umap_rf_only]
 
 id="$1"
 ood_list="$2"      # pass as quoted string so it becomes multiple args when expanded below
@@ -23,6 +23,8 @@ lora_r="${14:-}"
 lora_alpha="${15:-}"
 lora_dropout="${16:-}"
 lora_target="${17:-}"
+umap_enable="${18:-}"
+umap_rf_only="${19:-}"
 
 # 1) extract features for IN/OOD using the provided checkpoint
 python feature_extract.py \
@@ -54,7 +56,9 @@ python eval_cifar.py \
   $(if [ -n "$forget_lambda" ]; then echo --forget_lambda "$forget_lambda"; fi) \
   $(if [ -n "$lora_r" ]; then echo --lora_r "$lora_r"; fi) \
   $(if [ -n "$lora_alpha" ]; then echo --lora_alpha "$lora_alpha"; fi) \
-  $(if [ -n "$lora_dropout" ]; then echo --lora_dropout "$lora_dropout"; fi)
+  $(if [ -n "$lora_dropout" ]; then echo --lora_dropout "$lora_dropout"; fi) \
+  $(if [ -n "$umap_enable" ]; then echo --umap_enable; fi) \
+  $(if [ -n "$umap_rf_only" ]; then echo --umap_rf_only; fi)
 
 
 

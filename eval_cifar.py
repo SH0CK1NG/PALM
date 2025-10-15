@@ -18,4 +18,6 @@ os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
 eval_maha(args)
 cache_dir = os.path.join("cache", f"{args.backbone}-{args.method}")
-shutil.rmtree(cache_dir)
+if not getattr(args, 'keep_cache', False):
+    if os.path.exists(cache_dir):
+        shutil.rmtree(cache_dir)

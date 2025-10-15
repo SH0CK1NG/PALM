@@ -128,6 +128,26 @@ def get_args():
     parser.add_argument('--batch_forget_mode', type=str, default='none', choices=['none', 'balanced', 'proportional', 'retain_only'],
                         help='how to compose per-batch samples: none=use all; balanced=1:1 forget:retain from available; proportional=match dataset-level forget ratio')
     
+    # UMAP visualization options (evaluation-time diagnostics)
+    parser.add_argument('--umap_enable', action='store_true', default=False,
+                        help='enable UMAP visualization during evaluation')
+    parser.add_argument('--umap_by', type=str, default='domain', choices=['domain','class'],
+                        help='coloring scheme for UMAP: domain=retain/forget/ood; class=ID classes')
+    parser.add_argument('--umap_max_points', type=int, default=20000,
+                        help='maximum number of points to plot for UMAP (subsampled)')
+    parser.add_argument('--umap_neighbors', type=int, default=15,
+                        help='UMAP n_neighbors')
+    parser.add_argument('--umap_min_dist', type=float, default=0.05,
+                        help='UMAP min_dist')
+    parser.add_argument('--umap_metric', type=str, default='cosine',
+                        help='UMAP distance metric (e.g., cosine, euclidean)')
+    parser.add_argument('--umap_save_path', type=str, default=None,
+                        help='optional path to save UMAP figure; default figs/umap_<id>_<backbone>_<method>_<by>.png')
+    parser.add_argument('--umap_rf_only', action='store_true', default=False,
+                        help='when forgetting is configured, also draw a retain-vs-forget UMAP figure')
+    parser.add_argument('--keep_cache', action='store_true', default=False,
+                        help='do not delete cached features after evaluation')
+    
     args = parser.parse_args()
     
     if "noaug" in args.method:
