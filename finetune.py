@@ -27,7 +27,7 @@ def build_cifar10_loader_as_new_classes(args, split="train"):
             return img, int(label) + 100
 
     wrapped = OffsetC10(dataset)
-    loader = torch.utils.data.DataLoader(wrapped, batch_size=args.batch_size, shuffle=(split=='train'), num_workers=2, pin_memory=True)
+    loader = torch.utils.data.DataLoader(wrapped, batch_size=args.batch_size, shuffle=(split=='train'), num_workers=8, pin_memory=True, persistent_workers=True)
     return loader
 
 

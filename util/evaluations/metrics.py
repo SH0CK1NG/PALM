@@ -62,6 +62,19 @@ def cal_metric(known, novel, method=None):
     return results
 
 
+def split_acc_by_classes(labels: np.ndarray, preds: np.ndarray, forget_classes: Sequence[int]):
+    labels = np.asarray(labels)
+    preds = np.asarray(preds)
+    fset = set(int(x) for x in forget_classes)
+    fmask = np.isin(labels, list(fset))
+    rmask = ~fmask
+    def _acc(mask):
+        if mask.sum() == 0:
+            return float('nan')
+        return float((preds[mask] == labels[mask]).mean())
+    return _acc(fmask), _acc(rmask)
+
+
 def get_curve(known, novel, method=None):
     tp, fp = dict(), dict()
     fpr_at_tpr95 = dict()

@@ -90,29 +90,43 @@ def get_args():
     parser.add_argument('--lambda_pcon', default=1., type=float)
     parser.add_argument('--epsilon', default=0.05, type=float)
     
-    # incremental + residual-space learning options
+    # incremental learning option only
     parser.add_argument('--incremental', action='store_true', default=False,
-                        help='enable incremental learning; resume from --save-path if exists')
-    parser.add_argument('--residual_space', action='store_true', default=False,
-                        help='enable residual-space projection for updates')
-    parser.add_argument('--residual_dim', type=int, default=None,
-                        help='dim of residual basis; if None, auto by backbone')
-    parser.add_argument('--residual_mode', type=str, default='dcc', choices=['dcc','wdisc'],
-                        help='residual basis mode: dcc (class-centered cov eig min) or wdisc (orthogonal complement)')
-    parser.add_argument('--residual_norm', type=str, default='l2', choices=['none','l2'],
-                        help='feature normalization before residual computation')
-    parser.add_argument('--residual_cache', type=str, default='cache',
-                        help='directory to store/load residual basis if precomputed')
-    parser.add_argument('--residual_basis_path', type=str, default=None,
-                        help='path to precomputed residual basis (R x D) torch .pt/.pth or .npy')
-    parser.add_argument('--residual_projector_path', type=str, default=None,
-                        help='path to precomputed residual projector (D x D) torch .pt/.pth or .npy')
-    parser.add_argument('--residual_at', type=str, default='encoder', choices=['encoder','embedding'],
-                        help='where to build/apply residual projection: encoder output or embedding')
-    parser.add_argument('--save_residual_basis_path', type=str, default=None,
-                        help='path to save computed residual basis (R x D) .pt')
-    parser.add_argument('--save_residual_projector_path', type=str, default=None,
-                        help='path to save computed residual projector (D x D) .pt')
+                        help='enable incremental learning; resume from --load-path/--save-path if exists')
+
+    # LoRA PEFT options
+    parser.add_argument('--use_lora', action='store_true', default=False,
+                        help='enable LoRA adapters for parameter-efficient finetuning')
+    parser.add_argument('--lora_impl', type=str, default='native', choices=['native', 'peft'],
+                        help='LoRA implementation backend: native (current custom impl) or peft')
+    parser.add_argument('--lora_r', type=int, default=8, help='LoRA rank')
+    parser.add_argument('--lora_alpha', type=int, default=32, help='LoRA alpha scaling')
+    parser.add_argument('--lora_dropout', type=float, default=0.05, help='LoRA dropout prob')
+    parser.add_argument('--lora_target', type=str, default='head', choices=['head','encoder','both'],
+                        help='where to apply LoRA: projection head, encoder, or both')
+    parser.add_argument('--adapter_save_path', type=str, default=None,
+                        help='path to save LoRA adapter; file (.pt) for native, directory for peft (directory name may end with .pt)')
+    parser.add_argument('--adapter_load_path', type=str, default=None,
+                        help='path to load LoRA adapter; file (.pt) for native, directory for peft')
+
+    # Forgetting options
+    parser.add_argument('--forget_classes', type=str, default=None,
+                        help='CSV of class ids to forget, e.g., "0,1,2"; overrides forget_list_path')
+    parser.add_argument('--forget_list_path', type=str, default=None,
+                        help='path to a JSON or txt (one id per line) list of classes to forget')
+    parser.add_argument('--forget_center_set', type=str, default='all', choices=['all','retain'],
+                        help='push forget samples away from centers of all classes or retained classes only')
+    parser.add_argument('--forget_lambda', type=float, default=0.1,
+                        help='loss weight for Mahalanobis forgetting term')
+    parser.add_argument('--forget_margin', type=float, default=100.0,
+                        help='margin m for hinge forgetting loss: L_forget = lambda_f * ReLU(m - dmin_norm)')
+    parser.add_argument('--centers_path', type=str, default=None,
+                        help='path to precomputed class centers tensor (num_classes x D)')
+    parser.add_argument('--precision_path', type=str, default=None,
+                        help='path to precomputed precision matrix (D x D)')
+    # per-batch composition control for forget/retain
+    parser.add_argument('--batch_forget_mode', type=str, default='none', choices=['none', 'balanced', 'proportional', 'retain_only'],
+                        help='how to compose per-batch samples: none=use all; balanced=1:1 forget:retain from available; proportional=match dataset-level forget ratio')
     
     args = parser.parse_args()
     

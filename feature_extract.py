@@ -52,6 +52,26 @@ for split, in_loader in [('train', trainloaderIn), ('val', testloaderIn), ]:
         t0 = time.time()
         ########################################
         features, labels = [], []
+        # optional: split val set into retain(ID) and forget(OOD)
+        forget_csv = getattr(args, 'forget_classes', None)
+        forget_list_path = getattr(args, 'forget_list_path', None)
+        forget_classes = []
+        if split == 'val':
+            if forget_csv:
+                forget_classes = [int(x) for x in str(forget_csv).split(',') if x!='']
+            elif forget_list_path and os.path.exists(forget_list_path):
+                try:
+                    with open(forget_list_path) as f:
+                        data = f.read().strip()
+                        try:
+                            import json
+                            forget_classes = list(map(int, json.loads(data)))
+                        except Exception:
+                            forget_classes = [int(line) for line in data.splitlines() if line.strip()!='']
+                except Exception:
+                    forget_classes = []
+        retain_features, retain_labels = [], []
+        forget_features, forget_labels = [], []
         total = 0
 
         model.eval()
@@ -60,17 +80,45 @@ for split, in_loader in [('train', trainloaderIn), ('val', testloaderIn), ]:
 
             img = img.cuda()
 
-            features += list(model.encoder(img).data.cpu().numpy())
-            labels += list(label.data.cpu().numpy())
+            batch_feats = model.encoder(img).data.cpu().numpy()
+            batch_labels = label.data.cpu().numpy()
+            if split == 'val' and len(forget_classes) > 0:
+                # route to retain/forget
+                mask_forget = np.isin(batch_labels, np.array(forget_classes, dtype=int))
+                if np.any(~mask_forget):
+                    retain_features.extend(list(batch_feats[~mask_forget]))
+                    retain_labels.extend(list(batch_labels[~mask_forget]))
+                if np.any(mask_forget):
+                    forget_features.extend(list(batch_feats[mask_forget]))
+                    forget_labels.extend(list(batch_labels[mask_forget]))
+            else:
+                features += list(batch_feats)
+                labels += list(batch_labels)
 
             total += len(img)
 
-        feat_log, label_log = np.array(features), np.array(labels)
+        if split == 'val' and len(forget_classes) > 0:
+            # save retain(ID) as val cache
+            feat_log = np.array(retain_features)
+            label_log = np.array(retain_labels)
+        else:
+            feat_log, label_log = np.array(features), np.array(labels)
         ########################################
         np.save(cache_name, feat_log)
         np.save(label_cache_name, label_log)
         print(
             f"{total} images processed, {time.time()-t0} seconds used\n")
+
+        # additionally save forget subset as an OOD dataset "forget"
+        if split == 'val' and len(forget_classes) > 0 and len(forget_features) > 0:
+            out_save_dir = os.path.join(in_save_dir, 'forget')
+            if not os.path.exists(out_save_dir):
+                os.makedirs(out_save_dir)
+            f_cache = os.path.join(out_save_dir, f"{args.backbone}-{args.method}_features.npy")
+            l_cache = os.path.join(out_save_dir, f"{args.backbone}-{args.method}_labels.npy")
+            np.save(f_cache, np.array(forget_features))
+            np.save(l_cache, np.array(forget_labels))
+            print(f"Saved forget OOD features to {out_save_dir}")
 
 for ood_dataset in args.out_datasets:
     # print(f"OOD Dataset: {ood_dataset}")

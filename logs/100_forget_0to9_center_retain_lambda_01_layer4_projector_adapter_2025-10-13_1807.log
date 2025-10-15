@@ -1,0 +1,58 @@
+nohup: ignoring input
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=100, batch_size=512, lr=0.5, weight_decay=1e-06, print_every=50, fine_tune=False, temp=0.1, cosine=True, warm=True, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='/home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=False, use_lora=True, lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='head', adapter_save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retain_0.1_0to9.projector_adapter.pt', adapter_load_path=None, forget_classes='0,1,2,3,4,5,6,7,8,9', forget_list_path=None, forget_center_set='retain', forget_lambda=0.1, centers_path='cache/resnet34-top5-palm-cache6-ema0.999/CIFAR-100/class_centers.pt', precision_path='cache/resnet34-top5-palm-cache6-ema0.999/CIFAR-100/precision.pt', argument=True, warmup_from=0.01, warm_epochs=10, warmup_to=0.4877763649447146)
+Files already downloaded and verified
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21657536
+  0%|          | 0/100 [00:00<?, ?it/s]  0%|          | 0/100 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/main.py", line 138, in <module>
+    main()
+  File "/home/shaokun/PALM/main.py", line 69, in main
+    loss = trainer(args, train_loader, model, criterion, optimizer, epoch, scaler=scaler)
+  File "/home/shaokun/PALM/trainer.py", line 34, in train_palm
+    features = model(images)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/models/resnet.py", line 234, in forward
+    feat = self.encoder(x)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/models/resnet.py", line 121, in forward
+    out = self.layer4(out)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/container.py", line 217, in forward
+    input = module(input)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/models/resnet.py", line 31, in forward
+    out = F.relu(self.bn1(self.conv1(x)))
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/util/lora.py", line 127, in forward
+    y = y + self.B(self.A(xd)) * self.scaling
+RuntimeError: The size of tensor a (4) must match the size of tensor b (8) at non-singleton dimension 3
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[lora] failed to load adapter: [Errno 2] No such file or directory: 'checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retain_0.1_0to9.projector_adapter.pt'
+resnet34-top5-palm-cache6-ema0.999-fcsretain-fl0.1-lora_r8a32d0.05: Number of model parameters: 21657536
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/feature_extract.py", line 37, in <module>
+    features = model.encoder(dummy_input)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/models/resnet.py", line 121, in forward
+    out = self.layer4(out)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/container.py", line 217, in forward
+    input = module(input)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/models/resnet.py", line 31, in forward
+    out = F.relu(self.bn1(self.conv1(x)))
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/shaokun/PALM/util/lora.py", line 127, in forward
+    y = y + self.B(self.A(xd)) * self.scaling
+RuntimeError: The size of tensor a (4) must match the size of tensor b (8) at non-singleton dimension 3

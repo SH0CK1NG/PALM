@@ -1,0 +1,527 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21605312
+Saved centers -> cache/resnet34-top5-palm-cache6-ema0.999/CIFAR-100/class_centers.pt
+Saved precision -> cache/resnet34-top5-palm-cache6-ema0.999/CIFAR-100/precision.pt
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:52: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=50, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.1, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='/home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=False, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft', adapter_load_path=None, forget_classes='0,1,2,3,4,5,6,7,8,9', forget_list_path=None, forget_center_set='retain', forget_lambda=0.1, forget_margin=100.0, centers_path='cache/resnet34-top5-palm-cache6-ema0.999/CIFAR-100/class_centers.pt', precision_path='cache/resnet34-top5-palm-cache6-ema0.999/CIFAR-100/precision.pt', batch_forget_mode='retain_only', argument=True)
+Files already downloaded and verified
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+  0%|          | 0/50 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:105: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+  2%|▏         | 1/50 [01:42<1:23:56, 102.78s/it]  4%|▍         | 2/50 [02:15<49:28, 61.84s/it]     6%|▌         | 3/50 [02:40<34:57, 44.63s/it]  8%|▊         | 4/50 [03:03<27:45, 36.20s/it] 10%|█         | 5/50 [03:29<24:30, 32.67s/it] 12%|█▏        | 6/50 [03:52<21:25, 29.22s/it] 14%|█▍        | 7/50 [04:16<19:44, 27.55s/it][loss] ep 0 it 0 total=12.8368 mle=6.4398 pcon=6.3970 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 50 total=12.8303 mle=6.4334 pcon=6.3969 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 100 total=12.8252 mle=6.4288 pcon=6.3964 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 150 total=12.7796 mle=6.3841 pcon=6.3955 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 200 total=12.7245 mle=6.3303 pcon=6.3942 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 250 total=12.7256 mle=6.3331 pcon=6.3924 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 300 total=12.7270 mle=6.3367 pcon=6.3903 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 0 it 350 total=12.6929 mle=6.3050 pcon=6.3879 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 1 it 9 total=12.7238 mle=6.3387 pcon=6.3851 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 59 total=12.7182 mle=6.3362 pcon=6.3820 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 109 total=12.6530 mle=6.2744 pcon=6.3787 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 159 total=12.6894 mle=6.3143 pcon=6.3751 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 209 total=12.6313 mle=6.2600 pcon=6.3713 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 259 total=12.6470 mle=6.2797 pcon=6.3674 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 309 total=12.6145 mle=6.2512 pcon=6.3633 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 1 it 359 total=12.6238 mle=6.2645 pcon=6.3592 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 2 it 18 total=12.5858 mle=6.2308 pcon=6.3550 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 68 total=12.6019 mle=6.2510 pcon=6.3508 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 118 total=12.5888 mle=6.2422 pcon=6.3467 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 168 total=12.5960 mle=6.2533 pcon=6.3426 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 218 total=12.5567 mle=6.2178 pcon=6.3389 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 268 total=12.5131 mle=6.1775 pcon=6.3356 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 318 total=12.4715 mle=6.1384 pcon=6.3331 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 2 it 368 total=12.4202 mle=6.0888 pcon=6.3314 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 3 it 27 total=12.3635 mle=6.0339 pcon=6.3296 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 77 total=12.3840 mle=6.0566 pcon=6.3274 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 127 total=12.3116 mle=5.9866 pcon=6.3250 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 177 total=12.3259 mle=6.0033 pcon=6.3227 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 227 total=12.3201 mle=5.9997 pcon=6.3203 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 277 total=12.3119 mle=5.9940 pcon=6.3179 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 327 total=12.2588 mle=5.9432 pcon=6.3156 forget=0.0000 nr=107 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 3 it 377 total=12.2625 mle=5.9493 pcon=6.3132 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 4 it 36 total=12.2727 mle=5.9619 pcon=6.3108 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 86 total=12.2544 mle=5.9459 pcon=6.3085 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 136 total=12.2158 mle=5.9096 pcon=6.3062 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 186 total=12.1676 mle=5.8636 pcon=6.3040 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 236 total=12.2204 mle=5.9185 pcon=6.3020 forget=0.0000 nr=104 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 286 total=12.1469 mle=5.8470 pcon=6.2999 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 336 total=12.1668 mle=5.8689 pcon=6.2979 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 4 it 386 total=12.1649 mle=5.8688 pcon=6.2961 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 5 it 45 total=12.1788 mle=5.8847 pcon=6.2941 forget=0.0000 nr=123 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 5 it 95 total=12.1323 mle=5.8400 pcon=6.2923 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 5 it 145 total=12.1122 mle=5.8217 pcon=6.2905 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 5 it 195 total=12.0895 mle=5.8006 pcon=6.2888 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 5 it 245 total=12.0899 mle=5.8026 pcon=6.2873 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 5 it 295 total=12.0769 mle=5.7909 pcon=6.2859 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 5 it 345 total=12.0756 mle=5.7909 pcon=6.2847 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 6 it 4 total=12.0996 mle=5.8163 pcon=6.2834 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 54 total=12.0924 mle=5.8102 pcon=6.2822 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 104 total=12.0481 mle=5.7671 pcon=6.2811 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 154 total=12.0343 mle=5.7543 pcon=6.2800 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 204 total=12.0476 mle=5.7684 pcon=6.2792 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 254 total=12.0216 mle=5.7434 pcon=6.2782 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 304 total=11.9964 mle=5.7191 pcon=6.2774 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 6 it 354 total=12.0034 mle=5.7268 pcon=6.2766 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 7 it 13 total=12.0052 mle=5.7292 pcon=6.2760 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 63 total=12.0295 mle=5.7541 pcon=6.2754 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 113 total=11.9825 mle=5.7075 pcon=6.2750 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 163 total=11.9948 mle=5.7203 pcon=6.2745 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 213 total=11.9758 mle=5.7017 pcon=6.2742 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 263 total=11.9461 mle=5.6724 pcon=6.2737 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 313 total=11.9549 mle=5.6816 pcon=6.2733 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 7 it 363 total=11.9402 mle=5.6672 pcon=6.2730 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+ 16%|█▌        | 8/50 [04:41<18:45, 26.79s/it] 18%|█▊        | 9/50 [05:02<17:04, 24.98s/it] 20%|██        | 10/50 [05:31<17:26, 26.17s/it] 22%|██▏       | 11/50 [05:52<16:00, 24.64s/it] 24%|██▍       | 12/50 [06:17<15:38, 24.70s/it] 26%|██▌       | 13/50 [06:40<14:54, 24.16s/it] 28%|██▊       | 14/50 [07:05<14:38, 24.39s/it] 30%|███       | 15/50 [07:28<13:57, 23.94s/it][peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 8 it 22 total=11.9311 mle=5.6584 pcon=6.2727 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 72 total=11.9478 mle=5.6753 pcon=6.2725 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 122 total=11.9339 mle=5.6616 pcon=6.2723 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 172 total=11.9336 mle=5.6616 pcon=6.2720 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 222 total=11.9232 mle=5.6513 pcon=6.2719 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 272 total=11.9259 mle=5.6541 pcon=6.2718 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 322 total=11.9403 mle=5.6687 pcon=6.2716 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 8 it 372 total=11.9193 mle=5.6479 pcon=6.2714 forget=0.0000 nr=107 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 9 it 31 total=11.9356 mle=5.6643 pcon=6.2713 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 81 total=11.9037 mle=5.6326 pcon=6.2711 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 131 total=11.9253 mle=5.6543 pcon=6.2711 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 181 total=11.9022 mle=5.6313 pcon=6.2709 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 231 total=11.9262 mle=5.6553 pcon=6.2709 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 281 total=11.8866 mle=5.6155 pcon=6.2711 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 331 total=11.8937 mle=5.6226 pcon=6.2711 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 9 it 381 total=11.8863 mle=5.6153 pcon=6.2710 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 10 it 40 total=11.9416 mle=5.6708 pcon=6.2708 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 90 total=11.8737 mle=5.6030 pcon=6.2707 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 140 total=11.8572 mle=5.5866 pcon=6.2706 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 190 total=11.8907 mle=5.6202 pcon=6.2705 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 240 total=11.8919 mle=5.6216 pcon=6.2703 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 290 total=11.8653 mle=5.5951 pcon=6.2702 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 340 total=11.8635 mle=5.5933 pcon=6.2701 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 10 it 390 total=11.8355 mle=5.5654 pcon=6.2701 forget=0.0000 nr=74 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 11 it 49 total=11.8754 mle=5.6053 pcon=6.2701 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 11 it 99 total=11.8339 mle=5.5639 pcon=6.2700 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 11 it 149 total=11.8488 mle=5.5788 pcon=6.2700 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 11 it 199 total=11.8772 mle=5.6073 pcon=6.2699 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 11 it 249 total=11.8386 mle=5.5689 pcon=6.2697 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 11 it 299 total=11.8238 mle=5.5541 pcon=6.2696 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 11 it 349 total=11.8247 mle=5.5552 pcon=6.2695 forget=0.0000 nr=108 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 12 it 8 total=11.8512 mle=5.5820 pcon=6.2692 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 58 total=11.8416 mle=5.5724 pcon=6.2691 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 108 total=11.8218 mle=5.5528 pcon=6.2690 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 158 total=11.8239 mle=5.5550 pcon=6.2689 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 208 total=11.8060 mle=5.5370 pcon=6.2689 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 258 total=11.8060 mle=5.5371 pcon=6.2689 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 308 total=11.7936 mle=5.5248 pcon=6.2688 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 12 it 358 total=11.7806 mle=5.5119 pcon=6.2687 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 13 it 17 total=11.7923 mle=5.5237 pcon=6.2685 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 67 total=11.8141 mle=5.5457 pcon=6.2684 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 117 total=11.8115 mle=5.5432 pcon=6.2683 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 167 total=11.7893 mle=5.5210 pcon=6.2683 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 217 total=11.7914 mle=5.5230 pcon=6.2683 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 267 total=11.8021 mle=5.5338 pcon=6.2682 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 317 total=11.7600 mle=5.4918 pcon=6.2682 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 13 it 367 total=11.7631 mle=5.4951 pcon=6.2680 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 14 it 26 total=11.7708 mle=5.5030 pcon=6.2678 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 76 total=11.7892 mle=5.5216 pcon=6.2677 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 126 total=11.7933 mle=5.5256 pcon=6.2677 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 176 total=11.7750 mle=5.5076 pcon=6.2675 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 226 total=11.7659 mle=5.4987 pcon=6.2672 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 276 total=11.7484 mle=5.4813 pcon=6.2671 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 326 total=11.7751 mle=5.5080 pcon=6.2671 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 14 it 376 total=11.7941 mle=5.5272 pcon=6.2670 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 15 it 35 total=11.7646 mle=5.4978 pcon=6.2668 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 15 it 85 total=11.7577 mle=5.4912 pcon=6.2665 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 15 it 135 total=11.7580 mle=5.4916 pcon=6.2664 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 15 it 185 total=11.7433 mle=5.4772 pcon=6.2661 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 15 it 235 total=11.7506 mle=5.4846 pcon=6.2660 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 15 it 285 total=11.7888 mle=5.5229 pcon=6.2659 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 15 it 335 total=11.7859 mle=5.5201 pcon=6.2658 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+ 32%|███▏      | 16/50 [07:49<13:09, 23.23s/it] 34%|███▍      | 17/50 [08:16<13:20, 24.27s/it] 36%|███▌      | 18/50 [08:40<12:54, 24.22s/it] 38%|███▊      | 19/50 [09:05<12:42, 24.58s/it] 40%|████      | 20/50 [09:30<12:21, 24.71s/it] 42%|████▏     | 21/50 [09:51<11:20, 23.48s/it] 44%|████▍     | 22/50 [10:12<10:35, 22.68s/it] 46%|████▌     | 23/50 [10:33<10:00, 22.23s/it][loss] ep 15 it 385 total=11.7819 mle=5.5163 pcon=6.2656 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 16 it 44 total=11.7852 mle=5.5199 pcon=6.2653 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 16 it 94 total=11.7897 mle=5.5246 pcon=6.2651 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 16 it 144 total=11.7277 mle=5.4628 pcon=6.2648 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 16 it 194 total=11.7238 mle=5.4593 pcon=6.2646 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 16 it 244 total=11.7418 mle=5.4775 pcon=6.2643 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 16 it 294 total=11.7628 mle=5.4989 pcon=6.2640 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 16 it 344 total=11.7537 mle=5.4899 pcon=6.2637 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 17 it 3 total=11.7545 mle=5.4910 pcon=6.2635 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 53 total=11.7229 mle=5.4597 pcon=6.2632 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 103 total=11.7802 mle=5.5173 pcon=6.2629 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 153 total=11.7447 mle=5.4820 pcon=6.2627 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 203 total=11.7894 mle=5.5269 pcon=6.2626 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 253 total=11.7119 mle=5.4495 pcon=6.2624 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 303 total=11.6818 mle=5.4198 pcon=6.2620 forget=0.0000 nr=108 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 17 it 353 total=11.7282 mle=5.4664 pcon=6.2618 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 18 it 12 total=11.7249 mle=5.4635 pcon=6.2614 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 62 total=11.7386 mle=5.4776 pcon=6.2610 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 112 total=11.7119 mle=5.4513 pcon=6.2606 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 162 total=11.6954 mle=5.4352 pcon=6.2602 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 212 total=11.6964 mle=5.4367 pcon=6.2596 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 262 total=11.6884 mle=5.4294 pcon=6.2589 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 312 total=11.6850 mle=5.4265 pcon=6.2584 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 18 it 362 total=11.7229 mle=5.4651 pcon=6.2579 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 19 it 21 total=11.6742 mle=5.4170 pcon=6.2572 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 71 total=11.6622 mle=5.4057 pcon=6.2566 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 121 total=11.7247 mle=5.4687 pcon=6.2559 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 171 total=11.6365 mle=5.3814 pcon=6.2551 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 221 total=11.6625 mle=5.4080 pcon=6.2545 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 271 total=11.7049 mle=5.4513 pcon=6.2536 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 321 total=11.6251 mle=5.3724 pcon=6.2527 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 19 it 371 total=11.6693 mle=5.4175 pcon=6.2518 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 20 it 30 total=11.6935 mle=5.4427 pcon=6.2509 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 80 total=11.7077 mle=5.4576 pcon=6.2501 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 130 total=11.6455 mle=5.3965 pcon=6.2490 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 180 total=11.6590 mle=5.4109 pcon=6.2480 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 230 total=11.6481 mle=5.4011 pcon=6.2470 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 280 total=11.5942 mle=5.3483 pcon=6.2459 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 330 total=11.6072 mle=5.3626 pcon=6.2446 forget=0.0000 nr=108 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 20 it 380 total=11.6953 mle=5.4516 pcon=6.2436 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 21 it 39 total=11.5972 mle=5.3546 pcon=6.2426 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 89 total=11.6281 mle=5.3867 pcon=6.2414 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 139 total=11.6262 mle=5.3857 pcon=6.2404 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 189 total=11.5519 mle=5.3126 pcon=6.2392 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 239 total=11.6143 mle=5.3762 pcon=6.2381 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 289 total=11.5672 mle=5.3303 pcon=6.2369 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 339 total=11.5926 mle=5.3567 pcon=6.2359 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 21 it 389 total=11.7228 mle=5.4879 pcon=6.2349 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 22 it 48 total=11.5762 mle=5.3424 pcon=6.2339 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 22 it 98 total=11.6089 mle=5.3760 pcon=6.2328 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 22 it 148 total=11.5842 mle=5.3525 pcon=6.2316 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 22 it 198 total=11.5586 mle=5.3280 pcon=6.2305 forget=0.0000 nr=107 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 22 it 248 total=11.4921 mle=5.2627 pcon=6.2295 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 22 it 298 total=11.6161 mle=5.3877 pcon=6.2284 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 22 it 348 total=11.5760 mle=5.3486 pcon=6.2274 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 23 it 7 total=11.5034 mle=5.2770 pcon=6.2264 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 23 it 57 total=11.6124 mle=5.3870 pcon=6.2254 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 23 it 107 total=11.5377 mle=5.3136 pcon=6.2241 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 23 it 157 total=11.5273 mle=5.3043 pcon=6.2231 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 23 it 207 total=11.5846 mle=5.3625 pcon=6.2221 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 23 it 257 total=11.5538 mle=5.3327 pcon=6.2211 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 23 it 307 total=11.5647 mle=5.3443 pcon=6.2203 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+ 48%|████▊     | 24/50 [10:55<09:32, 22.03s/it] 50%|█████     | 25/50 [11:18<09:23, 22.54s/it] 52%|█████▏    | 26/50 [11:43<09:19, 23.30s/it] 54%|█████▍    | 27/50 [12:04<08:38, 22.55s/it] 56%|█████▌    | 28/50 [12:25<08:07, 22.15s/it] 58%|█████▊    | 29/50 [12:46<07:32, 21.55s/it] 60%|██████    | 30/50 [13:07<07:07, 21.36s/it] 62%|██████▏   | 31/50 [13:28<06:43, 21.25s/it][loss] ep 23 it 357 total=11.6046 mle=5.3853 pcon=6.2193 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 24 it 16 total=11.6018 mle=5.3835 pcon=6.2183 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 66 total=11.6293 mle=5.4119 pcon=6.2173 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 116 total=11.5822 mle=5.3656 pcon=6.2166 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 166 total=11.5158 mle=5.3001 pcon=6.2157 forget=0.0000 nr=123 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 216 total=11.5428 mle=5.3280 pcon=6.2149 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 266 total=11.5465 mle=5.3324 pcon=6.2141 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 316 total=11.5546 mle=5.3415 pcon=6.2132 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 24 it 366 total=11.6072 mle=5.3949 pcon=6.2123 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 25 it 25 total=11.4947 mle=5.2828 pcon=6.2118 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 75 total=11.5442 mle=5.3334 pcon=6.2108 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 125 total=11.5854 mle=5.3755 pcon=6.2099 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 175 total=11.5237 mle=5.3147 pcon=6.2090 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 225 total=11.5392 mle=5.3310 pcon=6.2082 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 275 total=11.5115 mle=5.3040 pcon=6.2075 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 325 total=11.5803 mle=5.3735 pcon=6.2068 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 25 it 375 total=11.5428 mle=5.3368 pcon=6.2060 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 26 it 34 total=11.4986 mle=5.2933 pcon=6.2053 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 84 total=11.4870 mle=5.2824 pcon=6.2046 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 134 total=11.5377 mle=5.3337 pcon=6.2040 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 184 total=11.4614 mle=5.2579 pcon=6.2035 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 234 total=11.6401 mle=5.4370 pcon=6.2030 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 284 total=11.4587 mle=5.2564 pcon=6.2022 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 334 total=11.5849 mle=5.3833 pcon=6.2016 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 26 it 384 total=11.6341 mle=5.4332 pcon=6.2008 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 27 it 43 total=11.5605 mle=5.3604 pcon=6.2001 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 27 it 93 total=11.5428 mle=5.3434 pcon=6.1993 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 27 it 143 total=11.5444 mle=5.3456 pcon=6.1988 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 27 it 193 total=11.5543 mle=5.3562 pcon=6.1981 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 27 it 243 total=11.5280 mle=5.3303 pcon=6.1977 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 27 it 293 total=11.4514 mle=5.2544 pcon=6.1970 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 27 it 343 total=11.5297 mle=5.3331 pcon=6.1966 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 28 it 2 total=11.5482 mle=5.3523 pcon=6.1959 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 52 total=11.4543 mle=5.2591 pcon=6.1952 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 102 total=11.5489 mle=5.3542 pcon=6.1948 forget=0.0000 nr=122 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 152 total=11.4148 mle=5.2207 pcon=6.1942 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 202 total=11.5279 mle=5.3342 pcon=6.1937 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 252 total=11.4576 mle=5.2642 pcon=6.1934 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 302 total=11.4326 mle=5.2397 pcon=6.1928 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 28 it 352 total=11.5176 mle=5.3254 pcon=6.1922 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 29 it 11 total=11.4574 mle=5.2659 pcon=6.1915 forget=0.0000 nr=104 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 61 total=11.5353 mle=5.3443 pcon=6.1910 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 111 total=11.4586 mle=5.2683 pcon=6.1903 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 161 total=11.4728 mle=5.2830 pcon=6.1898 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 211 total=11.4357 mle=5.2466 pcon=6.1891 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 261 total=11.5498 mle=5.3614 pcon=6.1884 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 311 total=11.4699 mle=5.2820 pcon=6.1879 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 29 it 361 total=11.4766 mle=5.2894 pcon=6.1872 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 30 it 20 total=11.4632 mle=5.2767 pcon=6.1864 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 70 total=11.5340 mle=5.3483 pcon=6.1857 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 120 total=11.4475 mle=5.2622 pcon=6.1853 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 170 total=11.4931 mle=5.3083 pcon=6.1849 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 220 total=11.4282 mle=5.2438 pcon=6.1844 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 270 total=11.4356 mle=5.2520 pcon=6.1836 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 320 total=11.6065 mle=5.4235 pcon=6.1830 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 30 it 370 total=11.4937 mle=5.3113 pcon=6.1825 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 31 it 29 total=11.4009 mle=5.2192 pcon=6.1817 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 31 it 79 total=11.4995 mle=5.3183 pcon=6.1812 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 31 it 129 total=11.4915 mle=5.3106 pcon=6.1809 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 31 it 179 total=11.4115 mle=5.2312 pcon=6.1803 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 31 it 229 total=11.4204 mle=5.2406 pcon=6.1798 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 31 it 279 total=11.4677 mle=5.2883 pcon=6.1795 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+ 64%|██████▍   | 32/50 [13:48<06:19, 21.06s/it] 66%|██████▌   | 33/50 [14:08<05:50, 20.63s/it] 68%|██████▊   | 34/50 [14:28<05:26, 20.41s/it] 70%|███████   | 35/50 [14:47<05:00, 20.04s/it] 72%|███████▏  | 36/50 [15:08<04:43, 20.28s/it] 74%|███████▍  | 37/50 [15:28<04:24, 20.37s/it] 76%|███████▌  | 38/50 [15:48<04:02, 20.23s/it] 78%|███████▊  | 39/50 [16:10<03:47, 20.64s/it][loss] ep 31 it 329 total=11.4883 mle=5.3092 pcon=6.1790 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 31 it 379 total=11.4707 mle=5.2922 pcon=6.1785 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 32 it 38 total=11.4428 mle=5.2650 pcon=6.1778 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 88 total=11.3754 mle=5.1983 pcon=6.1770 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 138 total=11.4770 mle=5.3004 pcon=6.1765 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 188 total=11.5505 mle=5.3745 pcon=6.1759 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 238 total=11.4390 mle=5.2636 pcon=6.1754 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 288 total=11.4704 mle=5.2955 pcon=6.1749 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 338 total=11.4839 mle=5.3094 pcon=6.1745 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 32 it 388 total=11.4308 mle=5.2568 pcon=6.1741 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 33 it 47 total=11.3887 mle=5.2152 pcon=6.1736 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 33 it 97 total=11.3904 mle=5.2174 pcon=6.1730 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 33 it 147 total=11.4151 mle=5.2427 pcon=6.1725 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 33 it 197 total=11.4856 mle=5.3136 pcon=6.1719 forget=0.0000 nr=122 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 33 it 247 total=11.4618 mle=5.2905 pcon=6.1713 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 33 it 297 total=11.4106 mle=5.2399 pcon=6.1707 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 33 it 347 total=11.4377 mle=5.2676 pcon=6.1701 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 34 it 6 total=11.4512 mle=5.2817 pcon=6.1695 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 56 total=11.4732 mle=5.3042 pcon=6.1690 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 106 total=11.4437 mle=5.2754 pcon=6.1683 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 156 total=11.4375 mle=5.2697 pcon=6.1678 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 206 total=11.4030 mle=5.2356 pcon=6.1674 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 256 total=11.3199 mle=5.1528 pcon=6.1670 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 306 total=11.4097 mle=5.2432 pcon=6.1665 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 34 it 356 total=11.4353 mle=5.2693 pcon=6.1660 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 35 it 15 total=11.4936 mle=5.3283 pcon=6.1653 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 65 total=11.4189 mle=5.2542 pcon=6.1647 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 115 total=11.4252 mle=5.2611 pcon=6.1641 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 165 total=11.4689 mle=5.3053 pcon=6.1635 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 215 total=11.4499 mle=5.2870 pcon=6.1629 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 265 total=11.4513 mle=5.2891 pcon=6.1622 forget=0.0000 nr=108 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 315 total=11.4871 mle=5.3251 pcon=6.1620 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 35 it 365 total=11.4701 mle=5.3088 pcon=6.1613 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 36 it 24 total=11.4230 mle=5.2622 pcon=6.1608 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 74 total=11.4923 mle=5.3319 pcon=6.1604 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 124 total=11.3724 mle=5.2123 pcon=6.1602 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 174 total=11.4865 mle=5.3266 pcon=6.1599 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 224 total=11.3402 mle=5.1807 pcon=6.1595 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 274 total=11.4289 mle=5.2697 pcon=6.1592 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 324 total=11.3981 mle=5.2392 pcon=6.1589 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 36 it 374 total=11.4263 mle=5.2677 pcon=6.1586 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 33 total=11.4786 mle=5.3202 pcon=6.1584 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 83 total=11.3519 mle=5.1940 pcon=6.1579 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 133 total=11.4709 mle=5.3134 pcon=6.1575 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 183 total=11.4973 mle=5.3402 pcon=6.1571 forget=0.0000 nr=123 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 233 total=11.3320 mle=5.1752 pcon=6.1568 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 283 total=11.4090 mle=5.2524 pcon=6.1565 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 333 total=11.4267 mle=5.2706 pcon=6.1561 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 37 it 383 total=11.4157 mle=5.2600 pcon=6.1557 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 38 it 42 total=11.4297 mle=5.2746 pcon=6.1551 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 38 it 92 total=11.3845 mle=5.2295 pcon=6.1551 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 38 it 142 total=11.3977 mle=5.2432 pcon=6.1545 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 38 it 192 total=11.3845 mle=5.2305 pcon=6.1540 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 38 it 242 total=11.4142 mle=5.2604 pcon=6.1537 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 38 it 292 total=11.4908 mle=5.3373 pcon=6.1535 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 38 it 342 total=11.4072 mle=5.2539 pcon=6.1533 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 39 it 1 total=11.4003 mle=5.2475 pcon=6.1528 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 39 it 51 total=11.3832 mle=5.2307 pcon=6.1525 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 39 it 101 total=11.3791 mle=5.2271 pcon=6.1520 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 39 it 151 total=11.3036 mle=5.1521 pcon=6.1515 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 39 it 201 total=11.5184 mle=5.3673 pcon=6.1511 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 39 it 251 total=11.3432 mle=5.1923 pcon=6.1509 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 39 it 301 total=11.3725 mle=5.2218 pcon=6.1507 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+ 80%|████████  | 40/50 [16:35<03:39, 21.99s/it] 82%|████████▏ | 41/50 [16:57<03:17, 21.93s/it] 84%|████████▍ | 42/50 [17:18<02:53, 21.64s/it] 86%|████████▌ | 43/50 [17:45<02:44, 23.43s/it] 88%|████████▊ | 44/50 [18:06<02:16, 22.75s/it] 90%|█████████ | 45/50 [18:30<01:54, 22.87s/it] 92%|█████████▏| 46/50 [18:50<01:29, 22.26s/it] 94%|█████████▍| 47/50 [19:12<01:05, 22.00s/it] 96%|█████████▌| 48/50 [19:33<00:43, 21.66s/it][loss] ep 39 it 351 total=11.3644 mle=5.2138 pcon=6.1506 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 40 it 10 total=11.4094 mle=5.2589 pcon=6.1505 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 60 total=11.4231 mle=5.2728 pcon=6.1503 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 110 total=11.4159 mle=5.2660 pcon=6.1499 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 160 total=11.4325 mle=5.2827 pcon=6.1498 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 210 total=11.4475 mle=5.2979 pcon=6.1496 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 260 total=11.4271 mle=5.2779 pcon=6.1492 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 310 total=11.3761 mle=5.2274 pcon=6.1487 forget=0.0000 nr=107 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 40 it 360 total=11.4048 mle=5.2563 pcon=6.1485 forget=0.0000 nr=108 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 41 it 19 total=11.3087 mle=5.1605 pcon=6.1482 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 69 total=11.3898 mle=5.2419 pcon=6.1480 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 119 total=11.4092 mle=5.2615 pcon=6.1477 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 169 total=11.4709 mle=5.3236 pcon=6.1473 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 219 total=11.4086 mle=5.2615 pcon=6.1471 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 269 total=11.3987 mle=5.2518 pcon=6.1469 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 319 total=11.4155 mle=5.2689 pcon=6.1465 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 41 it 369 total=11.3863 mle=5.2399 pcon=6.1464 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 28 total=11.2990 mle=5.1528 pcon=6.1462 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 78 total=11.4580 mle=5.3120 pcon=6.1460 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 128 total=11.4031 mle=5.2573 pcon=6.1458 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 178 total=11.3599 mle=5.2144 pcon=6.1455 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 228 total=11.4351 mle=5.2898 pcon=6.1453 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 278 total=11.4971 mle=5.3520 pcon=6.1451 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 328 total=11.4488 mle=5.3039 pcon=6.1449 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 42 it 378 total=11.4642 mle=5.3195 pcon=6.1447 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 43 it 37 total=11.4828 mle=5.3384 pcon=6.1444 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 87 total=11.5559 mle=5.4118 pcon=6.1441 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 137 total=11.3671 mle=5.2232 pcon=6.1439 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 187 total=11.3880 mle=5.2442 pcon=6.1438 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 237 total=11.4731 mle=5.3297 pcon=6.1434 forget=0.0000 nr=107 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 287 total=11.4189 mle=5.2756 pcon=6.1432 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 337 total=11.3099 mle=5.1668 pcon=6.1430 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 43 it 387 total=11.3899 mle=5.2471 pcon=6.1428 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 44 it 46 total=11.4544 mle=5.3119 pcon=6.1425 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 44 it 96 total=11.3645 mle=5.2222 pcon=6.1423 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 44 it 146 total=11.4905 mle=5.3484 pcon=6.1421 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 44 it 196 total=11.4198 mle=5.2779 pcon=6.1419 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 44 it 246 total=11.3559 mle=5.2143 pcon=6.1416 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 44 it 296 total=11.5272 mle=5.3857 pcon=6.1415 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 44 it 346 total=11.3701 mle=5.2288 pcon=6.1413 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 5 total=11.4390 mle=5.2978 pcon=6.1412 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 55 total=11.2744 mle=5.1332 pcon=6.1412 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 105 total=11.3432 mle=5.2019 pcon=6.1413 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 155 total=11.3365 mle=5.1954 pcon=6.1411 forget=0.0000 nr=119 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 205 total=11.3802 mle=5.2393 pcon=6.1409 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 255 total=11.4007 mle=5.2598 pcon=6.1408 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 305 total=11.3839 mle=5.2432 pcon=6.1407 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 45 it 355 total=11.3412 mle=5.2008 pcon=6.1405 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+[loss] ep 46 it 14 total=11.4110 mle=5.2705 pcon=6.1404 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 64 total=11.3505 mle=5.2104 pcon=6.1401 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 114 total=11.4621 mle=5.3222 pcon=6.1399 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 164 total=11.3752 mle=5.2354 pcon=6.1398 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 214 total=11.4134 mle=5.2739 pcon=6.1396 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 264 total=11.4355 mle=5.2960 pcon=6.1395 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 314 total=11.3454 mle=5.2062 pcon=6.1391 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 46 it 364 total=11.3556 mle=5.2165 pcon=6.1391 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 23 total=11.4117 mle=5.2727 pcon=6.1390 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 73 total=11.4139 mle=5.2749 pcon=6.1390 forget=0.0000 nr=120 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 123 total=11.3804 mle=5.2415 pcon=6.1389 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 173 total=11.3396 mle=5.2011 pcon=6.1385 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 223 total=11.4194 mle=5.2808 pcon=6.1386 forget=0.0000 nr=108 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 273 total=11.4084 mle=5.2702 pcon=6.1383 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 323 total=11.4630 mle=5.3249 pcon=6.1382 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 47 it 373 total=11.4122 mle=5.2743 pcon=6.1380 forget=0.0000 nr=111 nf=0 centers=90x512 P=None dmin_norm=NA
+ 98%|█████████▊| 49/50 [19:53<00:21, 21.35s/it]100%|██████████| 50/50 [20:14<00:00, 21.22s/it]100%|██████████| 50/50 [20:14<00:00, 24.29s/it]
+[loss] ep 48 it 32 total=11.3998 mle=5.2619 pcon=6.1379 forget=0.0000 nr=116 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 82 total=11.3668 mle=5.2289 pcon=6.1380 forget=0.0000 nr=113 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 132 total=11.3498 mle=5.2119 pcon=6.1379 forget=0.0000 nr=109 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 182 total=11.3565 mle=5.2186 pcon=6.1379 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 232 total=11.4067 mle=5.2689 pcon=6.1379 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 282 total=11.3784 mle=5.2407 pcon=6.1377 forget=0.0000 nr=121 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 332 total=11.3394 mle=5.2018 pcon=6.1376 forget=0.0000 nr=110 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 48 it 382 total=11.3971 mle=5.2595 pcon=6.1376 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 41 total=11.4789 mle=5.3414 pcon=6.1375 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 91 total=11.4085 mle=5.2709 pcon=6.1376 forget=0.0000 nr=118 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 141 total=11.4487 mle=5.3110 pcon=6.1377 forget=0.0000 nr=114 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 191 total=11.4614 mle=5.3240 pcon=6.1375 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 241 total=11.4426 mle=5.3054 pcon=6.1373 forget=0.0000 nr=117 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 291 total=11.4524 mle=5.3152 pcon=6.1373 forget=0.0000 nr=115 nf=0 centers=90x512 P=None dmin_norm=NA
+[loss] ep 49 it 341 total=11.4974 mle=5.3603 pcon=6.1371 forget=0.0000 nr=112 nf=0 centers=90x512 P=None dmin_norm=NA
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] adapter loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-retainonly-both_adapter_peft
+resnet34-top5-palm-cache6-ema0.999-ltboth-retainonly-lora_r8a32d0.05: Number of model parameters: 21843904
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<01:54,  3.40it/s]  3%|▎         | 11/391 [00:00<00:11, 34.21it/s]  5%|▍         | 18/391 [00:00<00:08, 44.98it/s]  6%|▋         | 25/391 [00:00<00:07, 46.40it/s]  8%|▊         | 31/391 [00:00<00:07, 48.04it/s]  9%|▉         | 37/391 [00:00<00:06, 50.79it/s] 11%|█         | 43/391 [00:00<00:06, 50.75it/s] 13%|█▎        | 49/391 [00:01<00:06, 50.03it/s] 14%|█▍        | 55/391 [00:01<00:06, 50.25it/s] 16%|█▌        | 61/391 [00:01<00:06, 52.53it/s] 17%|█▋        | 67/391 [00:01<00:06, 50.92it/s] 19%|█▊        | 73/391 [00:01<00:06, 51.37it/s] 20%|██        | 79/391 [00:01<00:05, 52.96it/s] 22%|██▏       | 85/391 [00:01<00:05, 52.84it/s] 23%|██▎       | 91/391 [00:01<00:05, 51.45it/s] 25%|██▍       | 97/391 [00:02<00:05, 51.24it/s] 27%|██▋       | 104/391 [00:02<00:05, 53.32it/s] 28%|██▊       | 110/391 [00:02<00:05, 52.29it/s] 30%|██▉       | 116/391 [00:02<00:05, 52.93it/s] 31%|███       | 122/391 [00:02<00:05, 51.89it/s] 33%|███▎      | 128/391 [00:02<00:05, 51.51it/s] 34%|███▍      | 134/391 [00:02<00:05, 50.52it/s] 36%|███▌      | 140/391 [00:02<00:04, 50.31it/s] 37%|███▋      | 146/391 [00:02<00:04, 52.13it/s] 39%|███▉      | 152/391 [00:03<00:04, 50.67it/s] 40%|████      | 158/391 [00:03<00:04, 51.24it/s] 42%|████▏     | 164/391 [00:03<00:04, 51.88it/s] 43%|████▎     | 170/391 [00:03<00:04, 51.52it/s] 45%|████▌     | 176/391 [00:03<00:04, 50.58it/s] 47%|████▋     | 182/391 [00:03<00:04, 50.63it/s] 48%|████▊     | 188/391 [00:03<00:03, 52.83it/s] 50%|████▉     | 194/391 [00:03<00:03, 51.06it/s] 51%|█████     | 200/391 [00:04<00:03, 51.29it/s] 53%|█████▎    | 206/391 [00:04<00:03, 51.07it/s] 54%|█████▍    | 212/391 [00:04<00:03, 50.97it/s] 56%|█████▌    | 218/391 [00:04<00:03, 50.94it/s] 57%|█████▋    | 224/391 [00:04<00:03, 49.91it/s] 59%|█████▉    | 230/391 [00:04<00:03, 52.29it/s] 60%|██████    | 236/391 [00:04<00:03, 51.09it/s] 62%|██████▏   | 242/391 [00:04<00:02, 50.72it/s] 63%|██████▎   | 248/391 [00:04<00:02, 50.06it/s] 65%|██████▍   | 254/391 [00:05<00:02, 50.24it/s] 66%|██████▋   | 260/391 [00:05<00:02, 50.96it/s] 68%|██████▊   | 266/391 [00:05<00:02, 50.21it/s] 70%|██████▉   | 272/391 [00:05<00:02, 50.34it/s] 71%|███████   | 278/391 [00:05<00:02, 49.80it/s] 73%|███████▎  | 284/391 [00:05<00:02, 50.09it/s] 74%|███████▍  | 290/391 [00:05<00:01, 51.34it/s] 76%|███████▌  | 296/391 [00:05<00:01, 50.42it/s] 77%|███████▋  | 302/391 [00:06<00:01, 50.55it/s] 79%|███████▉  | 308/391 [00:06<00:01, 49.97it/s] 80%|████████  | 314/391 [00:06<00:01, 49.94it/s] 82%|████████▏ | 320/391 [00:06<00:01, 50.89it/s] 83%|████████▎ | 326/391 [00:06<00:01, 50.18it/s] 85%|████████▍ | 332/391 [00:06<00:01, 50.33it/s] 86%|████████▋ | 338/391 [00:06<00:01, 49.78it/s] 88%|████████▊ | 344/391 [00:06<00:00, 50.07it/s] 90%|████████▉ | 350/391 [00:07<00:00, 51.03it/s] 91%|█████████ | 356/391 [00:07<00:00, 49.86it/s] 93%|█████████▎| 362/391 [00:07<00:00, 50.36it/s] 94%|█████████▍| 368/391 [00:07<00:00, 49.82it/s] 96%|█████████▌| 374/391 [00:07<00:00, 50.12it/s] 97%|█████████▋| 380/391 [00:07<00:00, 50.95it/s] 99%|█████████▊| 386/391 [00:07<00:00, 50.19it/s]100%|██████████| 391/391 [00:07<00:00, 50.02it/s]
+50000 images processed, 7.894498586654663 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:18,  4.33it/s] 11%|█▏        | 9/79 [00:00<00:02, 32.14it/s] 24%|██▍       | 19/79 [00:00<00:01, 52.96it/s] 33%|███▎      | 26/79 [00:00<00:01, 52.04it/s] 41%|████      | 32/79 [00:00<00:00, 52.23it/s] 48%|████▊     | 38/79 [00:00<00:00, 50.64it/s] 56%|█████▌    | 44/79 [00:00<00:00, 52.59it/s] 63%|██████▎   | 50/79 [00:01<00:00, 51.31it/s] 71%|███████   | 56/79 [00:01<00:00, 51.12it/s] 78%|███████▊  | 62/79 [00:01<00:00, 51.20it/s] 86%|████████▌ | 68/79 [00:01<00:00, 51.63it/s] 94%|█████████▎| 74/79 [00:01<00:00, 51.96it/s]100%|██████████| 79/79 [00:01<00:00, 48.51it/s]
+10000 images processed, 1.648977518081665 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<00:48,  4.20it/s]  2%|▏         | 5/204 [00:00<00:11, 17.62it/s]  5%|▌         | 11/204 [00:00<00:06, 30.13it/s]  8%|▊         | 17/204 [00:00<00:04, 39.00it/s] 11%|█▏        | 23/204 [00:00<00:04, 44.52it/s] 14%|█▎        | 28/204 [00:00<00:03, 45.61it/s] 16%|█▌        | 33/204 [00:00<00:03, 46.09it/s] 19%|█▉        | 39/204 [00:00<00:03, 48.96it/s] 22%|██▏       | 45/204 [00:01<00:03, 47.96it/s] 25%|██▍       | 50/204 [00:01<00:03, 47.85it/s] 27%|██▋       | 55/204 [00:01<00:03, 46.42it/s] 30%|███       | 62/204 [00:01<00:02, 51.37it/s] 33%|███▎      | 68/204 [00:01<00:02, 48.72it/s] 36%|███▌      | 73/204 [00:01<00:02, 48.52it/s] 39%|███▉      | 80/204 [00:01<00:02, 53.17it/s] 42%|████▏     | 86/204 [00:01<00:02, 50.96it/s] 45%|████▌     | 92/204 [00:02<00:02, 50.16it/s] 48%|████▊     | 98/204 [00:02<00:02, 50.40it/s] 51%|█████     | 104/204 [00:02<00:02, 49.26it/s] 53%|█████▎    | 109/204 [00:02<00:01, 47.96it/s] 56%|█████▌    | 114/204 [00:02<00:01, 48.05it/s] 59%|█████▉    | 121/204 [00:02<00:01, 52.81it/s] 62%|██████▏   | 127/204 [00:02<00:01, 50.38it/s] 65%|██████▌   | 133/204 [00:02<00:01, 50.11it/s] 68%|██████▊   | 139/204 [00:02<00:01, 52.21it/s] 71%|███████   | 145/204 [00:03<00:01, 50.13it/s] 74%|███████▍  | 151/204 [00:03<00:01, 49.91it/s] 77%|███████▋  | 157/204 [00:03<00:00, 49.10it/s] 80%|███████▉  | 163/204 [00:03<00:00, 51.74it/s] 83%|████████▎ | 169/204 [00:03<00:00, 49.00it/s] 85%|████████▌ | 174/204 [00:03<00:00, 49.03it/s] 89%|████████▊ | 181/204 [00:03<00:00, 51.96it/s] 92%|█████████▏| 187/204 [00:03<00:00, 50.87it/s] 95%|█████████▍| 193/204 [00:04<00:00, 50.73it/s] 98%|█████████▊| 199/204 [00:04<00:00, 50.85it/s]100%|██████████| 204/204 [00:04<00:00, 47.82it/s]
+26032 images processed, 4.3025219440460205 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:32,  2.37it/s] 10%|█         | 8/79 [00:00<00:03, 19.23it/s] 16%|█▋        | 13/79 [00:00<00:02, 24.76it/s] 23%|██▎       | 18/79 [00:00<00:01, 30.57it/s] 32%|███▏      | 25/79 [00:00<00:01, 39.62it/s] 38%|███▊      | 30/79 [00:01<00:01, 35.39it/s] 44%|████▍     | 35/79 [00:01<00:01, 38.24it/s] 57%|█████▋    | 45/79 [00:01<00:00, 46.08it/s] 63%|██████▎   | 50/79 [00:01<00:00, 46.41it/s] 70%|██████▉   | 55/79 [00:01<00:00, 46.92it/s] 78%|███████▊  | 62/79 [00:01<00:00, 52.81it/s] 86%|████████▌ | 68/79 [00:01<00:00, 52.67it/s] 94%|█████████▎| 74/79 [00:01<00:00, 49.82it/s]100%|██████████| 79/79 [00:01<00:00, 39.89it/s]
+10000 images processed, 2.017404079437256 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:21,  3.65it/s] 13%|█▎        | 10/79 [00:00<00:02, 33.10it/s] 25%|██▌       | 20/79 [00:00<00:01, 53.41it/s] 38%|███▊      | 30/79 [00:00<00:00, 66.84it/s] 49%|████▉     | 39/79 [00:00<00:00, 58.15it/s] 58%|█████▊    | 46/79 [00:00<00:00, 55.21it/s] 67%|██████▋   | 53/79 [00:01<00:00, 58.75it/s] 76%|███████▌  | 60/79 [00:01<00:00, 61.66it/s] 85%|████████▍ | 67/79 [00:01<00:00, 56.91it/s] 94%|█████████▎| 74/79 [00:01<00:00, 53.49it/s]100%|██████████| 79/79 [00:01<00:00, 53.51it/s]
+10000 images processed, 1.4946987628936768 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:18,  3.67it/s] 16%|█▌        | 11/70 [00:00<00:01, 35.76it/s] 27%|██▋       | 19/70 [00:00<00:01, 47.95it/s] 37%|███▋      | 26/70 [00:00<00:00, 47.79it/s] 46%|████▌     | 32/70 [00:00<00:00, 47.79it/s] 57%|█████▋    | 40/70 [00:00<00:00, 55.15it/s] 69%|██████▊   | 48/70 [00:00<00:00, 59.61it/s] 79%|███████▊  | 55/70 [00:01<00:00, 55.86it/s] 87%|████████▋ | 61/70 [00:01<00:00, 53.39it/s] 99%|█████████▊| 69/70 [00:01<00:00, 58.71it/s]100%|██████████| 70/70 [00:01<00:00, 50.60it/s]
+8925 images processed, 1.411562442779541 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:00<00:30,  1.42it/s] 11%|█         | 5/45 [00:00<00:05,  7.83it/s] 20%|██        | 9/45 [00:01<00:03, 10.49it/s] 24%|██▍       | 11/45 [00:01<00:03, 10.30it/s] 38%|███▊      | 17/45 [00:01<00:01, 14.45it/s] 42%|████▏     | 19/45 [00:01<00:01, 14.19it/s] 56%|█████▌    | 25/45 [00:02<00:01, 16.62it/s] 60%|██████    | 27/45 [00:02<00:01, 15.59it/s] 69%|██████▉   | 31/45 [00:02<00:00, 19.42it/s] 76%|███████▌  | 34/45 [00:02<00:00, 12.21it/s] 91%|█████████ | 41/45 [00:03<00:00, 16.21it/s] 96%|█████████▌| 43/45 [00:03<00:00, 11.78it/s]100%|██████████| 45/45 [00:03<00:00, 12.87it/s]
+5640 images processed, 3.514882802963257 seconds used
+
+23.729414224624634
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+Evaluating forget
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           2.71  99.33
+places365     69.56  80.63
+LSUN          21.86  95.01
+iSUN          72.94  81.71
+dtd           39.01  91.27
+forget        84.20  86.17
+AVG           48.38  89.02
+Forget-Acc: 0.7530 | Retain-Acc: 0.7437
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 84.20 AUROC: 86.17 AUIN: 98.32
+10.722097873687744

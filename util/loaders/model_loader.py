@@ -3,6 +3,8 @@ import torch.nn as nn
 from util.loss_functions import *
 from torch.optim.lr_scheduler import MultiStepLR
 from models.resnet import  SupCEResNet, PALMResNet
+from util.lora import apply_lora_to_resnet_head, apply_lora_to_resnet_layer4, load_lora_state_dict
+from util.peft_utils import is_peft_available, apply_peft_lora_to_model, load_peft_adapter
 
 def get_model(args, num_classes, load_ckpt=True):
     method = args.method
@@ -33,7 +35,62 @@ def get_model(args, num_classes, load_ckpt=True):
             print(f"[ckpt] unexpected keys: {list(unexpected)[:5]}{' ...' if len(unexpected)>5 else ''}")
         print(f"ckpt loaded from {ckpt_path}")
 
-    model.eval()
+    # apply lora if requested (for PALM models)
+    if getattr(args, 'use_lora', False) and 'palm' in method:
+        target = getattr(args, 'lora_target', 'head')
+        r = getattr(args, 'lora_r', 8)
+        alpha = getattr(args, 'lora_alpha', 32)
+        dropout = getattr(args, 'lora_dropout', 0.05)
+        applied = False
+        # Prefer PEFT when available and user selects peft
+        prefer_peft = (getattr(args, 'lora_impl', 'native') == 'peft')
+        if is_peft_available() and prefer_peft:
+            try:
+                model, target_modules = apply_peft_lora_to_model(model, target=target, r=r, alpha=alpha, dropout=dropout)
+                applied = len(target_modules) > 0
+                # optionally load peft adapter directory
+                if getattr(args, 'adapter_load_path', None):
+                    try:
+                        model = load_peft_adapter(model, args.adapter_load_path)
+                        print(f"[peft] adapter loaded from {args.adapter_load_path}")
+                    except Exception as e:
+                        print(f"[peft] failed to load adapter: {e}")
+            except Exception as e:
+                print(f"[peft] failed to apply lora, fallback to custom: {e}")
+                applied = False
+        # Fallback to custom lightweight LoRA
+        if not applied:
+            applied_head = False
+            applied_layer4 = False
+            if target in ['head', 'both']:
+                applied_head = apply_lora_to_resnet_head(model, r=r, alpha=alpha, dropout=dropout)
+            if target in ['encoder', 'both']:
+                applied_layer4 = apply_lora_to_resnet_layer4(model, r=r, alpha=alpha, dropout=dropout)
+            applied = applied_head or applied_layer4
+            if applied:
+                model.train()
+                # freeze all non-LoRA params by default when using LoRA
+                for n, p in model.named_parameters():
+                    p.requires_grad = False
+                for m in model.modules():
+                    if hasattr(m, 'A') and hasattr(m, 'B'):
+                        if m.A is not None:
+                            m.A.requires_grad_(True)
+                        if m.B is not None:
+                            m.B.requires_grad_(True)
+                # optionally load adapter-only weights
+                if getattr(args, 'adapter_load_path', None):
+                    try:
+                        ad = torch.load(args.adapter_load_path, map_location="cuda:0")
+                        lora_sd = ad['lora'] if isinstance(ad, dict) and 'lora' in ad else ad
+                        loaded = load_lora_state_dict(model, lora_sd)
+                        print(f"[lora] loaded {loaded} LoRA tensors from {args.adapter_load_path}")
+                    except Exception as e:
+                        print(f"[lora] failed to load adapter: {e}")
+            else:
+                model.eval()
+    else:
+        model.eval()
     
     # get the number of model parameters
     print(f'{args.backbone}-{args.method}: Number of model parameters: {sum([p.data.nelement() for p in model.parameters()])}')

@@ -8,8 +8,9 @@ from util.train_utils import get_optimizer
 from trainer import get_trainer
 import numpy as np
 from tqdm import tqdm
-from util.residual_space import compute_dcc_basis_from_loader
-from util.loaders.data_loader import get_loader_in as _get_loader_in_eval
+from util.lora import extract_lora_state_dict, load_lora_state_dict
+from util.peft_utils import is_peft_available, save_peft_adapter
+ 
 
 from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
@@ -22,9 +23,20 @@ def main():
     model.to(device)
     model.encoder.to(device)
     criterion.to(device)
-    # placeholders; will compute after possible resume
-    args.residual_basis = None
-    args.residual_projector = None
+
+    # debug: quick self-check of trainable params (should be only LoRA A/B)
+    try:
+        trainable = [n for n, p in model.named_parameters() if p.requires_grad]
+        print(f"[debug] trainable_count = {len(trainable)}")
+        head_list = trainable[:50]
+        for n in head_list:
+            print(f"[debug] trainable: {n}")
+        others = [n for n in trainable if ('.A' not in n and '.B' not in n and not n.endswith('A.weight') and not n.endswith('B.weight'))]
+        if len(others) > 0:
+            print(f"[debug][warn] non-LoRA trainables detected: {others[:10]}")
+    except Exception as e:
+        print(f"[debug] trainable check failed: {e}")
+    
 
 
     # build optimizer
@@ -54,50 +66,18 @@ def main():
         except Exception as e:
             print(f"[incremental] failed to load ckpt: {e}")
 
-    # compute/load residual basis if enabled (after possible resume)
-    if getattr(args, 'residual_space', False):
-        loaded = False
-        # prefer loading from provided paths
-        try:
-            if getattr(args, 'residual_projector_path', None):
-                path = args.residual_projector_path
-                if path.endswith('.npy'):
-                    proj_np = np.load(path)
-                    projector = torch.as_tensor(proj_np, dtype=torch.float32, device=device)
-                else:
-                    projector = torch.load(path, map_location=device)
-                args.residual_projector = projector
-                # if basis not provided, leave None
-                loaded = True
-            if not loaded and getattr(args, 'residual_basis_path', None):
-                path = args.residual_basis_path
-                if path.endswith('.npy'):
-                    basis_np = np.load(path)
-                    basis = torch.as_tensor(basis_np, dtype=torch.float32, device=device)
-                else:
-                    basis = torch.load(path, map_location=device)
-                args.residual_basis = basis
-                args.residual_projector = basis.T @ basis
-                loaded = True
-        except Exception as e:
-            print(f"[residual] failed to load provided basis/projector: {e}")
+    # load class centers / precision if provided (for forgetting loss)
+    args.centers = None
+    args.precision = None
+    try:
+        if getattr(args, 'centers_path', None) and os.path.exists(args.centers_path):
+            args.centers = torch.load(args.centers_path, map_location=device)
+        if getattr(args, 'precision_path', None) and os.path.exists(args.precision_path):
+            args.precision = torch.load(args.precision_path, map_location=device)
+    except Exception as e:
+        print(f"[centers] failed to load centers/precision: {e}")
 
-        if not loaded:
-            # build residual basis on ID training set (with eval transforms)
-            train_eval_loader, _ = _get_loader_in_eval(args, split='train', mode='eval')
-            basis, projector = compute_dcc_basis_from_loader(args, model, train_eval_loader, device=torch.device(device))
-            args.residual_basis = basis
-            args.residual_projector = projector
-            # optional save
-            try:
-                if getattr(args, 'save_residual_basis_path', None):
-                    os.makedirs(os.path.dirname(args.save_residual_basis_path), exist_ok=True)
-                    torch.save(basis, args.save_residual_basis_path)
-                if getattr(args, 'save_residual_projector_path', None):
-                    os.makedirs(os.path.dirname(args.save_residual_projector_path), exist_ok=True)
-                    torch.save(projector, args.save_residual_projector_path)
-            except Exception as e:
-                print(f"[residual] failed to save basis/projector: {e}")
+    
 
     for epoch in tqdm(range(args.epochs)):
         loss = trainer(args, train_loader, model, criterion, optimizer, epoch, scaler=scaler)
@@ -117,22 +97,50 @@ def main():
             save_dir = os.path.dirname(args.save_path)
             if save_dir:
                 os.makedirs(save_dir, exist_ok=True)
-            # save model and prototypes (criterion) together for incremental learning
-            ckpt = {
-                'model': model.state_dict(),
-                'meta': {
-                    'in_dataset': args.in_dataset,
-                    'backbone': args.backbone,
-                    'method': args.method,
-                    'num_classes': num_classes,
-                    'cache_size': getattr(args, 'cache_size', None),
+            # strictly save adapters only if requested
+            if getattr(args, 'adapter_save_path', None):
+                save_dir = os.path.dirname(args.adapter_save_path)
+                if save_dir:
+                    os.makedirs(save_dir, exist_ok=True)
+                # If PEFT is available and model is PEFT-wrapped, save via PEFT format; else save custom lightweight
+                if is_peft_available():
+                    try:
+                        save_peft_adapter(model, args.adapter_save_path)
+                        print(f"[peft] adapter saved to {args.adapter_save_path}")
+                    except Exception as e:
+                        print(f"[peft] save failed, fallback to custom: {e}")
+                        lora_sd = extract_lora_state_dict(model)
+                        torch.save({'lora': lora_sd,
+                                    'meta': {'in_dataset': args.in_dataset,
+                                             'backbone': args.backbone,
+                                             'method': args.method,
+                                             'num_classes': num_classes}},
+                                  args.adapter_save_path)
+                else:
+                    lora_sd = extract_lora_state_dict(model)
+                    torch.save({'lora': lora_sd,
+                                'meta': {'in_dataset': args.in_dataset,
+                                         'backbone': args.backbone,
+                                         'method': args.method,
+                                         'num_classes': num_classes}},
+                              args.adapter_save_path)
+            else:
+                # fallback: save full model as before
+                ckpt = {
+                    'model': model.state_dict(),
+                    'meta': {
+                        'in_dataset': args.in_dataset,
+                        'backbone': args.backbone,
+                        'method': args.method,
+                        'num_classes': num_classes,
+                        'cache_size': getattr(args, 'cache_size', None),
+                    }
                 }
-            }
-            try:
-                ckpt['criterion'] = criterion.state_dict()
-            except Exception:
-                pass
-            torch.save(ckpt, args.save_path)
+                try:
+                    ckpt['criterion'] = criterion.state_dict()
+                except Exception:
+                    pass
+                torch.save(ckpt, args.save_path)
 
 if __name__ == "__main__":
 

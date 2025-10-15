@@ -219,7 +219,7 @@ def get_transform_train(dataset: str, arch: str) -> Union[TwoCropTransform, tran
     return transform
 
 
-kwargs = {'num_workers': 2, 'pin_memory': True}
+kwargs = {'num_workers': 8, 'pin_memory': True, 'persistent_workers': True}
 num_classes_dict = {'CIFAR-100': 100, 'CIFAR-10': 10, 'CIFAR-110': 110, 'imagenet': 1000}
 
 val_shuffle = False
@@ -228,7 +228,7 @@ val_shuffle = False
 def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', 'val', 'csid'), mode: str = 'train') -> Tuple[torch.utils.data.DataLoader, int]:
     base_dir = './data'
     
-    kwargs = {'num_workers': 2, 'pin_memory': True}
+    kwargs = {'num_workers': 8, 'pin_memory': True, 'persistent_workers': True}
     num_classes_dict = {'CIFAR-100': 100, 'CIFAR-10': 10, 'CIFAR-110': 110, 'imagenet': 1000}
     if mode == 'train':
         transform_train = get_transform_train(args.in_dataset, args.method)
@@ -237,13 +237,114 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
         transform_train = get_transform_eval(args.in_dataset)
         transform_test = get_transform_eval(args.in_dataset)
 
+    # helper: build balanced batch sampler for CIFAR10/100
+    class BalancedBatchSampler(torch.utils.data.Sampler[List[int]]):
+        def __init__(self, targets: List[int], forget_set: set, batch_size: int, num_batches: int, seed: int = 0):
+            self.targets = np.array(list(targets), dtype=np.int64)
+            self.batch_size = int(batch_size)
+            self.half_f = self.batch_size // 2
+            self.half_r = self.batch_size - self.half_f
+            self.num_batches = int(num_batches)
+            self.rng = np.random.RandomState(seed)
+            forget_mask = np.isin(self.targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+            self.forget_idx = np.where(forget_mask)[0]
+            self.retain_idx = np.where(~forget_mask)[0]
+            # fallback: if one side empty, use all indices to avoid crash
+            if len(self.forget_idx) == 0 or len(self.retain_idx) == 0:
+                self.forget_idx = np.arange(len(self.targets))
+                self.retain_idx = np.arange(len(self.targets))
+        def __iter__(self):
+            for _ in range(self.num_batches):
+                f_take = self.rng.choice(self.forget_idx, size=min(self.half_f, len(self.forget_idx)), replace=(len(self.forget_idx) < self.half_f))
+                r_take = self.rng.choice(self.retain_idx, size=min(self.half_r, len(self.retain_idx)), replace=(len(self.retain_idx) < self.half_r))
+                # if池子过小，补齐到batch_size
+                need = self.batch_size - (len(f_take) + len(r_take))
+                if need > 0:
+                    extra = self.rng.choice(self.retain_idx, size=need, replace=True)
+                    batch = np.concatenate([f_take, r_take, extra])
+                else:
+                    batch = np.concatenate([f_take, r_take])
+                self.rng.shuffle(batch)
+                yield batch.tolist()
+        def __len__(self):
+            return self.num_batches
+
+    # helper: build proportional batch sampler matching dataset-level forget ratio
+    class ProportionalBatchSampler(torch.utils.data.Sampler[List[int]]):
+        def __init__(self, targets: List[int], forget_set: set, batch_size: int, num_batches: int, seed: int = 0):
+            self.targets = np.array(list(targets), dtype=np.int64)
+            self.batch_size = int(batch_size)
+            self.num_batches = int(num_batches)
+            self.rng = np.random.RandomState(seed)
+            forget_mask = np.isin(self.targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+            self.forget_idx = np.where(forget_mask)[0]
+            self.retain_idx = np.where(~forget_mask)[0]
+            self.f_count = int(len(self.forget_idx))
+            self.r_count = int(len(self.retain_idx))
+            self.total = max(1, self.f_count + self.r_count)
+            self.p_forget = self.f_count / float(self.total)
+            # fallback: if one side empty, allow sampling from available set only
+            if self.f_count == 0 and self.r_count == 0:
+                self.all_idx = np.arange(len(self.targets))
+            else:
+                self.all_idx = None
+        def __iter__(self):
+            for _ in range(self.num_batches):
+                if self.all_idx is not None:
+                    batch = self.rng.choice(self.all_idx, size=self.batch_size, replace=(len(self.all_idx) < self.batch_size))
+                    yield batch.tolist()
+                    continue
+                f_take_n = int(round(self.p_forget * self.batch_size))
+                r_take_n = self.batch_size - f_take_n
+                f_take = self.rng.choice(self.forget_idx, size=min(f_take_n, len(self.forget_idx)), replace=(len(self.forget_idx) < f_take_n)) if self.f_count > 0 else np.empty((0,), dtype=np.int64)
+                r_take = self.rng.choice(self.retain_idx, size=min(r_take_n, len(self.retain_idx)), replace=(len(self.retain_idx) < r_take_n)) if self.r_count > 0 else np.empty((0,), dtype=np.int64)
+                need = self.batch_size - (len(f_take) + len(r_take))
+                if need > 0:
+                    # fill the rest from retain set if available; otherwise from forget set
+                    pool = self.retain_idx if self.r_count > 0 else (self.forget_idx if self.f_count > 0 else None)
+                    if pool is None or len(pool) == 0:
+                        extra = np.array([], dtype=np.int64)
+                    else:
+                        extra = self.rng.choice(pool, size=need, replace=(len(pool) < need))
+                    batch = np.concatenate([f_take, r_take, extra])
+                else:
+                    batch = np.concatenate([f_take, r_take])
+                self.rng.shuffle(batch)
+                yield batch.tolist()
+        def __len__(self):
+            return self.num_batches
+
     if args.in_dataset == "CIFAR-10":
         # Data loading code
         if 'train' in split:
             trainset = torchvision.datasets.CIFAR10(
                 root=os.path.join(base_dir, 'cifarpy'), train=True, download=True, transform=transform_train)
-            train_loader = torch.utils.data.DataLoader(
-                trainset, batch_size=args.batch_size, shuffle=True, **kwargs)
+            # enable balanced/proportional/retain-only sampling if requested and forget classes specified
+            forget_set = set()
+            if getattr(args, 'forget_classes', None):
+                forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
+            mode = str(getattr(args, 'batch_forget_mode', 'none'))
+            if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
+                if mode == 'balanced':
+                    num_batches = len(trainset) // args.batch_size
+                    batch_sampler = BalancedBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
+                    train_loader = torch.utils.data.DataLoader(
+                        trainset, batch_sampler=batch_sampler, **kwargs)
+                elif mode == 'proportional':
+                    num_batches = len(trainset) // args.batch_size
+                    batch_sampler = ProportionalBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
+                    train_loader = torch.utils.data.DataLoader(
+                        trainset, batch_sampler=batch_sampler, **kwargs)
+                elif mode == 'retain_only':
+                    targets = np.array(list(trainset.targets), dtype=np.int64)
+                    mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+                    retain_idx = np.where(~mask_forget)[0].tolist()
+                    subset = torch.utils.data.Subset(trainset, retain_idx)
+                    train_loader = torch.utils.data.DataLoader(
+                        subset, batch_size=args.batch_size, shuffle=True, **kwargs)
+            else:
+                train_loader = torch.utils.data.DataLoader(
+                    trainset, batch_size=args.batch_size, shuffle=True, **kwargs)
         if 'val' in split:
             valset = torchvision.datasets.CIFAR10(
                 root=os.path.join(base_dir, 'cifarpy'), train=False, download=True, transform=transform_test)
@@ -254,8 +355,31 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
         if 'train' in split:
             trainset = torchvision.datasets.CIFAR100(
                 root=os.path.join(base_dir, 'cifarpy'), train=True, download=True, transform=transform_train)
-            train_loader = torch.utils.data.DataLoader(
-                trainset, batch_size=args.batch_size, shuffle=True, **kwargs)
+            forget_set = set()
+            if getattr(args, 'forget_classes', None):
+                forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
+            mode = str(getattr(args, 'batch_forget_mode', 'none'))
+            if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
+                if mode == 'balanced':
+                    num_batches = len(trainset) // args.batch_size
+                    batch_sampler = BalancedBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
+                    train_loader = torch.utils.data.DataLoader(
+                        trainset, batch_sampler=batch_sampler, **kwargs)
+                elif mode == 'proportional':
+                    num_batches = len(trainset) // args.batch_size
+                    batch_sampler = ProportionalBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
+                    train_loader = torch.utils.data.DataLoader(
+                        trainset, batch_sampler=batch_sampler, **kwargs)
+                elif mode == 'retain_only':
+                    targets = np.array(list(trainset.targets), dtype=np.int64)
+                    mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+                    retain_idx = np.where(~mask_forget)[0].tolist()
+                    subset = torch.utils.data.Subset(trainset, retain_idx)
+                    train_loader = torch.utils.data.DataLoader(
+                        subset, batch_size=args.batch_size, shuffle=True, **kwargs)
+            else:
+                train_loader = torch.utils.data.DataLoader(
+                    trainset, batch_size=args.batch_size, shuffle=True, **kwargs)
         if 'val' in split:
             valset = torchvision.datasets.CIFAR100(
                 root=os.path.join(base_dir, 'cifarpy'), train=False, download=True, transform=transform_test)
@@ -285,7 +409,7 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
 def get_loader_out(args: argparse.Namespace, dataset: str, split: Sequence[str] = ('train', 'val'), mode: str = 'eval') -> Optional[torch.utils.data.DataLoader]:
     base_dir = './data'
         
-    kwargs = {'num_workers': 4, 'pin_memory': True}
+    kwargs = {'num_workers': 8, 'pin_memory': True, 'persistent_workers': True}
     if mode == 'train':
         transform_test = get_transform_test(args.in_dataset)
     elif mode == "eval":
