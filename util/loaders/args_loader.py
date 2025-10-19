@@ -102,8 +102,8 @@ def get_args():
     parser.add_argument('--lora_r', type=int, default=8, help='LoRA rank')
     parser.add_argument('--lora_alpha', type=int, default=32, help='LoRA alpha scaling')
     parser.add_argument('--lora_dropout', type=float, default=0.05, help='LoRA dropout prob')
-    parser.add_argument('--lora_target', type=str, default='head', choices=['head','encoder','both'],
-                        help='where to apply LoRA: projection head, encoder, or both')
+    parser.add_argument('--lora_target', type=str, default='head', choices=['head','encoder','both','encoder_all','both_all'],
+                        help='where to apply LoRA: head | encoder(layer4) | both | encoder_all(layer1-4) | both_all(layer1-4 + head)')
     parser.add_argument('--adapter_save_path', type=str, default=None,
                         help='path to save LoRA adapter; file (.pt) for native, directory for peft (directory name may end with .pt)')
     parser.add_argument('--adapter_load_path', type=str, default=None,
@@ -114,8 +114,6 @@ def get_args():
                         help='CSV of class ids to forget, e.g., "0,1,2"; overrides forget_list_path')
     parser.add_argument('--forget_list_path', type=str, default=None,
                         help='path to a JSON or txt (one id per line) list of classes to forget')
-    parser.add_argument('--forget_center_set', type=str, default='all', choices=['all','retain'],
-                        help='push forget samples away from centers of all classes or retained classes only')
     parser.add_argument('--forget_lambda', type=float, default=0.1,
                         help='loss weight for Mahalanobis forgetting term')
     parser.add_argument('--forget_margin', type=float, default=100.0,
@@ -127,6 +125,14 @@ def get_args():
     # per-batch composition control for forget/retain
     parser.add_argument('--batch_forget_mode', type=str, default='none', choices=['none', 'balanced', 'proportional', 'retain_only'],
                         help='how to compose per-batch samples: none=use all; balanced=1:1 forget:retain from available; proportional=match dataset-level forget ratio')
+
+    # Forget prototype options (batch-only, non-persistent)
+    parser.add_argument('--forget_proto_enable', action='store_true', default=False,
+                        help='enable batch-only forget prototype; attract forget samples to it and repel it from retained prototypes')
+    parser.add_argument('--forget_attr_w', type=float, default=1.0,
+                        help='relative weight for forget-samples attraction to forget prototype (multiplied by forget_lambda)')
+    parser.add_argument('--forget_proto_rep_w', type=float, default=1.0,
+                        help='relative weight for forget-prototype repulsion from retained prototypes (multiplied by forget_lambda)')
     
     # UMAP visualization options (evaluation-time diagnostics)
     parser.add_argument('--umap_enable', action='store_true', default=False,
@@ -147,12 +153,6 @@ def get_args():
                         help='when forgetting is configured, also draw a retain-vs-forget UMAP figure')
     parser.add_argument('--keep_cache', action='store_true', default=False,
                         help='do not delete cached features after evaluation')
-
-    # Debug: fixed-batch training for LoRA diagnostics
-    parser.add_argument('--debug_fixed_batch', action='store_true', default=False,
-                        help='repeat training on a single fixed batch to observe loss changes')
-    parser.add_argument('--debug_fixed_batch_steps', type=int, default=50,
-                        help='number of steps per epoch when using fixed-batch debug mode')
     
     args = parser.parse_args()
     

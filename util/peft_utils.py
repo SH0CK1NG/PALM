@@ -70,8 +70,11 @@ def apply_peft_lora_to_model(model: nn.Module, target: str, r: int, alpha: int, 
             name_targets += [f"head.{n}" for n in local_names]
     if target in ("encoder", "both"):
         if hasattr(model, 'encoder'):
-            # restrict to layer4 convs; local names start with 'layer4.', prefix with 'encoder.'
             local_convs = [n for n in _collect_conv_targets(model.encoder) if n.startswith('layer4.')]
+            name_targets += [f"encoder.{n}" for n in local_convs]
+    if target in ("encoder_all", "both_all"):
+        if hasattr(model, 'encoder'):
+            local_convs = [n for n in _collect_conv_targets(model.encoder) if n.startswith('layer')]
             name_targets += [f"encoder.{n}" for n in local_convs]
 
     # deduplicate and keep non-empty (use string names for broader PEFT compatibility)

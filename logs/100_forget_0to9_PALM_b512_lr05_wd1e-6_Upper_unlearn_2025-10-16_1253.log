@@ -1,0 +1,999 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:52: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=500, batch_size=512, lr=0.5, weight_decay=1e-06, print_every=50, fine_tune=False, temp=0.1, cosine=True, warm=True, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain.pt', load_path=None, reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=False, use_lora=False, lora_impl='native', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='head', adapter_save_path=None, adapter_load_path=None, forget_classes='0,1,2,3,4,5,6,7,8,9', forget_list_path=None, forget_center_set='retain', forget_lambda=0.1, forget_margin=100.0, centers_path=None, precision_path=None, batch_forget_mode='retain_only', umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True, warmup_from=0.01, warm_epochs=10, warmup_to=0.4995071754249608)
+Files already downloaded and verified
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21605312
+[debug] trainable_count = 112
+[debug] trainable: encoder.conv1.weight
+[debug] trainable: encoder.bn1.weight
+[debug] trainable: encoder.bn1.bias
+[debug] trainable: encoder.layer1.0.conv1.weight
+[debug] trainable: encoder.layer1.0.bn1.weight
+[debug] trainable: encoder.layer1.0.bn1.bias
+[debug] trainable: encoder.layer1.0.conv2.weight
+[debug] trainable: encoder.layer1.0.bn2.weight
+[debug] trainable: encoder.layer1.0.bn2.bias
+[debug] trainable: encoder.layer1.1.conv1.weight
+[debug] trainable: encoder.layer1.1.bn1.weight
+[debug] trainable: encoder.layer1.1.bn1.bias
+[debug] trainable: encoder.layer1.1.conv2.weight
+[debug] trainable: encoder.layer1.1.bn2.weight
+[debug] trainable: encoder.layer1.1.bn2.bias
+[debug] trainable: encoder.layer1.2.conv1.weight
+[debug] trainable: encoder.layer1.2.bn1.weight
+[debug] trainable: encoder.layer1.2.bn1.bias
+[debug] trainable: encoder.layer1.2.conv2.weight
+[debug] trainable: encoder.layer1.2.bn2.weight
+[debug] trainable: encoder.layer1.2.bn2.bias
+[debug] trainable: encoder.layer2.0.conv1.weight
+[debug] trainable: encoder.layer2.0.bn1.weight
+[debug] trainable: encoder.layer2.0.bn1.bias
+[debug] trainable: encoder.layer2.0.conv2.weight
+[debug] trainable: encoder.layer2.0.bn2.weight
+[debug] trainable: encoder.layer2.0.bn2.bias
+[debug] trainable: encoder.layer2.0.shortcut.0.weight
+[debug] trainable: encoder.layer2.0.shortcut.1.weight
+[debug] trainable: encoder.layer2.0.shortcut.1.bias
+[debug] trainable: encoder.layer2.1.conv1.weight
+[debug] trainable: encoder.layer2.1.bn1.weight
+[debug] trainable: encoder.layer2.1.bn1.bias
+[debug] trainable: encoder.layer2.1.conv2.weight
+[debug] trainable: encoder.layer2.1.bn2.weight
+[debug] trainable: encoder.layer2.1.bn2.bias
+[debug] trainable: encoder.layer2.2.conv1.weight
+[debug] trainable: encoder.layer2.2.bn1.weight
+[debug] trainable: encoder.layer2.2.bn1.bias
+[debug] trainable: encoder.layer2.2.conv2.weight
+[debug] trainable: encoder.layer2.2.bn2.weight
+[debug] trainable: encoder.layer2.2.bn2.bias
+[debug] trainable: encoder.layer2.3.conv1.weight
+[debug] trainable: encoder.layer2.3.bn1.weight
+[debug] trainable: encoder.layer2.3.bn1.bias
+[debug] trainable: encoder.layer2.3.conv2.weight
+[debug] trainable: encoder.layer2.3.bn2.weight
+[debug] trainable: encoder.layer2.3.bn2.bias
+[debug] trainable: encoder.layer3.0.conv1.weight
+[debug] trainable: encoder.layer3.0.bn1.weight
+[debug][warn] non-LoRA trainables detected: ['encoder.conv1.weight', 'encoder.bn1.weight', 'encoder.bn1.bias', 'encoder.layer1.0.conv1.weight', 'encoder.layer1.0.bn1.weight', 'encoder.layer1.0.bn1.bias', 'encoder.layer1.0.conv2.weight', 'encoder.layer1.0.bn2.weight', 'encoder.layer1.0.bn2.bias', 'encoder.layer1.1.conv1.weight']
+  0%|          | 0/500 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:105: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+  0%|          | 1/500 [00:55<7:45:37, 55.99s/it]  0%|          | 2/500 [01:22<5:21:20, 38.72s/it]  1%|          | 3/500 [01:49<4:35:56, 33.31s/it]  1%|          | 4/500 [02:16<4:15:00, 30.85s/it]  1%|          | 5/500 [02:43<4:01:31, 29.28s/it]  1%|          | 6/500 [03:09<3:53:02, 28.30s/it]  1%|▏         | 7/500 [03:36<3:49:45, 27.96s/it]  2%|▏         | 8/500 [04:03<3:47:22, 27.73s/it]  2%|▏         | 9/500 [04:31<3:45:13, 27.52s/it]  2%|▏         | 10/500 [04:58<3:43:39, 27.39s/it]  2%|▏         | 11/500 [05:24<3:39:59, 26.99s/it]  2%|▏         | 12/500 [05:51<3:39:09, 26.95s/it]  3%|▎         | 13/500 [06:17<3:38:29, 26.92s/it]  3%|▎         | 14/500 [06:44<3:38:09, 26.93s/it]  3%|▎         | 15/500 [07:11<3:36:26, 26.78s/it]  3%|▎         | 16/500 [07:37<3:35:44, 26.75s/it]  3%|▎         | 17/500 [08:04<3:34:59, 26.71s/it]  4%|▎         | 18/500 [08:31<3:36:07, 26.90s/it]  4%|▍         | 19/500 [08:59<3:36:08, 26.96s/it]  4%|▍         | 20/500 [09:25<3:34:30, 26.81s/it]  4%|▍         | 21/500 [09:52<3:34:15, 26.84s/it]  4%|▍         | 22/500 [10:19<3:34:04, 26.87s/it]  5%|▍         | 23/500 [10:46<3:33:36, 26.87s/it]  5%|▍         | 24/500 [11:12<3:32:12, 26.75s/it]  5%|▌         | 25/500 [11:39<3:31:13, 26.68s/it]  5%|▌         | 26/500 [12:06<3:31:47, 26.81s/it]  5%|▌         | 27/500 [12:33<3:31:11, 26.79s/it]  6%|▌         | 28/500 [12:59<3:30:54, 26.81s/it]  6%|▌         | 29/500 [13:26<3:30:14, 26.78s/it]  6%|▌         | 30/500 [13:53<3:29:40, 26.77s/it]  6%|▌         | 31/500 [14:20<3:29:13, 26.77s/it]  6%|▋         | 32/500 [14:46<3:28:23, 26.72s/it]  7%|▋         | 33/500 [15:16<3:36:02, 27.76s/it]  7%|▋         | 34/500 [15:52<3:54:14, 30.16s/it]  7%|▋         | 35/500 [16:29<4:09:03, 32.14s/it]  7%|▋         | 36/500 [17:04<4:16:08, 33.12s/it]  7%|▋         | 37/500 [17:40<4:22:07, 33.97s/it]  8%|▊         | 38/500 [18:16<4:25:45, 34.52s/it]  8%|▊         | 39/500 [18:51<4:26:52, 34.73s/it]  8%|▊         | 40/500 [19:26<4:27:03, 34.83s/it][loss] ep 0 it 0 total=12.8374 mle=6.4410 pcon=6.3964 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 0 it 50 total=12.4895 mle=6.0935 pcon=6.3959 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 1 it 12 total=12.2928 mle=5.8968 pcon=6.3960 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 1 it 62 total=12.0563 mle=5.6613 pcon=6.3950 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 2 it 24 total=11.8726 mle=5.4792 pcon=6.3934 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 2 it 74 total=11.7442 mle=5.3532 pcon=6.3910 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 3 it 36 total=11.5874 mle=5.1995 pcon=6.3879 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 3 it 86 total=11.4643 mle=5.0804 pcon=6.3839 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 4 it 48 total=11.3450 mle=4.9659 pcon=6.3791 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 5 it 10 total=11.1991 mle=4.8258 pcon=6.3734 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 5 it 60 total=11.1236 mle=4.7570 pcon=6.3666 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 6 it 22 total=10.9518 mle=4.5930 pcon=6.3588 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 6 it 72 total=10.9081 mle=4.5580 pcon=6.3501 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 7 it 34 total=10.7626 mle=4.4218 pcon=6.3408 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 7 it 84 total=10.6108 mle=4.2802 pcon=6.3306 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 8 it 46 total=10.5552 mle=4.2355 pcon=6.3197 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 9 it 8 total=10.3337 mle=4.0256 pcon=6.3081 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 9 it 58 total=10.3088 mle=4.0127 pcon=6.2961 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 10 it 20 total=10.2414 mle=3.9579 pcon=6.2836 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 10 it 70 total=10.0600 mle=3.7894 pcon=6.2706 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 11 it 32 total=9.9670 mle=3.7102 pcon=6.2568 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 11 it 82 total=9.9920 mle=3.7491 pcon=6.2429 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 12 it 44 total=9.7214 mle=3.4927 pcon=6.2287 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 13 it 6 total=9.7582 mle=3.5441 pcon=6.2141 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 13 it 56 total=9.6104 mle=3.4110 pcon=6.1994 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 14 it 18 total=9.4866 mle=3.3021 pcon=6.1845 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 14 it 68 total=9.5143 mle=3.3450 pcon=6.1693 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 15 it 30 total=9.5690 mle=3.4148 pcon=6.1542 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 15 it 80 total=9.3755 mle=3.2366 pcon=6.1389 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 16 it 42 total=9.3610 mle=3.2375 pcon=6.1235 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 17 it 4 total=9.2467 mle=3.1387 pcon=6.1081 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 17 it 54 total=9.2534 mle=3.1610 pcon=6.0923 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 18 it 16 total=9.1599 mle=3.0831 pcon=6.0768 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 18 it 66 total=9.1670 mle=3.1058 pcon=6.0612 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 19 it 28 total=9.0309 mle=2.9853 pcon=6.0457 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 19 it 78 total=9.1881 mle=3.1582 pcon=6.0300 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 20 it 40 total=8.9094 mle=2.8948 pcon=6.0146 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 21 it 2 total=8.8501 mle=2.8508 pcon=5.9993 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 21 it 52 total=8.8561 mle=2.8719 pcon=5.9842 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 22 it 14 total=8.8225 mle=2.8538 pcon=5.9687 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 22 it 64 total=8.8862 mle=2.9326 pcon=5.9535 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 23 it 26 total=8.6687 mle=2.7301 pcon=5.9386 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 23 it 76 total=8.7075 mle=2.7838 pcon=5.9236 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 24 it 38 total=8.7459 mle=2.8374 pcon=5.9085 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 25 it 0 total=8.5608 mle=2.6666 pcon=5.8942 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 25 it 50 total=8.6090 mle=2.7294 pcon=5.8797 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 26 it 12 total=8.5003 mle=2.6350 pcon=5.8652 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 26 it 62 total=8.6147 mle=2.7639 pcon=5.8508 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 27 it 24 total=8.4360 mle=2.5990 pcon=5.8370 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 27 it 74 total=8.3885 mle=2.5652 pcon=5.8233 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 28 it 36 total=8.5598 mle=2.7501 pcon=5.8097 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 28 it 86 total=8.4297 mle=2.6333 pcon=5.7964 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 29 it 48 total=8.3952 mle=2.6123 pcon=5.7829 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 30 it 10 total=8.4399 mle=2.6699 pcon=5.7700 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 30 it 60 total=8.2881 mle=2.5310 pcon=5.7571 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 31 it 22 total=8.1948 mle=2.4502 pcon=5.7446 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 31 it 72 total=8.2533 mle=2.5213 pcon=5.7320 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 32 it 34 total=8.2347 mle=2.5151 pcon=5.7196 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 32 it 84 total=8.1696 mle=2.4618 pcon=5.7078 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 33 it 46 total=8.2144 mle=2.5186 pcon=5.6958 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 34 it 8 total=8.0595 mle=2.3751 pcon=5.6844 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 34 it 58 total=8.1302 mle=2.4573 pcon=5.6729 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 35 it 20 total=8.0555 mle=2.3935 pcon=5.6620 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 35 it 70 total=8.0765 mle=2.4250 pcon=5.6515 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 36 it 32 total=8.0544 mle=2.4137 pcon=5.6408 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 36 it 82 total=7.9811 mle=2.3506 pcon=5.6304 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 37 it 44 total=7.9936 mle=2.3731 pcon=5.6206 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 38 it 6 total=7.9216 mle=2.3106 pcon=5.6110 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 38 it 56 total=7.9161 mle=2.3149 pcon=5.6012 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 39 it 18 total=7.8506 mle=2.2587 pcon=5.5918 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 39 it 68 total=7.9484 mle=2.3656 pcon=5.5828 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+  8%|▊         | 41/500 [20:02<4:28:58, 35.16s/it]  8%|▊         | 42/500 [20:38<4:29:28, 35.30s/it]  9%|▊         | 43/500 [21:15<4:31:55, 35.70s/it]  9%|▉         | 44/500 [21:50<4:30:57, 35.65s/it]  9%|▉         | 45/500 [22:26<4:30:07, 35.62s/it]  9%|▉         | 46/500 [23:02<4:30:51, 35.80s/it]  9%|▉         | 47/500 [23:37<4:29:25, 35.69s/it] 10%|▉         | 48/500 [24:13<4:28:05, 35.59s/it] 10%|▉         | 49/500 [24:49<4:28:28, 35.72s/it] 10%|█         | 50/500 [25:24<4:27:17, 35.64s/it] 10%|█         | 51/500 [26:00<4:26:40, 35.64s/it] 10%|█         | 52/500 [26:20<3:50:58, 30.93s/it] 11%|█         | 53/500 [26:40<3:26:02, 27.66s/it] 11%|█         | 54/500 [27:10<3:32:14, 28.55s/it] 11%|█         | 55/500 [27:46<3:47:21, 30.66s/it] 11%|█         | 56/500 [28:20<3:55:12, 31.78s/it] 11%|█▏        | 57/500 [28:56<4:03:48, 33.02s/it] 12%|█▏        | 58/500 [29:31<4:06:16, 33.43s/it] 12%|█▏        | 59/500 [30:07<4:11:07, 34.17s/it] 12%|█▏        | 60/500 [30:41<4:11:09, 34.25s/it] 12%|█▏        | 61/500 [31:17<4:13:56, 34.71s/it] 12%|█▏        | 62/500 [31:52<4:14:50, 34.91s/it] 13%|█▎        | 63/500 [32:27<4:13:34, 34.82s/it] 13%|█▎        | 64/500 [33:03<4:15:13, 35.12s/it] 13%|█▎        | 65/500 [33:38<4:14:20, 35.08s/it] 13%|█▎        | 66/500 [34:13<4:14:44, 35.22s/it] 13%|█▎        | 67/500 [34:49<4:14:55, 35.32s/it] 14%|█▎        | 68/500 [35:24<4:14:29, 35.35s/it] 14%|█▍        | 69/500 [36:00<4:14:21, 35.41s/it] 14%|█▍        | 70/500 [36:35<4:14:01, 35.45s/it] 14%|█▍        | 71/500 [37:10<4:13:08, 35.40s/it] 14%|█▍        | 72/500 [37:46<4:12:38, 35.42s/it] 15%|█▍        | 73/500 [38:22<4:13:26, 35.61s/it] 15%|█▍        | 74/500 [38:58<4:12:44, 35.60s/it] 15%|█▌        | 75/500 [39:33<4:11:17, 35.48s/it] 15%|█▌        | 76/500 [40:09<4:12:40, 35.76s/it] 15%|█▌        | 77/500 [40:44<4:11:01, 35.61s/it] 16%|█▌        | 78/500 [41:19<4:09:14, 35.44s/it] 16%|█▌        | 79/500 [41:56<4:10:29, 35.70s/it] 16%|█▌        | 80/500 [42:31<4:08:16, 35.47s/it][loss] ep 40 it 30 total=7.8819 mle=2.3080 pcon=5.5740 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 40 it 80 total=7.9148 mle=2.3493 pcon=5.5655 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 41 it 42 total=7.8397 mle=2.2831 pcon=5.5565 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 42 it 4 total=7.7708 mle=2.2225 pcon=5.5483 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 42 it 54 total=7.8116 mle=2.2716 pcon=5.5401 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 43 it 16 total=7.8062 mle=2.2744 pcon=5.5318 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 43 it 66 total=7.7551 mle=2.2316 pcon=5.5235 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 44 it 28 total=7.6705 mle=2.1549 pcon=5.5157 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 44 it 78 total=7.6289 mle=2.1206 pcon=5.5083 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 45 it 40 total=7.6502 mle=2.1492 pcon=5.5010 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 46 it 2 total=7.7550 mle=2.2610 pcon=5.4940 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 46 it 52 total=7.6365 mle=2.1500 pcon=5.4865 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 47 it 14 total=7.5993 mle=2.1196 pcon=5.4797 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 47 it 64 total=7.6656 mle=2.1928 pcon=5.4729 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 48 it 26 total=7.5422 mle=2.0762 pcon=5.4660 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 48 it 76 total=7.5569 mle=2.0974 pcon=5.4595 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 49 it 38 total=7.5372 mle=2.0844 pcon=5.4528 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 50 it 0 total=7.6139 mle=2.1671 pcon=5.4468 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 50 it 50 total=7.5779 mle=2.1373 pcon=5.4406 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 51 it 12 total=7.5262 mle=2.0913 pcon=5.4349 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 51 it 62 total=7.4748 mle=2.0457 pcon=5.4291 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 52 it 24 total=7.5797 mle=2.1566 pcon=5.4231 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 52 it 74 total=7.3880 mle=1.9702 pcon=5.4178 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 53 it 36 total=7.5045 mle=2.0919 pcon=5.4126 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 53 it 86 total=7.5151 mle=2.1076 pcon=5.4075 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 54 it 48 total=7.4095 mle=2.0074 pcon=5.4021 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 55 it 10 total=7.3582 mle=1.9611 pcon=5.3972 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 55 it 60 total=7.5045 mle=2.1121 pcon=5.3924 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 56 it 22 total=7.4582 mle=2.0707 pcon=5.3874 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 56 it 72 total=7.3913 mle=2.0084 pcon=5.3829 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 57 it 34 total=7.4145 mle=2.0365 pcon=5.3780 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 57 it 84 total=7.3379 mle=1.9643 pcon=5.3735 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 58 it 46 total=7.3616 mle=1.9923 pcon=5.3694 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 59 it 8 total=7.3904 mle=2.0254 pcon=5.3650 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 59 it 58 total=7.3268 mle=1.9661 pcon=5.3607 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 60 it 20 total=7.3785 mle=2.0220 pcon=5.3564 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 60 it 70 total=7.2939 mle=1.9415 pcon=5.3524 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 61 it 32 total=7.3597 mle=2.0112 pcon=5.3485 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 61 it 82 total=7.2257 mle=1.8809 pcon=5.3449 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 62 it 44 total=7.2695 mle=1.9283 pcon=5.3412 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 63 it 6 total=7.2225 mle=1.8848 pcon=5.3377 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 63 it 56 total=7.1678 mle=1.8331 pcon=5.3347 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 64 it 18 total=7.2558 mle=1.9249 pcon=5.3310 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 64 it 68 total=7.3225 mle=1.9949 pcon=5.3276 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 65 it 30 total=7.2590 mle=1.9347 pcon=5.3244 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 65 it 80 total=7.1694 mle=1.8480 pcon=5.3215 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 66 it 42 total=7.2362 mle=1.9181 pcon=5.3182 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 67 it 4 total=7.1993 mle=1.8837 pcon=5.3157 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 67 it 54 total=7.1869 mle=1.8743 pcon=5.3126 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 68 it 16 total=7.0619 mle=1.7523 pcon=5.3096 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 68 it 66 total=7.1619 mle=1.8550 pcon=5.3069 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 69 it 28 total=7.1347 mle=1.8304 pcon=5.3043 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 69 it 78 total=7.1722 mle=1.8705 pcon=5.3017 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 70 it 40 total=7.1418 mle=1.8427 pcon=5.2992 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 71 it 2 total=7.0391 mle=1.7424 pcon=5.2967 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 71 it 52 total=7.2107 mle=1.9166 pcon=5.2941 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 72 it 14 total=7.1758 mle=1.8841 pcon=5.2917 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 72 it 64 total=7.1276 mle=1.8384 pcon=5.2892 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 73 it 26 total=7.2381 mle=1.9510 pcon=5.2871 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 73 it 76 total=7.0960 mle=1.8107 pcon=5.2853 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 74 it 38 total=7.1310 mle=1.8478 pcon=5.2831 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 75 it 0 total=7.0509 mle=1.7698 pcon=5.2811 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 75 it 50 total=7.0361 mle=1.7570 pcon=5.2791 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 76 it 12 total=7.0402 mle=1.7629 pcon=5.2773 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 76 it 62 total=6.9943 mle=1.7186 pcon=5.2757 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 77 it 24 total=6.9998 mle=1.7258 pcon=5.2739 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 77 it 74 total=6.9633 mle=1.6909 pcon=5.2724 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 78 it 36 total=7.0308 mle=1.7604 pcon=5.2704 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 78 it 86 total=7.0361 mle=1.7671 pcon=5.2690 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 79 it 48 total=7.0581 mle=1.7910 pcon=5.2671 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 80 it 10 total=6.9107 mle=1.6453 pcon=5.2654 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 16%|█▌        | 81/500 [43:07<4:08:31, 35.59s/it] 16%|█▋        | 82/500 [43:41<4:05:53, 35.29s/it] 17%|█▋        | 83/500 [44:16<4:04:57, 35.25s/it] 17%|█▋        | 84/500 [44:52<4:05:12, 35.37s/it] 17%|█▋        | 85/500 [45:27<4:03:39, 35.23s/it] 17%|█▋        | 86/500 [46:02<4:03:19, 35.26s/it] 17%|█▋        | 87/500 [46:38<4:03:26, 35.37s/it] 18%|█▊        | 88/500 [47:14<4:03:35, 35.47s/it] 18%|█▊        | 89/500 [47:49<4:03:25, 35.54s/it] 18%|█▊        | 90/500 [48:24<4:01:40, 35.37s/it] 18%|█▊        | 91/500 [49:00<4:01:50, 35.48s/it] 18%|█▊        | 92/500 [49:35<4:01:28, 35.51s/it] 19%|█▊        | 93/500 [50:11<4:01:28, 35.60s/it] 19%|█▉        | 94/500 [50:47<4:00:25, 35.53s/it] 19%|█▉        | 95/500 [51:23<4:00:35, 35.64s/it] 19%|█▉        | 96/500 [51:58<3:59:59, 35.64s/it] 19%|█▉        | 97/500 [52:33<3:58:22, 35.49s/it] 20%|█▉        | 98/500 [53:09<3:58:38, 35.62s/it] 20%|█▉        | 99/500 [53:45<3:58:22, 35.67s/it] 20%|██        | 100/500 [54:19<3:55:08, 35.27s/it] 20%|██        | 101/500 [54:55<3:55:30, 35.42s/it] 20%|██        | 102/500 [55:31<3:55:02, 35.43s/it] 21%|██        | 103/500 [56:06<3:54:52, 35.50s/it] 21%|██        | 104/500 [56:42<3:54:06, 35.47s/it] 21%|██        | 105/500 [57:16<3:51:58, 35.24s/it] 21%|██        | 106/500 [57:52<3:51:45, 35.29s/it] 21%|██▏       | 107/500 [58:27<3:50:16, 35.16s/it] 22%|██▏       | 108/500 [59:02<3:49:34, 35.14s/it] 22%|██▏       | 109/500 [59:36<3:48:08, 35.01s/it] 22%|██▏       | 110/500 [1:00:12<3:49:34, 35.32s/it] 22%|██▏       | 111/500 [1:00:48<3:49:11, 35.35s/it] 22%|██▏       | 112/500 [1:01:24<3:49:59, 35.57s/it] 23%|██▎       | 113/500 [1:01:50<3:30:39, 32.66s/it] 23%|██▎       | 114/500 [1:02:21<3:26:24, 32.08s/it] 23%|██▎       | 115/500 [1:02:48<3:16:29, 30.62s/it] 23%|██▎       | 116/500 [1:03:08<2:55:50, 27.48s/it] 23%|██▎       | 117/500 [1:03:28<2:40:30, 25.14s/it] 24%|██▎       | 118/500 [1:03:48<2:30:00, 23.56s/it] 24%|██▍       | 119/500 [1:04:08<2:24:13, 22.71s/it] 24%|██▍       | 120/500 [1:04:29<2:19:21, 22.00s/it] 24%|██▍       | 121/500 [1:04:49<2:15:15, 21.41s/it][loss] ep 80 it 60 total=7.0365 mle=1.7725 pcon=5.2640 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 81 it 22 total=6.9835 mle=1.7209 pcon=5.2626 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 81 it 72 total=7.0401 mle=1.7791 pcon=5.2610 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 82 it 34 total=6.9520 mle=1.6924 pcon=5.2596 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 82 it 84 total=6.9643 mle=1.7060 pcon=5.2583 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 83 it 46 total=6.9525 mle=1.6952 pcon=5.2573 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 84 it 8 total=6.8759 mle=1.6198 pcon=5.2561 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 84 it 58 total=6.8935 mle=1.6382 pcon=5.2552 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 85 it 20 total=6.9747 mle=1.7209 pcon=5.2537 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 85 it 70 total=6.9929 mle=1.7410 pcon=5.2519 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 86 it 32 total=6.8789 mle=1.6285 pcon=5.2504 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 86 it 82 total=6.9314 mle=1.6821 pcon=5.2493 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 87 it 44 total=6.9377 mle=1.6892 pcon=5.2485 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 88 it 6 total=6.8669 mle=1.6193 pcon=5.2477 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 88 it 56 total=6.8934 mle=1.6466 pcon=5.2468 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 89 it 18 total=6.8755 mle=1.6297 pcon=5.2458 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 89 it 68 total=6.9548 mle=1.7102 pcon=5.2446 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 90 it 30 total=6.8099 mle=1.5664 pcon=5.2435 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 90 it 80 total=6.9209 mle=1.6784 pcon=5.2425 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 91 it 42 total=6.9115 mle=1.6698 pcon=5.2417 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 92 it 4 total=6.8340 mle=1.5929 pcon=5.2411 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 92 it 54 total=6.7882 mle=1.5478 pcon=5.2404 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 93 it 16 total=6.8446 mle=1.6051 pcon=5.2395 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 93 it 66 total=6.9295 mle=1.6907 pcon=5.2388 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 94 it 28 total=6.8314 mle=1.5935 pcon=5.2379 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 94 it 78 total=6.9221 mle=1.6846 pcon=5.2375 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 95 it 40 total=6.9411 mle=1.7043 pcon=5.2368 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 96 it 2 total=6.8008 mle=1.5644 pcon=5.2364 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 96 it 52 total=6.8411 mle=1.6053 pcon=5.2358 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 97 it 14 total=6.8292 mle=1.5937 pcon=5.2355 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 97 it 64 total=6.8506 mle=1.6156 pcon=5.2350 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 98 it 26 total=6.8715 mle=1.6368 pcon=5.2347 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 98 it 76 total=6.8675 mle=1.6328 pcon=5.2347 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 99 it 38 total=6.7918 mle=1.5572 pcon=5.2345 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 100 it 0 total=6.7933 mle=1.5591 pcon=5.2342 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 100 it 50 total=6.7453 mle=1.5115 pcon=5.2338 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 101 it 12 total=6.8002 mle=1.5667 pcon=5.2336 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 101 it 62 total=6.8116 mle=1.5784 pcon=5.2332 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 102 it 24 total=6.7779 mle=1.5449 pcon=5.2329 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 102 it 74 total=6.8617 mle=1.6288 pcon=5.2329 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 103 it 36 total=6.7914 mle=1.5588 pcon=5.2326 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 103 it 86 total=6.7809 mle=1.5484 pcon=5.2326 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 104 it 48 total=6.7517 mle=1.5195 pcon=5.2322 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 105 it 10 total=6.7638 mle=1.5315 pcon=5.2323 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 105 it 60 total=6.8131 mle=1.5810 pcon=5.2321 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 106 it 22 total=6.7502 mle=1.5189 pcon=5.2313 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 106 it 72 total=6.7923 mle=1.5610 pcon=5.2313 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 107 it 34 total=6.8074 mle=1.5763 pcon=5.2310 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 107 it 84 total=6.7893 mle=1.5584 pcon=5.2309 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 108 it 46 total=6.7846 mle=1.5537 pcon=5.2308 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 109 it 8 total=6.7510 mle=1.5203 pcon=5.2307 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 109 it 58 total=6.8160 mle=1.5850 pcon=5.2310 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 110 it 20 total=6.7684 mle=1.5375 pcon=5.2309 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 110 it 70 total=6.7138 mle=1.4829 pcon=5.2308 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 111 it 32 total=6.7008 mle=1.4701 pcon=5.2306 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 111 it 82 total=6.8514 mle=1.6207 pcon=5.2307 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 112 it 44 total=6.7567 mle=1.5262 pcon=5.2305 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 113 it 6 total=6.7227 mle=1.4919 pcon=5.2308 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 113 it 56 total=6.7253 mle=1.4944 pcon=5.2309 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 114 it 18 total=6.7397 mle=1.5090 pcon=5.2308 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 114 it 68 total=6.7152 mle=1.4845 pcon=5.2307 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 115 it 30 total=6.7391 mle=1.5083 pcon=5.2307 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 115 it 80 total=6.7390 mle=1.5080 pcon=5.2311 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 116 it 42 total=6.7107 mle=1.4794 pcon=5.2313 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 117 it 4 total=6.6578 mle=1.4263 pcon=5.2316 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 117 it 54 total=6.6832 mle=1.4513 pcon=5.2319 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 118 it 16 total=6.7178 mle=1.4860 pcon=5.2318 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 118 it 66 total=6.7067 mle=1.4750 pcon=5.2318 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 119 it 28 total=6.6943 mle=1.4620 pcon=5.2323 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 119 it 78 total=6.7499 mle=1.5174 pcon=5.2325 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 120 it 40 total=6.6896 mle=1.4568 pcon=5.2328 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 24%|██▍       | 122/500 [1:05:09<2:13:03, 21.12s/it] 25%|██▍       | 123/500 [1:05:29<2:10:01, 20.69s/it] 25%|██▍       | 124/500 [1:05:50<2:09:58, 20.74s/it] 25%|██▌       | 125/500 [1:06:10<2:08:13, 20.52s/it] 25%|██▌       | 126/500 [1:06:30<2:07:02, 20.38s/it] 25%|██▌       | 127/500 [1:06:50<2:06:14, 20.31s/it] 26%|██▌       | 128/500 [1:07:10<2:04:57, 20.15s/it] 26%|██▌       | 129/500 [1:07:30<2:04:46, 20.18s/it] 26%|██▌       | 130/500 [1:07:50<2:04:04, 20.12s/it] 26%|██▌       | 131/500 [1:08:11<2:04:56, 20.31s/it] 26%|██▋       | 132/500 [1:08:30<2:03:19, 20.11s/it] 27%|██▋       | 133/500 [1:08:50<2:02:33, 20.04s/it] 27%|██▋       | 134/500 [1:09:10<2:02:26, 20.07s/it] 27%|██▋       | 135/500 [1:09:30<2:01:42, 20.01s/it] 27%|██▋       | 136/500 [1:09:50<2:00:40, 19.89s/it] 27%|██▋       | 137/500 [1:10:13<2:05:35, 20.76s/it] 28%|██▊       | 138/500 [1:10:45<2:27:12, 24.40s/it] 28%|██▊       | 139/500 [1:11:21<2:46:38, 27.70s/it] 28%|██▊       | 140/500 [1:11:57<3:01:11, 30.20s/it] 28%|██▊       | 141/500 [1:12:32<3:08:56, 31.58s/it] 28%|██▊       | 142/500 [1:13:06<3:13:58, 32.51s/it] 29%|██▊       | 143/500 [1:13:40<3:15:26, 32.85s/it] 29%|██▉       | 144/500 [1:14:15<3:19:14, 33.58s/it] 29%|██▉       | 145/500 [1:14:51<3:21:43, 34.09s/it] 29%|██▉       | 146/500 [1:15:26<3:24:18, 34.63s/it] 29%|██▉       | 147/500 [1:16:01<3:24:25, 34.75s/it] 30%|██▉       | 148/500 [1:16:37<3:24:48, 34.91s/it] 30%|██▉       | 149/500 [1:17:12<3:25:35, 35.14s/it] 30%|███       | 150/500 [1:17:47<3:23:59, 34.97s/it] 30%|███       | 151/500 [1:18:23<3:25:08, 35.27s/it] 30%|███       | 152/500 [1:18:57<3:21:58, 34.82s/it] 31%|███       | 153/500 [1:19:21<3:03:43, 31.77s/it] 31%|███       | 154/500 [1:19:41<2:42:19, 28.15s/it] 31%|███       | 155/500 [1:20:01<2:27:35, 25.67s/it] 31%|███       | 156/500 [1:20:21<2:17:24, 23.97s/it] 31%|███▏      | 157/500 [1:20:40<2:09:08, 22.59s/it] 32%|███▏      | 158/500 [1:21:01<2:05:29, 22.02s/it] 32%|███▏      | 159/500 [1:21:21<2:01:03, 21.30s/it] 32%|███▏      | 160/500 [1:21:40<1:57:55, 20.81s/it] 32%|███▏      | 161/500 [1:22:00<1:56:11, 20.57s/it][loss] ep 121 it 2 total=6.6809 mle=1.4478 pcon=5.2331 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 121 it 52 total=6.6979 mle=1.4643 pcon=5.2336 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 122 it 14 total=6.6629 mle=1.4289 pcon=5.2339 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 122 it 64 total=6.7388 mle=1.5045 pcon=5.2344 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 123 it 26 total=6.6401 mle=1.4053 pcon=5.2348 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 123 it 76 total=6.6851 mle=1.4496 pcon=5.2355 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 124 it 38 total=6.6349 mle=1.3988 pcon=5.2361 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 125 it 0 total=6.7611 mle=1.5245 pcon=5.2366 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 125 it 50 total=6.7503 mle=1.5132 pcon=5.2370 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 126 it 12 total=6.7075 mle=1.4700 pcon=5.2375 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 126 it 62 total=6.6811 mle=1.4431 pcon=5.2379 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 127 it 24 total=6.6584 mle=1.4196 pcon=5.2388 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 127 it 74 total=6.6547 mle=1.4156 pcon=5.2391 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 128 it 36 total=6.5777 mle=1.3382 pcon=5.2395 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 128 it 86 total=6.7366 mle=1.4964 pcon=5.2401 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 129 it 48 total=6.6236 mle=1.3831 pcon=5.2405 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 130 it 10 total=6.6439 mle=1.4028 pcon=5.2412 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 130 it 60 total=6.6711 mle=1.4293 pcon=5.2418 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 131 it 22 total=6.6813 mle=1.4389 pcon=5.2423 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 131 it 72 total=6.6658 mle=1.4227 pcon=5.2431 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 132 it 34 total=6.6985 mle=1.4549 pcon=5.2436 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 132 it 84 total=6.6348 mle=1.3903 pcon=5.2445 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 133 it 46 total=6.6486 mle=1.4036 pcon=5.2451 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 134 it 8 total=6.6469 mle=1.4012 pcon=5.2457 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 134 it 58 total=6.6306 mle=1.3843 pcon=5.2463 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 135 it 20 total=6.6443 mle=1.3974 pcon=5.2469 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 135 it 70 total=6.6359 mle=1.3882 pcon=5.2476 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 136 it 32 total=6.6366 mle=1.3886 pcon=5.2479 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 136 it 82 total=6.6372 mle=1.3885 pcon=5.2487 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 137 it 44 total=6.6912 mle=1.4419 pcon=5.2493 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 138 it 6 total=6.5969 mle=1.3471 pcon=5.2498 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 138 it 56 total=6.6386 mle=1.3883 pcon=5.2504 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 139 it 18 total=6.6978 mle=1.4467 pcon=5.2511 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 139 it 68 total=6.6272 mle=1.3757 pcon=5.2515 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 140 it 30 total=6.6535 mle=1.4012 pcon=5.2524 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 140 it 80 total=6.5825 mle=1.3295 pcon=5.2530 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 141 it 42 total=6.6324 mle=1.3786 pcon=5.2537 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 142 it 4 total=6.5918 mle=1.3374 pcon=5.2545 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 142 it 54 total=6.6525 mle=1.3976 pcon=5.2550 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 143 it 16 total=6.6252 mle=1.3694 pcon=5.2558 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 143 it 66 total=6.5610 mle=1.3044 pcon=5.2566 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 144 it 28 total=6.6342 mle=1.3767 pcon=5.2574 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 144 it 78 total=6.6962 mle=1.4379 pcon=5.2584 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 145 it 40 total=6.6357 mle=1.3766 pcon=5.2591 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 146 it 2 total=6.6610 mle=1.4013 pcon=5.2597 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 146 it 52 total=6.5572 mle=1.2967 pcon=5.2605 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 147 it 14 total=6.6619 mle=1.4007 pcon=5.2612 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 147 it 64 total=6.6723 mle=1.4102 pcon=5.2621 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 148 it 26 total=6.6131 mle=1.3501 pcon=5.2630 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 148 it 76 total=6.6068 mle=1.3425 pcon=5.2642 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 149 it 38 total=6.5699 mle=1.3048 pcon=5.2650 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 150 it 0 total=6.5328 mle=1.2667 pcon=5.2660 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 150 it 50 total=6.5819 mle=1.3147 pcon=5.2672 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 151 it 12 total=6.6003 mle=1.3325 pcon=5.2679 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 151 it 62 total=6.6326 mle=1.3638 pcon=5.2688 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 152 it 24 total=6.5967 mle=1.3270 pcon=5.2697 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 152 it 74 total=6.6050 mle=1.3344 pcon=5.2705 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 153 it 36 total=6.6433 mle=1.3723 pcon=5.2710 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 153 it 86 total=6.6029 mle=1.3309 pcon=5.2720 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 154 it 48 total=6.5248 mle=1.2520 pcon=5.2728 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 155 it 10 total=6.6194 mle=1.3458 pcon=5.2736 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 155 it 60 total=6.6047 mle=1.3303 pcon=5.2744 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 156 it 22 total=6.5835 mle=1.3082 pcon=5.2753 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 156 it 72 total=6.5845 mle=1.3081 pcon=5.2763 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 157 it 34 total=6.5576 mle=1.2803 pcon=5.2773 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 157 it 84 total=6.6024 mle=1.3242 pcon=5.2782 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 158 it 46 total=6.5864 mle=1.3076 pcon=5.2788 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 159 it 8 total=6.5901 mle=1.3101 pcon=5.2800 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 159 it 58 total=6.5621 mle=1.2812 pcon=5.2809 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 160 it 20 total=6.5734 mle=1.2917 pcon=5.2818 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 160 it 70 total=6.6233 mle=1.3407 pcon=5.2826 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 32%|███▏      | 162/500 [1:22:20<1:54:42, 20.36s/it] 33%|███▎      | 163/500 [1:22:40<1:52:43, 20.07s/it] 33%|███▎      | 164/500 [1:22:59<1:51:45, 19.96s/it] 33%|███▎      | 165/500 [1:23:19<1:50:43, 19.83s/it] 33%|███▎      | 166/500 [1:23:38<1:49:46, 19.72s/it] 33%|███▎      | 167/500 [1:23:58<1:49:53, 19.80s/it] 34%|███▎      | 168/500 [1:24:18<1:50:02, 19.89s/it] 34%|███▍      | 169/500 [1:24:38<1:49:49, 19.91s/it] 34%|███▍      | 170/500 [1:24:59<1:50:02, 20.01s/it] 34%|███▍      | 171/500 [1:25:21<1:54:16, 20.84s/it] 34%|███▍      | 172/500 [1:25:46<2:00:08, 21.98s/it] 35%|███▍      | 173/500 [1:26:13<2:07:47, 23.45s/it] 35%|███▍      | 174/500 [1:26:39<2:12:29, 24.38s/it] 35%|███▌      | 175/500 [1:27:06<2:15:44, 25.06s/it] 35%|███▌      | 176/500 [1:27:32<2:17:25, 25.45s/it] 35%|███▌      | 177/500 [1:27:59<2:18:49, 25.79s/it] 36%|███▌      | 178/500 [1:28:25<2:19:29, 25.99s/it] 36%|███▌      | 179/500 [1:28:43<2:05:41, 23.49s/it] 36%|███▌      | 180/500 [1:28:59<1:53:14, 21.23s/it] 36%|███▌      | 181/500 [1:29:15<1:44:26, 19.64s/it] 36%|███▋      | 182/500 [1:29:31<1:38:06, 18.51s/it] 37%|███▋      | 183/500 [1:29:48<1:35:36, 18.10s/it] 37%|███▋      | 184/500 [1:30:12<1:44:45, 19.89s/it] 37%|███▋      | 185/500 [1:30:37<1:53:07, 21.55s/it] 37%|███▋      | 186/500 [1:31:04<2:00:33, 23.04s/it] 37%|███▋      | 187/500 [1:31:31<2:06:24, 24.23s/it] 38%|███▊      | 188/500 [1:31:58<2:09:37, 24.93s/it] 38%|███▊      | 189/500 [1:32:24<2:10:50, 25.24s/it] 38%|███▊      | 190/500 [1:32:50<2:11:39, 25.48s/it] 38%|███▊      | 191/500 [1:33:16<2:12:10, 25.67s/it] 38%|███▊      | 192/500 [1:33:42<2:13:03, 25.92s/it] 39%|███▊      | 193/500 [1:34:09<2:14:06, 26.21s/it] 39%|███▉      | 194/500 [1:34:35<2:13:33, 26.19s/it] 39%|███▉      | 195/500 [1:35:01<2:13:15, 26.21s/it] 39%|███▉      | 196/500 [1:35:28<2:13:25, 26.33s/it] 39%|███▉      | 197/500 [1:35:45<1:58:49, 23.53s/it] 40%|███▉      | 198/500 [1:36:01<1:47:42, 21.40s/it] 40%|███▉      | 199/500 [1:36:17<1:39:11, 19.77s/it] 40%|████      | 200/500 [1:36:33<1:32:41, 18.54s/it] 40%|████      | 201/500 [1:36:49<1:28:21, 17.73s/it][loss] ep 161 it 32 total=6.5530 mle=1.2699 pcon=5.2831 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 161 it 82 total=6.6430 mle=1.3588 pcon=5.2842 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 162 it 44 total=6.5791 mle=1.2939 pcon=5.2852 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 163 it 6 total=6.5389 mle=1.2529 pcon=5.2860 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 163 it 56 total=6.5753 mle=1.2884 pcon=5.2870 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 164 it 18 total=6.6435 mle=1.3558 pcon=5.2877 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 164 it 68 total=6.6281 mle=1.3398 pcon=5.2883 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 165 it 30 total=6.5484 mle=1.2594 pcon=5.2890 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 165 it 80 total=6.5325 mle=1.2426 pcon=5.2899 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 166 it 42 total=6.5472 mle=1.2567 pcon=5.2905 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 167 it 4 total=6.6567 mle=1.3654 pcon=5.2913 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 167 it 54 total=6.5675 mle=1.2753 pcon=5.2923 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 168 it 16 total=6.5224 mle=1.2293 pcon=5.2930 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 168 it 66 total=6.5469 mle=1.2529 pcon=5.2940 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 169 it 28 total=6.6394 mle=1.3443 pcon=5.2951 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 169 it 78 total=6.6163 mle=1.3204 pcon=5.2959 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 170 it 40 total=6.5929 mle=1.2966 pcon=5.2963 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 171 it 2 total=6.5395 mle=1.2425 pcon=5.2970 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 171 it 52 total=6.6004 mle=1.3027 pcon=5.2977 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 172 it 14 total=6.5542 mle=1.2558 pcon=5.2984 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 172 it 64 total=6.5904 mle=1.2913 pcon=5.2991 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 173 it 26 total=6.6048 mle=1.3048 pcon=5.3000 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 173 it 76 total=6.5330 mle=1.2320 pcon=5.3010 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 174 it 38 total=6.5382 mle=1.2365 pcon=5.3017 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 175 it 0 total=6.5308 mle=1.2282 pcon=5.3026 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 175 it 50 total=6.5566 mle=1.2531 pcon=5.3035 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 176 it 12 total=6.5476 mle=1.2431 pcon=5.3045 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 176 it 62 total=6.5320 mle=1.2268 pcon=5.3053 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 177 it 24 total=6.5805 mle=1.2747 pcon=5.3058 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 177 it 74 total=6.6006 mle=1.2940 pcon=5.3066 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 178 it 36 total=6.5943 mle=1.2869 pcon=5.3074 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 178 it 86 total=6.5999 mle=1.2911 pcon=5.3088 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 179 it 48 total=6.5918 mle=1.2823 pcon=5.3095 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 180 it 10 total=6.4826 mle=1.1722 pcon=5.3104 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 180 it 60 total=6.5555 mle=1.2444 pcon=5.3111 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 181 it 22 total=6.5899 mle=1.2781 pcon=5.3118 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 181 it 72 total=6.5401 mle=1.2278 pcon=5.3124 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 182 it 34 total=6.5474 mle=1.2344 pcon=5.3130 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 182 it 84 total=6.5497 mle=1.2362 pcon=5.3135 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 183 it 46 total=6.5446 mle=1.2305 pcon=5.3141 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 184 it 8 total=6.5092 mle=1.1944 pcon=5.3148 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 184 it 58 total=6.5200 mle=1.2043 pcon=5.3157 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 185 it 20 total=6.5427 mle=1.2263 pcon=5.3164 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 185 it 70 total=6.5434 mle=1.2266 pcon=5.3169 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 186 it 32 total=6.5152 mle=1.1974 pcon=5.3178 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 186 it 82 total=6.5547 mle=1.2361 pcon=5.3186 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 187 it 44 total=6.5259 mle=1.2064 pcon=5.3195 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 188 it 6 total=6.5337 mle=1.2133 pcon=5.3204 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 188 it 56 total=6.5504 mle=1.2296 pcon=5.3207 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 189 it 18 total=6.5417 mle=1.2202 pcon=5.3215 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 189 it 68 total=6.5332 mle=1.2108 pcon=5.3225 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 190 it 30 total=6.5829 mle=1.2600 pcon=5.3229 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 190 it 80 total=6.5571 mle=1.2337 pcon=5.3234 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 191 it 42 total=6.5635 mle=1.2399 pcon=5.3236 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 192 it 4 total=6.5747 mle=1.2504 pcon=5.3243 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 192 it 54 total=6.5647 mle=1.2396 pcon=5.3251 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 193 it 16 total=6.5654 mle=1.2397 pcon=5.3257 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 193 it 66 total=6.5744 mle=1.2478 pcon=5.3266 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 194 it 28 total=6.5001 mle=1.1728 pcon=5.3273 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 194 it 78 total=6.5338 mle=1.2061 pcon=5.3277 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 195 it 40 total=6.5277 mle=1.1993 pcon=5.3285 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 196 it 2 total=6.5291 mle=1.1996 pcon=5.3295 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 196 it 52 total=6.4943 mle=1.1640 pcon=5.3302 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 197 it 14 total=6.5192 mle=1.1884 pcon=5.3308 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 197 it 64 total=6.5812 mle=1.2498 pcon=5.3314 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 198 it 26 total=6.5180 mle=1.1858 pcon=5.3321 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 198 it 76 total=6.5671 mle=1.2343 pcon=5.3328 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 199 it 38 total=6.5407 mle=1.2074 pcon=5.3332 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 200 it 0 total=6.5346 mle=1.2007 pcon=5.3339 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 200 it 50 total=6.5289 mle=1.1939 pcon=5.3349 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 201 it 12 total=6.4671 mle=1.1313 pcon=5.3357 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 40%|████      | 202/500 [1:37:05<1:25:07, 17.14s/it] 41%|████      | 203/500 [1:37:20<1:22:22, 16.64s/it] 41%|████      | 204/500 [1:37:36<1:20:20, 16.28s/it] 41%|████      | 205/500 [1:37:51<1:18:52, 16.04s/it] 41%|████      | 206/500 [1:38:07<1:17:59, 15.92s/it] 41%|████▏     | 207/500 [1:38:23<1:17:39, 15.90s/it] 42%|████▏     | 208/500 [1:38:39<1:17:36, 15.95s/it] 42%|████▏     | 209/500 [1:38:54<1:16:42, 15.82s/it] 42%|████▏     | 210/500 [1:39:10<1:16:00, 15.73s/it] 42%|████▏     | 211/500 [1:39:25<1:15:29, 15.67s/it] 42%|████▏     | 212/500 [1:39:41<1:15:13, 15.67s/it] 43%|████▎     | 213/500 [1:39:56<1:14:44, 15.63s/it] 43%|████▎     | 214/500 [1:40:12<1:14:19, 15.59s/it] 43%|████▎     | 215/500 [1:40:28<1:14:02, 15.59s/it] 43%|████▎     | 216/500 [1:40:43<1:13:50, 15.60s/it] 43%|████▎     | 217/500 [1:40:59<1:13:59, 15.69s/it] 44%|████▎     | 218/500 [1:41:15<1:13:43, 15.69s/it] 44%|████▍     | 219/500 [1:41:31<1:13:57, 15.79s/it] 44%|████▍     | 220/500 [1:41:47<1:13:35, 15.77s/it] 44%|████▍     | 221/500 [1:42:02<1:13:17, 15.76s/it] 44%|████▍     | 222/500 [1:42:18<1:13:28, 15.86s/it] 45%|████▍     | 223/500 [1:42:34<1:12:53, 15.79s/it] 45%|████▍     | 224/500 [1:42:50<1:12:41, 15.80s/it] 45%|████▌     | 225/500 [1:43:06<1:12:36, 15.84s/it] 45%|████▌     | 226/500 [1:43:21<1:11:51, 15.73s/it] 45%|████▌     | 227/500 [1:43:37<1:11:51, 15.79s/it] 46%|████▌     | 228/500 [1:43:53<1:11:59, 15.88s/it] 46%|████▌     | 229/500 [1:44:09<1:11:23, 15.81s/it] 46%|████▌     | 230/500 [1:44:25<1:10:58, 15.77s/it] 46%|████▌     | 231/500 [1:44:40<1:10:42, 15.77s/it] 46%|████▋     | 232/500 [1:44:56<1:10:47, 15.85s/it] 47%|████▋     | 233/500 [1:45:12<1:10:11, 15.77s/it] 47%|████▋     | 234/500 [1:45:28<1:09:41, 15.72s/it] 47%|████▋     | 235/500 [1:45:43<1:09:11, 15.67s/it] 47%|████▋     | 236/500 [1:45:59<1:08:38, 15.60s/it] 47%|████▋     | 237/500 [1:46:14<1:08:44, 15.68s/it] 48%|████▊     | 238/500 [1:46:30<1:08:45, 15.75s/it] 48%|████▊     | 239/500 [1:46:46<1:08:15, 15.69s/it] 48%|████▊     | 240/500 [1:47:01<1:07:53, 15.67s/it] 48%|████▊     | 241/500 [1:47:18<1:08:16, 15.82s/it] 48%|████▊     | 242/500 [1:47:33<1:07:53, 15.79s/it][loss] ep 201 it 62 total=6.5118 mle=1.1750 pcon=5.3368 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 202 it 24 total=6.5652 mle=1.2280 pcon=5.3372 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 202 it 74 total=6.5526 mle=1.2145 pcon=5.3381 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 203 it 36 total=6.5371 mle=1.1983 pcon=5.3388 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 203 it 86 total=6.5042 mle=1.1648 pcon=5.3395 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 204 it 48 total=6.4826 mle=1.1425 pcon=5.3401 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 205 it 10 total=6.5595 mle=1.2187 pcon=5.3408 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 205 it 60 total=6.5312 mle=1.1898 pcon=5.3414 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 206 it 22 total=6.4352 mle=1.0932 pcon=5.3421 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 206 it 72 total=6.5315 mle=1.1883 pcon=5.3433 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 207 it 34 total=6.5082 mle=1.1643 pcon=5.3438 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 207 it 84 total=6.5073 mle=1.1622 pcon=5.3451 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 208 it 46 total=6.5170 mle=1.1713 pcon=5.3458 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 209 it 8 total=6.5140 mle=1.1674 pcon=5.3466 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 209 it 58 total=6.4933 mle=1.1459 pcon=5.3474 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 210 it 20 total=6.5185 mle=1.1703 pcon=5.3483 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 210 it 70 total=6.5268 mle=1.1778 pcon=5.3490 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 211 it 32 total=6.5039 mle=1.1544 pcon=5.3494 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 211 it 82 total=6.5139 mle=1.1638 pcon=5.3502 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 212 it 44 total=6.4862 mle=1.1351 pcon=5.3511 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 213 it 6 total=6.4286 mle=1.0766 pcon=5.3519 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 213 it 56 total=6.5522 mle=1.1998 pcon=5.3524 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 214 it 18 total=6.5176 mle=1.1646 pcon=5.3530 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 214 it 68 total=6.5735 mle=1.2202 pcon=5.3533 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 215 it 30 total=6.5013 mle=1.1472 pcon=5.3541 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 215 it 80 total=6.5200 mle=1.1650 pcon=5.3550 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 216 it 42 total=6.5452 mle=1.1893 pcon=5.3559 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 217 it 4 total=6.5197 mle=1.1633 pcon=5.3564 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 217 it 54 total=6.5184 mle=1.1612 pcon=5.3572 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 218 it 16 total=6.5308 mle=1.1730 pcon=5.3578 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 218 it 66 total=6.5663 mle=1.2077 pcon=5.3586 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 219 it 28 total=6.4906 mle=1.1314 pcon=5.3592 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 219 it 78 total=6.5298 mle=1.1702 pcon=5.3596 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 220 it 40 total=6.4897 mle=1.1298 pcon=5.3600 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 221 it 2 total=6.5061 mle=1.1459 pcon=5.3601 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 221 it 52 total=6.4921 mle=1.1315 pcon=5.3606 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 222 it 14 total=6.4825 mle=1.1214 pcon=5.3611 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 222 it 64 total=6.4694 mle=1.1075 pcon=5.3619 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 223 it 26 total=6.5756 mle=1.2132 pcon=5.3624 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 223 it 76 total=6.5426 mle=1.1793 pcon=5.3633 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 224 it 38 total=6.5160 mle=1.1523 pcon=5.3637 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 225 it 0 total=6.4808 mle=1.1161 pcon=5.3647 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 225 it 50 total=6.5184 mle=1.1533 pcon=5.3652 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 226 it 12 total=6.5031 mle=1.1374 pcon=5.3657 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 226 it 62 total=6.4846 mle=1.1186 pcon=5.3661 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 227 it 24 total=6.4999 mle=1.1332 pcon=5.3667 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 227 it 74 total=6.5150 mle=1.1475 pcon=5.3676 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 228 it 36 total=6.5100 mle=1.1422 pcon=5.3678 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 228 it 86 total=6.5017 mle=1.1333 pcon=5.3684 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 229 it 48 total=6.4893 mle=1.1203 pcon=5.3690 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 230 it 10 total=6.4863 mle=1.1166 pcon=5.3697 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 230 it 60 total=6.4720 mle=1.1018 pcon=5.3703 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 231 it 22 total=6.5068 mle=1.1362 pcon=5.3706 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 231 it 72 total=6.5146 mle=1.1434 pcon=5.3712 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 232 it 34 total=6.4667 mle=1.0950 pcon=5.3717 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 232 it 84 total=6.5476 mle=1.1749 pcon=5.3727 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 233 it 46 total=6.5491 mle=1.1760 pcon=5.3730 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 234 it 8 total=6.4979 mle=1.1241 pcon=5.3738 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 234 it 58 total=6.5803 mle=1.2059 pcon=5.3744 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 235 it 20 total=6.4665 mle=1.0916 pcon=5.3750 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 235 it 70 total=6.4874 mle=1.1115 pcon=5.3758 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 236 it 32 total=6.4700 mle=1.0937 pcon=5.3764 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 236 it 82 total=6.5182 mle=1.1413 pcon=5.3769 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 237 it 44 total=6.4777 mle=1.1002 pcon=5.3775 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 238 it 6 total=6.4729 mle=1.0948 pcon=5.3782 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 238 it 56 total=6.5106 mle=1.1317 pcon=5.3788 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 239 it 18 total=6.4758 mle=1.0959 pcon=5.3799 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 239 it 68 total=6.4785 mle=1.0981 pcon=5.3804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 240 it 30 total=6.4882 mle=1.1072 pcon=5.3810 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 240 it 80 total=6.5085 mle=1.1267 pcon=5.3818 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 241 it 42 total=6.4816 mle=1.0994 pcon=5.3821 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 49%|████▊     | 243/500 [1:47:49<1:07:15, 15.70s/it] 49%|████▉     | 244/500 [1:48:05<1:06:58, 15.70s/it] 49%|████▉     | 245/500 [1:48:20<1:06:25, 15.63s/it] 49%|████▉     | 246/500 [1:48:36<1:06:22, 15.68s/it] 49%|████▉     | 247/500 [1:48:51<1:06:01, 15.66s/it] 50%|████▉     | 248/500 [1:49:07<1:06:14, 15.77s/it] 50%|████▉     | 249/500 [1:49:24<1:06:23, 15.87s/it] 50%|█████     | 250/500 [1:49:40<1:06:20, 15.92s/it] 50%|█████     | 251/500 [1:49:55<1:05:55, 15.88s/it] 50%|█████     | 252/500 [1:50:11<1:05:39, 15.88s/it] 51%|█████     | 253/500 [1:50:27<1:05:21, 15.88s/it] 51%|█████     | 254/500 [1:50:43<1:05:30, 15.98s/it] 51%|█████     | 255/500 [1:50:59<1:05:00, 15.92s/it] 51%|█████     | 256/500 [1:51:15<1:04:22, 15.83s/it] 51%|█████▏    | 257/500 [1:51:31<1:04:33, 15.94s/it] 52%|█████▏    | 258/500 [1:51:47<1:04:23, 15.97s/it] 52%|█████▏    | 259/500 [1:52:03<1:03:49, 15.89s/it] 52%|█████▏    | 260/500 [1:52:18<1:03:13, 15.81s/it] 52%|█████▏    | 261/500 [1:52:34<1:02:52, 15.78s/it] 52%|█████▏    | 262/500 [1:52:50<1:02:31, 15.76s/it] 53%|█████▎    | 263/500 [1:53:06<1:02:45, 15.89s/it] 53%|█████▎    | 264/500 [1:53:22<1:02:22, 15.86s/it] 53%|█████▎    | 265/500 [1:53:38<1:02:14, 15.89s/it] 53%|█████▎    | 266/500 [1:53:53<1:01:47, 15.84s/it] 53%|█████▎    | 267/500 [1:54:09<1:01:23, 15.81s/it] 54%|█████▎    | 268/500 [1:54:25<1:01:00, 15.78s/it] 54%|█████▍    | 269/500 [1:54:41<1:00:38, 15.75s/it] 54%|█████▍    | 270/500 [1:54:56<1:00:31, 15.79s/it] 54%|█████▍    | 271/500 [1:55:12<1:00:05, 15.74s/it] 54%|█████▍    | 272/500 [1:55:28<59:41, 15.71s/it]   55%|█████▍    | 273/500 [1:55:44<59:38, 15.76s/it] 55%|█████▍    | 274/500 [1:55:59<59:31, 15.80s/it] 55%|█████▌    | 275/500 [1:56:15<59:02, 15.74s/it] 55%|█████▌    | 276/500 [1:56:31<58:30, 15.67s/it] 55%|█████▌    | 277/500 [1:56:47<58:33, 15.76s/it] 56%|█████▌    | 278/500 [1:57:02<58:17, 15.75s/it] 56%|█████▌    | 279/500 [1:57:18<58:22, 15.85s/it] 56%|█████▌    | 280/500 [1:57:34<58:04, 15.84s/it] 56%|█████▌    | 281/500 [1:57:50<57:49, 15.84s/it] 56%|█████▋    | 282/500 [1:58:06<57:42, 15.88s/it][loss] ep 242 it 4 total=6.4950 mle=1.1126 pcon=5.3824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 242 it 54 total=6.4854 mle=1.1025 pcon=5.3829 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 243 it 16 total=6.4886 mle=1.1051 pcon=5.3835 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 243 it 66 total=6.4952 mle=1.1114 pcon=5.3838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 244 it 28 total=6.4484 mle=1.0644 pcon=5.3840 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 244 it 78 total=6.5046 mle=1.1197 pcon=5.3849 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 245 it 40 total=6.4905 mle=1.1050 pcon=5.3855 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 246 it 2 total=6.4981 mle=1.1119 pcon=5.3862 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 246 it 52 total=6.4963 mle=1.1096 pcon=5.3867 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 247 it 14 total=6.4903 mle=1.1029 pcon=5.3874 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 247 it 64 total=6.5047 mle=1.1170 pcon=5.3877 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 248 it 26 total=6.4643 mle=1.0765 pcon=5.3878 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 248 it 76 total=6.4846 mle=1.0964 pcon=5.3883 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 249 it 38 total=6.4827 mle=1.0939 pcon=5.3887 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 250 it 0 total=6.4562 mle=1.0667 pcon=5.3894 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 250 it 50 total=6.4755 mle=1.0860 pcon=5.3895 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 251 it 12 total=6.4770 mle=1.0872 pcon=5.3898 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 251 it 62 total=6.4835 mle=1.0935 pcon=5.3900 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 252 it 24 total=6.4534 mle=1.0627 pcon=5.3907 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 252 it 74 total=6.5059 mle=1.1150 pcon=5.3909 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 253 it 36 total=6.4280 mle=1.0364 pcon=5.3916 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 253 it 86 total=6.4905 mle=1.0981 pcon=5.3924 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 254 it 48 total=6.4927 mle=1.0997 pcon=5.3930 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 255 it 10 total=6.5340 mle=1.1406 pcon=5.3933 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 255 it 60 total=6.5031 mle=1.1093 pcon=5.3938 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 256 it 22 total=6.4998 mle=1.1052 pcon=5.3947 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 256 it 72 total=6.4946 mle=1.0997 pcon=5.3949 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 257 it 34 total=6.5000 mle=1.1045 pcon=5.3955 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 257 it 84 total=6.4682 mle=1.0719 pcon=5.3963 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 258 it 46 total=6.4746 mle=1.0779 pcon=5.3967 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 259 it 8 total=6.4599 mle=1.0628 pcon=5.3972 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 259 it 58 total=6.4027 mle=1.0052 pcon=5.3974 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 260 it 20 total=6.4956 mle=1.0977 pcon=5.3979 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 260 it 70 total=6.4421 mle=1.0438 pcon=5.3983 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 261 it 32 total=6.4788 mle=1.0798 pcon=5.3990 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 261 it 82 total=6.4798 mle=1.0802 pcon=5.3996 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 262 it 44 total=6.4865 mle=1.0861 pcon=5.4004 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 263 it 6 total=6.4705 mle=1.0693 pcon=5.4012 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 263 it 56 total=6.4818 mle=1.0801 pcon=5.4017 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 264 it 18 total=6.4819 mle=1.0797 pcon=5.4022 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 264 it 68 total=6.4703 mle=1.0679 pcon=5.4024 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 265 it 30 total=6.4702 mle=1.0672 pcon=5.4030 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 265 it 80 total=6.5375 mle=1.1340 pcon=5.4035 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 266 it 42 total=6.4630 mle=1.0589 pcon=5.4041 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 267 it 4 total=6.4672 mle=1.0625 pcon=5.4047 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 267 it 54 total=6.4052 mle=1.0000 pcon=5.4052 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 268 it 16 total=6.4691 mle=1.0632 pcon=5.4059 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 268 it 66 total=6.4981 mle=1.0918 pcon=5.4062 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 269 it 28 total=6.5805 mle=1.1740 pcon=5.4065 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 269 it 78 total=6.4634 mle=1.0567 pcon=5.4066 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 270 it 40 total=6.4490 mle=1.0421 pcon=5.4069 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 271 it 2 total=6.5328 mle=1.1253 pcon=5.4075 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 271 it 52 total=6.4661 mle=1.0582 pcon=5.4079 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 272 it 14 total=6.4408 mle=1.0327 pcon=5.4081 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 272 it 64 total=6.4199 mle=1.0112 pcon=5.4087 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 273 it 26 total=6.4771 mle=1.0680 pcon=5.4091 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 273 it 76 total=6.5048 mle=1.0954 pcon=5.4095 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 274 it 38 total=6.4917 mle=1.0819 pcon=5.4098 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 275 it 0 total=6.4492 mle=1.0393 pcon=5.4100 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 275 it 50 total=6.4847 mle=1.0746 pcon=5.4101 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 276 it 12 total=6.4681 mle=1.0577 pcon=5.4104 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 276 it 62 total=6.4769 mle=1.0657 pcon=5.4112 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 277 it 24 total=6.4491 mle=1.0375 pcon=5.4116 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 277 it 74 total=6.4764 mle=1.0641 pcon=5.4122 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 278 it 36 total=6.4748 mle=1.0618 pcon=5.4130 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 278 it 86 total=6.4474 mle=1.0337 pcon=5.4136 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 279 it 48 total=6.4573 mle=1.0426 pcon=5.4147 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 280 it 10 total=6.4501 mle=1.0350 pcon=5.4151 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 280 it 60 total=6.4861 mle=1.0703 pcon=5.4158 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 281 it 22 total=6.4722 mle=1.0556 pcon=5.4166 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 281 it 72 total=6.4989 mle=1.0821 pcon=5.4168 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 57%|█████▋    | 283/500 [1:58:22<57:21, 15.86s/it] 57%|█████▋    | 284/500 [1:58:38<57:02, 15.84s/it] 57%|█████▋    | 285/500 [1:58:53<56:47, 15.85s/it] 57%|█████▋    | 286/500 [1:59:09<56:39, 15.88s/it] 57%|█████▋    | 287/500 [1:59:26<56:43, 15.98s/it] 58%|█████▊    | 288/500 [1:59:42<56:36, 16.02s/it] 58%|█████▊    | 289/500 [1:59:58<56:18, 16.01s/it] 58%|█████▊    | 290/500 [2:00:14<55:52, 15.96s/it] 58%|█████▊    | 291/500 [2:00:29<55:30, 15.94s/it] 58%|█████▊    | 292/500 [2:00:46<55:32, 16.02s/it] 59%|█████▊    | 293/500 [2:01:02<55:13, 16.01s/it] 59%|█████▉    | 294/500 [2:01:18<54:48, 15.96s/it] 59%|█████▉    | 295/500 [2:01:34<54:35, 15.98s/it] 59%|█████▉    | 296/500 [2:01:50<54:32, 16.04s/it] 59%|█████▉    | 297/500 [2:02:05<53:53, 15.93s/it] 60%|█████▉    | 298/500 [2:02:21<53:22, 15.86s/it] 60%|█████▉    | 299/500 [2:02:37<53:08, 15.86s/it] 60%|██████    | 300/500 [2:02:53<53:07, 15.94s/it] 60%|██████    | 301/500 [2:03:09<52:46, 15.91s/it] 60%|██████    | 302/500 [2:03:25<52:30, 15.91s/it] 61%|██████    | 303/500 [2:03:41<52:21, 15.95s/it] 61%|██████    | 304/500 [2:03:57<52:11, 15.98s/it] 61%|██████    | 305/500 [2:04:13<52:08, 16.05s/it] 61%|██████    | 306/500 [2:04:30<52:50, 16.34s/it] 61%|██████▏   | 307/500 [2:04:49<54:32, 16.96s/it] 62%|██████▏   | 308/500 [2:05:05<53:55, 16.85s/it] 62%|██████▏   | 309/500 [2:05:22<53:36, 16.84s/it] 62%|██████▏   | 310/500 [2:05:40<54:37, 17.25s/it] 62%|██████▏   | 311/500 [2:05:59<55:31, 17.63s/it] 62%|██████▏   | 312/500 [2:06:17<55:51, 17.83s/it] 63%|██████▎   | 313/500 [2:06:35<56:12, 18.04s/it] 63%|██████▎   | 314/500 [2:06:53<55:48, 18.00s/it] 63%|██████▎   | 315/500 [2:07:11<55:17, 17.93s/it] 63%|██████▎   | 316/500 [2:07:30<55:25, 18.07s/it] 63%|██████▎   | 317/500 [2:07:48<55:43, 18.27s/it] 64%|██████▎   | 318/500 [2:08:06<55:07, 18.17s/it] 64%|██████▍   | 319/500 [2:08:25<55:13, 18.31s/it] 64%|██████▍   | 320/500 [2:08:43<54:34, 18.19s/it] 64%|██████▍   | 321/500 [2:08:59<52:06, 17.46s/it] 64%|██████▍   | 322/500 [2:09:14<50:22, 16.98s/it][loss] ep 282 it 34 total=6.4778 mle=1.0607 pcon=5.4172 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 282 it 84 total=6.4461 mle=1.0285 pcon=5.4176 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 283 it 46 total=6.4465 mle=1.0285 pcon=5.4180 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 284 it 8 total=6.4233 mle=1.0049 pcon=5.4184 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 284 it 58 total=6.4716 mle=1.0528 pcon=5.4188 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 285 it 20 total=6.4824 mle=1.0629 pcon=5.4195 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 285 it 70 total=6.4975 mle=1.0774 pcon=5.4201 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 286 it 32 total=6.4493 mle=1.0287 pcon=5.4206 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 286 it 82 total=6.4618 mle=1.0404 pcon=5.4214 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 287 it 44 total=6.4897 mle=1.0679 pcon=5.4218 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 288 it 6 total=6.4169 mle=0.9945 pcon=5.4224 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 288 it 56 total=6.4709 mle=1.0477 pcon=5.4231 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 289 it 18 total=6.4696 mle=1.0460 pcon=5.4236 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 289 it 68 total=6.4839 mle=1.0596 pcon=5.4242 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 290 it 30 total=6.4336 mle=1.0090 pcon=5.4246 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 290 it 80 total=6.4917 mle=1.0666 pcon=5.4250 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 291 it 42 total=6.5328 mle=1.1074 pcon=5.4253 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 292 it 4 total=6.4990 mle=1.0735 pcon=5.4255 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 292 it 54 total=6.4358 mle=1.0100 pcon=5.4258 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 293 it 16 total=6.4287 mle=1.0024 pcon=5.4262 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 293 it 66 total=6.4752 mle=1.0486 pcon=5.4266 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 294 it 28 total=6.4639 mle=1.0370 pcon=5.4269 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 294 it 78 total=6.4566 mle=1.0292 pcon=5.4274 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 295 it 40 total=6.4637 mle=1.0362 pcon=5.4274 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 296 it 2 total=6.4053 mle=0.9773 pcon=5.4280 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 296 it 52 total=6.4203 mle=0.9922 pcon=5.4282 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 297 it 14 total=6.4414 mle=1.0126 pcon=5.4289 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 297 it 64 total=6.4302 mle=1.0011 pcon=5.4291 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 298 it 26 total=6.4549 mle=1.0253 pcon=5.4296 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 298 it 76 total=6.4744 mle=1.0447 pcon=5.4297 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 299 it 38 total=6.4293 mle=0.9992 pcon=5.4301 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 300 it 0 total=6.5076 mle=1.0771 pcon=5.4305 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 300 it 50 total=6.4400 mle=1.0092 pcon=5.4308 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 301 it 12 total=6.4616 mle=1.0302 pcon=5.4314 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 301 it 62 total=6.4467 mle=1.0150 pcon=5.4317 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 302 it 24 total=6.4772 mle=1.0453 pcon=5.4319 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 302 it 74 total=6.4657 mle=1.0331 pcon=5.4325 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 303 it 36 total=6.4175 mle=0.9847 pcon=5.4328 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 303 it 86 total=6.4310 mle=0.9979 pcon=5.4331 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 304 it 48 total=6.4149 mle=0.9814 pcon=5.4335 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 305 it 10 total=6.4542 mle=1.0203 pcon=5.4340 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 305 it 60 total=6.4378 mle=1.0032 pcon=5.4346 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 306 it 22 total=6.4401 mle=1.0052 pcon=5.4349 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 306 it 72 total=6.4079 mle=0.9722 pcon=5.4358 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 307 it 34 total=6.4658 mle=1.0296 pcon=5.4362 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 307 it 84 total=6.4617 mle=1.0251 pcon=5.4366 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 308 it 46 total=6.4400 mle=1.0030 pcon=5.4370 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 309 it 8 total=6.4969 mle=1.0593 pcon=5.4376 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 309 it 58 total=6.4607 mle=1.0229 pcon=5.4378 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 310 it 20 total=6.4454 mle=1.0073 pcon=5.4381 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 310 it 70 total=6.4472 mle=1.0087 pcon=5.4386 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 311 it 32 total=6.4274 mle=0.9886 pcon=5.4388 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 311 it 82 total=6.4598 mle=1.0205 pcon=5.4393 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 312 it 44 total=6.4233 mle=0.9837 pcon=5.4396 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 313 it 6 total=6.4698 mle=1.0301 pcon=5.4397 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 313 it 56 total=6.4517 mle=1.0115 pcon=5.4402 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 314 it 18 total=6.4230 mle=0.9826 pcon=5.4404 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 314 it 68 total=6.4499 mle=1.0093 pcon=5.4406 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 315 it 30 total=6.4791 mle=1.0382 pcon=5.4409 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 315 it 80 total=6.4535 mle=1.0123 pcon=5.4412 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 316 it 42 total=6.4575 mle=1.0160 pcon=5.4415 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 317 it 4 total=6.4349 mle=0.9933 pcon=5.4415 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 317 it 54 total=6.4369 mle=0.9947 pcon=5.4422 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 318 it 16 total=6.4515 mle=1.0090 pcon=5.4425 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 318 it 66 total=6.4333 mle=0.9905 pcon=5.4428 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 319 it 28 total=6.4217 mle=0.9782 pcon=5.4435 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 319 it 78 total=6.4502 mle=1.0065 pcon=5.4436 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 320 it 40 total=6.4459 mle=1.0017 pcon=5.4442 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 321 it 2 total=6.4221 mle=0.9779 pcon=5.4442 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 321 it 52 total=6.4279 mle=0.9836 pcon=5.4443 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 322 it 14 total=6.4297 mle=0.9851 pcon=5.4445 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 65%|██████▍   | 323/500 [2:09:30<49:13, 16.69s/it] 65%|██████▍   | 324/500 [2:09:47<48:30, 16.54s/it] 65%|██████▌   | 325/500 [2:10:03<48:07, 16.50s/it] 65%|██████▌   | 326/500 [2:10:19<47:26, 16.36s/it] 65%|██████▌   | 327/500 [2:10:35<46:39, 16.18s/it] 66%|██████▌   | 328/500 [2:10:51<46:11, 16.11s/it] 66%|██████▌   | 329/500 [2:11:07<46:03, 16.16s/it] 66%|██████▌   | 330/500 [2:11:23<45:31, 16.07s/it] 66%|██████▌   | 331/500 [2:11:39<44:58, 15.97s/it] 66%|██████▋   | 332/500 [2:11:54<44:37, 15.94s/it] 67%|██████▋   | 333/500 [2:12:10<44:15, 15.90s/it] 67%|██████▋   | 334/500 [2:12:26<43:46, 15.82s/it] 67%|██████▋   | 335/500 [2:12:42<43:21, 15.77s/it] 67%|██████▋   | 336/500 [2:12:57<43:07, 15.78s/it] 67%|██████▋   | 337/500 [2:13:13<42:53, 15.79s/it] 68%|██████▊   | 338/500 [2:13:29<42:37, 15.78s/it] 68%|██████▊   | 339/500 [2:13:45<42:20, 15.78s/it] 68%|██████▊   | 340/500 [2:14:00<41:57, 15.74s/it] 68%|██████▊   | 341/500 [2:14:16<41:43, 15.75s/it] 68%|██████▊   | 342/500 [2:14:32<41:48, 15.88s/it] 69%|██████▊   | 343/500 [2:14:49<41:50, 15.99s/it] 69%|██████▉   | 344/500 [2:15:05<41:33, 15.98s/it] 69%|██████▉   | 345/500 [2:15:20<41:07, 15.92s/it] 69%|██████▉   | 346/500 [2:15:36<40:37, 15.83s/it] 69%|██████▉   | 347/500 [2:15:52<40:17, 15.80s/it] 70%|██████▉   | 348/500 [2:16:08<40:14, 15.89s/it] 70%|██████▉   | 349/500 [2:16:24<39:53, 15.85s/it] 70%|███████   | 350/500 [2:16:39<39:41, 15.88s/it] 70%|███████   | 351/500 [2:16:56<39:44, 16.01s/it] 70%|███████   | 352/500 [2:17:12<39:22, 15.97s/it] 71%|███████   | 353/500 [2:17:27<38:56, 15.90s/it] 71%|███████   | 354/500 [2:17:43<38:30, 15.83s/it] 71%|███████   | 355/500 [2:17:59<38:06, 15.77s/it] 71%|███████   | 356/500 [2:18:14<37:46, 15.74s/it] 71%|███████▏  | 357/500 [2:18:30<37:35, 15.77s/it] 72%|███████▏  | 358/500 [2:18:47<37:46, 15.96s/it] 72%|███████▏  | 359/500 [2:19:04<38:47, 16.50s/it] 72%|███████▏  | 360/500 [2:19:22<39:09, 16.78s/it] 72%|███████▏  | 361/500 [2:19:38<38:10, 16.48s/it] 72%|███████▏  | 362/500 [2:19:55<38:14, 16.63s/it] 73%|███████▎  | 363/500 [2:20:13<38:59, 17.07s/it][loss] ep 322 it 64 total=6.4346 mle=0.9900 pcon=5.4447 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 323 it 26 total=6.4587 mle=1.0136 pcon=5.4451 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 323 it 76 total=6.4675 mle=1.0220 pcon=5.4454 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 324 it 38 total=6.4543 mle=1.0085 pcon=5.4458 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 325 it 0 total=6.4765 mle=1.0300 pcon=5.4465 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 325 it 50 total=6.4673 mle=1.0206 pcon=5.4467 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 326 it 12 total=6.4592 mle=1.0124 pcon=5.4467 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 326 it 62 total=6.4341 mle=0.9869 pcon=5.4471 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 327 it 24 total=6.4773 mle=1.0299 pcon=5.4474 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 327 it 74 total=6.4268 mle=0.9790 pcon=5.4478 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 328 it 36 total=6.4530 mle=1.0045 pcon=5.4485 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 328 it 86 total=6.4113 mle=0.9626 pcon=5.4488 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 329 it 48 total=6.4389 mle=0.9896 pcon=5.4493 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 330 it 10 total=6.5087 mle=1.0590 pcon=5.4497 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 330 it 60 total=6.4701 mle=1.0204 pcon=5.4497 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 331 it 22 total=6.4595 mle=1.0093 pcon=5.4502 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 331 it 72 total=6.4381 mle=0.9876 pcon=5.4505 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 332 it 34 total=6.4552 mle=1.0043 pcon=5.4509 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 332 it 84 total=6.4185 mle=0.9674 pcon=5.4512 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 333 it 46 total=6.4481 mle=0.9965 pcon=5.4516 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 334 it 8 total=6.4355 mle=0.9836 pcon=5.4519 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 334 it 58 total=6.4603 mle=1.0081 pcon=5.4522 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 335 it 20 total=6.4385 mle=0.9860 pcon=5.4525 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 335 it 70 total=6.4181 mle=0.9654 pcon=5.4528 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 336 it 32 total=6.4348 mle=0.9817 pcon=5.4531 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 336 it 82 total=6.5243 mle=1.0707 pcon=5.4536 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 337 it 44 total=6.4348 mle=0.9816 pcon=5.4532 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 338 it 6 total=6.4432 mle=0.9899 pcon=5.4533 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 338 it 56 total=6.4189 mle=0.9652 pcon=5.4536 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 339 it 18 total=6.4205 mle=0.9670 pcon=5.4535 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 339 it 68 total=6.4479 mle=0.9940 pcon=5.4539 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 340 it 30 total=6.4473 mle=0.9934 pcon=5.4539 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 340 it 80 total=6.4336 mle=0.9795 pcon=5.4541 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 341 it 42 total=6.4134 mle=0.9593 pcon=5.4541 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 342 it 4 total=6.4292 mle=0.9750 pcon=5.4542 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 342 it 54 total=6.4156 mle=0.9611 pcon=5.4545 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 343 it 16 total=6.4583 mle=1.0036 pcon=5.4547 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 343 it 66 total=6.4229 mle=0.9679 pcon=5.4550 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 344 it 28 total=6.4323 mle=0.9772 pcon=5.4552 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 344 it 78 total=6.4488 mle=0.9934 pcon=5.4554 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 345 it 40 total=6.4602 mle=1.0045 pcon=5.4557 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 346 it 2 total=6.3852 mle=0.9293 pcon=5.4559 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 346 it 52 total=6.4433 mle=0.9869 pcon=5.4563 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 347 it 14 total=6.4359 mle=0.9791 pcon=5.4568 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 347 it 64 total=6.4318 mle=0.9746 pcon=5.4571 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 348 it 26 total=6.4266 mle=0.9693 pcon=5.4573 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 348 it 76 total=6.4315 mle=0.9740 pcon=5.4575 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 349 it 38 total=6.4170 mle=0.9594 pcon=5.4576 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 350 it 0 total=6.4202 mle=0.9625 pcon=5.4577 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 350 it 50 total=6.4036 mle=0.9457 pcon=5.4579 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 351 it 12 total=6.4168 mle=0.9589 pcon=5.4579 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 351 it 62 total=6.4315 mle=0.9734 pcon=5.4581 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 352 it 24 total=6.4509 mle=0.9927 pcon=5.4582 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 352 it 74 total=6.4099 mle=0.9512 pcon=5.4586 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 353 it 36 total=6.4366 mle=0.9779 pcon=5.4587 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 353 it 86 total=6.4276 mle=0.9686 pcon=5.4590 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 354 it 48 total=6.4273 mle=0.9680 pcon=5.4593 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 355 it 10 total=6.4332 mle=0.9737 pcon=5.4595 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 355 it 60 total=6.4145 mle=0.9548 pcon=5.4597 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 356 it 22 total=6.4515 mle=0.9916 pcon=5.4599 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 356 it 72 total=6.4045 mle=0.9442 pcon=5.4603 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 357 it 34 total=6.4471 mle=0.9863 pcon=5.4608 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 357 it 84 total=6.4089 mle=0.9476 pcon=5.4613 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 358 it 46 total=6.4487 mle=0.9870 pcon=5.4617 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 359 it 8 total=6.4295 mle=0.9674 pcon=5.4621 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 359 it 58 total=6.4390 mle=0.9770 pcon=5.4620 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 360 it 20 total=6.4500 mle=0.9877 pcon=5.4623 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 360 it 70 total=6.4267 mle=0.9642 pcon=5.4625 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 361 it 32 total=6.4057 mle=0.9431 pcon=5.4625 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 361 it 82 total=6.4207 mle=0.9578 pcon=5.4629 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 362 it 44 total=6.4016 mle=0.9387 pcon=5.4629 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 73%|███████▎  | 364/500 [2:20:31<39:14, 17.31s/it] 73%|███████▎  | 365/500 [2:20:48<39:21, 17.49s/it] 73%|███████▎  | 366/500 [2:21:06<39:01, 17.47s/it] 73%|███████▎  | 367/500 [2:21:23<38:21, 17.31s/it] 74%|███████▎  | 368/500 [2:21:41<38:24, 17.46s/it] 74%|███████▍  | 369/500 [2:21:58<38:18, 17.55s/it] 74%|███████▍  | 370/500 [2:22:16<37:57, 17.52s/it] 74%|███████▍  | 371/500 [2:22:33<37:35, 17.48s/it] 74%|███████▍  | 372/500 [2:22:51<37:16, 17.47s/it] 75%|███████▍  | 373/500 [2:23:08<37:12, 17.58s/it] 75%|███████▍  | 374/500 [2:23:25<36:10, 17.23s/it] 75%|███████▌  | 375/500 [2:23:41<35:02, 16.82s/it] 75%|███████▌  | 376/500 [2:23:57<34:06, 16.51s/it] 75%|███████▌  | 377/500 [2:24:12<33:25, 16.31s/it] 76%|███████▌  | 378/500 [2:24:29<33:03, 16.26s/it] 76%|███████▌  | 379/500 [2:24:44<32:31, 16.13s/it] 76%|███████▌  | 380/500 [2:25:00<32:07, 16.07s/it] 76%|███████▌  | 381/500 [2:25:17<32:06, 16.19s/it] 76%|███████▋  | 382/500 [2:25:33<31:51, 16.20s/it] 77%|███████▋  | 383/500 [2:25:49<31:25, 16.12s/it] 77%|███████▋  | 384/500 [2:26:05<31:15, 16.17s/it] 77%|███████▋  | 385/500 [2:26:22<31:08, 16.25s/it] 77%|███████▋  | 386/500 [2:26:38<30:40, 16.15s/it] 77%|███████▋  | 387/500 [2:26:55<31:24, 16.68s/it] 78%|███████▊  | 388/500 [2:27:14<32:00, 17.15s/it] 78%|███████▊  | 389/500 [2:27:30<31:09, 16.84s/it] 78%|███████▊  | 390/500 [2:27:47<31:03, 16.94s/it] 78%|███████▊  | 391/500 [2:28:05<31:21, 17.26s/it] 78%|███████▊  | 392/500 [2:28:23<31:38, 17.57s/it] 79%|███████▊  | 393/500 [2:28:41<31:34, 17.71s/it] 79%|███████▉  | 394/500 [2:28:59<31:31, 17.84s/it] 79%|███████▉  | 395/500 [2:29:17<31:02, 17.74s/it] 79%|███████▉  | 396/500 [2:29:35<30:44, 17.73s/it] 79%|███████▉  | 397/500 [2:29:53<30:30, 17.77s/it] 80%|███████▉  | 398/500 [2:30:10<30:04, 17.69s/it] 80%|███████▉  | 399/500 [2:30:28<30:00, 17.83s/it] 80%|████████  | 400/500 [2:30:46<29:41, 17.81s/it] 80%|████████  | 401/500 [2:31:04<29:26, 17.84s/it] 80%|████████  | 402/500 [2:31:20<28:21, 17.37s/it] 81%|████████  | 403/500 [2:31:36<27:23, 16.94s/it][loss] ep 363 it 6 total=6.4210 mle=0.9578 pcon=5.4632 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 363 it 56 total=6.4280 mle=0.9646 pcon=5.4634 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 364 it 18 total=6.4481 mle=0.9845 pcon=5.4635 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 364 it 68 total=6.4563 mle=0.9925 pcon=5.4638 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 365 it 30 total=6.4385 mle=0.9742 pcon=5.4644 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 365 it 80 total=6.4568 mle=0.9919 pcon=5.4648 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 366 it 42 total=6.4070 mle=0.9421 pcon=5.4649 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 367 it 4 total=6.4216 mle=0.9566 pcon=5.4651 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 367 it 54 total=6.3941 mle=0.9290 pcon=5.4651 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 368 it 16 total=6.4162 mle=0.9508 pcon=5.4654 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 368 it 66 total=6.4456 mle=0.9800 pcon=5.4656 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 369 it 28 total=6.4395 mle=0.9737 pcon=5.4658 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 369 it 78 total=6.3953 mle=0.9294 pcon=5.4659 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 370 it 40 total=6.4470 mle=0.9809 pcon=5.4661 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 371 it 2 total=6.4562 mle=0.9901 pcon=5.4661 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 371 it 52 total=6.4670 mle=1.0004 pcon=5.4666 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 372 it 14 total=6.4315 mle=0.9649 pcon=5.4667 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 372 it 64 total=6.4189 mle=0.9520 pcon=5.4670 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 373 it 26 total=6.4358 mle=0.9687 pcon=5.4672 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 373 it 76 total=6.4172 mle=0.9495 pcon=5.4676 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 374 it 38 total=6.4087 mle=0.9407 pcon=5.4681 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 375 it 0 total=6.4377 mle=0.9696 pcon=5.4681 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 375 it 50 total=6.4041 mle=0.9354 pcon=5.4687 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 376 it 12 total=6.3963 mle=0.9276 pcon=5.4687 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 376 it 62 total=6.4399 mle=0.9711 pcon=5.4689 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 377 it 24 total=6.4456 mle=0.9765 pcon=5.4691 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 377 it 74 total=6.4145 mle=0.9453 pcon=5.4692 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 378 it 36 total=6.4422 mle=0.9729 pcon=5.4693 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 378 it 86 total=6.4027 mle=0.9333 pcon=5.4694 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 379 it 48 total=6.4311 mle=0.9614 pcon=5.4697 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 380 it 10 total=6.3935 mle=0.9237 pcon=5.4697 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 380 it 60 total=6.4498 mle=0.9799 pcon=5.4699 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 381 it 22 total=6.3949 mle=0.9246 pcon=5.4704 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 381 it 72 total=6.3954 mle=0.9247 pcon=5.4707 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 382 it 34 total=6.4322 mle=0.9613 pcon=5.4709 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 382 it 84 total=6.4188 mle=0.9481 pcon=5.4708 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 383 it 46 total=6.4417 mle=0.9705 pcon=5.4712 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 384 it 8 total=6.4277 mle=0.9562 pcon=5.4715 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 384 it 58 total=6.4126 mle=0.9406 pcon=5.4720 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 385 it 20 total=6.4251 mle=0.9530 pcon=5.4721 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 385 it 70 total=6.3876 mle=0.9153 pcon=5.4723 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 386 it 32 total=6.4075 mle=0.9352 pcon=5.4722 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 386 it 82 total=6.4640 mle=0.9914 pcon=5.4726 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 387 it 44 total=6.4215 mle=0.9488 pcon=5.4727 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 388 it 6 total=6.4491 mle=0.9762 pcon=5.4729 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 388 it 56 total=6.4124 mle=0.9392 pcon=5.4732 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 389 it 18 total=6.4250 mle=0.9515 pcon=5.4735 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 389 it 68 total=6.4261 mle=0.9526 pcon=5.4736 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 390 it 30 total=6.4166 mle=0.9426 pcon=5.4740 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 390 it 80 total=6.4111 mle=0.9368 pcon=5.4743 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 391 it 42 total=6.4064 mle=0.9320 pcon=5.4744 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 392 it 4 total=6.4202 mle=0.9457 pcon=5.4745 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 392 it 54 total=6.3975 mle=0.9227 pcon=5.4748 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 393 it 16 total=6.4201 mle=0.9456 pcon=5.4746 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 393 it 66 total=6.4060 mle=0.9311 pcon=5.4749 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 394 it 28 total=6.4020 mle=0.9267 pcon=5.4753 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 394 it 78 total=6.4181 mle=0.9425 pcon=5.4756 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 395 it 40 total=6.4039 mle=0.9281 pcon=5.4758 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 396 it 2 total=6.4548 mle=0.9786 pcon=5.4762 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 396 it 52 total=6.4043 mle=0.9280 pcon=5.4763 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 397 it 14 total=6.4140 mle=0.9377 pcon=5.4763 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 397 it 64 total=6.4119 mle=0.9355 pcon=5.4764 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 398 it 26 total=6.4096 mle=0.9332 pcon=5.4764 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 398 it 76 total=6.4063 mle=0.9299 pcon=5.4764 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 399 it 38 total=6.4371 mle=0.9608 pcon=5.4763 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 400 it 0 total=6.3881 mle=0.9118 pcon=5.4764 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 400 it 50 total=6.4306 mle=0.9542 pcon=5.4763 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 401 it 12 total=6.4393 mle=0.9628 pcon=5.4765 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 401 it 62 total=6.3998 mle=0.9235 pcon=5.4764 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 402 it 24 total=6.3790 mle=0.9027 pcon=5.4763 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 402 it 74 total=6.4074 mle=0.9309 pcon=5.4765 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 81%|████████  | 404/500 [2:31:52<26:49, 16.77s/it] 81%|████████  | 405/500 [2:32:09<26:29, 16.73s/it] 81%|████████  | 406/500 [2:32:25<25:53, 16.53s/it] 81%|████████▏ | 407/500 [2:32:41<25:24, 16.39s/it] 82%|████████▏ | 408/500 [2:32:57<25:02, 16.34s/it] 82%|████████▏ | 409/500 [2:33:14<24:48, 16.36s/it] 82%|████████▏ | 410/500 [2:33:30<24:18, 16.20s/it] 82%|████████▏ | 411/500 [2:33:46<23:59, 16.18s/it] 82%|████████▏ | 412/500 [2:34:02<23:40, 16.15s/it] 83%|████████▎ | 413/500 [2:34:18<23:21, 16.11s/it] 83%|████████▎ | 414/500 [2:34:34<22:59, 16.04s/it] 83%|████████▎ | 415/500 [2:34:50<22:40, 16.01s/it] 83%|████████▎ | 416/500 [2:35:06<22:31, 16.09s/it] 83%|████████▎ | 417/500 [2:35:22<22:15, 16.08s/it] 84%|████████▎ | 418/500 [2:35:38<22:01, 16.12s/it] 84%|████████▍ | 419/500 [2:35:54<21:39, 16.04s/it] 84%|████████▍ | 420/500 [2:36:10<21:31, 16.14s/it] 84%|████████▍ | 421/500 [2:36:27<21:15, 16.14s/it] 84%|████████▍ | 422/500 [2:36:43<20:54, 16.09s/it] 85%|████████▍ | 423/500 [2:36:59<20:42, 16.14s/it] 85%|████████▍ | 424/500 [2:37:15<20:20, 16.06s/it] 85%|████████▌ | 425/500 [2:37:31<19:58, 15.98s/it] 85%|████████▌ | 426/500 [2:37:46<19:41, 15.97s/it] 85%|████████▌ | 427/500 [2:38:02<19:23, 15.94s/it] 86%|████████▌ | 428/500 [2:38:18<19:04, 15.90s/it] 86%|████████▌ | 429/500 [2:38:34<18:48, 15.90s/it] 86%|████████▌ | 430/500 [2:38:50<18:39, 15.99s/it] 86%|████████▌ | 431/500 [2:39:06<18:24, 16.00s/it] 86%|████████▋ | 432/500 [2:39:22<18:07, 15.99s/it] 87%|████████▋ | 433/500 [2:39:38<17:50, 15.97s/it] 87%|████████▋ | 434/500 [2:39:54<17:34, 15.97s/it] 87%|████████▋ | 435/500 [2:40:10<17:24, 16.08s/it] 87%|████████▋ | 436/500 [2:40:28<17:43, 16.62s/it] 87%|████████▋ | 437/500 [2:40:46<17:48, 16.96s/it] 88%|████████▊ | 438/500 [2:41:04<17:55, 17.35s/it] 88%|████████▊ | 439/500 [2:41:21<17:26, 17.16s/it] 88%|████████▊ | 440/500 [2:41:38<17:13, 17.23s/it] 88%|████████▊ | 441/500 [2:41:57<17:18, 17.61s/it] 88%|████████▊ | 442/500 [2:42:15<17:07, 17.72s/it] 89%|████████▊ | 443/500 [2:42:33<16:58, 17.86s/it][loss] ep 403 it 36 total=6.4150 mle=0.9384 pcon=5.4767 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 403 it 86 total=6.4206 mle=0.9438 pcon=5.4768 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 404 it 48 total=6.4180 mle=0.9410 pcon=5.4769 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 405 it 10 total=6.3788 mle=0.9020 pcon=5.4768 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 405 it 60 total=6.4053 mle=0.9285 pcon=5.4768 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 406 it 22 total=6.4100 mle=0.9330 pcon=5.4770 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 406 it 72 total=6.3996 mle=0.9226 pcon=5.4770 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 407 it 34 total=6.4332 mle=0.9561 pcon=5.4771 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 407 it 84 total=6.4209 mle=0.9437 pcon=5.4772 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 408 it 46 total=6.4108 mle=0.9336 pcon=5.4772 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 409 it 8 total=6.4001 mle=0.9228 pcon=5.4773 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 409 it 58 total=6.4432 mle=0.9654 pcon=5.4779 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 410 it 20 total=6.4320 mle=0.9541 pcon=5.4779 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 410 it 70 total=6.4103 mle=0.9321 pcon=5.4782 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 411 it 32 total=6.4476 mle=0.9695 pcon=5.4781 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 411 it 82 total=6.4290 mle=0.9510 pcon=5.4781 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 412 it 44 total=6.4317 mle=0.9535 pcon=5.4782 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 413 it 6 total=6.3931 mle=0.9148 pcon=5.4783 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 413 it 56 total=6.3914 mle=0.9128 pcon=5.4786 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 414 it 18 total=6.4162 mle=0.9375 pcon=5.4787 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 414 it 68 total=6.4518 mle=0.9730 pcon=5.4788 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 415 it 30 total=6.4136 mle=0.9353 pcon=5.4784 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 415 it 80 total=6.4282 mle=0.9497 pcon=5.4786 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 416 it 42 total=6.3749 mle=0.8959 pcon=5.4790 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 417 it 4 total=6.4021 mle=0.9230 pcon=5.4791 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 417 it 54 total=6.4308 mle=0.9517 pcon=5.4790 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 418 it 16 total=6.3733 mle=0.8943 pcon=5.4791 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 418 it 66 total=6.4018 mle=0.9229 pcon=5.4789 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 419 it 28 total=6.4203 mle=0.9414 pcon=5.4789 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 419 it 78 total=6.3472 mle=0.8682 pcon=5.4790 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 420 it 40 total=6.4147 mle=0.9356 pcon=5.4791 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 421 it 2 total=6.4147 mle=0.9355 pcon=5.4792 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 421 it 52 total=6.3989 mle=0.9197 pcon=5.4792 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 422 it 14 total=6.3860 mle=0.9066 pcon=5.4795 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 422 it 64 total=6.3970 mle=0.9174 pcon=5.4796 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 423 it 26 total=6.4121 mle=0.9321 pcon=5.4799 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 423 it 76 total=6.4233 mle=0.9432 pcon=5.4801 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 424 it 38 total=6.4261 mle=0.9458 pcon=5.4803 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 425 it 0 total=6.3889 mle=0.9088 pcon=5.4800 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 425 it 50 total=6.4345 mle=0.9543 pcon=5.4802 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 426 it 12 total=6.4110 mle=0.9309 pcon=5.4802 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 426 it 62 total=6.4063 mle=0.9260 pcon=5.4803 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 427 it 24 total=6.4464 mle=0.9664 pcon=5.4800 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 427 it 74 total=6.4537 mle=0.9736 pcon=5.4801 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 428 it 36 total=6.4139 mle=0.9338 pcon=5.4800 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 428 it 86 total=6.4359 mle=0.9557 pcon=5.4802 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 429 it 48 total=6.4583 mle=0.9779 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 430 it 10 total=6.4028 mle=0.9224 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 430 it 60 total=6.3722 mle=0.8919 pcon=5.4803 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 431 it 22 total=6.4212 mle=0.9408 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 431 it 72 total=6.4332 mle=0.9528 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 432 it 34 total=6.4196 mle=0.9396 pcon=5.4801 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 432 it 84 total=6.3774 mle=0.8977 pcon=5.4797 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 433 it 46 total=6.4276 mle=0.9478 pcon=5.4798 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 434 it 8 total=6.3937 mle=0.9137 pcon=5.4800 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 434 it 58 total=6.3955 mle=0.9154 pcon=5.4801 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 435 it 20 total=6.4258 mle=0.9455 pcon=5.4803 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 435 it 70 total=6.3767 mle=0.8963 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 436 it 32 total=6.3696 mle=0.8891 pcon=5.4805 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 436 it 82 total=6.4620 mle=0.9816 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 437 it 44 total=6.4383 mle=0.9581 pcon=5.4802 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 438 it 6 total=6.3942 mle=0.9139 pcon=5.4803 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 438 it 56 total=6.4466 mle=0.9662 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 439 it 18 total=6.4076 mle=0.9273 pcon=5.4804 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 439 it 68 total=6.3842 mle=0.9038 pcon=5.4803 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 440 it 30 total=6.4009 mle=0.9201 pcon=5.4808 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 440 it 80 total=6.4189 mle=0.9379 pcon=5.4810 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 441 it 42 total=6.3669 mle=0.8858 pcon=5.4811 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 442 it 4 total=6.4325 mle=0.9512 pcon=5.4814 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 442 it 54 total=6.3963 mle=0.9151 pcon=5.4813 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 443 it 16 total=6.4244 mle=0.9430 pcon=5.4814 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 89%|████████▉ | 444/500 [2:42:51<16:41, 17.88s/it] 89%|████████▉ | 445/500 [2:43:09<16:26, 17.93s/it] 89%|████████▉ | 446/500 [2:43:27<16:10, 17.98s/it] 89%|████████▉ | 447/500 [2:43:45<15:50, 17.94s/it] 90%|████████▉ | 448/500 [2:44:03<15:28, 17.86s/it] 90%|████████▉ | 449/500 [2:44:20<15:08, 17.81s/it] 90%|█████████ | 450/500 [2:44:38<14:52, 17.85s/it] 90%|█████████ | 451/500 [2:44:56<14:35, 17.86s/it] 90%|█████████ | 452/500 [2:45:14<14:20, 17.93s/it] 91%|█████████ | 453/500 [2:45:32<14:04, 17.97s/it] 91%|█████████ | 454/500 [2:45:49<13:32, 17.67s/it] 91%|█████████ | 455/500 [2:46:05<12:49, 17.11s/it] 91%|█████████ | 456/500 [2:46:21<12:16, 16.74s/it] 91%|█████████▏| 457/500 [2:46:37<11:50, 16.53s/it] 92%|█████████▏| 458/500 [2:46:53<11:24, 16.30s/it] 92%|█████████▏| 459/500 [2:47:09<11:03, 16.18s/it] 92%|█████████▏| 460/500 [2:47:24<10:41, 16.04s/it] 92%|█████████▏| 461/500 [2:47:40<10:22, 15.96s/it] 92%|█████████▏| 462/500 [2:47:56<10:05, 15.94s/it] 93%|█████████▎| 463/500 [2:48:12<09:48, 15.91s/it] 93%|█████████▎| 464/500 [2:48:28<09:30, 15.84s/it] 93%|█████████▎| 465/500 [2:48:44<09:15, 15.88s/it] 93%|█████████▎| 466/500 [2:48:59<08:59, 15.88s/it] 93%|█████████▎| 467/500 [2:49:15<08:42, 15.84s/it] 94%|█████████▎| 468/500 [2:49:31<08:27, 15.85s/it] 94%|█████████▍| 469/500 [2:49:47<08:10, 15.82s/it] 94%|█████████▍| 470/500 [2:50:03<07:55, 15.85s/it] 94%|█████████▍| 471/500 [2:50:19<07:40, 15.87s/it] 94%|█████████▍| 472/500 [2:50:35<07:23, 15.85s/it] 95%|█████████▍| 473/500 [2:50:50<07:08, 15.87s/it] 95%|█████████▍| 474/500 [2:51:06<06:53, 15.89s/it] 95%|█████████▌| 475/500 [2:51:22<06:36, 15.84s/it] 95%|█████████▌| 476/500 [2:51:38<06:21, 15.88s/it] 95%|█████████▌| 477/500 [2:51:54<06:04, 15.86s/it] 96%|█████████▌| 478/500 [2:52:10<05:48, 15.86s/it] 96%|█████████▌| 479/500 [2:52:26<05:34, 15.93s/it] 96%|█████████▌| 480/500 [2:52:44<05:31, 16.57s/it] 96%|█████████▌| 481/500 [2:53:02<05:20, 16.89s/it] 96%|█████████▋| 482/500 [2:53:19<05:06, 17.03s/it] 97%|█████████▋| 483/500 [2:53:36<04:50, 17.12s/it] 97%|█████████▋| 484/500 [2:53:53<04:34, 17.14s/it][loss] ep 443 it 66 total=6.4202 mle=0.9389 pcon=5.4813 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 444 it 28 total=6.4408 mle=0.9594 pcon=5.4814 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 444 it 78 total=6.4306 mle=0.9491 pcon=5.4815 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 445 it 40 total=6.3773 mle=0.8959 pcon=5.4813 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 446 it 2 total=6.4412 mle=0.9599 pcon=5.4813 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 446 it 52 total=6.4358 mle=0.9544 pcon=5.4814 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 447 it 14 total=6.4194 mle=0.9379 pcon=5.4815 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 447 it 64 total=6.4088 mle=0.9273 pcon=5.4815 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 448 it 26 total=6.4304 mle=0.9488 pcon=5.4817 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 448 it 76 total=6.4114 mle=0.9294 pcon=5.4819 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 449 it 38 total=6.4157 mle=0.9337 pcon=5.4820 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 450 it 0 total=6.3947 mle=0.9127 pcon=5.4820 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 450 it 50 total=6.3970 mle=0.9151 pcon=5.4819 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 451 it 12 total=6.3850 mle=0.9028 pcon=5.4821 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 451 it 62 total=6.4008 mle=0.9184 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 452 it 24 total=6.4092 mle=0.9268 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 452 it 74 total=6.4162 mle=0.9332 pcon=5.4831 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 453 it 36 total=6.4243 mle=0.9413 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 453 it 86 total=6.3852 mle=0.9022 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 454 it 48 total=6.4238 mle=0.9408 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 455 it 10 total=6.3874 mle=0.9045 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 455 it 60 total=6.4430 mle=0.9598 pcon=5.4831 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 456 it 22 total=6.3764 mle=0.8934 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 456 it 72 total=6.3872 mle=0.9040 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 457 it 34 total=6.3916 mle=0.9084 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 457 it 84 total=6.4092 mle=0.9260 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 458 it 46 total=6.4435 mle=0.9602 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 459 it 8 total=6.4064 mle=0.9231 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 459 it 58 total=6.3885 mle=0.9051 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 460 it 20 total=6.4017 mle=0.9181 pcon=5.4836 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 460 it 70 total=6.4063 mle=0.9224 pcon=5.4839 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 461 it 32 total=6.3950 mle=0.9111 pcon=5.4840 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 461 it 82 total=6.3855 mle=0.9016 pcon=5.4840 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 462 it 44 total=6.3818 mle=0.8980 pcon=5.4838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 463 it 6 total=6.3718 mle=0.8879 pcon=5.4839 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 463 it 56 total=6.3956 mle=0.9117 pcon=5.4839 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 464 it 18 total=6.3841 mle=0.9001 pcon=5.4839 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 464 it 68 total=6.3846 mle=0.9007 pcon=5.4839 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 465 it 30 total=6.4176 mle=0.9339 pcon=5.4838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 465 it 80 total=6.3805 mle=0.8967 pcon=5.4838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 466 it 42 total=6.3909 mle=0.9071 pcon=5.4838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 467 it 4 total=6.3820 mle=0.8982 pcon=5.4838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 467 it 54 total=6.3549 mle=0.8711 pcon=5.4838 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 468 it 16 total=6.3843 mle=0.9007 pcon=5.4836 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 468 it 66 total=6.3849 mle=0.9014 pcon=5.4835 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 469 it 28 total=6.4268 mle=0.9435 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 469 it 78 total=6.3911 mle=0.9079 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 470 it 40 total=6.4010 mle=0.9179 pcon=5.4831 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 471 it 2 total=6.4174 mle=0.9343 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 471 it 52 total=6.4472 mle=0.9644 pcon=5.4828 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 472 it 14 total=6.3794 mle=0.8964 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 472 it 64 total=6.4161 mle=0.9331 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 473 it 26 total=6.4394 mle=0.9564 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 473 it 76 total=6.3858 mle=0.9026 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 474 it 38 total=6.4489 mle=0.9657 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 475 it 0 total=6.4085 mle=0.9256 pcon=5.4829 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 475 it 50 total=6.3898 mle=0.9070 pcon=5.4828 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 476 it 12 total=6.3892 mle=0.9068 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 476 it 62 total=6.4353 mle=0.9527 pcon=5.4825 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 477 it 24 total=6.3907 mle=0.9082 pcon=5.4825 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 477 it 74 total=6.4254 mle=0.9428 pcon=5.4826 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 478 it 36 total=6.3983 mle=0.9157 pcon=5.4826 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 478 it 86 total=6.3849 mle=0.9023 pcon=5.4826 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 479 it 48 total=6.3778 mle=0.8952 pcon=5.4826 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 480 it 10 total=6.4597 mle=0.9767 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 480 it 60 total=6.4217 mle=0.9387 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 481 it 22 total=6.4174 mle=0.9342 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 481 it 72 total=6.3972 mle=0.9141 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 482 it 34 total=6.3886 mle=0.9052 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 482 it 84 total=6.4017 mle=0.9184 pcon=5.4833 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 483 it 46 total=6.4452 mle=0.9620 pcon=5.4832 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+ 97%|█████████▋| 485/500 [2:54:11<04:18, 17.25s/it] 97%|█████████▋| 486/500 [2:54:29<04:03, 17.37s/it] 97%|█████████▋| 487/500 [2:54:46<03:47, 17.48s/it] 98%|█████████▊| 488/500 [2:55:04<03:31, 17.63s/it] 98%|█████████▊| 489/500 [2:55:22<03:14, 17.72s/it] 98%|█████████▊| 490/500 [2:55:40<02:57, 17.78s/it] 98%|█████████▊| 491/500 [2:55:58<02:40, 17.80s/it] 98%|█████████▊| 492/500 [2:56:16<02:22, 17.85s/it] 99%|█████████▊| 493/500 [2:56:34<02:05, 17.91s/it] 99%|█████████▉| 494/500 [2:56:52<01:46, 17.81s/it] 99%|█████████▉| 495/500 [2:57:10<01:29, 17.87s/it] 99%|█████████▉| 496/500 [2:57:27<01:11, 17.81s/it] 99%|█████████▉| 497/500 [2:57:45<00:53, 17.74s/it]100%|█████████▉| 498/500 [2:58:03<00:35, 17.88s/it]100%|█████████▉| 499/500 [2:58:21<00:17, 17.94s/it]100%|██████████| 500/500 [2:58:39<00:00, 18.04s/it]100%|██████████| 500/500 [2:58:39<00:00, 21.44s/it]
+[loss] ep 484 it 8 total=6.4160 mle=0.9331 pcon=5.4828 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 484 it 58 total=6.4127 mle=0.9299 pcon=5.4828 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 485 it 20 total=6.3995 mle=0.9169 pcon=5.4827 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 485 it 70 total=6.4009 mle=0.9181 pcon=5.4829 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 486 it 32 total=6.3932 mle=0.9104 pcon=5.4828 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 486 it 82 total=6.3874 mle=0.9044 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 487 it 44 total=6.3880 mle=0.9048 pcon=5.4831 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 488 it 6 total=6.4229 mle=0.9399 pcon=5.4830 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 488 it 56 total=6.3841 mle=0.9014 pcon=5.4827 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 489 it 18 total=6.4077 mle=0.9252 pcon=5.4825 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 489 it 68 total=6.4209 mle=0.9384 pcon=5.4825 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 490 it 30 total=6.4109 mle=0.9286 pcon=5.4823 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 490 it 80 total=6.3959 mle=0.9136 pcon=5.4823 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 491 it 42 total=6.4132 mle=0.9309 pcon=5.4823 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 492 it 4 total=6.3944 mle=0.9122 pcon=5.4822 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 492 it 54 total=6.3699 mle=0.8875 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 493 it 16 total=6.4320 mle=0.9497 pcon=5.4823 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 493 it 66 total=6.4222 mle=0.9399 pcon=5.4823 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 494 it 28 total=6.3852 mle=0.9028 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 494 it 78 total=6.4145 mle=0.9321 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 495 it 40 total=6.3922 mle=0.9098 pcon=5.4824 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 496 it 2 total=6.4045 mle=0.9223 pcon=5.4822 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 496 it 52 total=6.4045 mle=0.9225 pcon=5.4820 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 497 it 14 total=6.3970 mle=0.9150 pcon=5.4819 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 497 it 64 total=6.3909 mle=0.9091 pcon=5.4819 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 498 it 26 total=6.3814 mle=0.8995 pcon=5.4819 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 498 it 76 total=6.3994 mle=0.9175 pcon=5.4819 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+[loss] ep 499 it 38 total=6.4026 mle=0.9208 pcon=5.4818 forget=0.0000 nr=512 nf=0 centers=None P=None dmin_norm=NA
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain.pt
+resnet34-top5-palm-cache6-ema0.999-upper-retain: Number of model parameters: 21605312
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<02:14,  2.89it/s]  3%|▎         | 11/391 [00:00<00:12, 30.03it/s]  5%|▌         | 21/391 [00:00<00:07, 48.80it/s]  8%|▊         | 31/391 [00:00<00:05, 62.22it/s] 10%|█         | 40/391 [00:00<00:05, 68.30it/s] 13%|█▎        | 49/391 [00:00<00:04, 73.44it/s] 15%|█▍        | 58/391 [00:01<00:04, 73.28it/s] 17%|█▋        | 67/391 [00:01<00:04, 77.39it/s] 19%|█▉        | 76/391 [00:01<00:03, 80.54it/s] 22%|██▏       | 86/391 [00:01<00:03, 84.48it/s] 25%|██▍       | 96/391 [00:01<00:03, 87.29it/s] 27%|██▋       | 105/391 [00:01<00:03, 87.30it/s] 29%|██▉       | 114/391 [00:01<00:03, 86.59it/s] 31%|███▏      | 123/391 [00:01<00:03, 87.54it/s] 34%|███▍      | 132/391 [00:01<00:03, 86.26it/s] 36%|███▌      | 141/391 [00:01<00:02, 83.78it/s] 38%|███▊      | 150/391 [00:02<00:02, 84.10it/s] 41%|████      | 159/391 [00:02<00:02, 82.45it/s] 43%|████▎     | 168/391 [00:02<00:02, 84.20it/s] 45%|████▌     | 177/391 [00:02<00:02, 84.82it/s] 48%|████▊     | 186/391 [00:02<00:02, 84.69it/s] 50%|████▉     | 195/391 [00:02<00:02, 84.40it/s] 52%|█████▏    | 204/391 [00:02<00:02, 84.19it/s] 54%|█████▍    | 213/391 [00:02<00:02, 84.78it/s] 57%|█████▋    | 222/391 [00:02<00:01, 86.17it/s] 59%|█████▉    | 231/391 [00:03<00:01, 87.10it/s] 62%|██████▏   | 241/391 [00:03<00:01, 88.66it/s] 64%|██████▍   | 250/391 [00:03<00:01, 88.42it/s] 66%|██████▌   | 259/391 [00:03<00:01, 86.19it/s] 69%|██████▉   | 269/391 [00:03<00:01, 87.66it/s] 71%|███████   | 278/391 [00:03<00:01, 87.40it/s] 73%|███████▎  | 287/391 [00:03<00:01, 87.73it/s] 76%|███████▌  | 296/391 [00:03<00:01, 84.80it/s] 78%|███████▊  | 305/391 [00:03<00:01, 84.99it/s] 80%|████████  | 314/391 [00:03<00:00, 84.79it/s] 83%|████████▎ | 323/391 [00:04<00:00, 86.10it/s] 85%|████████▍ | 332/391 [00:04<00:00, 80.27it/s] 87%|████████▋ | 341/391 [00:04<00:00, 82.85it/s] 90%|████████▉ | 350/391 [00:04<00:00, 84.87it/s] 92%|█████████▏| 359/391 [00:04<00:00, 85.84it/s] 94%|█████████▍| 368/391 [00:04<00:00, 86.30it/s] 97%|█████████▋| 378/391 [00:04<00:00, 88.88it/s] 99%|█████████▉| 389/391 [00:04<00:00, 92.75it/s]100%|██████████| 391/391 [00:04<00:00, 80.47it/s]
+50000 images processed, 4.944663047790527 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:29,  2.62it/s] 10%|█         | 8/79 [00:00<00:03, 20.53it/s] 23%|██▎       | 18/79 [00:00<00:01, 41.02it/s] 35%|███▌      | 28/79 [00:00<00:00, 56.50it/s] 47%|████▋     | 37/79 [00:00<00:00, 64.77it/s] 59%|█████▉    | 47/79 [00:00<00:00, 74.08it/s] 71%|███████   | 56/79 [00:01<00:00, 76.37it/s] 84%|████████▎ | 66/79 [00:01<00:00, 80.81it/s] 96%|█████████▌| 76/79 [00:01<00:00, 86.17it/s]100%|██████████| 79/79 [00:01<00:00, 61.68it/s]
+10000 images processed, 1.3040199279785156 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<01:24,  2.41it/s]  5%|▍         | 10/204 [00:00<00:07, 24.36it/s]  9%|▉         | 19/204 [00:00<00:04, 41.38it/s] 14%|█▎        | 28/204 [00:00<00:03, 53.18it/s] 18%|█▊        | 37/204 [00:00<00:02, 62.41it/s] 23%|██▎       | 47/204 [00:00<00:02, 72.00it/s] 27%|██▋       | 56/204 [00:01<00:01, 74.88it/s] 32%|███▏      | 66/204 [00:01<00:01, 80.44it/s] 37%|███▋      | 75/204 [00:01<00:01, 80.27it/s] 41%|████      | 84/204 [00:01<00:01, 79.21it/s] 46%|████▌     | 93/204 [00:01<00:01, 78.32it/s] 50%|█████     | 102/204 [00:01<00:01, 81.41it/s] 54%|█████▍    | 111/204 [00:01<00:01, 79.71it/s] 59%|█████▉    | 120/204 [00:01<00:01, 79.54it/s] 63%|██████▎   | 129/204 [00:01<00:00, 80.84it/s] 68%|██████▊   | 138/204 [00:02<00:00, 81.55it/s] 72%|███████▏  | 147/204 [00:02<00:00, 83.23it/s] 76%|███████▋  | 156/204 [00:02<00:00, 84.15it/s] 81%|████████  | 165/204 [00:02<00:00, 83.03it/s] 85%|████████▌ | 174/204 [00:02<00:00, 83.35it/s] 90%|████████▉ | 183/204 [00:02<00:00, 83.32it/s] 95%|█████████▍| 193/204 [00:02<00:00, 85.82it/s]100%|██████████| 204/204 [00:02<00:00, 89.73it/s]100%|██████████| 204/204 [00:02<00:00, 72.52it/s]
+26032 images processed, 2.8571877479553223 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:38,  2.00it/s] 11%|█▏        | 9/79 [00:00<00:04, 16.38it/s] 22%|██▏       | 17/79 [00:00<00:02, 24.53it/s] 32%|███▏      | 25/79 [00:01<00:01, 31.97it/s] 42%|████▏     | 33/79 [00:01<00:01, 38.17it/s] 52%|█████▏    | 41/79 [00:01<00:00, 42.79it/s] 62%|██████▏   | 49/79 [00:01<00:00, 45.50it/s] 72%|███████▏  | 57/79 [00:01<00:00, 47.50it/s] 82%|████████▏ | 65/79 [00:01<00:00, 49.91it/s] 92%|█████████▏| 73/79 [00:01<00:00, 51.11it/s]100%|██████████| 79/79 [00:02<00:00, 39.48it/s]
+10000 images processed, 2.043152093887329 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:29,  2.69it/s] 11%|█▏        | 9/79 [00:00<00:02, 24.12it/s] 24%|██▍       | 19/79 [00:00<00:01, 45.04it/s] 37%|███▋      | 29/79 [00:00<00:00, 60.62it/s] 49%|████▉     | 39/79 [00:00<00:00, 71.97it/s] 62%|██████▏   | 49/79 [00:00<00:00, 80.10it/s] 75%|███████▍  | 59/79 [00:00<00:00, 85.04it/s] 87%|████████▋ | 69/79 [00:01<00:00, 88.10it/s]100%|██████████| 79/79 [00:01<00:00, 66.94it/s]
+10000 images processed, 1.1999330520629883 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:24,  2.87it/s] 14%|█▍        | 10/70 [00:00<00:02, 27.27it/s] 27%|██▋       | 19/70 [00:00<00:01, 43.57it/s] 40%|████      | 28/70 [00:00<00:00, 56.61it/s] 53%|█████▎    | 37/70 [00:00<00:00, 65.02it/s] 67%|██████▋   | 47/70 [00:00<00:00, 74.16it/s] 80%|████████  | 56/70 [00:00<00:00, 76.73it/s] 94%|█████████▍| 66/70 [00:01<00:00, 82.78it/s]100%|██████████| 70/70 [00:01<00:00, 61.10it/s]
+8925 images processed, 1.1855971813201904 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:00<00:39,  1.12it/s]  4%|▍         | 2/45 [00:01<00:18,  2.30it/s] 20%|██        | 9/45 [00:01<00:03, 10.10it/s] 24%|██▍       | 11/45 [00:01<00:03,  9.90it/s] 33%|███▎      | 15/45 [00:01<00:02, 14.52it/s] 40%|████      | 18/45 [00:01<00:02, 11.99it/s] 44%|████▍     | 20/45 [00:02<00:01, 13.20it/s] 51%|█████     | 23/45 [00:02<00:01, 16.01it/s] 58%|█████▊    | 26/45 [00:02<00:01, 13.55it/s] 62%|██████▏   | 28/45 [00:02<00:01, 12.76it/s] 67%|██████▋   | 30/45 [00:02<00:01, 13.96it/s] 73%|███████▎  | 33/45 [00:02<00:00, 14.03it/s] 78%|███████▊  | 35/45 [00:03<00:00, 11.33it/s] 84%|████████▍ | 38/45 [00:03<00:00, 14.39it/s] 93%|█████████▎| 42/45 [00:03<00:00,  9.92it/s]100%|██████████| 45/45 [00:03<00:00, 11.34it/s]
+5640 images processed, 3.993656873703003 seconds used
+
+19.22349739074707
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+Evaluating forget
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           3.32  99.15
+places365     63.61  82.00
+LSUN          25.33  94.67
+iSUN          31.70  92.27
+dtd           40.99  90.54
+forget        88.90  74.68
+AVG           42.31  88.88
+Forget-Acc: 0.3990 | Retain-Acc: 0.7220
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 88.90 AUROC: 74.68 AUIN: 96.36
+28.78804588317871

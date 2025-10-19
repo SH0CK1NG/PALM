@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 import numpy as np
 import os
 from tqdm import tqdm
@@ -11,32 +12,8 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
 
     losses = AverageMeter()
     sub_loss = {}
-    # optional: cache the very first batch for fixed-batch debugging
-    use_fixed = bool(getattr(args, 'debug_fixed_batch', False))
-    fixed_batch = None
-    steps_limit = int(getattr(args, 'debug_fixed_batch_steps', 50)) if use_fixed else None
 
-    step_iterable = enumerate(train_loader, start=epoch * len(train_loader)) if not use_fixed else None
-    step_count = 0
-    while True:
-        if use_fixed:
-            if fixed_batch is None:
-                try:
-                    # pull one real batch from loader to cache it
-                    fixed_batch = next(iter(train_loader))
-                except Exception:
-                    break
-            images, labels = fixed_batch
-        else:
-            try:
-                step, (images, labels) = next(step_iter := (step_iterable if 'step_iter' in locals() else iter(train_loader)))
-                step_iterable = step_iter
-            except StopIteration:
-                break
-        step = (epoch * len(train_loader)) + step_count
-        step_count += 1
-        if use_fixed and step_count > steps_limit:
-            break
+    for step, (images, labels) in enumerate((train_loader), start=epoch * len(train_loader)):
         # detect two-crop before any concatenation
         twocrop = isinstance(images, (list, tuple)) and len(images) == 2
 
@@ -125,6 +102,8 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
         nr_out = None
         centers_shape = None
         p_shape = None
+        proto_count = None
+        fproto_sim = None
         if scaler:
             with torch.cuda.amp.autocast():
                 if args.fine_tune:
@@ -161,96 +140,82 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                     # no retained samples: zero PALM loss but keep keys consistent
                     loss = features.sum() * 0.0
                     l_dict = {'mle': 0.0, 'proto_contra': 0.0}
-                # add Mahalanobis forgetting loss if configured
-                if getattr(args, 'forget_lambda', 0) > 0 and (getattr(args, 'centers', None) is not None) and (getattr(args, 'precision', None) is not None):
-                    # parse forget classes set
-                    forget_classes = set()
-                    if getattr(args, 'forget_classes', None):
-                        forget_classes |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
-                    elif getattr(args, 'forget_list_path', None) and os.path.exists(args.forget_list_path):
-                        try:
-                            import json
-                            with open(args.forget_list_path) as f:
-                                data = f.read().strip()
-                                try:
-                                    arr = json.loads(data)
-                                except Exception:
-                                    arr = [int(line) for line in data.splitlines() if line.strip()!='']
-                                forget_classes |= set(int(x) for x in arr)
-                        except Exception:
-                            pass
-                    # initialize forget component value
-                    forget_term = 0.0
+                # Prototype-based forgetting loss on 128-D hypersphere (push away from retained-class prototypes)
+                if getattr(args, 'forget_lambda', 0) > 0 and forget_mask.any():
+                    # Determine class count and cache size from criterion
+                    C = int(getattr(criterion, 'num_classes', 0) or labels.max().item() + 1)
+                    R = int(getattr(criterion, 'cache_size', getattr(args, 'cache_size', 1)))
+                    # Build retained class list
                     if len(forget_classes) > 0:
-                        # select center set
-                        centers = args.centers
-                        if str(getattr(args, 'forget_center_set','all')) == 'retain':
-                            retain_idx = [i for i in range(centers.shape[0]) if i not in forget_classes]
-                            centers = centers[retain_idx]
-                        try:
-                            centers_shape = f"{centers.shape[0]}x{centers.shape[1]}"
-                        except Exception:
-                            centers_shape = None
-                        # Always use encoder space (512-D) for forgetting term to match centers
-                        enc_feats = model.encoder(images)
-                        if twocrop:
-                            f1e, _ = torch.split(enc_feats, [bsz, bsz], dim=0)
-                            feats = f1e
-                        else:
-                            feats = enc_feats
-                        # use forget subset for forgetting term
-                        if forget_mask.any():
-                            feats_f = feats[forget_mask]
-                            # compute Mahalanobis distance (float32, stabilized)
-                            with torch.cuda.amp.autocast(False):
-                                feats32 = feats_f.to(dtype=torch.float32)
-                                centers32 = centers.to(device=feats32.device, dtype=torch.float32)
-                                P32 = args.precision.to(device=feats32.device, dtype=torch.float32)
-                                # symmetrize and regularize precision
-                                P32 = 0.5 * (P32 + P32.t())
-                                eps = 1e-3
-                                I = torch.eye(P32.shape[0], device=P32.device, dtype=P32.dtype)
-                                P32_reg = P32 + eps * I
-                                try:
-                                    L = torch.linalg.cholesky(P32_reg)
-                                except Exception:
-                                    # escalate regularization then fall back to eigen if needed
-                                    try:
-                                        L = torch.linalg.cholesky(P32 + 1e-1 * I)
-                                    except Exception:
-                                        evals, evecs = torch.linalg.eigh(P32_reg)
-                                        evals = torch.clamp(evals, min=1e-6)
-                                        L = (evecs @ torch.diag(torch.sqrt(evals)) @ evecs.t())
-                                try:
-                                    p_shape = f"{P32.shape[0]}x{P32.shape[1]}"
-                                except Exception:
-                                    p_shape = None
-                                # whitened diff: z = (x-μ) @ L^T (since P = L L^T)
-                                diff32 = feats32[:, None, :] - centers32[None, :, :]
-                                z = torch.einsum('bnd,fd->bnf', diff32, L.t())
-                                md2 = (z * z).sum(dim=-1)
-                                md2 = torch.nan_to_num(md2, posinf=1e6, neginf=1e6).clamp_max(1e6)
-                                dmin = torch.min(md2, dim=1)[0].mean()
-                                # normalize by feature dim to keep scale comparable
-                                dmin = dmin / float(centers32.shape[1])
-                                try:
-                                    dmin_norm_value = float(dmin.detach().item())
-                                except Exception:
-                                    dmin_norm_value = None
+                        retain_classes = torch.tensor([c for c in range(C) if c not in forget_classes], device=labels.device, dtype=torch.long)
+                    else:
+                        retain_classes = torch.arange(C, device=labels.device, dtype=torch.long)
+                    if retain_classes.numel() > 0:
+                        # Map (replicas x classes) into flat prototype indices: idx = r*C + c
+                        r_offsets = (torch.arange(R, device=labels.device, dtype=torch.long).view(-1, 1) * C)
+                        proto_idx = (r_offsets + retain_classes.view(1, -1)).reshape(-1)
+                        P = getattr(criterion, 'protos', None)
+                        if P is not None:
+                            P = F.normalize(P.detach(), dim=1)
+                            P = P.index_select(0, proto_idx)
                             try:
-                                dmin_value = float(dmin.detach().item())
+                                proto_count = int(P.shape[0])
                             except Exception:
-                                dmin_value = None
-                            # hinge: L_forget = lambda_f * ReLU(margin - dmin_norm)
-                            margin = float(getattr(args, 'forget_margin', 3.0))
-                            forget_hinge = torch.relu(torch.as_tensor(margin, device=dmin.device, dtype=dmin.dtype) - dmin)
-                            forget_term = args.forget_lambda * forget_hinge
-                            loss = loss + forget_term
-                    # always report forget term (0 if none)
-                    try:
-                        l_dict['forget'] = float(forget_term.detach().item() if hasattr(forget_term, 'detach') else forget_term)
-                    except Exception:
+                                proto_count = None
+                            # aggregate multi-views then renormalize to unit sphere
+                            feats_mean = F.normalize(features.mean(dim=1), dim=-1)
+                            feats_f = feats_mean[forget_mask]
+                            if feats_f.numel() > 0:
+                                # cosine similarities to retained prototypes
+                                sim = torch.matmul(feats_f, P.t())
+                                temp_f = float(getattr(args, 'temp', 0.1))
+                                forget_term = args.forget_lambda * torch.logsumexp(sim / temp_f, dim=1).mean()
+                                loss = loss + forget_term
+                                try:
+                                    l_dict['forget'] = float(forget_term.detach().item())
+                                except Exception:
+                                    l_dict['forget'] = 0.0
+                            else:
+                                l_dict['forget'] = 0.0
+                        else:
+                            l_dict['forget'] = 0.0
+                    else:
                         l_dict['forget'] = 0.0
+
+                # Optional: batch-level forget prototype (non-persistent)
+                if bool(getattr(args, 'forget_proto_enable', False)) and forget_mask.any():
+                    # compute batch forget prototype on sphere
+                    feats_mean = F.normalize(features.mean(dim=1), dim=-1)
+                    f_feats = feats_mean[forget_mask]
+                    if f_feats.numel() > 0:
+                        f_proto = F.normalize(f_feats.mean(dim=0, keepdim=True), dim=-1)  # [1, D]
+                        # attraction: bring forget samples closer to f_proto
+                        # use negative cosine (1 - cos) minimized => maximize cos
+                        cos_to_f = torch.matmul(f_feats, f_proto.t()).squeeze(1)  # [N_f]
+                        f_attr_w = float(getattr(args, 'forget_attr_w', 1.0))
+                        f_attr = args.forget_lambda * f_attr_w * (-cos_to_f.mean())
+                        loss = loss + f_attr
+                        # repulsion: push f_proto away from retained prototypes
+                        C = int(getattr(criterion, 'num_classes', 0) or labels.max().item() + 1)
+                        R = int(getattr(criterion, 'cache_size', getattr(args, 'cache_size', 1)))
+                        if C > 0 and R > 0 and hasattr(criterion, 'protos') and criterion.protos is not None:
+                            retain_classes = torch.tensor([c for c in range(C) if c not in set(map(int, fcls.tolist()))] if len(forget_classes)>0 else list(range(C)), device=labels.device, dtype=torch.long)
+                            if retain_classes.numel() > 0:
+                                r_offsets = (torch.arange(R, device=labels.device, dtype=torch.long).view(-1, 1) * C)
+                                proto_idx = (r_offsets + retain_classes.view(1, -1)).reshape(-1)
+                                P = F.normalize(criterion.protos.detach(), dim=1).index_select(0, proto_idx)
+                                # want f_proto far from retain protos -> minimize logsumexp(cos/ T) with negative sign (i.e., maximize negative cos)
+                                temp_f = float(getattr(args, 'temp', 0.1))
+                                sim_fp = torch.matmul(f_proto, P.t()).squeeze(0)  # [K_r]
+                                f_rep_w = float(getattr(args, 'forget_proto_rep_w', 1.0))
+                                # repulsion term: +lambda * logsumexp(sim/T) to push sims down; but here we treat f_proto as variable-less, so we use negative to reduce cos
+                                # use simple mean(sim) as surrogate since f_proto not a parameter; we backprop through features via f_proto dependency
+                                f_rep = args.forget_lambda * f_rep_w * torch.logsumexp(sim_fp / temp_f, dim=0)
+                                loss = loss + f_rep
+                                try:
+                                    fproto_sim = float(sim_fp.mean().detach().item())
+                                except Exception:
+                                    fproto_sim = None
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             old_scale = scaler.get_scale()
@@ -275,7 +240,7 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
             mle_v = l_dict.get('mle', 0.0)
             pcon_v = l_dict.get('proto_contra', 0.0)
             f_v = l_dict.get('forget', 0.0)
-            extra = f" nr={nr_out} nf={nf_out} centers={centers_shape} P={p_shape} dmin_norm={dmin_norm_value if dmin_norm_value is not None else 'NA'}"
+            extra = f" nr={nr_out} nf={nf_out} protos={proto_count} fproto_sim={fproto_sim if fproto_sim is not None else 'NA'}"
             print(f"[loss] ep {epoch} it {it} total={loss.item():.4f} mle={float(mle_v):.4f} pcon={float(pcon_v):.4f} forget={float(f_v):.4f}{extra}")
             
     for k in sub_loss.keys():

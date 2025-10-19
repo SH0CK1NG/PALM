@@ -194,6 +194,16 @@ class CIFAR110Dataset(torch.utils.data.Dataset):
             selected_indices.extend(cls_idx[:per_class].tolist())
         self.c10_subset_indices = np.array(selected_indices, dtype=np.int64)
 
+        # build combined targets aligned with dataset indexing
+        labels100 = getattr(self.cifar100, 'targets', None)
+        if labels100 is None:
+            labels100 = getattr(self.cifar100, 'labels', None)
+        if labels100 is None:
+            labels100 = getattr(self.cifar100, 'train_labels' if train else 'test_labels', None)
+        labels100 = np.array(labels100, dtype=np.int64)
+        selected_targets10 = labels10[self.c10_subset_indices] + 100
+        self.targets = np.concatenate([labels100, selected_targets10], axis=0).tolist()
+
         self.len_cifar10 = len(self.c10_subset_indices)
         self.total_len = self.len_cifar100 + self.len_cifar10
 
@@ -391,8 +401,32 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             trainset = CIFAR110Dataset(
                 root=base_dir, train=True, transform=transform_train
             )
-            train_loader = torch.utils.data.DataLoader(
-                trainset, batch_size=args.batch_size, shuffle=True, **kwargs)
+            # enable balanced/proportional/retain-only sampling if requested and forget classes specified
+            forget_set = set()
+            if getattr(args, 'forget_classes', None):
+                forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
+            mode = str(getattr(args, 'batch_forget_mode', 'none'))
+            if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
+                if mode == 'balanced':
+                    num_batches = len(trainset) // args.batch_size
+                    batch_sampler = BalancedBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
+                    train_loader = torch.utils.data.DataLoader(
+                        trainset, batch_sampler=batch_sampler, **kwargs)
+                elif mode == 'proportional':
+                    num_batches = len(trainset) // args.batch_size
+                    batch_sampler = ProportionalBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
+                    train_loader = torch.utils.data.DataLoader(
+                        trainset, batch_sampler=batch_sampler, **kwargs)
+                elif mode == 'retain_only':
+                    targets = np.array(list(trainset.targets), dtype=np.int64)
+                    mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+                    retain_idx = np.where(~mask_forget)[0].tolist()
+                    subset = torch.utils.data.Subset(trainset, retain_idx)
+                    train_loader = torch.utils.data.DataLoader(
+                        subset, batch_size=args.batch_size, shuffle=True, **kwargs)
+            else:
+                train_loader = torch.utils.data.DataLoader(
+                    trainset, batch_size=args.batch_size, shuffle=True, **kwargs)
         if 'val' in split:
             valset = CIFAR110Dataset(
                 root=base_dir, train=False, transform=transform_test

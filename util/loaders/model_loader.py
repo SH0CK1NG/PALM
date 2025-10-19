@@ -3,7 +3,7 @@ import torch.nn as nn
 from util.loss_functions import *
 from torch.optim.lr_scheduler import MultiStepLR
 from models.resnet import  SupCEResNet, PALMResNet
-from util.lora import apply_lora_to_resnet_head, apply_lora_to_resnet_layer4, load_lora_state_dict
+from util.lora import apply_lora_to_resnet_head, apply_lora_to_resnet_layer4, apply_lora_to_resnet_layers, load_lora_state_dict
 from util.peft_utils import is_peft_available, apply_peft_lora_to_model, load_peft_adapter
 
 def get_model(args, num_classes, load_ckpt=True):
@@ -61,12 +61,14 @@ def get_model(args, num_classes, load_ckpt=True):
         # Fallback to custom lightweight LoRA
         if not applied:
             applied_head = False
-            applied_layer4 = False
-            if target in ['head', 'both']:
+            applied_encoder = False
+            if target in ['head', 'both', 'both_all']:
                 applied_head = apply_lora_to_resnet_head(model, r=r, alpha=alpha, dropout=dropout)
             if target in ['encoder', 'both']:
-                applied_layer4 = apply_lora_to_resnet_layer4(model, r=r, alpha=alpha, dropout=dropout)
-            applied = applied_head or applied_layer4
+                applied_encoder = apply_lora_to_resnet_layer4(model, r=r, alpha=alpha, dropout=dropout)
+            if target in ['encoder_all', 'both_all']:
+                applied_encoder = apply_lora_to_resnet_layers(model, layers=[1,2,3,4], r=r, alpha=alpha, dropout=dropout) or applied_encoder
+            applied = applied_head or applied_encoder
             if applied:
                 model.train()
                 # freeze all non-LoRA params by default when using LoRA

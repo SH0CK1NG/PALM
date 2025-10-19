@@ -68,8 +68,7 @@ def eval_maha(args):
         if np.any(idx):
             centers_ssd[c] = ftrain_ssd[idx].mean(axis=0)
 
-    # 只使用保留类中心或全部类中心
-    use_center_set = str(getattr(args, 'forget_center_set', 'all'))
+    # 当存在遗忘类时，一律仅使用保留类中心
     forget_csv = getattr(args, 'forget_classes', None)
     forget_list_path = getattr(args, 'forget_list_path', None)
     forget_classes = []
@@ -86,7 +85,8 @@ def eval_maha(args):
         except Exception:
             forget_classes = []
     retain_mask = np.ones((C,), dtype=bool)
-    if use_center_set == 'retain' and len(forget_classes) > 0:
+    if len(forget_classes) > 0:
+        # 始终丢弃遗忘类中心，仅保留 retain 类中心
         forget_classes = [x for x in forget_classes if 0 <= x < C]
         if len(forget_classes) > 0:
             retain_mask[np.array(forget_classes, dtype=int)] = False

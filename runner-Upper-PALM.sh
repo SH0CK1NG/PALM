@@ -6,10 +6,10 @@ id=CIFAR-100
 ood="SVHN places365 LSUN iSUN dtd"
 
 # training info
-batch=128
-epochs=100
-lr=0.001
-wd=1e-4
+batch=512
+epochs=500
+lr=0.5
+wd=1e-6
 
 backbone=resnet34
 pcon=1.

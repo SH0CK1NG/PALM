@@ -151,3 +151,27 @@ def apply_lora_to_resnet_layer4(model: nn.Module, r: int, alpha: int, dropout: f
     return replaced
 
 
+
+def apply_lora_to_resnet_layers(model: nn.Module, layers: list, r: int, alpha: int, dropout: float) -> bool:
+    """Wrap conv layers in encoder.layer{layers} blocks with LoRAConv2d.
+    layers: list of ints among [1,2,3,4]
+    Returns True if any layer replaced.
+    """
+    replaced = False
+    if not hasattr(model, 'encoder'):
+        return False
+    for li in layers:
+        name = f"layer{li}"
+        layer = getattr(model.encoder, name, None)
+        if layer is None:
+            continue
+        for block in layer:
+            for conv_name in ['conv1', 'conv2', 'conv3']:
+                if hasattr(block, conv_name):
+                    conv = getattr(block, conv_name)
+                    if isinstance(conv, nn.Conv2d):
+                        wrapped = LoRAConv2d(conv, r=r, alpha=alpha, dropout=dropout)
+                        setattr(block, conv_name, wrapped)
+                        replaced = True
+    return replaced
+

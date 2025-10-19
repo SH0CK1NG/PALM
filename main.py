@@ -19,7 +19,9 @@ def main():
 
     train_loader, num_classes = get_loader_in(args, split='train')
 
-    model, criterion = set_model(args, num_classes, load_ckpt=False)
+    # load pretrained model/criterion (including prototypes) when load-path is provided
+    load_pretrained = bool(getattr(args, 'load_path', None))
+    model, criterion = set_model(args, num_classes, load_ckpt=load_pretrained)
     model.to(device)
     model.encoder.to(device)
     criterion.to(device)

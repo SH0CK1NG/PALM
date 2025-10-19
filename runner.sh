@@ -3,10 +3,10 @@ id=CIFAR-100
 ood="SVHN places365 LSUN iSUN dtd"
 
 # training info
-batch=512
-epochs=5
-lr=0.5
-wd=1e-6
+batch=128
+epochs=100
+lr=0.001
+wd=1e-4
 
 backbone=resnet34
 pcon=1.
@@ -19,31 +19,41 @@ cache=6
 method=top$k-palm-cache$cache-ema$m
 
 # base pretrained checkpoint (CIFAR-100)
-pretrain_ckpt=/home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+pretrain_ckpt=checkpoints/$id-$backbone-$method-with-prototypes.pt
 
-# centers/precision (from compute_centers.py for CIFAR-100)
-center_dir=cache/resnet34-$method/$id
-centers_path=$center_dir/class_centers.pt
-precision_path=$center_dir/precision.pt
+# # centers/precision (from compute_centers.py for CIFAR-100)
+# center_dir=cache/resnet34-$method/$id
+# centers_path=$center_dir/class_centers.pt
+# precision_path=$center_dir/precision.pt
 
 # forget first 10 classes (0-9) as example; editable
-forget_csv="0,1,2,3,4,5,6,7,8,9"
-forget_center_set="retain"
-forget_lambda=0.1
+# #Plan B
+# forget_csv="0,8,11,40,51,66,67,88,94,100" 
+#CIFAR100 Plan B
+forget_csv="0,8,11,40,51,66,67,88,94,57" 
+# forget_center_set="retain"
+forget_lambda=1
 lora_r=8
 lora_alpha=32
 lora_dropout=0.05
-# where to inject lora: head|encoder|both
+# where to inject lora: head|encoder|both|encoder_all|both_all
 lora_target=both
 # per-batch forget/retain composition: none|balanced|proportional
 batch_forget_mode=balanced
-# where to save adapter only (PEFT uses a directory)
-adapter_path=checkpoints/${id}-${backbone}-${method}-${batch_forget_mode}-${forget_center_set}-${forget_lambda}-0to9-${lora_target}_adapter
 
+forget_attr_w=4
+forget_proto_rep_w=4
 
+temp=0.08
 
 # tag method for evaluation to avoid overwriting outputs (embed key hparams)
-method_tag=${method}-lt${lora_target}-bfm${batch_forget_mode}-fcs${forget_center_set}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}
+method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}
+# method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-fa${forget_attr_w}-fpr${forget_proto_rep_w}-temp${temp}
+
+# where to save adapter only (PEFT uses a directory)
+adapter_path=checkpoints/${id}-${backbone}-${method_tag}-planB_adapter
+# adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_proto_enable-planB_adapter
+
 
 # # 0) recompute class centers/precision every run to ensure availability/consistency
 # python compute_centers.py \
@@ -62,8 +72,19 @@ method_tag=${method}-lt${lora_target}-bfm${batch_forget_mode}-fcs${forget_center
 #   --batch_forget_mode $batch_forget_mode \
 #   --adapter_save_path $adapter_path --forget_margin 100
 
+# train with LoRA adapters only (base frozen), prototype-based forgetting on hypersphere (no centers/precision)
+python main.py --in-dataset $id --backbone $backbone --method $method \
+  --epochs $epochs --load-path $pretrain_ckpt -b $batch --lr $lr --wd $wd \
+  --cache-size $cache --lambda_pcon $pcon --proto_m $m --k $k \
+  --use_lora --lora_impl peft --lora_r $lora_r --lora_alpha $lora_alpha --lora_dropout $lora_dropout --lora_target $lora_target \
+  --forget_classes $forget_csv --forget_lambda $forget_lambda \
+  --batch_forget_mode $batch_forget_mode \
+  --temp $temp \
+  --adapter_save_path $adapter_path 
+  # --forget_proto_enable --forget_attr_w $forget_attr_w --forget_proto_rep_w $forget_proto_rep_w
+
 # evaluate with base ckpt + adapter
 score="mahalanobis"
-bash eval.sh $id "$ood" $backbone $method_tag $pretrain_ckpt $score $cache 0 $adapter_path "$forget_csv" "" "$forget_center_set" "$forget_lambda" "$lora_r" "$lora_alpha" "$lora_dropout" "$lora_target" --umap_enable  --umap_rf_only
+bash eval.sh $id "$ood" $backbone $method_tag $pretrain_ckpt $score $cache 0 $adapter_path "$forget_csv" "" "$forget_lambda" "$lora_r" "$lora_alpha" "$lora_dropout" "$lora_target" --umap_enable  --umap_rf_only
 
 # # CUDA_VISIBLE_DEVICES=0 nohup bash runner.sh > logs/runner_$(date +%F_%H%M).log 2>&1 &
