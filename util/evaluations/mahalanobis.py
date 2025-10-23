@@ -128,7 +128,7 @@ def eval_maha(args):
     else:
         dtest = maha_score_min_class(ftest_ssd)
 
-    # 评估 OOD：包含原 args.out_datasets 以及（若有）forget 作为额外 OOD
+    # 评估 OOD：仅包含 args.out_datasets（不再加入 forget）
     eval_names = list(args.out_datasets)
     all_results = []
     for name, food in food_ssd_all.items():
@@ -139,20 +139,11 @@ def eval_maha(args):
         plot_kde(dtest, dood, id_label=f"{args.in_dataset}-retain" if len(forget_classes)>0 else args.in_dataset, ood_label=name,
             title='KDE of OOD Score', save_path='evaluation_results/'+name+'-'+args.in_dataset+'-'+args.backbone+'-'+args.method+'-'+'kde_scores.png')
 
-    # 将 forget 作为一个 OOD 源加入评估
-    if len(forget_classes) > 0:
-        name = 'forget'
-        print(f"Evaluating {name}")
-        dood = maha_score_min_class(ftest_ssd[fmask])
-        results = metrics.cal_metric(dtest, dood)
-        all_results.append(results)
-        eval_names.append(name)
-        plot_kde(dtest, dood, id_label=f"{args.in_dataset}-retain", ood_label=name,
-            title='KDE of OOD Score', save_path='evaluation_results/'+name+'-'+args.in_dataset+'-'+args.backbone+'-'+args.method+'-'+'kde_scores.png')
+    # 不再将 forget 作为额外 OOD 源加入评估/CSV（保留下方单独打印 Forget-as-OOD 指标）
 
     metrics.print_all_results(all_results, eval_names, 'SSD+')
-    # === Forget/Retain split Acc 与 Forget-as-OOD 指标（同时输出） ===
-    # 若提供 forget_classes，则在 val 上拆分并输出 Forget-Acc/Retain-Acc，且把 Forget 当作 OOD、Retain 当作 ID 评估 OOD 指标
+    # === Retain-Acc 与 Forget-as-OOD 指标（不再评估 Forget-Acc） ===
+    # 若提供 forget_classes，则在 val 上仅计算并输出 Retain-Acc，且把 Forget 当作 OOD、Retain 当作 ID 评估 OOD 指标
     if len(forget_classes) > 0:
         # 最近类中心分类（基于训练特征按类均值中心）
         C = int(label_log.max()) + 1
@@ -162,13 +153,19 @@ def eval_maha(args):
             idx = (label_log == c)
             if np.any(idx):
                 centers[c] = ftrain[idx].mean(axis=0)
-        # 余弦距离最近中心
+        # 余弦距离最近中心（仅统计保留类精度）
         ftest_n = ftest / (np.linalg.norm(ftest, axis=1, keepdims=True) + 1e-10)
         centers_n = centers / (np.linalg.norm(centers, axis=1, keepdims=True) + 1e-10)
         sims = ftest_n @ centers_n.T
         preds = np.argmax(sims, axis=1)
-        forget_acc, retain_acc = metrics.split_acc_by_classes(label_log_val, preds, forget_classes)
-        print(f"Forget-Acc: {forget_acc:.4f} | Retain-Acc: {retain_acc:.4f}")
+        retain_idx = ~fmask
+        if retain_idx.sum() > 0:
+            retain_acc = np.mean(preds[retain_idx] == label_log_val[retain_idx])
+            print(f"Retain-Acc: {retain_acc:.4f}")
+            try:
+                setattr(args, 'retain_acc', float(retain_acc))
+            except Exception:
+                pass
         # Forget-as-OOD: retain 作为 known，forget 作为 novel（与上面 forget OOD 结果一致）
         # 这里复用 retain 的 ID 分布分数 dtest，以及 forget 的 dood
         forget_scores = maha_score_min_class(ftest_ssd[fmask])
@@ -176,6 +173,12 @@ def eval_maha(args):
         fr_results = metrics.cal_metric(retain_scores, forget_scores)
         print('Forget-as-OOD (retain known vs forget novel):')
         print(f"  FPR: {100.*fr_results['FPR']:.2f} AUROC: {100.*fr_results['AUROC']:.2f} AUIN: {100.*fr_results['AUIN']:.2f}")
+        # expose forget metrics to CSV writer (we do not append to results anymore)
+        try:
+            setattr(args, 'forget_fpr', float(fr_results['FPR']))
+            setattr(args, 'forget_auroc', float(fr_results['AUROC']))
+        except Exception:
+            pass
     args.score = "mahalanobis"
     write_csv(args, all_results)
     print(time.time() - begin)

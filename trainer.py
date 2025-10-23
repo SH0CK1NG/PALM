@@ -17,10 +17,15 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
         # detect two-crop before any concatenation
         twocrop = isinstance(images, (list, tuple)) and len(images) == 2
 
-        # parse forget classes set (CPU tensors here)
-        forget_classes = set()
+        # parse forget classes sets (CPU tensors here)
+        # - forget_classes: full set to forget across all stages
+        # - forget_classes_inc: stage-local forget set
+        # - forget_classes_seen: already forgotten in previous stages (should be excluded from retain set)
+        forget_all: set = set()
+        forget_inc: set = set()
+        forget_seen: set = set()
         if getattr(args, 'forget_classes', None):
-            forget_classes |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
+            forget_all |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
         elif getattr(args, 'forget_list_path', None) and os.path.exists(args.forget_list_path):
             try:
                 import json
@@ -30,13 +35,37 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                         arr = json.loads(data)
                     except Exception:
                         arr = [int(line) for line in data.splitlines() if line.strip()!='']
-                    forget_classes |= set(int(x) for x in arr)
+                    forget_all |= set(int(x) for x in arr)
             except Exception:
                 pass
-        if len(forget_classes) > 0:
-            fcls_cpu = torch.tensor(sorted(list(forget_classes)))
-            forget_mask_cpu = (labels.view(-1, 1) == fcls_cpu.view(1, -1)).any(dim=1)
-            retain_mask_cpu = ~forget_mask_cpu
+        if getattr(args, 'forget_classes_inc', None):
+            forget_inc |= set(int(x) for x in str(args.forget_classes_inc).split(',') if x!='')
+        if getattr(args, 'forget_classes_seen', None):
+            forget_seen |= set(int(x) for x in str(args.forget_classes_seen).split(',') if x!='')
+
+        # Build masks
+        if len(forget_all) > 0 or len(forget_inc) > 0 or len(forget_seen) > 0:
+            f_all = torch.tensor(sorted(list(forget_all)), dtype=torch.long) if len(forget_all)>0 else None
+            f_inc = torch.tensor(sorted(list(forget_inc)), dtype=torch.long) if len(forget_inc)>0 else None
+            f_seen = torch.tensor(sorted(list(forget_seen)), dtype=torch.long) if len(forget_seen)>0 else None
+            # Current stage forget mask matches forget_inc; if empty, fall back to intersection with forget_all
+            if f_inc is not None and f_inc.numel()>0:
+                forget_mask_cpu = (labels.view(-1,1) == f_inc.view(1,-1)).any(dim=1)
+            elif f_all is not None and f_all.numel()>0:
+                forget_mask_cpu = (labels.view(-1,1) == f_all.view(1,-1)).any(dim=1)
+            else:
+                forget_mask_cpu = torch.zeros(labels.shape[0], dtype=torch.bool)
+            # Retain excludes all seen (past) and current incremental forget classes
+            # 保留集需要包含未来阶段要遗忘的类，因此不应排除 forget_all 中尚未进入的类别
+            excl = set()
+            excl |= forget_seen
+            excl |= forget_inc if len(forget_inc)>0 else set()
+            if len(excl) > 0:
+                excl_t = torch.tensor(sorted(list(excl)), dtype=torch.long)
+                exclude_mask = (labels.view(-1,1) == excl_t.view(1,-1)).any(dim=1)
+                retain_mask_cpu = ~exclude_mask
+            else:
+                retain_mask_cpu = torch.ones(labels.shape[0], dtype=torch.bool)
         else:
             forget_mask_cpu = torch.zeros(labels.shape[0], dtype=torch.bool)
             retain_mask_cpu = torch.ones(labels.shape[0], dtype=torch.bool)
@@ -116,11 +145,27 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                 else:
                     features = features.unsqueeze(1)
 
-                # compute retain/forget masks on selected labels (for restricting L_PALM to retained samples)
-                if len(forget_classes) > 0:
-                    fcls = torch.tensor(sorted(list(forget_classes)), device=labels.device)
-                    forget_mask = (labels.unsqueeze(1) == fcls.unsqueeze(0)).any(dim=1)
-                    retain_mask = ~forget_mask
+                # compute retain/forget masks on selected labels (GPU tensors)
+                if len(forget_all) > 0 or len(forget_inc) > 0 or len(forget_seen) > 0:
+                    f_inc_gpu = torch.tensor(sorted(list(forget_inc)), device=labels.device) if len(forget_inc)>0 else None
+                    f_all_gpu = torch.tensor(sorted(list(forget_all)), device=labels.device) if len(forget_all)>0 else None
+                    f_seen_gpu = torch.tensor(sorted(list(forget_seen)), device=labels.device) if len(forget_seen)>0 else None
+                    if f_inc_gpu is not None and f_inc_gpu.numel()>0:
+                        forget_mask = (labels.unsqueeze(1) == f_inc_gpu.unsqueeze(0)).any(dim=1)
+                    elif f_all_gpu is not None and f_all_gpu.numel()>0:
+                        forget_mask = (labels.unsqueeze(1) == f_all_gpu.unsqueeze(0)).any(dim=1)
+                    else:
+                        forget_mask = torch.zeros(labels.shape[0], dtype=torch.bool, device=labels.device)
+                    excl = set()
+                    excl |= forget_seen
+                    if len(forget_inc)>0:
+                        excl |= forget_inc
+                    if len(excl) > 0:
+                        excl_gpu = torch.tensor(sorted(list(excl)), device=labels.device)
+                        exclude_mask = (labels.unsqueeze(1) == excl_gpu.unsqueeze(0)).any(dim=1)
+                        retain_mask = ~exclude_mask
+                    else:
+                        retain_mask = torch.ones(labels.shape[0], dtype=torch.bool, device=labels.device)
                 else:
                     forget_mask = torch.zeros(labels.shape[0], dtype=torch.bool, device=labels.device)
                     retain_mask = torch.ones(labels.shape[0], dtype=torch.bool, device=labels.device)
@@ -145,11 +190,12 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                     # Determine class count and cache size from criterion
                     C = int(getattr(criterion, 'num_classes', 0) or labels.max().item() + 1)
                     R = int(getattr(criterion, 'cache_size', getattr(args, 'cache_size', 1)))
-                    # Build retained class list
-                    if len(forget_classes) > 0:
-                        retain_classes = torch.tensor([c for c in range(C) if c not in forget_classes], device=labels.device, dtype=torch.long)
-                    else:
-                        retain_classes = torch.arange(C, device=labels.device, dtype=torch.long)
+                    # Build retained class list: exclude seen + current incremental forget; include future-to-forget classes
+                    excl2 = set()
+                    excl2 |= forget_seen
+                    if len(forget_inc) > 0:
+                        excl2 |= forget_inc
+                    retain_classes = torch.tensor([c for c in range(C) if c not in excl2], device=labels.device, dtype=torch.long)
                     if retain_classes.numel() > 0:
                         # Map (replicas x classes) into flat prototype indices: idx = r*C + c
                         r_offsets = (torch.arange(R, device=labels.device, dtype=torch.long).view(-1, 1) * C)
@@ -175,8 +221,25 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                                     l_dict['forget'] = float(forget_term.detach().item())
                                 except Exception:
                                     l_dict['forget'] = 0.0
+                                # Optional: push forget samples away from the average prototype of retained classes
+                                if bool(getattr(args, 'forget_avgproto_enable', False)):
+                                    # compute average of retained-class prototypes (across replicas and classes)
+                                    P_avg = P.mean(dim=0, keepdim=True)  # [1, D]
+                                    P_avg = F.normalize(P_avg, dim=1)
+                                    # cosine sim between forget features and average proto
+                                    sim_avg = torch.matmul(feats_f, P_avg.t()).squeeze(1)  # [N_f]
+                                    w_avg = float(getattr(args, 'forget_avgproto_w', 1.0))
+                                    # use sample-wise mean instead of logsumexp over samples
+                                    avg_rep_term = args.forget_lambda * w_avg * (sim_avg / temp_f).mean()
+                                    loss = loss + avg_rep_term
+                                    try:
+                                        l_dict['forget_avg'] = float(avg_rep_term.detach().item())
+                                    except Exception:
+                                        l_dict['forget_avg'] = 0.0
                             else:
                                 l_dict['forget'] = 0.0
+                                # keep key for consistent logging even when no forget samples in batch
+                                l_dict['forget_avg'] = 0.0
                         else:
                             l_dict['forget'] = 0.0
                     else:
@@ -199,7 +262,11 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                         C = int(getattr(criterion, 'num_classes', 0) or labels.max().item() + 1)
                         R = int(getattr(criterion, 'cache_size', getattr(args, 'cache_size', 1)))
                         if C > 0 and R > 0 and hasattr(criterion, 'protos') and criterion.protos is not None:
-                            retain_classes = torch.tensor([c for c in range(C) if c not in set(map(int, fcls.tolist()))] if len(forget_classes)>0 else list(range(C)), device=labels.device, dtype=torch.long)
+                            excl2 = set()
+                            excl2 |= forget_seen
+                            if len(forget_inc) > 0:
+                                excl2 |= forget_inc
+                            retain_classes = torch.tensor([c for c in range(C) if c not in excl2], device=labels.device, dtype=torch.long)
                             if retain_classes.numel() > 0:
                                 r_offsets = (torch.arange(R, device=labels.device, dtype=torch.long).view(-1, 1) * C)
                                 proto_idx = (r_offsets + retain_classes.view(1, -1)).reshape(-1)
@@ -240,8 +307,9 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
             mle_v = l_dict.get('mle', 0.0)
             pcon_v = l_dict.get('proto_contra', 0.0)
             f_v = l_dict.get('forget', 0.0)
+            favg_v = l_dict.get('forget_avg', 0.0)
             extra = f" nr={nr_out} nf={nf_out} protos={proto_count} fproto_sim={fproto_sim if fproto_sim is not None else 'NA'}"
-            print(f"[loss] ep {epoch} it {it} total={loss.item():.4f} mle={float(mle_v):.4f} pcon={float(pcon_v):.4f} forget={float(f_v):.4f}{extra}")
+            print(f"[loss] ep {epoch} it {it} total={loss.item():.4f} mle={float(mle_v):.4f} pcon={float(pcon_v):.4f} forget={float(f_v):.4f} favg={float(favg_v):.4f}{extra}")
             
     for k in sub_loss.keys():
         sub_loss[k] = np.mean(sub_loss[k])

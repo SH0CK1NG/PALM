@@ -3,6 +3,7 @@ import torch.nn as nn
 import re
 import types
 from typing import Optional, Tuple, List, Union
+import os
 
 try:
     from peft import LoraConfig, get_peft_model, PeftModel, PeftConfig
@@ -138,5 +139,77 @@ def load_peft_adapter(model: nn.Module, path: str) -> nn.Module:
         peft_model.forward = lambda *args, **kwargs: peft_model.base_model(*args, **kwargs)
     peft_model.set_adapter(cfg.base_model_name_or_path if hasattr(cfg, 'base_model_name_or_path') else "default")
     return peft_model
+
+
+def load_peft_adapters(model: nn.Module, paths: List[str]) -> Tuple[nn.Module, List[str]]:
+    """Load multiple PEFT adapters into a PeftModel with unique names (derived from directory basenames).
+    Returns the model and the list of adapter names loaded.
+    """
+    if not PEFT_AVAILABLE:
+        raise RuntimeError("PEFT is not available; install `peft` package.")
+    if not isinstance(model, PeftModel):
+        raise ValueError("Model is not a PeftModel; call apply_peft_lora_to_model first.")
+    loaded_names: List[str] = []
+    for p in paths:
+        if not p:
+            continue
+        try:
+            base = os.path.basename(os.path.normpath(p))
+            # sanitize name to be adapter-safe
+            name = base.replace('.', '_').replace('-', '_')
+            model.load_adapter(p, adapter_name=name)
+            loaded_names.append(name)
+            print(f"[peft] loaded adapter '{name}' from {p}")
+        except Exception as e:
+            print(f"[peft] failed to load adapter from {p}: {e}")
+    return model, loaded_names
+
+
+def add_trainable_peft_adapter(model: nn.Module, adapter_name: str, target_modules: List[str], r: int, alpha: int, dropout: float) -> nn.Module:
+    """Add a new trainable adapter with given name and target modules to an existing PeftModel."""
+    if not PEFT_AVAILABLE:
+        raise RuntimeError("PEFT is not available; install `peft` package.")
+    if not isinstance(model, PeftModel):
+        raise ValueError("Model is not a PeftModel; call apply_peft_lora_to_model first.")
+    cfg = build_lora_cfg(r=r, alpha=alpha, dropout=dropout, target_modules=target_modules)
+    try:
+        model.add_adapter(adapter_name, cfg)
+        print(f"[peft] added trainable adapter '{adapter_name}'")
+    except Exception as e:
+        print(f"[peft] failed to add adapter '{adapter_name}': {e}")
+    return model
+
+
+def freeze_peft_adapters(model: nn.Module, adapter_names: List[str]):
+    """Freeze LoRA parameters (A/B) for the given adapter names in a PeftModel."""
+    if not isinstance(model, PeftModel):
+        return
+    names_set = set(adapter_names)
+    for n, p in model.named_parameters():
+        # Typical PEFT param names include substrings like '.lora_A.<name>.' or '.lora_B.<name>.'
+        if ('.lora_A.' in n) or ('.lora_B.' in n):
+            for an in names_set:
+                key = f".{an}."
+                if key in n:
+                    p.requires_grad = False
+                    break
+
+
+def set_active_peft_adapters(model: nn.Module, adapter_names: List[str]):
+    """Set active adapters for forward. Tries to activate a list; falls back to the last one if needed."""
+    if not isinstance(model, PeftModel):
+        return
+    try:
+        # Some PEFT versions accept a list to compose adapters
+        model.set_adapter(adapter_names if isinstance(adapter_names, (list, tuple)) else adapter_names)
+        print(f"[peft] active adapters set to: {adapter_names}")
+    except Exception as e:
+        print(f"[peft] set_adapter(list) failed: {e}; fallback to last adapter")
+        if isinstance(adapter_names, (list, tuple)) and len(adapter_names) > 0:
+            try:
+                model.set_adapter(adapter_names[-1])
+                print(f"[peft] active adapter set to: {adapter_names[-1]}")
+            except Exception as ee:
+                print(f"[peft] set_adapter fallback failed: {ee}")
 
 

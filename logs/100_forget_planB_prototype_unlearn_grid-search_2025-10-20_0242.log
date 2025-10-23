@@ -1,0 +1,142 @@
+nohup: ignoring input
+[Phase 1] Searching lambda over: 1.0 0.5 0.2 0.1
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=10, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='/home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=False, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter', adapter_load_path=None, forget_classes='0,8,11,40,51,66,67,88,94,57', forget_list_path=None, forget_lambda=1.0, forget_margin=100.0, centers_path=None, precision_path=None, batch_forget_mode='balanced', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:15<02:16, 15.18s/it] 20%|██        | 2/10 [00:29<01:55, 14.43s/it] 30%|███       | 3/10 [00:43<01:39, 14.21s/it] 40%|████      | 4/10 [00:57<01:24, 14.13s/it] 50%|█████     | 5/10 [01:11<01:10, 14.15s/it] 60%|██████    | 6/10 [01:25<00:56, 14.15s/it] 70%|███████   | 7/10 [01:39<00:42, 14.16s/it] 80%|████████  | 8/10 [01:53<00:28, 14.12s/it][loss] ep 0 it 0 total=13.7430 mle=1.5707 pcon=5.2950 forget=6.8772 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 50 total=13.8372 mle=1.5426 pcon=5.2879 forget=7.0067 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 100 total=13.8511 mle=1.7003 pcon=5.2809 forget=6.8700 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 150 total=14.0220 mle=1.8999 pcon=5.2738 forget=6.8483 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 200 total=13.8931 mle=1.7130 pcon=5.2670 forget=6.9131 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 250 total=13.6540 mle=1.5017 pcon=5.2603 forget=6.8920 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 300 total=13.7233 mle=1.5599 pcon=5.2541 forget=6.9094 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 0 it 350 total=13.8761 mle=1.6807 pcon=5.2476 forget=6.9477 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 1 it 10 total=13.9622 mle=1.6717 pcon=5.2409 forget=7.0496 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 60 total=13.7063 mle=1.6373 pcon=5.2346 forget=6.8344 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 110 total=13.6916 mle=1.5168 pcon=5.2284 forget=6.9464 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 160 total=13.9482 mle=1.7801 pcon=5.2224 forget=6.9456 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 210 total=13.9068 mle=1.7648 pcon=5.2167 forget=6.9253 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 260 total=13.6565 mle=1.6053 pcon=5.2112 forget=6.8400 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 310 total=13.8181 mle=1.7236 pcon=5.2056 forget=6.8889 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 1 it 360 total=13.9235 mle=1.7942 pcon=5.2003 forget=6.9290 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 2 it 20 total=13.6297 mle=1.5529 pcon=5.1950 forget=6.8817 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 70 total=13.8628 mle=1.8882 pcon=5.1899 forget=6.7847 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 120 total=13.8039 mle=1.7422 pcon=5.1846 forget=6.8770 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 170 total=13.5273 mle=1.5267 pcon=5.1796 forget=6.8210 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 220 total=13.6859 mle=1.5857 pcon=5.1745 forget=6.9257 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 270 total=13.9017 mle=1.8835 pcon=5.1698 forget=6.8484 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 320 total=13.5397 mle=1.5915 pcon=5.1651 forget=6.7831 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 2 it 370 total=13.7885 mle=1.8110 pcon=5.1604 forget=6.8171 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 3 it 30 total=13.7064 mle=1.7045 pcon=5.1558 forget=6.8460 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 80 total=13.7124 mle=1.6717 pcon=5.1518 forget=6.8890 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 130 total=13.7350 mle=1.7664 pcon=5.1474 forget=6.8212 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 180 total=13.8674 mle=1.9231 pcon=5.1434 forget=6.8009 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 230 total=13.4988 mle=1.5697 pcon=5.1393 forget=6.7899 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 280 total=13.7428 mle=1.8362 pcon=5.1351 forget=6.7715 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 330 total=13.6960 mle=1.7026 pcon=5.1308 forget=6.8626 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 3 it 380 total=13.6911 mle=1.6955 pcon=5.1272 forget=6.8683 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 4 it 40 total=13.4701 mle=1.6521 pcon=5.1233 forget=6.6946 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 4 it 90 total=13.6126 mle=1.7319 pcon=5.1192 forget=6.7616 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 4 it 140 total=13.5719 mle=1.6523 pcon=5.1155 forget=6.8042 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 4 it 190 total=13.3639 mle=1.4533 pcon=5.1119 forget=6.7987 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 4 it 240 total=13.6077 mle=1.7659 pcon=5.1079 forget=6.7339 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 4 it 290 total=13.3133 mle=1.4893 pcon=5.1042 forget=6.7198 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 4 it 340 total=13.7348 mle=1.8761 pcon=5.1006 forget=6.7582 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 5 it 0 total=13.6936 mle=1.8654 pcon=5.0970 forget=6.7312 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 50 total=13.5490 mle=1.8061 pcon=5.0931 forget=6.6497 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 100 total=13.4057 mle=1.5904 pcon=5.0897 forget=6.7256 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 150 total=13.3919 mle=1.5926 pcon=5.0858 forget=6.7134 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 200 total=13.4123 mle=1.6922 pcon=5.0826 forget=6.6374 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 250 total=13.4548 mle=1.7803 pcon=5.0792 forget=6.5954 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 300 total=13.2877 mle=1.6034 pcon=5.0757 forget=6.6086 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 5 it 350 total=13.4637 mle=1.7398 pcon=5.0724 forget=6.6514 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 6 it 10 total=13.2321 mle=1.4105 pcon=5.0691 forget=6.7525 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 60 total=13.1495 mle=1.5271 pcon=5.0660 forget=6.5564 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 110 total=13.3002 mle=1.5940 pcon=5.0630 forget=6.6432 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 160 total=13.3707 mle=1.6812 pcon=5.0600 forget=6.6295 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 210 total=13.3248 mle=1.6311 pcon=5.0576 forget=6.6362 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 260 total=13.5426 mle=1.7990 pcon=5.0546 forget=6.6890 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 310 total=13.3506 mle=1.5470 pcon=5.0521 forget=6.7514 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 6 it 360 total=13.4057 mle=1.6726 pcon=5.0498 forget=6.6833 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+[loss] ep 7 it 20 total=13.4034 mle=1.6511 pcon=5.0474 forget=6.7049 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 70 total=13.5265 mle=1.7660 pcon=5.0453 forget=6.7151 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 120 total=13.4398 mle=1.6175 pcon=5.0432 forget=6.7791 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 170 total=13.4468 mle=1.5965 pcon=5.0414 forget=6.8089 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 220 total=13.5859 mle=1.6450 pcon=5.0401 forget=6.9008 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 270 total=13.7971 mle=1.7808 pcon=5.0388 forget=6.9776 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 320 total=13.7835 mle=1.7536 pcon=5.0372 forget=6.9927 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 7 it 370 total=13.6789 mle=1.6351 pcon=5.0361 forget=7.0076 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 30 total=13.7226 mle=1.5612 pcon=5.0352 forget=7.1262 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 80 total=13.7310 mle=1.5988 pcon=5.0343 forget=7.0980 nr=64 nf=64 protos=540 fproto_sim=NA
+ 90%|█████████ | 9/10 [02:07<00:14, 14.04s/it]100%|██████████| 10/10 [02:21<00:00, 14.06s/it]100%|██████████| 10/10 [02:21<00:00, 14.16s/it]
+[loss] ep 8 it 130 total=13.6545 mle=1.4971 pcon=5.0331 forget=7.1243 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 180 total=13.8709 mle=1.7136 pcon=5.0322 forget=7.1252 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 230 total=13.6503 mle=1.5295 pcon=5.0314 forget=7.0894 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 280 total=13.7762 mle=1.7033 pcon=5.0302 forget=7.0427 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 330 total=13.8861 mle=1.7308 pcon=5.0286 forget=7.1267 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 8 it 380 total=13.4636 mle=1.4734 pcon=5.0270 forget=6.9632 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 40 total=13.4106 mle=1.6207 pcon=5.0252 forget=6.7647 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 90 total=13.3211 mle=1.6541 pcon=5.0228 forget=6.6442 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 140 total=13.2966 mle=1.8054 pcon=5.0206 forget=6.4706 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 190 total=12.7675 mle=1.5771 pcon=5.0179 forget=6.1725 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 240 total=12.6486 mle=1.5926 pcon=5.0147 forget=6.0413 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 290 total=12.5619 mle=1.5531 pcon=5.0109 forget=5.9978 nr=64 nf=64 protos=540 fproto_sim=NA
+[loss] ep 9 it 340 total=12.5524 mle=1.5804 pcon=5.0074 forget=5.9645 nr=64 nf=64 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] adapter loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1-adapter
+resnet34-top5-palm-cache6-ema0.999-b128-e10-lr0.001-wd1e-4-ltboth-bfmbalanced-fl1.0-lora_r8a32d0.05-temp0.08-phase1: Number of model parameters: 21843904
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<01:54,  3.42it/s]  3%|▎         | 12/391 [00:00<00:09, 38.15it/s]  6%|▌         | 23/391 [00:00<00:06, 60.72it/s]  9%|▊         | 34/391 [00:00<00:04, 75.87it/s] 12%|█▏        | 45/391 [00:00<00:04, 86.10it/s] 14%|█▍        | 56/391 [00:00<00:03, 93.36it/s] 17%|█▋        | 67/391 [00:00<00:03, 97.86it/s] 20%|█▉        | 78/391 [00:01<00:03, 100.65it/s] 23%|██▎       | 89/391 [00:01<00:02, 102.25it/s] 26%|██▌       | 100/391 [00:01<00:02, 103.91it/s] 28%|██▊       | 111/391 [00:01<00:02, 105.07it/s] 31%|███       | 122/391 [00:01<00:02, 105.95it/s] 34%|███▍      | 133/391 [00:01<00:02, 106.64it/s] 37%|███▋      | 144/391 [00:01<00:02, 107.00it/s] 40%|███▉      | 155/391 [00:01<00:02, 107.28it/s] 42%|████▏     | 166/391 [00:01<00:02, 107.51it/s] 45%|████▌     | 177/391 [00:01<00:01, 107.76it/s] 48%|████▊     | 188/391 [00:02<00:01, 107.64it/s] 51%|█████     | 199/391 [00:02<00:01, 107.72it/s] 54%|█████▎    | 210/391 [00:02<00:01, 107.65it/s] 57%|█████▋    | 221/391 [00:02<00:01, 107.61it/s] 59%|█████▉    | 232/391 [00:02<00:01, 106.61it/s] 62%|██████▏   | 243/391 [00:02<00:01, 106.86it/s] 65%|██████▍   | 254/391 [00:02<00:01, 107.05it/s] 68%|██████▊   | 265/391 [00:02<00:01, 107.24it/s] 71%|███████   | 276/391 [00:02<00:01, 107.51it/s] 73%|███████▎  | 287/391 [00:02<00:00, 107.63it/s] 76%|███████▌  | 298/391 [00:03<00:00, 107.58it/s] 79%|███████▉  | 309/391 [00:03<00:00, 107.65it/s] 82%|████████▏ | 320/391 [00:03<00:00, 107.64it/s] 85%|████████▍ | 331/391 [00:03<00:00, 107.15it/s] 87%|████████▋ | 342/391 [00:03<00:00, 107.32it/s] 90%|█████████ | 353/391 [00:03<00:00, 107.50it/s] 93%|█████████▎| 364/391 [00:03<00:00, 107.59it/s] 96%|█████████▌| 375/391 [00:03<00:00, 106.94it/s] 99%|█████████▊| 386/391 [00:03<00:00, 107.72it/s]100%|██████████| 391/391 [00:03<00:00, 98.95it/s] 
+50000 images processed, 4.033136606216431 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:15,  5.08it/s] 15%|█▌        | 12/79 [00:00<00:01, 48.26it/s] 29%|██▉       | 23/79 [00:00<00:00, 70.39it/s] 43%|████▎     | 34/79 [00:00<00:00, 83.43it/s] 57%|█████▋    | 45/79 [00:00<00:00, 91.42it/s] 71%|███████   | 56/79 [00:00<00:00, 96.49it/s] 85%|████████▍ | 67/79 [00:00<00:00, 99.77it/s] 99%|█████████▊| 78/79 [00:00<00:00, 102.49it/s]100%|██████████| 79/79 [00:00<00:00, 81.95it/s] 
+10000 images processed, 0.998478889465332 seconds used
+
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/feature_extract.py", line 125, in <module>
+    out_loader = get_loader_out(args, dataset=ood_dataset, split=('val'), mode='eval')
+  File "/home/shaokun/PALM/util/loaders/data_loader.py", line 474, in get_loader_out
+    val_ood_loader = torch.utils.data.DataLoader(torchvision.datasets.ImageFolder(root=os.path.join(base_dir, val_dataset),transform=transform_test), 
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torchvision/datasets/folder.py", line 309, in __init__
+    super().__init__(
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torchvision/datasets/folder.py", line 144, in __init__
+    classes, class_to_idx = self.find_classes(self.root)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torchvision/datasets/folder.py", line 218, in find_classes
+    return find_classes(directory)
+  File "/home/shaokun/anaconda3/envs/PALM/lib/python3.10/site-packages/torchvision/datasets/folder.py", line 40, in find_classes
+    classes = sorted(entry.name for entry in os.scandir(directory) if entry.is_dir())
+FileNotFoundError: [Errno 2] No such file or directory: './data/inat'

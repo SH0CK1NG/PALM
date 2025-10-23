@@ -4,7 +4,7 @@ ood="SVHN places365 LSUN iSUN dtd"
 
 # training info
 batch=128
-epochs=100
+epochs=50
 lr=0.001
 wd=1e-4
 
@@ -32,7 +32,7 @@ pretrain_ckpt=checkpoints/$id-$backbone-$method-with-prototypes.pt
 #CIFAR100 Plan B
 forget_csv="0,8,11,40,51,66,67,88,94,57" 
 # forget_center_set="retain"
-forget_lambda=1
+forget_lambda=0.2
 lora_r=8
 lora_alpha=32
 lora_dropout=0.05
@@ -46,12 +46,16 @@ forget_proto_rep_w=4
 
 temp=0.08
 
+forget_avgproto_w=1.0
+
 # tag method for evaluation to avoid overwriting outputs (embed key hparams)
-method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}
+# method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}
+method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}-fpw${forget_avgproto_w}
 # method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-fa${forget_attr_w}-fpr${forget_proto_rep_w}-temp${temp}
 
 # where to save adapter only (PEFT uses a directory)
-adapter_path=checkpoints/${id}-${backbone}-${method_tag}-planB_adapter
+# adapter_path=checkpoints/${id}-${backbone}-${method_tag}-planB_adapter
+adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_avgproto_enable-planB_adapter
 # adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_proto_enable-planB_adapter
 
 
@@ -80,7 +84,8 @@ python main.py --in-dataset $id --backbone $backbone --method $method \
   --forget_classes $forget_csv --forget_lambda $forget_lambda \
   --batch_forget_mode $batch_forget_mode \
   --temp $temp \
-  --adapter_save_path $adapter_path 
+  --adapter_save_path $adapter_path \
+  --forget_avgproto_enable --forget_avgproto_w $forget_avgproto_w
   # --forget_proto_enable --forget_attr_w $forget_attr_w --forget_proto_rep_w $forget_proto_rep_w
 
 # evaluate with base ckpt + adapter
