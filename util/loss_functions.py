@@ -23,22 +23,29 @@ class PALM(nn.Module):
         self.proto_m = proto_m
         self.register_buffer("protos", torch.rand(self.n_protos,feat_dim))
         self.protos = F.normalize(self.protos, dim=-1)
+        # global enable switch for PALM loss
+        self.palm_enable = bool(getattr(args, 'palm_enable', True))
         
     def sinkhorn(self, features):
         out = torch.matmul(features, self.protos.detach().T)
-            
-        Q = torch.exp(out.detach() / self.epsilon).t()# Q is K-by-B for consistency with notations from our paper
+
+        # 数值稳定：逐样本减最大值，再指数
+        logits = (out.detach() / self.epsilon)
+        logits = logits - logits.max(dim=1, keepdim=True).values
+        Q = torch.exp(logits).t()  # K-by-B
         B = Q.shape[1]  # number of samples to assign
         K = Q.shape[0] # how many prototypes
 
-        # make the matrix sums to 1
+        # make the matrix sums to 1 with eps 防止除零
         sum_Q = torch.sum(Q)
-        if torch.isinf(sum_Q):
+        if not torch.isfinite(sum_Q):
             self.protos = F.normalize(self.protos, dim=1, p=2)
             out = torch.matmul(features, self.protos.detach().T)
-            Q = torch.exp(out.detach() / self.epsilon).t()# Q is K-by-B for consistency with notations from our paper
+            logits = (out.detach() / self.epsilon)
+            logits = logits - logits.max(dim=1, keepdim=True).values
+            Q = torch.exp(logits).t()
             sum_Q = torch.sum(Q)
-        Q /= sum_Q
+        Q = Q / (sum_Q + 1e-6)
 
         for _ in range(self.sinkhorn_iterations):
             # normalize each row: total weight per prototype must be 1/K
@@ -152,6 +159,14 @@ class PALM(nn.Module):
     def forward(self, features, targets):
         loss = 0
         loss_dict = {}
+
+        if not self.palm_enable:
+            # PALM disabled: return zero loss and skip prototype updates
+            self.protos = self.protos.detach()
+            loss = (features.sum() * 0.0)
+            loss_dict['mle'] = 0.0
+            loss_dict['proto_contra'] = 0.0
+            return loss, loss_dict
 
         g_con = self.mle_loss(features, targets)
         loss += g_con

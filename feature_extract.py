@@ -52,24 +52,17 @@ for split, in_loader in [('train', trainloaderIn), ('val', testloaderIn), ]:
         t0 = time.time()
         ########################################
         features, labels = [], []
-        # optional: split val set into retain(ID) and forget(OOD)
-        forget_csv = getattr(args, 'forget_classes', None)
-        forget_list_path = getattr(args, 'forget_list_path', None)
-        forget_classes = []
-        if split == 'val':
-            if forget_csv:
-                forget_classes = [int(x) for x in str(forget_csv).split(',') if x!='']
-            elif forget_list_path and os.path.exists(forget_list_path):
-                try:
-                    with open(forget_list_path) as f:
-                        data = f.read().strip()
-                        try:
-                            import json
-                            forget_classes = list(map(int, json.loads(data)))
-                        except Exception:
-                            forget_classes = [int(line) for line in data.splitlines() if line.strip()!='']
-                except Exception:
-                    forget_classes = []
+        # optional: split retain/forget with two controls
+        # 1) retain_exclude_csv: classes to EXCLUDE from retain (applies to train/val)
+        # 2) forget_csv: classes to INCLUDE into a separate "forget" cache (val only)
+        retain_exclude_csv = getattr(args, 'retain_exclude_csv', None)
+        forget_csv = getattr(args, 'forget_csv', None)
+        # parse helpers
+        def parse_csv(s):
+            return [int(x) for x in str(s).split(',') if x!='']
+        # 若未显式给 retain_exclude_csv，但给了 forget_csv，则在评估阶段退化为 retain_exclude=forget_csv
+        retain_exclude = parse_csv(retain_exclude_csv) if retain_exclude_csv else (parse_csv(forget_csv) if forget_csv else [])
+        forget_classes = parse_csv(forget_csv) if (split == 'val' and forget_csv) else []
         retain_features, retain_labels = [], []
         forget_features, forget_labels = [], []
         total = 0
@@ -82,8 +75,11 @@ for split, in_loader in [('train', trainloaderIn), ('val', testloaderIn), ]:
 
             batch_feats = model.encoder(img).data.cpu().numpy()
             batch_labels = label.data.cpu().numpy()
+            # 总是累加全量，以便统一按 retain_exclude 过滤
+            features += list(batch_feats)
+            labels += list(batch_labels)
+            # 同时在 val 场景下，单独构建 forget 子集缓存（仅用于 OOD 评估）
             if split == 'val' and len(forget_classes) > 0:
-                # route to retain/forget
                 mask_forget = np.isin(batch_labels, np.array(forget_classes, dtype=int))
                 if np.any(~mask_forget):
                     retain_features.extend(list(batch_feats[~mask_forget]))
@@ -91,18 +87,24 @@ for split, in_loader in [('train', trainloaderIn), ('val', testloaderIn), ]:
                 if np.any(mask_forget):
                     forget_features.extend(list(batch_feats[mask_forget]))
                     forget_labels.extend(list(batch_labels[mask_forget]))
-            else:
-                features += list(batch_feats)
-                labels += list(batch_labels)
 
             total += len(img)
 
-        if split == 'val' and len(forget_classes) > 0:
-            # save retain(ID) as val cache
-            feat_log = np.array(retain_features)
-            label_log = np.array(retain_labels)
+        # train/val主缓存：始终写“保留集”
+        if len(retain_exclude) > 0:
+            # 构造保留：统一按 retain_exclude 过滤（train/val 一致）
+            all_feats = np.array(features)
+            all_labels = np.array(labels)
+            mask_ex = np.isin(all_labels, np.array(retain_exclude, dtype=int))
+            feat_log = all_feats[~mask_ex]
+            label_log = all_labels[~mask_ex]
         else:
-            feat_log, label_log = np.array(features), np.array(labels)
+            # 未提供 retain_exclude => 沿用原逻辑
+            if split == 'val' and len(forget_classes) > 0:
+                feat_log = np.array(retain_features)
+                label_log = np.array(retain_labels)
+            else:
+                feat_log, label_log = np.array(features), np.array(labels)
         ########################################
         np.save(cache_name, feat_log)
         np.save(label_cache_name, label_log)

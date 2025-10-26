@@ -1,0 +1,1174 @@
+nohup: ignoring input
+==== Stage 1: forget_inc={0,8,11,40,51}; forget_seen={}; all={0,8,11,40,51,66,67,88,94,57} ====
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=50, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=False, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1', adapter_load_path=None, adapter_load_paths=None, lora_new_adapter_name='train_s1', lora_stack=True, lora_orth_enable=False, lora_orth_lambda=0.1, forget_classes='0,8,11,40,51,66,67,88,94,57', forget_list_path=None, forget_classes_inc='0,8,11,40,51', forget_classes_seen=None, forget_lambda=0.2, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='balanced', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] added trainable adapter 'train_s1'
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: train_s1
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 22082496
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.train_s1.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.train_s1.weight
+[debug] trainable: base_model.model.head.2.lora_A.train_s1.weight
+[debug] trainable: base_model.model.head.2.lora_B.train_s1.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.train_s1.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.train_s1.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.train_s1.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.train_s1.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.train_s1.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.train_s1.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.train_s1.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.train_s1.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.train_s1.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.train_s1.weight']
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:25<20:48, 25.48s/it]  4%|▍         | 2/50 [00:37<14:12, 17.77s/it]  6%|▌         | 3/50 [00:50<11:54, 15.21s/it]  8%|▊         | 4/50 [01:01<10:36, 13.85s/it] 10%|█         | 5/50 [01:13<09:43, 12.96s/it] 12%|█▏        | 6/50 [01:25<09:15, 12.63s/it] 14%|█▍        | 7/50 [01:37<08:59, 12.55s/it][loss] ep 0 it 0 total=8.8606 mle=2.1071 pcon=5.2951 forget=1.4584 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 0 it 50 total=8.4410 mle=1.6917 pcon=5.2908 forget=1.4585 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 0 it 100 total=8.6864 mle=1.9224 pcon=5.2867 forget=1.4772 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 0 it 150 total=8.9679 mle=2.2576 pcon=5.2827 forget=1.4276 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 0 it 200 total=8.9689 mle=2.2333 pcon=5.2787 forget=1.4568 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 0 it 250 total=8.3185 mle=1.5962 pcon=5.2747 forget=1.4477 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 0 it 300 total=8.4077 mle=1.7072 pcon=5.2707 forget=1.4298 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 0 it 350 total=8.5207 mle=1.7470 pcon=5.2669 forget=1.5069 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 1 it 10 total=8.7006 mle=1.9763 pcon=5.2632 forget=1.4611 favg=0.0000 nr=41 nf=41 protos=570 fproto_sim=NA
+[loss] ep 1 it 60 total=8.7492 mle=2.0230 pcon=5.2595 forget=1.4667 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 1 it 110 total=8.7099 mle=2.0182 pcon=5.2558 forget=1.4359 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 1 it 160 total=8.6122 mle=1.8490 pcon=5.2521 forget=1.5110 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 1 it 210 total=8.6766 mle=2.0042 pcon=5.2486 forget=1.4238 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 1 it 260 total=8.5457 mle=1.8254 pcon=5.2449 forget=1.4754 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 1 it 310 total=8.3752 mle=1.7014 pcon=5.2416 forget=1.4322 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 1 it 360 total=8.7008 mle=2.0527 pcon=5.2379 forget=1.4102 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 2 it 20 total=8.2995 mle=1.5825 pcon=5.2343 forget=1.4826 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 2 it 70 total=8.7938 mle=2.1031 pcon=5.2306 forget=1.4601 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 2 it 120 total=8.4498 mle=1.8135 pcon=5.2269 forget=1.4094 favg=0.0000 nr=40 nf=40 protos=570 fproto_sim=NA
+[loss] ep 2 it 170 total=8.7150 mle=2.0180 pcon=5.2237 forget=1.4733 favg=0.0000 nr=24 nf=24 protos=570 fproto_sim=NA
+[loss] ep 2 it 220 total=9.1173 mle=2.4228 pcon=5.2206 forget=1.4738 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 2 it 270 total=8.3080 mle=1.6396 pcon=5.2170 forget=1.4514 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 2 it 320 total=8.5447 mle=1.8619 pcon=5.2136 forget=1.4692 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 2 it 370 total=9.5181 mle=2.8544 pcon=5.2104 forget=1.4533 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 3 it 30 total=8.5909 mle=1.9176 pcon=5.2070 forget=1.4663 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 3 it 80 total=8.8390 mle=2.1279 pcon=5.2040 forget=1.5071 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 3 it 130 total=8.2114 mle=1.5739 pcon=5.2005 forget=1.4369 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 3 it 180 total=8.4241 mle=1.7297 pcon=5.1973 forget=1.4971 favg=0.0000 nr=41 nf=41 protos=570 fproto_sim=NA
+[loss] ep 3 it 230 total=8.4266 mle=1.7724 pcon=5.1941 forget=1.4602 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 3 it 280 total=8.4944 mle=1.8558 pcon=5.1911 forget=1.4474 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 3 it 330 total=8.6042 mle=1.9610 pcon=5.1879 forget=1.4553 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 3 it 380 total=8.3562 mle=1.7307 pcon=5.1846 forget=1.4409 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 4 it 40 total=8.3438 mle=1.7107 pcon=5.1817 forget=1.4514 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 4 it 90 total=8.2445 mle=1.6474 pcon=5.1787 forget=1.4184 favg=0.0000 nr=41 nf=41 protos=570 fproto_sim=NA
+[loss] ep 4 it 140 total=8.5743 mle=1.9405 pcon=5.1757 forget=1.4581 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 4 it 190 total=9.3093 mle=2.6871 pcon=5.1728 forget=1.4495 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 4 it 240 total=8.5679 mle=1.9809 pcon=5.1698 forget=1.4172 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 4 it 290 total=8.6278 mle=2.0606 pcon=5.1670 forget=1.4002 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 4 it 340 total=8.4406 mle=1.7892 pcon=5.1642 forget=1.4872 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 5 it 0 total=8.9105 mle=2.2834 pcon=5.1615 forget=1.4656 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 5 it 50 total=8.3448 mle=1.7636 pcon=5.1586 forget=1.4226 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 5 it 100 total=8.4857 mle=1.8782 pcon=5.1559 forget=1.4516 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 5 it 150 total=8.5974 mle=2.0411 pcon=5.1530 forget=1.4034 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 5 it 200 total=8.7823 mle=2.1573 pcon=5.1503 forget=1.4747 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 5 it 250 total=8.4606 mle=1.8024 pcon=5.1479 forget=1.5103 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 5 it 300 total=8.2416 mle=1.7147 pcon=5.1451 forget=1.3819 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 5 it 350 total=8.4158 mle=1.8777 pcon=5.1424 forget=1.3958 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 6 it 10 total=8.5682 mle=1.9881 pcon=5.1398 forget=1.4403 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 6 it 60 total=8.3282 mle=1.7742 pcon=5.1370 forget=1.4171 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 6 it 110 total=8.2848 mle=1.7218 pcon=5.1345 forget=1.4285 favg=0.0000 nr=40 nf=40 protos=570 fproto_sim=NA
+[loss] ep 6 it 160 total=8.5877 mle=2.0196 pcon=5.1320 forget=1.4362 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 6 it 210 total=9.1593 mle=2.6068 pcon=5.1293 forget=1.4232 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 6 it 260 total=8.4233 mle=1.9030 pcon=5.1269 forget=1.3935 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 6 it 310 total=8.4968 mle=1.9483 pcon=5.1244 forget=1.4241 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 6 it 360 total=8.0244 mle=1.4966 pcon=5.1219 forget=1.4059 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 7 it 20 total=8.2415 mle=1.6979 pcon=5.1195 forget=1.4240 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 7 it 70 total=8.5256 mle=1.9998 pcon=5.1171 forget=1.4087 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 7 it 120 total=8.4204 mle=1.8651 pcon=5.1146 forget=1.4407 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 7 it 170 total=8.8591 mle=2.3523 pcon=5.1121 forget=1.3948 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+ 16%|█▌        | 8/50 [01:49<08:40, 12.40s/it] 18%|█▊        | 9/50 [02:01<08:21, 12.24s/it] 20%|██        | 10/50 [02:12<07:57, 11.94s/it] 22%|██▏       | 11/50 [02:23<07:35, 11.67s/it] 24%|██▍       | 12/50 [02:35<07:29, 11.82s/it] 26%|██▌       | 13/50 [02:48<07:30, 12.17s/it] 28%|██▊       | 14/50 [03:01<07:20, 12.22s/it][loss] ep 7 it 220 total=8.3495 mle=1.8048 pcon=5.1098 forget=1.4349 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 7 it 270 total=8.4036 mle=1.8427 pcon=5.1074 forget=1.4535 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 7 it 320 total=7.9216 mle=1.4070 pcon=5.1051 forget=1.4096 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 7 it 370 total=8.2958 mle=1.8108 pcon=5.1025 forget=1.3825 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 8 it 30 total=8.1984 mle=1.7246 pcon=5.1003 forget=1.3735 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 8 it 80 total=8.2464 mle=1.7451 pcon=5.0979 forget=1.4034 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 8 it 130 total=8.1185 mle=1.6551 pcon=5.0956 forget=1.3678 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 8 it 180 total=8.2857 mle=1.8491 pcon=5.0933 forget=1.3432 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 8 it 230 total=8.3425 mle=1.8625 pcon=5.0911 forget=1.3889 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 8 it 280 total=8.2980 mle=1.8400 pcon=5.0889 forget=1.3692 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 8 it 330 total=8.3919 mle=1.8464 pcon=5.0864 forget=1.4591 favg=0.0000 nr=23 nf=23 protos=570 fproto_sim=NA
+[loss] ep 8 it 380 total=7.9401 mle=1.4841 pcon=5.0842 forget=1.3719 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 9 it 40 total=8.2812 mle=1.8451 pcon=5.0816 forget=1.3545 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 9 it 90 total=8.4304 mle=1.9538 pcon=5.0793 forget=1.3973 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 9 it 140 total=8.0590 mle=1.5841 pcon=5.0769 forget=1.3980 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 9 it 190 total=8.2726 mle=1.8433 pcon=5.0742 forget=1.3552 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 9 it 240 total=8.1784 mle=1.7496 pcon=5.0718 forget=1.3570 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 9 it 290 total=8.3677 mle=1.9151 pcon=5.0695 forget=1.3832 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 9 it 340 total=8.0072 mle=1.6051 pcon=5.0670 forget=1.3351 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 10 it 0 total=8.2052 mle=1.7884 pcon=5.0649 forget=1.3519 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 10 it 50 total=8.0535 mle=1.6476 pcon=5.0628 forget=1.3432 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 10 it 100 total=8.1569 mle=1.7186 pcon=5.0602 forget=1.3782 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 10 it 150 total=8.5013 mle=2.0817 pcon=5.0578 forget=1.3618 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 10 it 200 total=8.3317 mle=1.8931 pcon=5.0556 forget=1.3831 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 10 it 250 total=8.4930 mle=2.0572 pcon=5.0535 forget=1.3823 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 10 it 300 total=8.3329 mle=1.9045 pcon=5.0511 forget=1.3774 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 10 it 350 total=8.0302 mle=1.5973 pcon=5.0486 forget=1.3843 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 11 it 10 total=8.4487 mle=2.0034 pcon=5.0466 forget=1.3988 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 11 it 60 total=8.5635 mle=2.1450 pcon=5.0443 forget=1.3742 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 11 it 110 total=8.3806 mle=1.9518 pcon=5.0421 forget=1.3867 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 11 it 160 total=8.2673 mle=1.8028 pcon=5.0401 forget=1.4243 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 11 it 210 total=8.3387 mle=1.8843 pcon=5.0378 forget=1.4165 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 11 it 260 total=7.9122 mle=1.4544 pcon=5.0357 forget=1.4221 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 11 it 310 total=7.9447 mle=1.5065 pcon=5.0336 forget=1.4046 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 11 it 360 total=8.1116 mle=1.6692 pcon=5.0313 forget=1.4111 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 12 it 20 total=8.3515 mle=1.8797 pcon=5.0289 forget=1.4428 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 12 it 70 total=8.1448 mle=1.6911 pcon=5.0266 forget=1.4272 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 12 it 120 total=8.2349 mle=1.7802 pcon=5.0243 forget=1.4304 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 12 it 170 total=8.0912 mle=1.6285 pcon=5.0221 forget=1.4405 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 12 it 220 total=8.1070 mle=1.6495 pcon=5.0196 forget=1.4379 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 12 it 270 total=8.0724 mle=1.5804 pcon=5.0171 forget=1.4749 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 12 it 320 total=8.3458 mle=1.8904 pcon=5.0149 forget=1.4405 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 12 it 370 total=8.2732 mle=1.7915 pcon=5.0124 forget=1.4693 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 13 it 30 total=7.9598 mle=1.4926 pcon=5.0101 forget=1.4571 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 13 it 80 total=8.1050 mle=1.5832 pcon=5.0077 forget=1.5141 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 13 it 130 total=8.2527 mle=1.7814 pcon=5.0053 forget=1.4660 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 13 it 180 total=8.1094 mle=1.6427 pcon=5.0030 forget=1.4637 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 13 it 230 total=8.0072 mle=1.5406 pcon=5.0004 forget=1.4661 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 13 it 280 total=8.3485 mle=1.8599 pcon=4.9981 forget=1.4905 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 13 it 330 total=8.1448 mle=1.6709 pcon=4.9955 forget=1.4784 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 13 it 380 total=8.1419 mle=1.6662 pcon=4.9930 forget=1.4826 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 14 it 40 total=8.0286 mle=1.5337 pcon=4.9904 forget=1.5044 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 14 it 90 total=7.7877 mle=1.3279 pcon=4.9882 forget=1.4716 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 14 it 140 total=7.9692 mle=1.4975 pcon=4.9860 forget=1.4858 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 14 it 190 total=8.1977 mle=1.7389 pcon=4.9837 forget=1.4751 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 14 it 240 total=8.0745 mle=1.6462 pcon=4.9815 forget=1.4468 favg=0.0000 nr=41 nf=41 protos=570 fproto_sim=NA
+[loss] ep 14 it 290 total=8.0497 mle=1.5866 pcon=4.9791 forget=1.4840 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 14 it 340 total=7.9537 mle=1.4897 pcon=4.9768 forget=1.4872 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+ 30%|███       | 15/50 [03:12<06:54, 11.86s/it] 32%|███▏      | 16/50 [03:24<06:46, 11.96s/it] 34%|███▍      | 17/50 [03:35<06:28, 11.77s/it] 36%|███▌      | 18/50 [03:48<06:21, 11.91s/it] 38%|███▊      | 19/50 [04:00<06:17, 12.17s/it] 40%|████      | 20/50 [04:12<06:03, 12.13s/it] 42%|████▏     | 21/50 [04:24<05:45, 11.92s/it] 44%|████▍     | 22/50 [04:35<05:27, 11.69s/it][peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 15 it 0 total=8.3915 mle=1.9526 pcon=4.9745 forget=1.4644 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 15 it 50 total=8.1446 mle=1.7319 pcon=4.9724 forget=1.4403 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 15 it 100 total=8.0239 mle=1.5975 pcon=4.9702 forget=1.4562 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 15 it 150 total=7.9771 mle=1.5209 pcon=4.9680 forget=1.4882 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 15 it 200 total=7.9510 mle=1.5557 pcon=4.9660 forget=1.4293 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 15 it 250 total=7.8176 mle=1.5216 pcon=4.9637 forget=1.3323 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 15 it 300 total=7.9188 mle=1.6673 pcon=4.9615 forget=1.2900 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 15 it 350 total=7.9979 mle=1.7478 pcon=4.9595 forget=1.2905 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 16 it 10 total=7.7038 mle=1.3591 pcon=4.9577 forget=1.3870 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 16 it 60 total=7.7043 mle=1.4619 pcon=4.9555 forget=1.2869 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 16 it 110 total=7.8674 mle=1.6547 pcon=4.9533 forget=1.2594 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 16 it 160 total=7.9405 mle=1.7219 pcon=4.9512 forget=1.2673 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 16 it 210 total=7.8415 mle=1.6324 pcon=4.9493 forget=1.2598 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 16 it 260 total=7.8172 mle=1.6493 pcon=4.9473 forget=1.2207 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 16 it 310 total=8.0098 mle=1.8069 pcon=4.9452 forget=1.2577 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 16 it 360 total=7.7756 mle=1.5924 pcon=4.9433 forget=1.2400 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 17 it 20 total=7.6990 mle=1.5638 pcon=4.9413 forget=1.1939 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 17 it 70 total=7.7074 mle=1.5152 pcon=4.9394 forget=1.2528 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 17 it 120 total=7.8454 mle=1.7394 pcon=4.9374 forget=1.1686 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 17 it 170 total=7.6327 mle=1.5237 pcon=4.9354 forget=1.1735 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 17 it 220 total=7.7959 mle=1.7284 pcon=4.9333 forget=1.1342 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 17 it 270 total=7.5384 mle=1.4614 pcon=4.9312 forget=1.1459 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 17 it 320 total=7.6405 mle=1.6488 pcon=4.9291 forget=1.0626 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 17 it 370 total=7.9145 mle=1.9114 pcon=4.9267 forget=1.0764 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 18 it 30 total=7.7961 mle=1.8154 pcon=4.9242 forget=1.0565 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 18 it 80 total=8.0323 mle=2.0686 pcon=4.9217 forget=1.0420 favg=0.0000 nr=23 nf=23 protos=570 fproto_sim=NA
+[loss] ep 18 it 130 total=7.8310 mle=1.8825 pcon=4.9190 forget=1.0295 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 18 it 180 total=7.6205 mle=1.6972 pcon=4.9163 forget=1.0070 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 18 it 230 total=7.5870 mle=1.7032 pcon=4.9137 forget=0.9700 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 18 it 280 total=7.4526 mle=1.5292 pcon=4.9109 forget=1.0126 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 18 it 330 total=7.4422 mle=1.5214 pcon=4.9080 forget=1.0129 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 18 it 380 total=7.5242 mle=1.5930 pcon=4.9050 forget=1.0262 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 19 it 40 total=7.5038 mle=1.6095 pcon=4.9021 forget=0.9921 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 19 it 90 total=7.7429 mle=1.8306 pcon=4.8991 forget=1.0132 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 19 it 140 total=7.4770 mle=1.5806 pcon=4.8963 forget=1.0001 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 19 it 190 total=7.6232 mle=1.7128 pcon=4.8933 forget=1.0171 favg=0.0000 nr=40 nf=40 protos=570 fproto_sim=NA
+[loss] ep 19 it 240 total=7.2873 mle=1.4007 pcon=4.8905 forget=0.9962 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 19 it 290 total=7.4556 mle=1.5807 pcon=4.8878 forget=0.9871 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 19 it 340 total=7.5876 mle=1.6964 pcon=4.8851 forget=1.0062 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 20 it 0 total=7.4787 mle=1.6019 pcon=4.8822 forget=0.9946 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 20 it 50 total=7.3785 mle=1.5101 pcon=4.8794 forget=0.9890 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 20 it 100 total=7.5946 mle=1.6878 pcon=4.8769 forget=1.0299 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 20 it 150 total=7.6728 mle=1.7889 pcon=4.8740 forget=1.0098 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 20 it 200 total=7.5237 mle=1.6550 pcon=4.8714 forget=0.9973 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 20 it 250 total=7.4983 mle=1.6184 pcon=4.8687 forget=1.0111 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 20 it 300 total=7.5348 mle=1.6651 pcon=4.8660 forget=1.0036 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 20 it 350 total=7.4303 mle=1.5093 pcon=4.8633 forget=1.0577 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[loss] ep 21 it 10 total=7.4509 mle=1.5504 pcon=4.8609 forget=1.0395 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 21 it 60 total=7.4658 mle=1.5573 pcon=4.8584 forget=1.0502 favg=0.0000 nr=24 nf=24 protos=570 fproto_sim=NA
+[loss] ep 21 it 110 total=7.2693 mle=1.3712 pcon=4.8559 forget=1.0422 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 21 it 160 total=7.4371 mle=1.5494 pcon=4.8533 forget=1.0344 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 21 it 210 total=7.7712 mle=1.8811 pcon=4.8510 forget=1.0391 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 21 it 260 total=7.5119 mle=1.6037 pcon=4.8485 forget=1.0598 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 21 it 310 total=7.6135 mle=1.6998 pcon=4.8460 forget=1.0677 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 21 it 360 total=7.3188 mle=1.4221 pcon=4.8437 forget=1.0529 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 22 it 20 total=7.3201 mle=1.4301 pcon=4.8415 forget=1.0486 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 22 it 70 total=7.6093 mle=1.6968 pcon=4.8393 forget=1.0732 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 22 it 120 total=7.6530 mle=1.7545 pcon=4.8370 forget=1.0615 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 22 it 170 total=7.5251 mle=1.6185 pcon=4.8349 forget=1.0718 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+ 46%|████▌     | 23/50 [04:47<05:19, 11.84s/it] 48%|████▊     | 24/50 [05:00<05:13, 12.06s/it] 50%|█████     | 25/50 [05:14<05:17, 12.71s/it] 52%|█████▏    | 26/50 [05:30<05:26, 13.60s/it] 54%|█████▍    | 27/50 [05:45<05:25, 14.15s/it] 56%|█████▌    | 28/50 [06:02<05:26, 14.86s/it] 58%|█████▊    | 29/50 [06:17<05:14, 14.99s/it] 60%|██████    | 30/50 [06:31<04:54, 14.72s/it] 62%|██████▏   | 31/50 [06:49<05:01, 15.85s/it][loss] ep 22 it 220 total=7.2733 mle=1.3672 pcon=4.8326 forget=1.0735 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 22 it 270 total=7.5053 mle=1.5858 pcon=4.8304 forget=1.0892 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 22 it 320 total=7.8542 mle=1.9430 pcon=4.8283 forget=1.0829 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 22 it 370 total=7.4432 mle=1.5328 pcon=4.8261 forget=1.0843 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 23 it 30 total=7.7067 mle=1.7884 pcon=4.8240 forget=1.0943 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 23 it 80 total=7.4780 mle=1.5425 pcon=4.8218 forget=1.1137 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 23 it 130 total=7.5569 mle=1.6307 pcon=4.8198 forget=1.1065 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 23 it 180 total=7.6926 mle=1.7743 pcon=4.8177 forget=1.1006 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 23 it 230 total=7.3756 mle=1.4417 pcon=4.8157 forget=1.1181 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 23 it 280 total=7.7843 mle=1.8547 pcon=4.8138 forget=1.1157 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 23 it 330 total=7.5098 mle=1.5746 pcon=4.8118 forget=1.1234 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 23 it 380 total=7.4709 mle=1.5379 pcon=4.8098 forget=1.1233 favg=0.0000 nr=21 nf=21 protos=570 fproto_sim=NA
+[loss] ep 24 it 40 total=7.5221 mle=1.5871 pcon=4.8078 forget=1.1272 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 24 it 90 total=7.3914 mle=1.4361 pcon=4.8059 forget=1.1493 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 24 it 140 total=7.6066 mle=1.6573 pcon=4.8042 forget=1.1451 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 24 it 190 total=7.7724 mle=1.8288 pcon=4.8024 forget=1.1413 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 24 it 240 total=7.6148 mle=1.6666 pcon=4.8005 forget=1.1477 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 24 it 290 total=7.6069 mle=1.6420 pcon=4.7987 forget=1.1662 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 24 it 340 total=7.4068 mle=1.4459 pcon=4.7969 forget=1.1640 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 25 it 0 total=7.3834 mle=1.4150 pcon=4.7952 forget=1.1732 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 25 it 50 total=7.6578 mle=1.6949 pcon=4.7935 forget=1.1695 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 25 it 100 total=7.7247 mle=1.7592 pcon=4.7919 forget=1.1737 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 25 it 150 total=7.7368 mle=1.7679 pcon=4.7904 forget=1.1785 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 25 it 200 total=7.6181 mle=1.6492 pcon=4.7887 forget=1.1802 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 25 it 250 total=7.4457 mle=1.4699 pcon=4.7871 forget=1.1887 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 25 it 300 total=7.6553 mle=1.6682 pcon=4.7855 forget=1.2015 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 25 it 350 total=7.5218 mle=1.5410 pcon=4.7839 forget=1.1969 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 26 it 10 total=7.8159 mle=1.8418 pcon=4.7824 forget=1.1918 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 26 it 60 total=7.5603 mle=1.5601 pcon=4.7809 forget=1.2192 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 26 it 110 total=7.6168 mle=1.6242 pcon=4.7793 forget=1.2133 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 26 it 160 total=7.4216 mle=1.4350 pcon=4.7779 forget=1.2087 favg=0.0000 nr=41 nf=41 protos=570 fproto_sim=NA
+[loss] ep 26 it 210 total=7.4403 mle=1.4378 pcon=4.7764 forget=1.2261 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 26 it 260 total=7.9164 mle=1.9192 pcon=4.7751 forget=1.2222 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 26 it 310 total=7.4013 mle=1.4088 pcon=4.7734 forget=1.2191 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 26 it 360 total=7.5928 mle=1.5989 pcon=4.7721 forget=1.2218 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 27 it 20 total=7.5477 mle=1.5362 pcon=4.7708 forget=1.2407 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 27 it 70 total=7.6949 mle=1.6759 pcon=4.7695 forget=1.2495 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 27 it 120 total=7.6851 mle=1.6777 pcon=4.7681 forget=1.2392 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 27 it 170 total=7.5478 mle=1.5323 pcon=4.7668 forget=1.2488 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 27 it 220 total=7.5821 mle=1.5767 pcon=4.7655 forget=1.2399 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 27 it 270 total=7.7813 mle=1.7728 pcon=4.7641 forget=1.2444 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 27 it 320 total=7.5127 mle=1.5051 pcon=4.7628 forget=1.2448 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 27 it 370 total=7.5318 mle=1.5058 pcon=4.7616 forget=1.2644 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 28 it 30 total=7.5632 mle=1.5250 pcon=4.7604 forget=1.2777 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 28 it 80 total=7.7042 mle=1.6813 pcon=4.7592 forget=1.2637 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 28 it 130 total=7.4890 mle=1.4674 pcon=4.7579 forget=1.2637 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 28 it 180 total=7.5245 mle=1.5016 pcon=4.7566 forget=1.2663 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 28 it 230 total=7.6035 mle=1.5701 pcon=4.7554 forget=1.2781 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 28 it 280 total=7.6335 mle=1.6041 pcon=4.7542 forget=1.2751 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 28 it 330 total=7.6790 mle=1.6365 pcon=4.7530 forget=1.2894 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 28 it 380 total=7.3945 mle=1.3456 pcon=4.7518 forget=1.2970 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 29 it 40 total=7.6689 mle=1.6113 pcon=4.7506 forget=1.3070 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 29 it 90 total=7.6991 mle=1.6603 pcon=4.7495 forget=1.2894 favg=0.0000 nr=24 nf=24 protos=570 fproto_sim=NA
+[loss] ep 29 it 140 total=7.5432 mle=1.4774 pcon=4.7484 forget=1.3175 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 29 it 190 total=7.6818 mle=1.6400 pcon=4.7473 forget=1.2946 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 29 it 240 total=7.6351 mle=1.5831 pcon=4.7462 forget=1.3058 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 29 it 290 total=7.7618 mle=1.7145 pcon=4.7451 forget=1.3022 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 29 it 340 total=7.5157 mle=1.4716 pcon=4.7440 forget=1.3002 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 30 it 0 total=7.4931 mle=1.4426 pcon=4.7430 forget=1.3075 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 30 it 50 total=7.7659 mle=1.7160 pcon=4.7419 forget=1.3080 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 30 it 100 total=7.4449 mle=1.3774 pcon=4.7410 forget=1.3265 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 30 it 150 total=7.6478 mle=1.5926 pcon=4.7402 forget=1.3151 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 30 it 200 total=7.5677 mle=1.5042 pcon=4.7392 forget=1.3243 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 30 it 250 total=7.5892 mle=1.5261 pcon=4.7381 forget=1.3250 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 30 it 300 total=7.6704 mle=1.6076 pcon=4.7372 forget=1.3256 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 30 it 350 total=7.5928 mle=1.5205 pcon=4.7364 forget=1.3360 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 31 it 10 total=7.4826 mle=1.4227 pcon=4.7355 forget=1.3243 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 31 it 60 total=7.6956 mle=1.6243 pcon=4.7347 forget=1.3367 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 31 it 110 total=7.6526 mle=1.5960 pcon=4.7338 forget=1.3228 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+ 64%|██████▍   | 32/50 [07:13<05:26, 18.14s/it] 66%|██████▌   | 33/50 [07:32<05:14, 18.53s/it] 68%|██████▊   | 34/50 [07:52<05:03, 18.96s/it] 70%|███████   | 35/50 [08:27<05:55, 23.71s/it] 72%|███████▏  | 36/50 [09:04<06:28, 27.78s/it] 74%|███████▍  | 37/50 [09:59<07:44, 35.76s/it] 76%|███████▌  | 38/50 [11:00<08:39, 43.26s/it] 78%|███████▊  | 39/50 [12:04<09:04, 49.49s/it] 80%|████████  | 40/50 [13:18<09:30, 57.10s/it][loss] ep 31 it 160 total=7.5823 mle=1.5095 pcon=4.7328 forget=1.3400 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 31 it 210 total=7.8280 mle=1.7602 pcon=4.7320 forget=1.3358 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 31 it 260 total=7.6554 mle=1.5900 pcon=4.7311 forget=1.3343 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 31 it 310 total=7.7442 mle=1.6589 pcon=4.7301 forget=1.3552 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 31 it 360 total=7.5476 mle=1.4813 pcon=4.7292 forget=1.3371 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 32 it 20 total=7.5077 mle=1.4334 pcon=4.7285 forget=1.3458 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 32 it 70 total=7.8867 mle=1.7874 pcon=4.7276 forget=1.3716 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 32 it 120 total=7.6026 mle=1.5229 pcon=4.7269 forget=1.3528 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 32 it 170 total=7.6869 mle=1.6128 pcon=4.7261 forget=1.3480 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 32 it 220 total=7.7009 mle=1.6200 pcon=4.7254 forget=1.3555 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 32 it 270 total=7.4965 mle=1.4030 pcon=4.7247 forget=1.3687 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 32 it 320 total=7.6904 mle=1.6091 pcon=4.7239 forget=1.3574 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 32 it 370 total=7.6592 mle=1.5801 pcon=4.7233 forget=1.3558 favg=0.0000 nr=23 nf=23 protos=570 fproto_sim=NA
+[loss] ep 33 it 30 total=7.6716 mle=1.5941 pcon=4.7226 forget=1.3549 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 33 it 80 total=7.5017 mle=1.4221 pcon=4.7217 forget=1.3578 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 33 it 130 total=7.6112 mle=1.5103 pcon=4.7211 forget=1.3798 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 33 it 180 total=7.7777 mle=1.6946 pcon=4.7204 forget=1.3627 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 33 it 230 total=8.0183 mle=1.9135 pcon=4.7197 forget=1.3851 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 33 it 280 total=7.8966 mle=1.8104 pcon=4.7191 forget=1.3671 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 33 it 330 total=8.1592 mle=2.0711 pcon=4.7185 forget=1.3696 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 33 it 380 total=7.8499 mle=1.7579 pcon=4.7179 forget=1.3741 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 34 it 40 total=7.6344 mle=1.5345 pcon=4.7172 forget=1.3827 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 34 it 90 total=7.5539 mle=1.4618 pcon=4.7165 forget=1.3755 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 34 it 140 total=7.5530 mle=1.4573 pcon=4.7159 forget=1.3798 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 34 it 190 total=7.8082 mle=1.7064 pcon=4.7153 forget=1.3865 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 34 it 240 total=7.8929 mle=1.7984 pcon=4.7146 forget=1.3798 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 34 it 290 total=7.7147 mle=1.6159 pcon=4.7141 forget=1.3848 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 34 it 340 total=7.6045 mle=1.5040 pcon=4.7135 forget=1.3870 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 35 it 0 total=7.6813 mle=1.5724 pcon=4.7129 forget=1.3960 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 35 it 50 total=7.9689 mle=1.8625 pcon=4.7122 forget=1.3943 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 35 it 100 total=7.8374 mle=1.7309 pcon=4.7116 forget=1.3949 favg=0.0000 nr=43 nf=43 protos=570 fproto_sim=NA
+[loss] ep 35 it 150 total=7.9231 mle=1.8046 pcon=4.7110 forget=1.4075 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 35 it 200 total=7.5381 mle=1.4300 pcon=4.7103 forget=1.3978 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 35 it 250 total=7.7239 mle=1.6024 pcon=4.7097 forget=1.4118 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 35 it 300 total=7.6310 mle=1.5115 pcon=4.7092 forget=1.4104 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 35 it 350 total=7.7803 mle=1.6726 pcon=4.7086 forget=1.3991 favg=0.0000 nr=21 nf=21 protos=570 fproto_sim=NA
+[loss] ep 36 it 10 total=7.9422 mle=1.8237 pcon=4.7082 forget=1.4103 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 36 it 60 total=7.6869 mle=1.5655 pcon=4.7076 forget=1.4137 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 36 it 110 total=7.6642 mle=1.5449 pcon=4.7071 forget=1.4122 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 36 it 160 total=7.7608 mle=1.6390 pcon=4.7067 forget=1.4151 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 36 it 210 total=7.5523 mle=1.4261 pcon=4.7061 forget=1.4200 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 36 it 260 total=7.5464 mle=1.4129 pcon=4.7056 forget=1.4278 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 36 it 310 total=7.7187 mle=1.5899 pcon=4.7050 forget=1.4238 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 36 it 360 total=7.5469 mle=1.4151 pcon=4.7044 forget=1.4273 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 37 it 20 total=7.8277 mle=1.6974 pcon=4.7039 forget=1.4265 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 37 it 70 total=7.8837 mle=1.7523 pcon=4.7034 forget=1.4280 favg=0.0000 nr=40 nf=40 protos=570 fproto_sim=NA
+[loss] ep 37 it 120 total=7.7741 mle=1.6432 pcon=4.7029 forget=1.4280 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 37 it 170 total=7.7607 mle=1.6229 pcon=4.7023 forget=1.4355 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 37 it 220 total=7.6171 mle=1.4730 pcon=4.7018 forget=1.4423 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 37 it 270 total=7.7887 mle=1.6509 pcon=4.7013 forget=1.4365 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 37 it 320 total=8.0622 mle=1.9087 pcon=4.7009 forget=1.4526 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 37 it 370 total=7.6678 mle=1.5215 pcon=4.7004 forget=1.4458 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 38 it 30 total=7.9424 mle=1.7859 pcon=4.7000 forget=1.4565 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 38 it 80 total=7.5836 mle=1.4250 pcon=4.6996 forget=1.4590 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 38 it 130 total=7.5557 mle=1.4007 pcon=4.6992 forget=1.4558 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 38 it 180 total=7.7879 mle=1.6254 pcon=4.6988 forget=1.4637 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 38 it 230 total=7.6389 mle=1.4728 pcon=4.6984 forget=1.4676 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 38 it 280 total=7.9383 mle=1.7786 pcon=4.6980 forget=1.4616 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 38 it 330 total=7.6502 mle=1.4868 pcon=4.6976 forget=1.4657 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 38 it 380 total=7.9441 mle=1.7797 pcon=4.6971 forget=1.4673 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 39 it 40 total=7.9382 mle=1.7636 pcon=4.6968 forget=1.4778 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 39 it 90 total=7.7447 mle=1.5634 pcon=4.6964 forget=1.4849 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 39 it 140 total=7.8480 mle=1.6764 pcon=4.6960 forget=1.4757 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 39 it 190 total=7.7413 mle=1.5472 pcon=4.6957 forget=1.4985 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 39 it 240 total=7.5966 mle=1.4272 pcon=4.6953 forget=1.4741 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 39 it 290 total=8.1173 mle=1.9328 pcon=4.6947 forget=1.4898 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 39 it 340 total=7.9142 mle=1.7276 pcon=4.6944 forget=1.4921 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 40 it 0 total=7.6569 mle=1.4576 pcon=4.6942 forget=1.5051 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 40 it 50 total=7.7116 mle=1.5212 pcon=4.6938 forget=1.4967 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+ 82%|████████▏ | 41/50 [14:31<09:15, 61.71s/it] 84%|████████▍ | 42/50 [15:51<08:57, 67.14s/it] 86%|████████▌ | 43/50 [17:11<08:17, 71.10s/it] 88%|████████▊ | 44/50 [18:28<07:17, 72.97s/it] 90%|█████████ | 45/50 [19:44<06:09, 73.89s/it] 92%|█████████▏| 46/50 [20:56<04:53, 73.33s/it] 94%|█████████▍| 47/50 [21:47<03:19, 66.55s/it] 96%|█████████▌| 48/50 [22:27<01:57, 58.58s/it][loss] ep 40 it 100 total=7.6270 mle=1.4406 pcon=4.6933 forget=1.4931 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 40 it 150 total=7.6280 mle=1.4388 pcon=4.6929 forget=1.4963 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 40 it 200 total=8.0720 mle=1.8630 pcon=4.6926 forget=1.5163 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 40 it 250 total=7.8347 mle=1.6266 pcon=4.6923 forget=1.5158 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 40 it 300 total=7.9338 mle=1.7231 pcon=4.6920 forget=1.5187 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 40 it 350 total=7.7802 mle=1.5723 pcon=4.6917 forget=1.5162 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 41 it 10 total=7.7770 mle=1.5727 pcon=4.6915 forget=1.5128 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 41 it 60 total=7.9617 mle=1.7516 pcon=4.6912 forget=1.5190 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 41 it 110 total=7.7142 mle=1.5042 pcon=4.6909 forget=1.5191 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 41 it 160 total=7.8856 mle=1.6655 pcon=4.6907 forget=1.5294 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 41 it 210 total=8.1181 mle=1.9001 pcon=4.6905 forget=1.5276 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 41 it 260 total=7.9288 mle=1.6993 pcon=4.6902 forget=1.5393 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 41 it 310 total=7.7762 mle=1.5600 pcon=4.6900 forget=1.5262 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 41 it 360 total=7.9231 mle=1.6865 pcon=4.6896 forget=1.5470 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 42 it 20 total=7.9066 mle=1.6674 pcon=4.6894 forget=1.5498 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 42 it 70 total=7.8735 mle=1.6365 pcon=4.6892 forget=1.5478 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 42 it 120 total=7.7923 mle=1.5437 pcon=4.6890 forget=1.5596 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 42 it 170 total=7.6958 mle=1.4694 pcon=4.6887 forget=1.5378 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 42 it 220 total=7.7372 mle=1.4964 pcon=4.6884 forget=1.5524 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 42 it 270 total=7.8073 mle=1.5694 pcon=4.6881 forget=1.5497 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 42 it 320 total=7.8875 mle=1.6382 pcon=4.6879 forget=1.5614 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 42 it 370 total=7.7121 mle=1.4629 pcon=4.6876 forget=1.5616 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 43 it 30 total=7.9445 mle=1.6784 pcon=4.6874 forget=1.5787 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 43 it 80 total=7.9591 mle=1.7074 pcon=4.6872 forget=1.5646 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 43 it 130 total=7.9272 mle=1.6717 pcon=4.6869 forget=1.5687 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 43 it 180 total=7.9377 mle=1.6727 pcon=4.6866 forget=1.5784 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 43 it 230 total=7.8120 mle=1.5564 pcon=4.6864 forget=1.5692 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 43 it 280 total=8.0422 mle=1.7797 pcon=4.6863 forget=1.5762 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 43 it 330 total=7.7721 mle=1.5079 pcon=4.6861 forget=1.5780 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 43 it 380 total=7.6986 mle=1.4270 pcon=4.6860 forget=1.5856 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 44 it 40 total=7.8905 mle=1.6162 pcon=4.6858 forget=1.5886 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 44 it 90 total=7.9536 mle=1.6787 pcon=4.6856 forget=1.5893 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 44 it 140 total=7.9261 mle=1.6522 pcon=4.6855 forget=1.5884 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 44 it 190 total=7.7108 mle=1.4294 pcon=4.6853 forget=1.5961 favg=0.0000 nr=40 nf=40 protos=570 fproto_sim=NA
+[loss] ep 44 it 240 total=8.0900 mle=1.8101 pcon=4.6851 forget=1.5949 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 44 it 290 total=8.0492 mle=1.7672 pcon=4.6849 forget=1.5971 favg=0.0000 nr=28 nf=28 protos=570 fproto_sim=NA
+[loss] ep 44 it 340 total=7.7859 mle=1.4941 pcon=4.6848 forget=1.6071 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 45 it 0 total=7.7922 mle=1.5052 pcon=4.6846 forget=1.6024 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 45 it 50 total=7.8087 mle=1.5347 pcon=4.6845 forget=1.5895 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 45 it 100 total=7.8425 mle=1.5438 pcon=4.6842 forget=1.6145 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 45 it 150 total=8.0121 mle=1.7070 pcon=4.6841 forget=1.6211 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 45 it 200 total=8.0051 mle=1.7037 pcon=4.6840 forget=1.6173 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 45 it 250 total=7.8619 mle=1.5326 pcon=4.6838 forget=1.6455 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 45 it 300 total=8.1839 mle=1.8685 pcon=4.6838 forget=1.6316 favg=0.0000 nr=24 nf=24 protos=570 fproto_sim=NA
+[loss] ep 45 it 350 total=7.9048 mle=1.5997 pcon=4.6837 forget=1.6213 favg=0.0000 nr=25 nf=25 protos=570 fproto_sim=NA
+[loss] ep 46 it 10 total=7.7919 mle=1.4863 pcon=4.6836 forget=1.6220 favg=0.0000 nr=39 nf=39 protos=570 fproto_sim=NA
+[loss] ep 46 it 60 total=7.7608 mle=1.4520 pcon=4.6833 forget=1.6255 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 46 it 110 total=7.9530 mle=1.6430 pcon=4.6831 forget=1.6269 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 46 it 160 total=8.0645 mle=1.7541 pcon=4.6829 forget=1.6274 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 46 it 210 total=7.7162 mle=1.4166 pcon=4.6827 forget=1.6169 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 46 it 260 total=8.1367 mle=1.8121 pcon=4.6825 forget=1.6421 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 46 it 310 total=7.9880 mle=1.6583 pcon=4.6825 forget=1.6473 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 46 it 360 total=7.7705 mle=1.4505 pcon=4.6824 forget=1.6376 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 47 it 20 total=8.0971 mle=1.7582 pcon=4.6823 forget=1.6566 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 47 it 70 total=7.6695 mle=1.3451 pcon=4.6822 forget=1.6422 favg=0.0000 nr=31 nf=31 protos=570 fproto_sim=NA
+[loss] ep 47 it 120 total=7.7846 mle=1.4489 pcon=4.6821 forget=1.6536 favg=0.0000 nr=38 nf=38 protos=570 fproto_sim=NA
+[loss] ep 47 it 170 total=7.7883 mle=1.4619 pcon=4.6820 forget=1.6444 favg=0.0000 nr=37 nf=37 protos=570 fproto_sim=NA
+[loss] ep 47 it 220 total=7.8388 mle=1.4989 pcon=4.6819 forget=1.6580 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 47 it 270 total=8.1523 mle=1.8164 pcon=4.6819 forget=1.6540 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 47 it 320 total=8.0959 mle=1.7520 pcon=4.6817 forget=1.6622 favg=0.0000 nr=26 nf=26 protos=570 fproto_sim=NA
+[loss] ep 47 it 370 total=7.7785 mle=1.4245 pcon=4.6815 forget=1.6725 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 48 it 30 total=8.1141 mle=1.7755 pcon=4.6813 forget=1.6573 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 48 it 80 total=7.9936 mle=1.6437 pcon=4.6812 forget=1.6687 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 48 it 130 total=8.2512 mle=1.8948 pcon=4.6810 forget=1.6754 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+[loss] ep 48 it 180 total=7.9803 mle=1.6341 pcon=4.6808 forget=1.6653 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 48 it 230 total=8.0334 mle=1.6721 pcon=4.6808 forget=1.6806 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+[loss] ep 48 it 280 total=8.0065 mle=1.6484 pcon=4.6808 forget=1.6773 favg=0.0000 nr=27 nf=27 protos=570 fproto_sim=NA
+[loss] ep 48 it 330 total=7.8525 mle=1.4960 pcon=4.6808 forget=1.6757 favg=0.0000 nr=29 nf=29 protos=570 fproto_sim=NA
+ 98%|█████████▊| 49/50 [23:05<00:52, 52.37s/it]100%|██████████| 50/50 [23:47<00:00, 49.20s/it]100%|██████████| 50/50 [23:47<00:00, 28.55s/it]
+[loss] ep 48 it 380 total=7.9621 mle=1.5903 pcon=4.6807 forget=1.6911 favg=0.0000 nr=33 nf=33 protos=570 fproto_sim=NA
+[loss] ep 49 it 40 total=8.1376 mle=1.7638 pcon=4.6806 forget=1.6932 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 49 it 90 total=8.1179 mle=1.7489 pcon=4.6805 forget=1.6885 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 49 it 140 total=7.9548 mle=1.5964 pcon=4.6803 forget=1.6781 favg=0.0000 nr=32 nf=32 protos=570 fproto_sim=NA
+[loss] ep 49 it 190 total=8.0287 mle=1.6591 pcon=4.6802 forget=1.6893 favg=0.0000 nr=35 nf=35 protos=570 fproto_sim=NA
+[loss] ep 49 it 240 total=8.2731 mle=1.8974 pcon=4.6802 forget=1.6955 favg=0.0000 nr=36 nf=36 protos=570 fproto_sim=NA
+[loss] ep 49 it 290 total=7.9798 mle=1.6177 pcon=4.6801 forget=1.6819 favg=0.0000 nr=30 nf=30 protos=570 fproto_sim=NA
+[loss] ep 49 it 340 total=7.9095 mle=1.5349 pcon=4.6801 forget=1.6945 favg=0.0000 nr=34 nf=34 protos=570 fproto_sim=NA
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] loaded adapter 'stage1' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: stage1
+resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stage1-inc1: Number of model parameters: 22082496
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:01<12:41,  1.95s/it]  1%|          | 3/391 [00:02<03:40,  1.76it/s]  2%|▏         | 8/391 [00:02<01:05,  5.86it/s]  3%|▎         | 13/391 [00:02<00:35, 10.63it/s]  5%|▌         | 21/391 [00:02<00:18, 19.83it/s]  7%|▋         | 29/391 [00:02<00:12, 29.25it/s]  9%|▉         | 37/391 [00:02<00:09, 38.44it/s] 12%|█▏        | 45/391 [00:02<00:07, 46.31it/s] 14%|█▍        | 54/391 [00:02<00:06, 55.42it/s] 16%|█▌        | 62/391 [00:02<00:05, 57.32it/s] 18%|█▊        | 70/391 [00:03<00:05, 62.79it/s] 20%|█▉        | 78/391 [00:03<00:05, 62.53it/s] 22%|██▏       | 86/391 [00:03<00:04, 65.94it/s] 24%|██▍       | 95/391 [00:03<00:04, 69.97it/s] 26%|██▋       | 103/391 [00:03<00:04, 70.89it/s] 28%|██▊       | 111/391 [00:03<00:03, 72.93it/s] 30%|███       | 119/391 [00:03<00:03, 69.90it/s] 32%|███▏      | 127/391 [00:03<00:03, 71.31it/s] 35%|███▍      | 135/391 [00:03<00:03, 69.34it/s] 37%|███▋      | 144/391 [00:04<00:03, 73.07it/s] 39%|███▉      | 152/391 [00:04<00:03, 70.23it/s] 41%|████      | 160/391 [00:04<00:03, 66.73it/s] 43%|████▎     | 167/391 [00:04<00:03, 64.91it/s] 45%|████▍     | 175/391 [00:04<00:03, 68.54it/s] 47%|████▋     | 184/391 [00:04<00:02, 72.35it/s] 49%|████▉     | 192/391 [00:04<00:02, 73.02it/s] 51%|█████▏    | 201/391 [00:04<00:02, 74.73it/s] 53%|█████▎    | 209/391 [00:05<00:02, 70.86it/s] 56%|█████▌    | 218/391 [00:05<00:02, 74.62it/s] 58%|█████▊    | 226/391 [00:05<00:02, 69.75it/s] 60%|█████▉    | 234/391 [00:05<00:02, 68.11it/s] 62%|██████▏   | 242/391 [00:05<00:02, 69.48it/s] 64%|██████▍   | 250/391 [00:05<00:02, 66.26it/s] 66%|██████▌   | 257/391 [00:05<00:02, 66.35it/s] 68%|██████▊   | 265/391 [00:05<00:01, 67.10it/s] 70%|███████   | 274/391 [00:05<00:01, 72.84it/s] 72%|███████▏  | 282/391 [00:06<00:01, 71.48it/s] 74%|███████▍  | 290/391 [00:06<00:01, 68.73it/s] 76%|███████▌  | 298/391 [00:06<00:01, 70.57it/s] 79%|███████▊  | 307/391 [00:06<00:01, 74.91it/s] 81%|████████  | 315/391 [00:06<00:01, 72.76it/s] 83%|████████▎ | 323/391 [00:06<00:00, 73.77it/s] 85%|████████▍ | 332/391 [00:06<00:00, 76.05it/s] 87%|████████▋ | 340/391 [00:07<00:01, 43.30it/s] 89%|████████▉ | 348/391 [00:07<00:00, 49.63it/s] 91%|█████████▏| 357/391 [00:07<00:00, 56.76it/s] 94%|█████████▎| 366/391 [00:07<00:00, 63.06it/s] 96%|█████████▋| 377/391 [00:07<00:00, 72.80it/s] 99%|█████████▉| 387/391 [00:07<00:00, 78.83it/s]100%|██████████| 391/391 [00:07<00:00, 50.30it/s]
+50000 images processed, 7.901911020278931 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:36,  2.13it/s] 10%|█         | 8/79 [00:00<00:03, 17.89it/s] 22%|██▏       | 17/79 [00:00<00:01, 34.96it/s] 33%|███▎      | 26/79 [00:00<00:01, 48.99it/s] 43%|████▎     | 34/79 [00:00<00:00, 55.79it/s] 53%|█████▎    | 42/79 [00:00<00:00, 61.95it/s] 65%|██████▍   | 51/79 [00:01<00:00, 68.48it/s] 77%|███████▋  | 61/79 [00:01<00:00, 75.30it/s] 89%|████████▊ | 70/79 [00:01<00:00, 79.21it/s]100%|██████████| 79/79 [00:01<00:00, 73.39it/s]100%|██████████| 79/79 [00:01<00:00, 54.28it/s]
+10000 images processed, 1.491058588027954 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<01:48,  1.87it/s]  2%|▏         | 5/204 [00:00<00:20,  9.88it/s]  7%|▋         | 14/204 [00:00<00:06, 27.47it/s] 10%|█         | 21/204 [00:00<00:04, 37.08it/s] 14%|█▎        | 28/204 [00:00<00:03, 45.39it/s] 18%|█▊        | 36/204 [00:01<00:03, 54.40it/s] 22%|██▏       | 44/204 [00:01<00:02, 60.42it/s] 25%|██▌       | 52/204 [00:01<00:02, 64.80it/s] 29%|██▉       | 60/204 [00:01<00:02, 65.39it/s] 33%|███▎      | 68/204 [00:01<00:01, 68.38it/s] 37%|███▋      | 76/204 [00:01<00:01, 69.72it/s] 41%|████      | 84/204 [00:01<00:01, 70.61it/s] 45%|████▌     | 92/204 [00:01<00:01, 70.91it/s] 50%|████▉     | 101/204 [00:01<00:01, 73.99it/s] 53%|█████▎    | 109/204 [00:02<00:01, 71.64it/s] 57%|█████▋    | 117/204 [00:02<00:01, 71.09it/s] 61%|██████▏   | 125/204 [00:02<00:01, 65.72it/s] 65%|██████▌   | 133/204 [00:02<00:01, 68.48it/s] 70%|██████▉   | 142/204 [00:02<00:00, 73.07it/s] 74%|███████▎  | 150/204 [00:02<00:00, 67.15it/s] 78%|███████▊  | 159/204 [00:02<00:00, 71.13it/s] 82%|████████▏ | 168/204 [00:02<00:00, 74.10it/s] 86%|████████▋ | 176/204 [00:02<00:00, 74.23it/s] 91%|█████████ | 185/204 [00:03<00:00, 75.05it/s] 96%|█████████▌| 195/204 [00:03<00:00, 80.53it/s]100%|██████████| 204/204 [00:03<00:00, 74.61it/s]100%|██████████| 204/204 [00:03<00:00, 60.63it/s]
+26032 images processed, 3.424971580505371 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:59,  1.31it/s]  8%|▊         | 6/79 [00:00<00:08,  8.90it/s] 16%|█▋        | 13/79 [00:00<00:03, 19.95it/s] 25%|██▌       | 20/79 [00:01<00:01, 30.21it/s] 33%|███▎      | 26/79 [00:01<00:01, 34.64it/s] 42%|████▏     | 33/79 [00:01<00:01, 42.50it/s] 51%|█████     | 40/79 [00:01<00:00, 47.69it/s] 58%|█████▊    | 46/79 [00:01<00:00, 50.09it/s] 66%|██████▌   | 52/79 [00:01<00:00, 46.60it/s] 76%|███████▌  | 60/79 [00:01<00:00, 53.99it/s] 87%|████████▋ | 69/79 [00:01<00:00, 61.84it/s] 99%|█████████▊| 78/79 [00:01<00:00, 68.56it/s]100%|██████████| 79/79 [00:01<00:00, 39.51it/s]
+10000 images processed, 2.0634074211120605 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:43,  1.80it/s]  8%|▊         | 6/79 [00:00<00:06, 11.61it/s] 15%|█▌        | 12/79 [00:00<00:03, 22.33it/s] 24%|██▍       | 19/79 [00:00<00:01, 32.89it/s] 34%|███▍      | 27/79 [00:00<00:01, 43.58it/s] 44%|████▍     | 35/79 [00:01<00:00, 50.73it/s] 53%|█████▎    | 42/79 [00:01<00:00, 50.86it/s] 63%|██████▎   | 50/79 [00:01<00:00, 57.02it/s] 72%|███████▏  | 57/79 [00:01<00:00, 56.01it/s] 84%|████████▎ | 66/79 [00:01<00:00, 64.75it/s] 96%|█████████▌| 76/79 [00:01<00:00, 72.52it/s]100%|██████████| 79/79 [00:01<00:00, 46.13it/s]
+10000 images processed, 1.735651969909668 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:33,  2.08it/s] 13%|█▎        | 9/70 [00:00<00:03, 19.72it/s] 23%|██▎       | 16/70 [00:00<00:01, 31.80it/s] 36%|███▌      | 25/70 [00:00<00:00, 45.34it/s] 47%|████▋     | 33/70 [00:00<00:00, 53.17it/s] 59%|█████▊    | 41/70 [00:01<00:00, 58.92it/s] 73%|███████▎  | 51/70 [00:01<00:00, 68.65it/s] 87%|████████▋ | 61/70 [00:01<00:00, 76.18it/s]100%|██████████| 70/70 [00:01<00:00, 74.31it/s]100%|██████████| 70/70 [00:01<00:00, 51.47it/s]
+8925 images processed, 1.394986629486084 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:00<00:43,  1.01it/s]  4%|▍         | 2/45 [00:01<00:22,  1.90it/s] 20%|██        | 9/45 [00:01<00:03, 11.23it/s] 36%|███▌      | 16/45 [00:01<00:01, 20.64it/s] 47%|████▋     | 21/45 [00:01<00:01, 14.56it/s] 56%|█████▌    | 25/45 [00:02<00:01, 16.22it/s] 73%|███████▎  | 33/45 [00:02<00:00, 17.56it/s] 80%|████████  | 36/45 [00:02<00:00, 17.35it/s]100%|██████████| 45/45 [00:02<00:00, 26.39it/s]100%|██████████| 45/45 [00:02<00:00, 15.93it/s]
+5640 images processed, 2.8494651317596436 seconds used
+
+22.941628217697144
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           2.50  99.36
+places365     67.90  80.57
+LSUN          21.54  95.06
+iSUN          72.24  81.40
+dtd           38.17  91.27
+AVG           40.47  89.53
+Retain-Acc: 0.7433
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 84.00 AUROC: 85.57 AUIN: 99.08
+53.70461845397949
+[umap] visualization failed: No module named 'umap'
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] loaded adapter 'stage1' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: stage1
+resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stage1-seen: Number of model parameters: 22082496
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<04:09,  1.56it/s]  1%|▏         | 5/391 [00:00<00:45,  8.47it/s]  3%|▎         | 12/391 [00:00<00:18, 20.74it/s]  5%|▍         | 18/391 [00:00<00:12, 28.96it/s]  7%|▋         | 26/391 [00:01<00:09, 40.34it/s]  9%|▊         | 34/391 [00:01<00:07, 49.10it/s] 11%|█         | 43/391 [00:01<00:05, 58.38it/s] 13%|█▎        | 50/391 [00:01<00:05, 60.01it/s] 15%|█▍        | 57/391 [00:01<00:05, 58.82it/s] 17%|█▋        | 66/391 [00:01<00:05, 64.52it/s] 19%|█▉        | 75/391 [00:01<00:04, 69.49it/s] 22%|██▏       | 85/391 [00:01<00:04, 75.60it/s] 24%|██▍       | 93/391 [00:02<00:04, 65.75it/s] 26%|██▌       | 101/391 [00:02<00:04, 67.32it/s] 28%|██▊       | 109/391 [00:02<00:04, 69.60it/s] 30%|██▉       | 117/391 [00:02<00:03, 71.69it/s] 32%|███▏      | 126/391 [00:02<00:03, 75.81it/s] 35%|███▍      | 136/391 [00:02<00:03, 80.95it/s] 37%|███▋      | 145/391 [00:02<00:02, 83.03it/s] 39%|███▉      | 154/391 [00:02<00:02, 80.71it/s] 42%|████▏     | 163/391 [00:02<00:02, 77.04it/s] 44%|████▎     | 171/391 [00:03<00:03, 72.71it/s] 46%|████▌     | 179/391 [00:03<00:02, 73.34it/s] 48%|████▊     | 187/391 [00:03<00:02, 74.55it/s] 50%|████▉     | 195/391 [00:03<00:02, 73.35it/s] 52%|█████▏    | 203/391 [00:03<00:02, 71.45it/s] 54%|█████▍    | 211/391 [00:03<00:02, 71.94it/s] 56%|█████▌    | 219/391 [00:03<00:02, 67.93it/s] 58%|█████▊    | 226/391 [00:03<00:02, 66.13it/s] 60%|█████▉    | 233/391 [00:03<00:02, 66.85it/s] 62%|██████▏   | 242/391 [00:04<00:02, 72.13it/s] 64%|██████▍   | 251/391 [00:04<00:01, 76.97it/s] 66%|██████▋   | 260/391 [00:04<00:01, 78.44it/s] 69%|██████▊   | 268/391 [00:04<00:01, 75.10it/s] 71%|███████   | 276/391 [00:04<00:01, 74.61it/s] 73%|███████▎  | 285/391 [00:04<00:01, 76.49it/s] 75%|███████▌  | 294/391 [00:04<00:01, 78.71it/s] 77%|███████▋  | 302/391 [00:04<00:01, 77.31it/s] 79%|███████▉  | 310/391 [00:04<00:01, 76.29it/s] 81%|████████▏ | 318/391 [00:05<00:01, 71.23it/s] 83%|████████▎ | 326/391 [00:05<00:00, 69.28it/s] 85%|████████▌ | 334/391 [00:05<00:00, 70.90it/s] 87%|████████▋ | 342/391 [00:05<00:00, 67.08it/s] 90%|████████▉ | 350/391 [00:05<00:00, 68.90it/s] 92%|█████████▏| 358/391 [00:05<00:00, 70.97it/s] 94%|█████████▎| 366/391 [00:05<00:00, 67.28it/s] 96%|█████████▌| 376/391 [00:05<00:00, 73.73it/s] 99%|█████████▊| 386/391 [00:05<00:00, 80.47it/s]100%|██████████| 391/391 [00:06<00:00, 64.59it/s]
+50000 images processed, 6.2560200691223145 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:55,  1.40it/s]  8%|▊         | 6/79 [00:00<00:08,  9.01it/s] 15%|█▌        | 12/79 [00:00<00:03, 18.22it/s] 25%|██▌       | 20/79 [00:01<00:01, 30.32it/s] 35%|███▌      | 28/79 [00:01<00:01, 40.75it/s] 46%|████▌     | 36/79 [00:01<00:00, 49.54it/s] 56%|█████▌    | 44/79 [00:01<00:00, 56.70it/s] 67%|██████▋   | 53/79 [00:01<00:00, 65.05it/s] 78%|███████▊  | 62/79 [00:01<00:00, 71.72it/s] 91%|█████████ | 72/79 [00:01<00:00, 78.41it/s]100%|██████████| 79/79 [00:02<00:00, 36.79it/s]
+10000 images processed, 2.198417901992798 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<02:47,  1.21it/s]  2%|▏         | 4/204 [00:00<00:38,  5.20it/s]  5%|▌         | 11/204 [00:01<00:12, 15.96it/s]  8%|▊         | 17/204 [00:01<00:07, 23.97it/s] 12%|█▏        | 24/204 [00:01<00:05, 33.31it/s] 16%|█▌        | 32/204 [00:01<00:03, 43.79it/s] 19%|█▉        | 39/204 [00:01<00:03, 49.19it/s] 23%|██▎       | 47/204 [00:01<00:02, 55.72it/s] 26%|██▋       | 54/204 [00:01<00:02, 59.02it/s] 30%|███       | 62/204 [00:01<00:02, 63.44it/s] 34%|███▍      | 69/204 [00:01<00:02, 61.30it/s] 38%|███▊      | 77/204 [00:02<00:01, 64.04it/s] 42%|████▏     | 85/204 [00:02<00:01, 65.94it/s] 45%|████▌     | 92/204 [00:02<00:02, 44.20it/s] 49%|████▊     | 99/204 [00:02<00:02, 48.94it/s] 53%|█████▎    | 108/204 [00:02<00:01, 57.10it/s] 57%|█████▋    | 116/204 [00:02<00:01, 61.14it/s] 60%|██████    | 123/204 [00:02<00:01, 61.46it/s] 64%|██████▎   | 130/204 [00:03<00:01, 57.38it/s] 68%|██████▊   | 138/204 [00:03<00:01, 60.89it/s] 71%|███████   | 145/204 [00:03<00:00, 60.27it/s] 75%|███████▌  | 153/204 [00:03<00:00, 62.81it/s] 78%|███████▊  | 160/204 [00:03<00:00, 61.49it/s] 82%|████████▏ | 167/204 [00:03<00:00, 57.35it/s] 85%|████████▍ | 173/204 [00:03<00:00, 52.70it/s] 89%|████████▊ | 181/204 [00:03<00:00, 57.07it/s] 92%|█████████▏| 188/204 [00:04<00:00, 56.87it/s] 96%|█████████▌| 196/204 [00:04<00:00, 58.90it/s]100%|██████████| 204/204 [00:04<00:00, 58.47it/s]100%|██████████| 204/204 [00:04<00:00, 47.61it/s]
+26032 images processed, 4.398626804351807 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<01:14,  1.04it/s]  8%|▊         | 6/79 [00:01<00:10,  7.27it/s] 13%|█▎        | 10/79 [00:01<00:05, 12.26it/s] 23%|██▎       | 18/79 [00:01<00:02, 23.97it/s] 29%|██▉       | 23/79 [00:01<00:02, 26.88it/s] 38%|███▊      | 30/79 [00:01<00:01, 35.51it/s] 49%|████▉     | 39/79 [00:01<00:00, 46.19it/s] 58%|█████▊    | 46/79 [00:01<00:00, 51.69it/s] 68%|██████▊   | 54/79 [00:01<00:00, 58.42it/s] 81%|████████  | 64/79 [00:01<00:00, 67.77it/s] 91%|█████████ | 72/79 [00:02<00:00, 67.38it/s]100%|██████████| 79/79 [00:02<00:00, 36.63it/s]
+10000 images processed, 2.216526985168457 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:59,  1.30it/s]  8%|▊         | 6/79 [00:00<00:08,  8.66it/s] 16%|█▋        | 13/79 [00:00<00:03, 19.46it/s] 25%|██▌       | 20/79 [00:01<00:02, 29.17it/s] 33%|███▎      | 26/79 [00:01<00:01, 35.13it/s] 41%|████      | 32/79 [00:01<00:01, 40.60it/s] 49%|████▉     | 39/79 [00:01<00:00, 47.52it/s] 58%|█████▊    | 46/79 [00:01<00:00, 52.65it/s] 70%|██████▉   | 55/79 [00:01<00:00, 61.51it/s] 81%|████████  | 64/79 [00:01<00:00, 68.57it/s] 92%|█████████▏| 73/79 [00:01<00:00, 73.09it/s]100%|██████████| 79/79 [00:01<00:00, 41.46it/s]
+10000 images processed, 1.945199728012085 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:43,  1.58it/s]  9%|▊         | 6/70 [00:00<00:06, 10.49it/s] 17%|█▋        | 12/70 [00:00<00:02, 20.55it/s] 26%|██▌       | 18/70 [00:00<00:01, 28.12it/s] 37%|███▋      | 26/70 [00:01<00:01, 39.38it/s] 47%|████▋     | 33/70 [00:01<00:00, 46.68it/s] 59%|█████▊    | 41/70 [00:01<00:00, 54.42it/s] 73%|███████▎  | 51/70 [00:01<00:00, 65.04it/s] 87%|████████▋ | 61/70 [00:01<00:00, 73.13it/s]100%|██████████| 70/70 [00:01<00:00, 64.31it/s]100%|██████████| 70/70 [00:01<00:00, 41.84it/s]
+8925 images processed, 1.7376902103424072 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<01:02,  1.42s/it]  4%|▍         | 2/45 [00:01<00:28,  1.51it/s] 22%|██▏       | 10/45 [00:01<00:03, 10.33it/s] 31%|███       | 14/45 [00:01<00:02, 12.08it/s] 38%|███▊      | 17/45 [00:02<00:02, 11.61it/s] 51%|█████     | 23/45 [00:02<00:01, 14.19it/s] 60%|██████    | 27/45 [00:02<00:01, 16.77it/s] 73%|███████▎  | 33/45 [00:02<00:00, 16.78it/s] 80%|████████  | 36/45 [00:03<00:00, 15.94it/s] 96%|█████████▌| 43/45 [00:03<00:00, 18.82it/s]100%|██████████| 45/45 [00:03<00:00, 12.66it/s]
+5640 images processed, 3.595181941986084 seconds used
+
+24.768935918807983
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           2.50  99.36
+places365     67.90  80.57
+LSUN          21.54  95.06
+iSUN          72.24  81.40
+dtd           38.17  91.27
+AVG           40.47  89.53
+Retain-Acc: 0.7433
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 84.00 AUROC: 85.57 AUIN: 99.08
+58.22424125671387
+[umap] visualization failed: No module named 'umap'
+==== Stage 2: forget_inc={66,67,88,94,57}; forget_seen={0,8,11,40,51}; all={0,8,11,40,51,66,67,88,94,57} ====
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=50, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, incremental=False, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2', adapter_load_path=None, adapter_load_paths='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1', lora_new_adapter_name='train_s2', lora_stack=True, lora_orth_enable=False, lora_orth_lambda=0.1, forget_classes='0,8,11,40,51,66,67,88,94,57', forget_list_path=None, forget_classes_inc='66,67,88,94,57', forget_classes_seen='0,8,11,40,51', forget_lambda=0.2, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='balanced', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] loaded adapter 'stage1' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[peft] added trainable adapter 'train_s2'
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: train_s2
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 22321088
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.train_s2.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.train_s2.weight
+[debug] trainable: base_model.model.head.2.lora_A.train_s2.weight
+[debug] trainable: base_model.model.head.2.lora_B.train_s2.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.train_s2.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.train_s2.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.train_s2.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.train_s2.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.train_s2.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.train_s2.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.train_s2.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.train_s2.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.train_s2.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.train_s2.weight']
+  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:51<41:56, 51.35s/it]  4%|▍         | 2/50 [01:35<37:33, 46.94s/it]  6%|▌         | 3/50 [02:14<34:12, 43.67s/it]  8%|▊         | 4/50 [02:55<32:35, 42.50s/it] 10%|█         | 5/50 [03:38<31:51, 42.47s/it] 12%|█▏        | 6/50 [04:17<30:22, 41.43s/it] 14%|█▍        | 7/50 [04:57<29:14, 40.80s/it][loss] ep 0 it 0 total=8.8247 mle=2.0441 pcon=5.2951 forget=1.4855 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 0 it 50 total=8.7393 mle=1.9723 pcon=5.2900 forget=1.4771 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 0 it 100 total=8.5843 mle=1.8880 pcon=5.2851 forget=1.4111 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 0 it 150 total=8.3386 mle=1.6111 pcon=5.2801 forget=1.4473 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 0 it 200 total=8.6982 mle=2.0167 pcon=5.2751 forget=1.4064 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 0 it 250 total=8.7877 mle=2.1331 pcon=5.2700 forget=1.3846 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 0 it 300 total=8.6990 mle=2.0092 pcon=5.2651 forget=1.4246 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 0 it 350 total=8.4767 mle=1.8039 pcon=5.2604 forget=1.4124 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 1 it 10 total=8.3176 mle=1.6169 pcon=5.2557 forget=1.4450 favg=0.0000 nr=23 nf=23 protos=540 fproto_sim=NA
+[loss] ep 1 it 60 total=8.4681 mle=1.7960 pcon=5.2509 forget=1.4212 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 1 it 110 total=8.7824 mle=2.1151 pcon=5.2464 forget=1.4209 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 1 it 160 total=8.6094 mle=1.9457 pcon=5.2417 forget=1.4220 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 1 it 210 total=8.7178 mle=2.0461 pcon=5.2366 forget=1.4351 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 1 it 260 total=8.6953 mle=2.0034 pcon=5.2321 forget=1.4599 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 1 it 310 total=8.6222 mle=1.9419 pcon=5.2276 forget=1.4527 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 1 it 360 total=8.5365 mle=1.8565 pcon=5.2232 forget=1.4568 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 2 it 20 total=8.5952 mle=1.9607 pcon=5.2189 forget=1.4156 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 2 it 70 total=8.7808 mle=2.1406 pcon=5.2149 forget=1.4253 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 2 it 120 total=8.9542 mle=2.2973 pcon=5.2104 forget=1.4465 favg=0.0000 nr=24 nf=24 protos=540 fproto_sim=NA
+[loss] ep 2 it 170 total=8.5228 mle=1.8586 pcon=5.2062 forget=1.4580 favg=0.0000 nr=40 nf=40 protos=540 fproto_sim=NA
+[loss] ep 2 it 220 total=8.5367 mle=1.9152 pcon=5.2021 forget=1.4193 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 2 it 270 total=8.5850 mle=1.9318 pcon=5.1978 forget=1.4555 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 2 it 320 total=9.1998 mle=2.5642 pcon=5.1937 forget=1.4419 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 2 it 370 total=8.7216 mle=2.0913 pcon=5.1896 forget=1.4407 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 3 it 30 total=8.6146 mle=1.9935 pcon=5.1856 forget=1.4356 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 3 it 80 total=8.1747 mle=1.6183 pcon=5.1816 forget=1.3749 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 3 it 130 total=8.4189 mle=1.8066 pcon=5.1777 forget=1.4346 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 3 it 180 total=8.6418 mle=2.0218 pcon=5.1741 forget=1.4459 favg=0.0000 nr=23 nf=23 protos=540 fproto_sim=NA
+[loss] ep 3 it 230 total=8.3135 mle=1.7306 pcon=5.1701 forget=1.4128 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 3 it 280 total=8.7762 mle=2.2010 pcon=5.1665 forget=1.4087 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 3 it 330 total=8.8229 mle=2.2107 pcon=5.1626 forget=1.4496 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 3 it 380 total=8.3459 mle=1.7741 pcon=5.1591 forget=1.4128 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 4 it 40 total=8.4052 mle=1.8550 pcon=5.1554 forget=1.3948 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 4 it 90 total=8.8690 mle=2.3296 pcon=5.1517 forget=1.3877 favg=0.0000 nr=23 nf=23 protos=540 fproto_sim=NA
+[loss] ep 4 it 140 total=8.5763 mle=2.0174 pcon=5.1484 forget=1.4105 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 4 it 190 total=8.4411 mle=1.8960 pcon=5.1450 forget=1.4001 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 4 it 240 total=8.2652 mle=1.7160 pcon=5.1418 forget=1.4073 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 4 it 290 total=8.3523 mle=1.8374 pcon=5.1384 forget=1.3765 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 4 it 340 total=8.6334 mle=2.1067 pcon=5.1351 forget=1.3917 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 5 it 0 total=8.8708 mle=2.3506 pcon=5.1317 forget=1.3885 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 5 it 50 total=8.2620 mle=1.7740 pcon=5.1286 forget=1.3594 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 5 it 100 total=8.4723 mle=1.9873 pcon=5.1254 forget=1.3597 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 5 it 150 total=8.2883 mle=1.7748 pcon=5.1220 forget=1.3915 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 5 it 200 total=8.2822 mle=1.8025 pcon=5.1186 forget=1.3611 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 5 it 250 total=8.2696 mle=1.7981 pcon=5.1156 forget=1.3560 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 5 it 300 total=8.3264 mle=1.8387 pcon=5.1125 forget=1.3752 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 5 it 350 total=8.6645 mle=2.1644 pcon=5.1092 forget=1.3909 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 6 it 10 total=8.5570 mle=2.0718 pcon=5.1061 forget=1.3791 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 6 it 60 total=8.6872 mle=2.2190 pcon=5.1034 forget=1.3649 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 6 it 110 total=8.5141 mle=2.0262 pcon=5.1005 forget=1.3874 favg=0.0000 nr=24 nf=24 protos=540 fproto_sim=NA
+[loss] ep 6 it 160 total=8.3014 mle=1.8142 pcon=5.0977 forget=1.3895 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 6 it 210 total=8.0843 mle=1.6131 pcon=5.0946 forget=1.3765 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 6 it 260 total=8.2375 mle=1.7222 pcon=5.0919 forget=1.4234 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 6 it 310 total=8.0460 mle=1.5393 pcon=5.0889 forget=1.4178 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 6 it 360 total=8.3513 mle=1.8830 pcon=5.0860 forget=1.3824 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 7 it 20 total=8.0402 mle=1.5751 pcon=5.0829 forget=1.3822 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 7 it 70 total=8.6276 mle=2.1829 pcon=5.0802 forget=1.3645 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 7 it 120 total=9.0054 mle=2.5294 pcon=5.0776 forget=1.3985 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 7 it 170 total=8.6462 mle=2.1840 pcon=5.0748 forget=1.3874 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+ 16%|█▌        | 8/50 [05:38<28:42, 41.00s/it] 18%|█▊        | 9/50 [06:18<27:55, 40.85s/it] 20%|██        | 10/50 [06:55<26:17, 39.45s/it] 22%|██▏       | 11/50 [07:30<24:44, 38.06s/it] 24%|██▍       | 12/50 [08:00<22:32, 35.60s/it] 26%|██▌       | 13/50 [08:25<20:00, 32.45s/it] 28%|██▊       | 14/50 [08:48<17:51, 29.76s/it] 30%|███       | 15/50 [09:08<15:37, 26.77s/it][loss] ep 7 it 220 total=8.4765 mle=1.9967 pcon=5.0724 forget=1.4075 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 7 it 270 total=8.5754 mle=2.1250 pcon=5.0695 forget=1.3809 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 7 it 320 total=8.1339 mle=1.7140 pcon=5.0672 forget=1.3527 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 7 it 370 total=8.2862 mle=1.8455 pcon=5.0642 forget=1.3764 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 8 it 30 total=8.6983 mle=2.2648 pcon=5.0619 forget=1.3716 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 8 it 80 total=8.2954 mle=1.7988 pcon=5.0594 forget=1.4373 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 8 it 130 total=8.1348 mle=1.6853 pcon=5.0569 forget=1.3927 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 8 it 180 total=8.3180 mle=1.9004 pcon=5.0544 forget=1.3632 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 8 it 230 total=8.0157 mle=1.6056 pcon=5.0518 forget=1.3583 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 8 it 280 total=8.5440 mle=2.1018 pcon=5.0491 forget=1.3931 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 8 it 330 total=8.4419 mle=2.0080 pcon=5.0463 forget=1.3877 favg=0.0000 nr=41 nf=41 protos=540 fproto_sim=NA
+[loss] ep 8 it 380 total=8.2138 mle=1.8229 pcon=5.0438 forget=1.3471 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 9 it 40 total=8.5458 mle=2.1804 pcon=5.0410 forget=1.3244 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 9 it 90 total=8.4848 mle=2.0703 pcon=5.0385 forget=1.3760 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 9 it 140 total=8.4070 mle=2.0402 pcon=5.0361 forget=1.3307 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 9 it 190 total=8.2151 mle=1.8582 pcon=5.0338 forget=1.3231 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 9 it 240 total=8.3332 mle=1.9666 pcon=5.0312 forget=1.3354 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 9 it 290 total=8.2489 mle=1.8747 pcon=5.0286 forget=1.3456 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 9 it 340 total=8.2047 mle=1.8120 pcon=5.0264 forget=1.3663 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 10 it 0 total=8.4441 mle=2.0397 pcon=5.0238 forget=1.3806 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 10 it 50 total=8.3126 mle=1.9275 pcon=5.0215 forget=1.3636 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 10 it 100 total=8.4076 mle=2.0325 pcon=5.0193 forget=1.3558 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 10 it 150 total=8.4895 mle=2.0862 pcon=5.0168 forget=1.3866 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 10 it 200 total=8.4775 mle=2.1217 pcon=5.0145 forget=1.3412 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 10 it 250 total=8.0294 mle=1.6778 pcon=5.0121 forget=1.3394 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 10 it 300 total=8.2418 mle=1.8855 pcon=5.0101 forget=1.3461 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 10 it 350 total=8.0878 mle=1.7247 pcon=5.0080 forget=1.3551 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 11 it 10 total=8.2076 mle=1.8134 pcon=5.0055 forget=1.3887 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 11 it 60 total=7.9590 mle=1.6048 pcon=5.0034 forget=1.3508 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 11 it 110 total=8.2965 mle=1.9159 pcon=5.0011 forget=1.3795 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 11 it 160 total=8.4140 mle=2.0396 pcon=4.9990 forget=1.3754 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 11 it 210 total=7.9802 mle=1.5997 pcon=4.9969 forget=1.3835 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 11 it 260 total=8.1246 mle=1.7595 pcon=4.9951 forget=1.3700 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 11 it 310 total=8.1435 mle=1.7618 pcon=4.9929 forget=1.3889 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 11 it 360 total=8.1598 mle=1.7732 pcon=4.9908 forget=1.3958 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 12 it 20 total=8.3219 mle=1.8809 pcon=4.9887 forget=1.4523 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 12 it 70 total=8.0718 mle=1.6888 pcon=4.9866 forget=1.3964 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 12 it 120 total=8.1693 mle=1.7810 pcon=4.9842 forget=1.4042 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 12 it 170 total=8.5473 mle=2.1626 pcon=4.9816 forget=1.4031 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 12 it 220 total=8.4201 mle=2.0434 pcon=4.9791 forget=1.3975 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 12 it 270 total=8.0517 mle=1.6572 pcon=4.9766 forget=1.4178 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 12 it 320 total=8.1481 mle=1.7587 pcon=4.9743 forget=1.4152 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 12 it 370 total=8.2384 mle=1.8416 pcon=4.9717 forget=1.4251 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 13 it 30 total=8.1321 mle=1.7201 pcon=4.9693 forget=1.4428 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 13 it 80 total=7.9965 mle=1.5977 pcon=4.9668 forget=1.4319 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 13 it 130 total=8.4152 mle=2.0173 pcon=4.9642 forget=1.4337 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 13 it 180 total=8.0633 mle=1.6582 pcon=4.9618 forget=1.4434 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 13 it 230 total=8.0004 mle=1.6183 pcon=4.9591 forget=1.4229 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 13 it 280 total=8.2883 mle=1.8837 pcon=4.9565 forget=1.4480 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 13 it 330 total=8.2114 mle=1.7641 pcon=4.9538 forget=1.4935 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 13 it 380 total=8.1174 mle=1.7402 pcon=4.9512 forget=1.4261 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 14 it 40 total=8.0372 mle=1.6240 pcon=4.9486 forget=1.4646 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 14 it 90 total=8.4846 mle=2.1268 pcon=4.9461 forget=1.4117 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 14 it 140 total=8.2795 mle=1.9409 pcon=4.9435 forget=1.3951 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 14 it 190 total=8.0125 mle=1.6533 pcon=4.9410 forget=1.4182 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 14 it 240 total=8.1403 mle=1.7866 pcon=4.9385 forget=1.4152 favg=0.0000 nr=23 nf=23 protos=540 fproto_sim=NA
+[loss] ep 14 it 290 total=8.1208 mle=1.8161 pcon=4.9359 forget=1.3688 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 14 it 340 total=8.1057 mle=1.8164 pcon=4.9333 forget=1.3560 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 15 it 0 total=7.9245 mle=1.6389 pcon=4.9310 forget=1.3546 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+ 32%|███▏      | 16/50 [09:32<14:36, 25.79s/it] 34%|███▍      | 17/50 [09:52<13:20, 24.25s/it] 36%|███▌      | 18/50 [10:14<12:29, 23.41s/it] 38%|███▊      | 19/50 [10:37<11:58, 23.19s/it] 40%|████      | 20/50 [10:56<11:02, 22.07s/it] 42%|████▏     | 21/50 [11:18<10:42, 22.14s/it] 44%|████▍     | 22/50 [11:47<11:17, 24.20s/it][loss] ep 15 it 50 total=8.1708 mle=1.9108 pcon=4.9285 forget=1.3314 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 15 it 100 total=7.9990 mle=1.7507 pcon=4.9264 forget=1.3218 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 15 it 150 total=8.2478 mle=1.9888 pcon=4.9242 forget=1.3348 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 15 it 200 total=7.9039 mle=1.7351 pcon=4.9219 forget=1.2468 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 15 it 250 total=8.0010 mle=1.8223 pcon=4.9197 forget=1.2589 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 15 it 300 total=7.8849 mle=1.7455 pcon=4.9178 forget=1.2216 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 15 it 350 total=7.7151 mle=1.6546 pcon=4.9159 forget=1.1445 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 16 it 10 total=7.7214 mle=1.6697 pcon=4.9140 forget=1.1377 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 16 it 60 total=7.6324 mle=1.6206 pcon=4.9120 forget=1.0999 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 16 it 110 total=7.6435 mle=1.6505 pcon=4.9102 forget=1.0828 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 16 it 160 total=7.8949 mle=1.9100 pcon=4.9079 forget=1.0770 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 16 it 210 total=7.9572 mle=1.9648 pcon=4.9061 forget=1.0863 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 16 it 260 total=7.7048 mle=1.7525 pcon=4.9042 forget=1.0481 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 16 it 310 total=7.5760 mle=1.6536 pcon=4.9023 forget=1.0200 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 16 it 360 total=7.4716 mle=1.5760 pcon=4.9005 forget=0.9951 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 17 it 20 total=7.8937 mle=1.9710 pcon=4.8988 forget=1.0239 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 17 it 70 total=7.8885 mle=1.9818 pcon=4.8970 forget=1.0097 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 17 it 120 total=7.6614 mle=1.7694 pcon=4.8951 forget=0.9969 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 17 it 170 total=7.4535 mle=1.5771 pcon=4.8932 forget=0.9832 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 17 it 220 total=7.7829 mle=1.9105 pcon=4.8913 forget=0.9811 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 17 it 270 total=7.6172 mle=1.7709 pcon=4.8894 forget=0.9569 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 17 it 320 total=7.5747 mle=1.7457 pcon=4.8875 forget=0.9415 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 17 it 370 total=7.8445 mle=2.0083 pcon=4.8855 forget=0.9507 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 18 it 30 total=7.4625 mle=1.5956 pcon=4.8836 forget=0.9832 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 18 it 80 total=7.4943 mle=1.6457 pcon=4.8817 forget=0.9668 favg=0.0000 nr=41 nf=41 protos=540 fproto_sim=NA
+[loss] ep 18 it 130 total=7.4640 mle=1.6282 pcon=4.8798 forget=0.9560 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 18 it 180 total=7.6951 mle=1.8871 pcon=4.8780 forget=0.9299 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 18 it 230 total=7.4594 mle=1.6541 pcon=4.8762 forget=0.9292 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 18 it 280 total=7.4710 mle=1.6516 pcon=4.8742 forget=0.9452 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 18 it 330 total=7.4454 mle=1.6371 pcon=4.8724 forget=0.9360 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 18 it 380 total=7.2960 mle=1.4856 pcon=4.8704 forget=0.9400 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 19 it 40 total=7.2695 mle=1.4649 pcon=4.8684 forget=0.9362 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 19 it 90 total=7.3990 mle=1.5963 pcon=4.8666 forget=0.9362 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 19 it 140 total=7.4044 mle=1.6150 pcon=4.8647 forget=0.9246 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 19 it 190 total=7.3824 mle=1.6051 pcon=4.8628 forget=0.9144 favg=0.0000 nr=24 nf=24 protos=540 fproto_sim=NA
+[loss] ep 19 it 240 total=7.3237 mle=1.5292 pcon=4.8609 forget=0.9335 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 19 it 290 total=7.3282 mle=1.5539 pcon=4.8589 forget=0.9154 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 19 it 340 total=7.3451 mle=1.5673 pcon=4.8569 forget=0.9209 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 20 it 0 total=7.3122 mle=1.5238 pcon=4.8550 forget=0.9335 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 20 it 50 total=7.4494 mle=1.6702 pcon=4.8529 forget=0.9262 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 20 it 100 total=7.6115 mle=1.8372 pcon=4.8510 forget=0.9233 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 20 it 150 total=7.3299 mle=1.5605 pcon=4.8490 forget=0.9204 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 20 it 200 total=7.2616 mle=1.4673 pcon=4.8470 forget=0.9473 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 20 it 250 total=7.5049 mle=1.7457 pcon=4.8450 forget=0.9142 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 20 it 300 total=7.3176 mle=1.5453 pcon=4.8429 forget=0.9295 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 20 it 350 total=7.3789 mle=1.6156 pcon=4.8409 forget=0.9225 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[loss] ep 21 it 10 total=7.4121 mle=1.6385 pcon=4.8388 forget=0.9347 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 21 it 60 total=7.5340 mle=1.7580 pcon=4.8368 forget=0.9392 favg=0.0000 nr=40 nf=40 protos=540 fproto_sim=NA
+[loss] ep 21 it 110 total=7.3617 mle=1.6031 pcon=4.8347 forget=0.9239 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 21 it 160 total=7.5931 mle=1.8225 pcon=4.8329 forget=0.9377 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 21 it 210 total=7.5287 mle=1.7408 pcon=4.8309 forget=0.9570 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 21 it 260 total=7.4767 mle=1.7102 pcon=4.8288 forget=0.9377 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 21 it 310 total=7.3902 mle=1.6229 pcon=4.8268 forget=0.9405 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 21 it 360 total=7.4047 mle=1.6336 pcon=4.8247 forget=0.9464 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 22 it 20 total=7.3967 mle=1.6195 pcon=4.8228 forget=0.9545 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 22 it 70 total=7.4857 mle=1.7208 pcon=4.8208 forget=0.9441 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 22 it 120 total=7.5295 mle=1.7514 pcon=4.8188 forget=0.9593 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 22 it 170 total=7.4322 mle=1.6495 pcon=4.8167 forget=0.9660 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 22 it 220 total=7.6063 mle=1.8329 pcon=4.8148 forget=0.9586 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 22 it 270 total=7.5814 mle=1.7970 pcon=4.8127 forget=0.9717 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+ 46%|████▌     | 23/50 [12:02<09:36, 21.36s/it] 48%|████▊     | 24/50 [12:19<08:40, 20.03s/it] 50%|█████     | 25/50 [12:36<08:00, 19.20s/it] 52%|█████▏    | 26/50 [12:51<07:06, 17.76s/it] 54%|█████▍    | 27/50 [13:04<06:18, 16.47s/it] 56%|█████▌    | 28/50 [13:19<05:52, 16.03s/it] 58%|█████▊    | 29/50 [13:37<05:45, 16.46s/it] 60%|██████    | 30/50 [13:50<05:08, 15.42s/it] 62%|██████▏   | 31/50 [14:01<04:27, 14.09s/it][loss] ep 22 it 320 total=7.3441 mle=1.5690 pcon=4.8106 forget=0.9644 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 22 it 370 total=7.3977 mle=1.6030 pcon=4.8089 forget=0.9858 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 23 it 30 total=7.4233 mle=1.6420 pcon=4.8070 forget=0.9743 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 23 it 80 total=7.4304 mle=1.6416 pcon=4.8051 forget=0.9837 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 23 it 130 total=7.4815 mle=1.6965 pcon=4.8032 forget=0.9818 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 23 it 180 total=7.4304 mle=1.6086 pcon=4.8014 forget=1.0204 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 23 it 230 total=7.4014 mle=1.6166 pcon=4.7996 forget=0.9852 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 23 it 280 total=7.5138 mle=1.7237 pcon=4.7978 forget=0.9923 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 23 it 330 total=7.3872 mle=1.6000 pcon=4.7961 forget=0.9912 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 23 it 380 total=7.4414 mle=1.6547 pcon=4.7943 forget=0.9925 favg=0.0000 nr=43 nf=43 protos=540 fproto_sim=NA
+[loss] ep 24 it 40 total=7.3747 mle=1.5766 pcon=4.7926 forget=1.0056 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 24 it 90 total=7.7865 mle=1.9934 pcon=4.7907 forget=1.0023 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 24 it 140 total=7.4662 mle=1.6508 pcon=4.7890 forget=1.0264 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 24 it 190 total=7.6177 mle=1.8201 pcon=4.7873 forget=1.0103 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 24 it 240 total=7.4503 mle=1.6577 pcon=4.7855 forget=1.0071 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 24 it 290 total=7.5410 mle=1.7386 pcon=4.7837 forget=1.0187 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 24 it 340 total=7.3169 mle=1.5110 pcon=4.7819 forget=1.0240 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 25 it 0 total=7.3645 mle=1.5528 pcon=4.7802 forget=1.0316 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 25 it 50 total=8.0425 mle=2.2169 pcon=4.7785 forget=1.0471 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 25 it 100 total=7.5601 mle=1.7386 pcon=4.7769 forget=1.0446 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 25 it 150 total=7.4415 mle=1.6230 pcon=4.7752 forget=1.0433 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 25 it 200 total=7.5963 mle=1.7577 pcon=4.7735 forget=1.0651 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 25 it 250 total=7.2564 mle=1.4332 pcon=4.7716 forget=1.0515 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 25 it 300 total=7.3992 mle=1.5688 pcon=4.7700 forget=1.0605 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 25 it 350 total=7.4798 mle=1.6583 pcon=4.7683 forget=1.0533 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 26 it 10 total=7.3378 mle=1.5134 pcon=4.7668 forget=1.0577 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 26 it 60 total=7.5760 mle=1.7387 pcon=4.7653 forget=1.0720 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 26 it 110 total=7.4466 mle=1.6142 pcon=4.7637 forget=1.0688 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 26 it 160 total=7.5037 mle=1.6699 pcon=4.7620 forget=1.0717 favg=0.0000 nr=23 nf=23 protos=540 fproto_sim=NA
+[loss] ep 26 it 210 total=7.4864 mle=1.6508 pcon=4.7604 forget=1.0752 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 26 it 260 total=7.3584 mle=1.5145 pcon=4.7589 forget=1.0850 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 26 it 310 total=7.9765 mle=2.1285 pcon=4.7572 forget=1.0907 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 26 it 360 total=7.4653 mle=1.6202 pcon=4.7558 forget=1.0893 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 27 it 20 total=7.4644 mle=1.6247 pcon=4.7544 forget=1.0853 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 27 it 70 total=7.3894 mle=1.5380 pcon=4.7528 forget=1.0986 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 27 it 120 total=7.4920 mle=1.6054 pcon=4.7514 forget=1.1352 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 27 it 170 total=7.5726 mle=1.7162 pcon=4.7499 forget=1.1065 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 27 it 220 total=7.5767 mle=1.7075 pcon=4.7486 forget=1.1206 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 27 it 270 total=7.3769 mle=1.5131 pcon=4.7471 forget=1.1167 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 27 it 320 total=7.5299 mle=1.6716 pcon=4.7457 forget=1.1127 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 27 it 370 total=7.4010 mle=1.5402 pcon=4.7441 forget=1.1167 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 28 it 30 total=7.3980 mle=1.5325 pcon=4.7428 forget=1.1227 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 28 it 80 total=7.5885 mle=1.7092 pcon=4.7415 forget=1.1379 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 28 it 130 total=7.8183 mle=1.9463 pcon=4.7401 forget=1.1319 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 28 it 180 total=7.7639 mle=1.8867 pcon=4.7389 forget=1.1383 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 28 it 230 total=7.5791 mle=1.6999 pcon=4.7375 forget=1.1418 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 28 it 280 total=7.5127 mle=1.6317 pcon=4.7363 forget=1.1447 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 28 it 330 total=7.8159 mle=1.9163 pcon=4.7349 forget=1.1647 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 28 it 380 total=7.5677 mle=1.6747 pcon=4.7335 forget=1.1594 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 29 it 40 total=7.5502 mle=1.6583 pcon=4.7322 forget=1.1598 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 29 it 90 total=7.5172 mle=1.6290 pcon=4.7309 forget=1.1573 favg=0.0000 nr=40 nf=40 protos=540 fproto_sim=NA
+[loss] ep 29 it 140 total=7.5694 mle=1.6498 pcon=4.7297 forget=1.1899 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 29 it 190 total=7.7632 mle=1.8527 pcon=4.7284 forget=1.1822 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 29 it 240 total=7.8487 mle=1.9526 pcon=4.7272 forget=1.1688 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 29 it 290 total=7.4837 mle=1.5795 pcon=4.7259 forget=1.1784 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 29 it 340 total=7.5779 mle=1.6827 pcon=4.7247 forget=1.1705 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 30 it 0 total=7.5666 mle=1.6643 pcon=4.7236 forget=1.1787 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 30 it 50 total=7.3982 mle=1.4898 pcon=4.7224 forget=1.1860 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 30 it 100 total=7.6511 mle=1.7380 pcon=4.7212 forget=1.1920 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 30 it 150 total=7.5840 mle=1.6792 pcon=4.7201 forget=1.1848 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 30 it 200 total=7.7512 mle=1.8327 pcon=4.7189 forget=1.1996 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 30 it 250 total=7.5204 mle=1.6139 pcon=4.7178 forget=1.1886 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 30 it 300 total=7.3388 mle=1.4245 pcon=4.7166 forget=1.1977 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 30 it 350 total=7.8798 mle=1.9558 pcon=4.7155 forget=1.2085 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 31 it 10 total=7.6586 mle=1.7231 pcon=4.7144 forget=1.2211 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 31 it 60 total=7.6725 mle=1.7484 pcon=4.7134 forget=1.2107 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 31 it 110 total=7.7658 mle=1.8074 pcon=4.7124 forget=1.2460 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 31 it 160 total=7.5721 mle=1.6541 pcon=4.7114 forget=1.2066 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 31 it 210 total=7.6919 mle=1.7566 pcon=4.7103 forget=1.2249 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+ 64%|██████▍   | 32/50 [14:13<04:02, 13.48s/it] 66%|██████▌   | 33/50 [14:25<03:44, 13.19s/it] 68%|██████▊   | 34/50 [14:38<03:29, 13.08s/it] 70%|███████   | 35/50 [14:50<03:09, 12.61s/it] 72%|███████▏  | 36/50 [15:00<02:48, 12.05s/it] 74%|███████▍  | 37/50 [15:12<02:34, 11.90s/it] 76%|███████▌  | 38/50 [15:24<02:23, 11.98s/it] 78%|███████▊  | 39/50 [15:36<02:11, 11.92s/it] 80%|████████  | 40/50 [15:47<01:58, 11.85s/it][loss] ep 31 it 260 total=7.5899 mle=1.6621 pcon=4.7094 forget=1.2184 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 31 it 310 total=7.5750 mle=1.6478 pcon=4.7083 forget=1.2189 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 31 it 360 total=7.4303 mle=1.4865 pcon=4.7074 forget=1.2364 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 32 it 20 total=7.4982 mle=1.5697 pcon=4.7064 forget=1.2221 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 32 it 70 total=7.6764 mle=1.7388 pcon=4.7055 forget=1.2321 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 32 it 120 total=7.5452 mle=1.6041 pcon=4.7045 forget=1.2366 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 32 it 170 total=7.7276 mle=1.7762 pcon=4.7036 forget=1.2478 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 32 it 220 total=7.6423 mle=1.6969 pcon=4.7027 forget=1.2427 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 32 it 270 total=7.4945 mle=1.5480 pcon=4.7018 forget=1.2447 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 32 it 320 total=7.6023 mle=1.6636 pcon=4.7008 forget=1.2379 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 32 it 370 total=7.5345 mle=1.5918 pcon=4.6999 forget=1.2428 favg=0.0000 nr=41 nf=41 protos=540 fproto_sim=NA
+[loss] ep 33 it 30 total=7.4283 mle=1.4821 pcon=4.6991 forget=1.2471 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 33 it 80 total=7.7079 mle=1.7584 pcon=4.6983 forget=1.2513 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 33 it 130 total=7.5634 mle=1.6183 pcon=4.6975 forget=1.2476 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 33 it 180 total=7.6371 mle=1.6868 pcon=4.6967 forget=1.2536 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 33 it 230 total=7.6244 mle=1.6750 pcon=4.6959 forget=1.2535 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 33 it 280 total=7.7655 mle=1.8048 pcon=4.6950 forget=1.2657 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 33 it 330 total=7.6186 mle=1.6707 pcon=4.6941 forget=1.2538 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 33 it 380 total=7.6090 mle=1.6524 pcon=4.6933 forget=1.2633 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 34 it 40 total=7.6663 mle=1.6875 pcon=4.6925 forget=1.2864 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 34 it 90 total=7.6146 mle=1.6628 pcon=4.6917 forget=1.2601 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 34 it 140 total=7.6840 mle=1.7221 pcon=4.6909 forget=1.2709 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 34 it 190 total=7.7063 mle=1.7499 pcon=4.6902 forget=1.2662 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 34 it 240 total=7.6990 mle=1.7315 pcon=4.6895 forget=1.2780 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 34 it 290 total=8.0880 mle=2.1110 pcon=4.6888 forget=1.2882 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 34 it 340 total=7.5456 mle=1.5710 pcon=4.6881 forget=1.2865 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 35 it 0 total=7.7273 mle=1.7673 pcon=4.6874 forget=1.2726 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 35 it 50 total=7.6724 mle=1.6794 pcon=4.6867 forget=1.3063 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 35 it 100 total=7.9104 mle=1.9472 pcon=4.6861 forget=1.2772 favg=0.0000 nr=21 nf=21 protos=540 fproto_sim=NA
+[loss] ep 35 it 150 total=7.7437 mle=1.7626 pcon=4.6853 forget=1.2958 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 35 it 200 total=7.7828 mle=1.8216 pcon=4.6846 forget=1.2766 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 35 it 250 total=7.8376 mle=1.8723 pcon=4.6839 forget=1.2814 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 35 it 300 total=7.5582 mle=1.5869 pcon=4.6832 forget=1.2881 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 35 it 350 total=7.6376 mle=1.6570 pcon=4.6825 forget=1.2981 favg=0.0000 nr=43 nf=43 protos=540 fproto_sim=NA
+[loss] ep 36 it 10 total=7.9389 mle=1.9637 pcon=4.6818 forget=1.2934 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 36 it 60 total=7.7763 mle=1.7842 pcon=4.6812 forget=1.3109 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 36 it 110 total=7.5760 mle=1.5980 pcon=4.6807 forget=1.2973 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 36 it 160 total=7.7902 mle=1.7988 pcon=4.6800 forget=1.3113 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 36 it 210 total=7.5332 mle=1.5528 pcon=4.6794 forget=1.3011 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 36 it 260 total=7.6132 mle=1.6394 pcon=4.6787 forget=1.2951 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 36 it 310 total=7.5769 mle=1.5933 pcon=4.6782 forget=1.3054 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 36 it 360 total=7.5453 mle=1.5630 pcon=4.6776 forget=1.3047 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 37 it 20 total=7.5817 mle=1.5956 pcon=4.6769 forget=1.3091 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 37 it 70 total=7.5618 mle=1.5666 pcon=4.6763 forget=1.3188 favg=0.0000 nr=24 nf=24 protos=540 fproto_sim=NA
+[loss] ep 37 it 120 total=7.5702 mle=1.5872 pcon=4.6758 forget=1.3071 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 37 it 170 total=7.7783 mle=1.7745 pcon=4.6752 forget=1.3285 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 37 it 220 total=7.5677 mle=1.5833 pcon=4.6746 forget=1.3098 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 37 it 270 total=7.5363 mle=1.5460 pcon=4.6741 forget=1.3162 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 37 it 320 total=7.4382 mle=1.4490 pcon=4.6736 forget=1.3156 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 37 it 370 total=7.8531 mle=1.8559 pcon=4.6730 forget=1.3241 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 38 it 30 total=7.7380 mle=1.7495 pcon=4.6725 forget=1.3159 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 38 it 80 total=7.6687 mle=1.6674 pcon=4.6720 forget=1.3293 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 38 it 130 total=7.7405 mle=1.7445 pcon=4.6714 forget=1.3246 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 38 it 180 total=7.7395 mle=1.7444 pcon=4.6708 forget=1.3242 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 38 it 230 total=7.8013 mle=1.8013 pcon=4.6703 forget=1.3297 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 38 it 280 total=7.7703 mle=1.7618 pcon=4.6698 forget=1.3387 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 38 it 330 total=7.5916 mle=1.5943 pcon=4.6693 forget=1.3280 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 38 it 380 total=7.6617 mle=1.6313 pcon=4.6688 forget=1.3617 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 39 it 40 total=7.5260 mle=1.5234 pcon=4.6682 forget=1.3343 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 39 it 90 total=7.5862 mle=1.5870 pcon=4.6677 forget=1.3314 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 39 it 140 total=7.7118 mle=1.6841 pcon=4.6673 forget=1.3604 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 39 it 190 total=7.6246 mle=1.6077 pcon=4.6667 forget=1.3501 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 39 it 240 total=7.6572 mle=1.6537 pcon=4.6663 forget=1.3372 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 39 it 290 total=7.6400 mle=1.6289 pcon=4.6658 forget=1.3453 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 39 it 340 total=7.6477 mle=1.6292 pcon=4.6654 forget=1.3532 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 40 it 0 total=7.7622 mle=1.7455 pcon=4.6649 forget=1.3518 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 40 it 50 total=7.5108 mle=1.4712 pcon=4.6646 forget=1.3750 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 40 it 100 total=7.5899 mle=1.5746 pcon=4.6642 forget=1.3512 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 40 it 150 total=7.7283 mle=1.7072 pcon=4.6637 forget=1.3574 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+ 82%|████████▏ | 41/50 [16:06<02:05, 13.93s/it] 84%|████████▍ | 42/50 [16:18<01:46, 13.36s/it] 86%|████████▌ | 43/50 [16:37<01:45, 15.12s/it] 88%|████████▊ | 44/50 [16:49<01:24, 14.07s/it] 90%|█████████ | 45/50 [17:01<01:07, 13.47s/it] 92%|█████████▏| 46/50 [17:15<00:54, 13.61s/it] 94%|█████████▍| 47/50 [17:29<00:40, 13.65s/it] 96%|█████████▌| 48/50 [17:42<00:27, 13.55s/it] 98%|█████████▊| 49/50 [17:55<00:13, 13.28s/it][loss] ep 40 it 200 total=7.7564 mle=1.7361 pcon=4.6633 forget=1.3571 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 40 it 250 total=7.6435 mle=1.6163 pcon=4.6628 forget=1.3643 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 40 it 300 total=7.6188 mle=1.5780 pcon=4.6625 forget=1.3784 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 40 it 350 total=7.7299 mle=1.7024 pcon=4.6620 forget=1.3655 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 41 it 10 total=7.6651 mle=1.6334 pcon=4.6617 forget=1.3700 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 41 it 60 total=7.8740 mle=1.8347 pcon=4.6613 forget=1.3780 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 41 it 110 total=7.5994 mle=1.5569 pcon=4.6609 forget=1.3816 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 41 it 160 total=7.5101 mle=1.4775 pcon=4.6606 forget=1.3720 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 41 it 210 total=7.5714 mle=1.5405 pcon=4.6603 forget=1.3706 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 41 it 260 total=7.7195 mle=1.6836 pcon=4.6599 forget=1.3760 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 41 it 310 total=7.6464 mle=1.6119 pcon=4.6596 forget=1.3750 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 41 it 360 total=7.6458 mle=1.6145 pcon=4.6592 forget=1.3721 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 42 it 20 total=7.9027 mle=1.8637 pcon=4.6589 forget=1.3801 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 42 it 70 total=7.6639 mle=1.6175 pcon=4.6585 forget=1.3879 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 42 it 120 total=7.7078 mle=1.6644 pcon=4.6582 forget=1.3852 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 42 it 170 total=7.8247 mle=1.7716 pcon=4.6578 forget=1.3952 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 42 it 220 total=7.7576 mle=1.7149 pcon=4.6576 forget=1.3851 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 42 it 270 total=8.0375 mle=1.9778 pcon=4.6573 forget=1.4024 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 42 it 320 total=7.6854 mle=1.6336 pcon=4.6569 forget=1.3948 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 42 it 370 total=7.8035 mle=1.7561 pcon=4.6567 forget=1.3907 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 43 it 30 total=7.6468 mle=1.5948 pcon=4.6564 forget=1.3956 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 43 it 80 total=7.7638 mle=1.7125 pcon=4.6561 forget=1.3952 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 43 it 130 total=7.7301 mle=1.6694 pcon=4.6559 forget=1.4049 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 43 it 180 total=7.8888 mle=1.8231 pcon=4.6557 forget=1.4100 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 43 it 230 total=7.7723 mle=1.7122 pcon=4.6554 forget=1.4047 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 43 it 280 total=7.7029 mle=1.6435 pcon=4.6551 forget=1.4043 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 43 it 330 total=7.8382 mle=1.7456 pcon=4.6548 forget=1.4378 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 43 it 380 total=7.5836 mle=1.5199 pcon=4.6545 forget=1.4091 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 44 it 40 total=7.7916 mle=1.7322 pcon=4.6543 forget=1.4051 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 44 it 90 total=7.6246 mle=1.5498 pcon=4.6540 forget=1.4207 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 44 it 140 total=7.6473 mle=1.5840 pcon=4.6538 forget=1.4095 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 44 it 190 total=7.6426 mle=1.5734 pcon=4.6535 forget=1.4157 favg=0.0000 nr=24 nf=24 protos=540 fproto_sim=NA
+[loss] ep 44 it 240 total=7.7923 mle=1.6920 pcon=4.6533 forget=1.4470 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 44 it 290 total=8.0045 mle=1.9256 pcon=4.6530 forget=1.4258 favg=0.0000 nr=36 nf=36 protos=540 fproto_sim=NA
+[loss] ep 44 it 340 total=7.8638 mle=1.7819 pcon=4.6527 forget=1.4292 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 45 it 0 total=7.8633 mle=1.7775 pcon=4.6525 forget=1.4333 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 45 it 50 total=7.7479 mle=1.6546 pcon=4.6522 forget=1.4411 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 45 it 100 total=7.6478 mle=1.5438 pcon=4.6520 forget=1.4521 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 45 it 150 total=7.8795 mle=1.7913 pcon=4.6517 forget=1.4365 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 45 it 200 total=7.5844 mle=1.4986 pcon=4.6514 forget=1.4344 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 45 it 250 total=7.6553 mle=1.5626 pcon=4.6512 forget=1.4416 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 45 it 300 total=7.8056 mle=1.7071 pcon=4.6511 forget=1.4474 favg=0.0000 nr=40 nf=40 protos=540 fproto_sim=NA
+[loss] ep 45 it 350 total=7.6199 mle=1.5128 pcon=4.6508 forget=1.4563 favg=0.0000 nr=39 nf=39 protos=540 fproto_sim=NA
+[loss] ep 46 it 10 total=7.8090 mle=1.7075 pcon=4.6505 forget=1.4509 favg=0.0000 nr=25 nf=25 protos=540 fproto_sim=NA
+[loss] ep 46 it 60 total=7.7411 mle=1.6358 pcon=4.6502 forget=1.4550 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 46 it 110 total=7.7629 mle=1.6641 pcon=4.6499 forget=1.4488 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 46 it 160 total=7.5034 mle=1.4072 pcon=4.6497 forget=1.4464 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 46 it 210 total=7.8717 mle=1.7651 pcon=4.6496 forget=1.4569 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 46 it 260 total=7.7483 mle=1.6436 pcon=4.6494 forget=1.4553 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 46 it 310 total=7.9325 mle=1.8244 pcon=4.6493 forget=1.4588 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 46 it 360 total=7.8182 mle=1.7098 pcon=4.6492 forget=1.4592 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 47 it 20 total=7.7010 mle=1.5978 pcon=4.6489 forget=1.4543 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 47 it 70 total=7.6951 mle=1.5601 pcon=4.6488 forget=1.4861 favg=0.0000 nr=33 nf=33 protos=540 fproto_sim=NA
+[loss] ep 47 it 120 total=7.6389 mle=1.5226 pcon=4.6486 forget=1.4677 favg=0.0000 nr=26 nf=26 protos=540 fproto_sim=NA
+[loss] ep 47 it 170 total=7.8842 mle=1.7570 pcon=4.6484 forget=1.4788 favg=0.0000 nr=27 nf=27 protos=540 fproto_sim=NA
+[loss] ep 47 it 220 total=7.8311 mle=1.7048 pcon=4.6482 forget=1.4780 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 47 it 270 total=7.9131 mle=1.7897 pcon=4.6480 forget=1.4753 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 47 it 320 total=7.8530 mle=1.7221 pcon=4.6478 forget=1.4831 favg=0.0000 nr=38 nf=38 protos=540 fproto_sim=NA
+[loss] ep 47 it 370 total=7.8629 mle=1.7367 pcon=4.6477 forget=1.4784 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 48 it 30 total=7.8342 mle=1.7087 pcon=4.6475 forget=1.4781 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 48 it 80 total=7.9396 mle=1.8013 pcon=4.6473 forget=1.4909 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 48 it 130 total=7.7527 mle=1.6151 pcon=4.6471 forget=1.4905 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 48 it 180 total=7.6913 mle=1.5539 pcon=4.6470 forget=1.4903 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 48 it 230 total=7.9183 mle=1.7867 pcon=4.6469 forget=1.4848 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+[loss] ep 48 it 280 total=7.7507 mle=1.6141 pcon=4.6468 forget=1.4897 favg=0.0000 nr=37 nf=37 protos=540 fproto_sim=NA
+[loss] ep 48 it 330 total=7.9688 mle=1.8182 pcon=4.6466 forget=1.5039 favg=0.0000 nr=35 nf=35 protos=540 fproto_sim=NA
+[loss] ep 48 it 380 total=8.1893 mle=2.0422 pcon=4.6465 forget=1.5006 favg=0.0000 nr=31 nf=31 protos=540 fproto_sim=NA
+[loss] ep 49 it 40 total=7.8732 mle=1.7279 pcon=4.6463 forget=1.4989 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 49 it 90 total=7.7793 mle=1.6191 pcon=4.6462 forget=1.5140 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+100%|██████████| 50/50 [18:09<00:00, 13.66s/it]100%|██████████| 50/50 [18:09<00:00, 21.80s/it]
+[loss] ep 49 it 140 total=7.7610 mle=1.6119 pcon=4.6461 forget=1.5030 favg=0.0000 nr=32 nf=32 protos=540 fproto_sim=NA
+[loss] ep 49 it 190 total=7.8221 mle=1.6822 pcon=4.6460 forget=1.4939 favg=0.0000 nr=29 nf=29 protos=540 fproto_sim=NA
+[loss] ep 49 it 240 total=7.8603 mle=1.7055 pcon=4.6459 forget=1.5089 favg=0.0000 nr=28 nf=28 protos=540 fproto_sim=NA
+[loss] ep 49 it 290 total=7.9654 mle=1.8088 pcon=4.6457 forget=1.5109 favg=0.0000 nr=34 nf=34 protos=540 fproto_sim=NA
+[loss] ep 49 it 340 total=7.8539 mle=1.6935 pcon=4.6456 forget=1.5148 favg=0.0000 nr=30 nf=30 protos=540 fproto_sim=NA
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] loaded adapter 'stage1' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[peft] loaded adapter 'stage2' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: stage2
+resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stage2-inc1: Number of model parameters: 22321088
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<05:01,  1.30it/s]  2%|▏         | 9/391 [00:00<00:28, 13.49it/s]  5%|▍         | 18/391 [00:00<00:13, 27.26it/s]  7%|▋         | 28/391 [00:01<00:08, 41.59it/s]  9%|▉         | 36/391 [00:01<00:07, 49.09it/s] 12%|█▏        | 46/391 [00:01<00:05, 60.40it/s] 14%|█▍        | 55/391 [00:01<00:04, 67.49it/s] 16%|█▋        | 64/391 [00:01<00:04, 71.95it/s] 19%|█▊        | 73/391 [00:01<00:04, 75.84it/s] 21%|██        | 82/391 [00:01<00:04, 76.85it/s] 24%|██▎       | 92/391 [00:01<00:03, 80.72it/s] 26%|██▌       | 101/391 [00:01<00:03, 81.54it/s] 28%|██▊       | 111/391 [00:02<00:03, 85.47it/s] 31%|███       | 120/391 [00:02<00:03, 84.58it/s] 33%|███▎      | 129/391 [00:02<00:03, 80.15it/s] 35%|███▌      | 138/391 [00:02<00:03, 82.06it/s] 38%|███▊      | 147/391 [00:02<00:03, 78.77it/s] 40%|███▉      | 156/391 [00:02<00:02, 81.80it/s] 42%|████▏     | 166/391 [00:02<00:02, 84.91it/s] 45%|████▍     | 175/391 [00:02<00:02, 79.92it/s] 48%|████▊     | 186/391 [00:02<00:02, 86.10it/s] 50%|█████     | 196/391 [00:03<00:02, 88.73it/s] 52%|█████▏    | 205/391 [00:03<00:02, 88.14it/s] 55%|█████▍    | 215/391 [00:03<00:01, 90.24it/s] 58%|█████▊    | 225/391 [00:03<00:01, 89.16it/s] 60%|█████▉    | 234/391 [00:03<00:01, 86.09it/s] 62%|██████▏   | 243/391 [00:03<00:01, 86.21it/s] 64%|██████▍   | 252/391 [00:03<00:01, 83.83it/s] 67%|██████▋   | 262/391 [00:03<00:01, 86.28it/s] 69%|██████▉   | 271/391 [00:03<00:01, 86.69it/s] 72%|███████▏  | 280/391 [00:04<00:01, 85.54it/s] 74%|███████▍  | 289/391 [00:04<00:01, 84.04it/s] 76%|███████▌  | 298/391 [00:04<00:01, 81.62it/s] 79%|███████▊  | 307/391 [00:04<00:01, 80.31it/s] 81%|████████  | 316/391 [00:04<00:00, 81.40it/s] 83%|████████▎ | 326/391 [00:04<00:00, 85.50it/s] 86%|████████▌ | 335/391 [00:04<00:00, 84.30it/s] 88%|████████▊ | 344/391 [00:04<00:00, 83.97it/s] 91%|█████████ | 354/391 [00:04<00:00, 88.03it/s] 93%|█████████▎| 363/391 [00:05<00:00, 83.91it/s] 96%|█████████▌| 374/391 [00:05<00:00, 90.59it/s] 98%|█████████▊| 385/391 [00:05<00:00, 96.07it/s]100%|██████████| 391/391 [00:05<00:00, 73.28it/s]
+50000 images processed, 5.427596807479858 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:27,  2.80it/s]  9%|▉         | 7/79 [00:00<00:03, 19.04it/s] 19%|█▉        | 15/79 [00:00<00:01, 35.89it/s] 30%|███       | 24/79 [00:00<00:01, 50.61it/s] 42%|████▏     | 33/79 [00:00<00:00, 61.26it/s] 54%|█████▍    | 43/79 [00:00<00:00, 71.55it/s] 67%|██████▋   | 53/79 [00:00<00:00, 78.92it/s] 81%|████████  | 64/79 [00:01<00:00, 87.64it/s] 95%|█████████▍| 75/79 [00:01<00:00, 92.95it/s]100%|██████████| 79/79 [00:01<00:00, 50.37it/s]
+10000 images processed, 1.6070291996002197 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<01:28,  2.30it/s]  4%|▍         | 9/204 [00:00<00:09, 21.34it/s] 10%|▉         | 20/204 [00:00<00:04, 43.92it/s] 15%|█▌        | 31/204 [00:00<00:02, 61.18it/s] 21%|██        | 42/204 [00:00<00:02, 73.41it/s] 26%|██▌       | 53/204 [00:00<00:01, 82.50it/s] 31%|███▏      | 64/204 [00:01<00:01, 88.88it/s] 37%|███▋      | 75/204 [00:01<00:01, 93.06it/s] 42%|████▏     | 86/204 [00:01<00:01, 96.18it/s] 48%|████▊     | 97/204 [00:01<00:01, 97.75it/s] 53%|█████▎    | 108/204 [00:01<00:00, 97.22it/s] 58%|█████▊    | 119/204 [00:01<00:00, 100.11it/s] 64%|██████▎   | 130/204 [00:01<00:00, 102.24it/s] 69%|██████▉   | 141/204 [00:01<00:00, 103.20it/s] 75%|███████▍  | 152/204 [00:01<00:00, 104.39it/s] 80%|███████▉  | 163/204 [00:02<00:00, 104.80it/s] 85%|████████▌ | 174/204 [00:02<00:00, 105.35it/s] 91%|█████████ | 185/204 [00:02<00:00, 106.34it/s] 96%|█████████▌| 196/204 [00:02<00:00, 106.98it/s]100%|██████████| 204/204 [00:02<00:00, 84.00it/s] 
+26032 images processed, 2.4727425575256348 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:41,  1.86it/s] 15%|█▌        | 12/79 [00:00<00:02, 24.11it/s] 27%|██▋       | 21/79 [00:00<00:01, 38.52it/s] 41%|████      | 32/79 [00:00<00:00, 55.44it/s] 52%|█████▏    | 41/79 [00:00<00:00, 62.98it/s] 65%|██████▍   | 51/79 [00:01<00:00, 72.68it/s] 77%|███████▋  | 61/79 [00:01<00:00, 79.81it/s] 90%|████████▉ | 71/79 [00:01<00:00, 80.61it/s]100%|██████████| 79/79 [00:01<00:00, 58.27it/s]
+10000 images processed, 1.3956494331359863 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:32,  2.41it/s] 15%|█▌        | 12/79 [00:00<00:02, 29.57it/s] 29%|██▉       | 23/79 [00:00<00:01, 50.02it/s] 43%|████▎     | 34/79 [00:00<00:00, 65.62it/s] 57%|█████▋    | 45/79 [00:00<00:00, 77.17it/s] 71%|███████   | 56/79 [00:00<00:00, 85.18it/s] 85%|████████▍ | 67/79 [00:01<00:00, 91.89it/s] 99%|█████████▊| 78/79 [00:01<00:00, 96.68it/s]100%|██████████| 79/79 [00:01<00:00, 68.79it/s]
+10000 images processed, 1.1780900955200195 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:21,  3.22it/s] 13%|█▎        | 9/70 [00:00<00:02, 27.32it/s] 29%|██▊       | 20/70 [00:00<00:00, 51.09it/s] 43%|████▎     | 30/70 [00:00<00:00, 64.24it/s] 59%|█████▊    | 41/70 [00:00<00:00, 76.57it/s] 74%|███████▍  | 52/70 [00:00<00:00, 84.98it/s] 90%|█████████ | 63/70 [00:00<00:00, 92.00it/s]100%|██████████| 70/70 [00:01<00:00, 67.63it/s]
+8925 images processed, 1.0745105743408203 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:00<00:37,  1.16it/s]  4%|▍         | 2/45 [00:00<00:18,  2.38it/s] 16%|█▌        | 7/45 [00:01<00:03,  9.58it/s] 38%|███▊      | 17/45 [00:01<00:01, 18.52it/s] 47%|████▋     | 21/45 [00:01<00:01, 15.25it/s] 71%|███████   | 32/45 [00:01<00:00, 27.97it/s] 82%|████████▏ | 37/45 [00:02<00:00, 22.24it/s]100%|██████████| 45/45 [00:02<00:00, 30.00it/s]100%|██████████| 45/45 [00:02<00:00, 18.86it/s]
+5640 images processed, 2.4148881435394287 seconds used
+
+17.187908411026
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           2.50  99.36
+places365     67.90  80.57
+LSUN          21.54  95.06
+iSUN          72.24  81.40
+dtd           38.17  91.27
+AVG           40.47  89.53
+Retain-Acc: 0.7433
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 84.00 AUROC: 85.57 AUIN: 99.08
+14.599376916885376
+[umap] visualization failed: No module named 'umap'
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] loaded adapter 'stage1' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[peft] loaded adapter 'stage2' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: stage2
+resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stage2-inc2: Number of model parameters: 22321088
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<02:47,  2.33it/s]  3%|▎         | 12/391 [00:00<00:12, 29.22it/s]  6%|▌         | 23/391 [00:00<00:07, 49.91it/s]  9%|▊         | 34/391 [00:00<00:05, 66.07it/s] 12%|█▏        | 45/391 [00:00<00:04, 77.50it/s] 14%|█▍        | 56/391 [00:00<00:03, 86.44it/s] 17%|█▋        | 67/391 [00:01<00:03, 92.87it/s] 20%|█▉        | 78/391 [00:01<00:03, 97.03it/s] 23%|██▎       | 89/391 [00:01<00:03, 100.04it/s] 26%|██▌       | 100/391 [00:01<00:02, 102.81it/s] 28%|██▊       | 111/391 [00:01<00:02, 104.70it/s] 31%|███       | 122/391 [00:01<00:02, 105.44it/s] 34%|███▍      | 133/391 [00:01<00:02, 105.81it/s] 37%|███▋      | 144/391 [00:01<00:02, 106.68it/s] 40%|███▉      | 155/391 [00:01<00:02, 106.68it/s] 42%|████▏     | 166/391 [00:01<00:02, 107.08it/s] 45%|████▌     | 177/391 [00:02<00:01, 107.62it/s] 48%|████▊     | 188/391 [00:02<00:01, 108.12it/s] 51%|█████     | 199/391 [00:02<00:01, 108.21it/s] 54%|█████▎    | 210/391 [00:02<00:01, 107.92it/s] 57%|█████▋    | 221/391 [00:02<00:01, 106.08it/s] 59%|█████▉    | 232/391 [00:02<00:01, 106.58it/s] 62%|██████▏   | 243/391 [00:02<00:01, 106.98it/s] 65%|██████▍   | 254/391 [00:02<00:01, 107.34it/s] 68%|██████▊   | 265/391 [00:02<00:01, 107.57it/s] 71%|███████   | 276/391 [00:02<00:01, 107.58it/s] 73%|███████▎  | 287/391 [00:03<00:00, 106.97it/s] 76%|███████▌  | 298/391 [00:03<00:00, 106.99it/s] 79%|███████▉  | 309/391 [00:03<00:00, 107.23it/s] 82%|████████▏ | 320/391 [00:03<00:00, 107.72it/s] 85%|████████▍ | 331/391 [00:03<00:00, 107.79it/s] 87%|████████▋ | 342/391 [00:03<00:00, 107.61it/s] 90%|█████████ | 353/391 [00:03<00:00, 107.68it/s] 93%|█████████▎| 364/391 [00:03<00:00, 105.36it/s] 96%|█████████▌| 375/391 [00:03<00:00, 106.61it/s] 99%|█████████▊| 386/391 [00:04<00:00, 107.48it/s]100%|██████████| 391/391 [00:04<00:00, 95.46it/s] 
+50000 images processed, 4.221789121627808 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:36,  2.15it/s] 14%|█▍        | 11/79 [00:00<00:02, 24.78it/s] 28%|██▊       | 22/79 [00:00<00:01, 45.51it/s] 42%|████▏     | 33/79 [00:00<00:00, 61.76it/s] 56%|█████▌    | 44/79 [00:00<00:00, 73.91it/s] 70%|██████▉   | 55/79 [00:00<00:00, 83.32it/s] 84%|████████▎ | 66/79 [00:01<00:00, 90.29it/s] 97%|█████████▋| 77/79 [00:01<00:00, 95.74it/s]100%|██████████| 79/79 [00:02<00:00, 31.64it/s]
+10000 images processed, 2.534229040145874 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<01:18,  2.59it/s]  6%|▌         | 12/204 [00:00<00:06, 31.18it/s] 11%|█         | 22/204 [00:00<00:03, 49.51it/s] 16%|█▌        | 33/204 [00:00<00:02, 65.48it/s] 22%|██▏       | 44/204 [00:00<00:02, 77.36it/s] 27%|██▋       | 55/204 [00:00<00:01, 86.01it/s] 32%|███▏      | 66/204 [00:01<00:01, 90.74it/s] 38%|███▊      | 77/204 [00:01<00:01, 94.08it/s] 43%|████▎     | 88/204 [00:01<00:01, 96.79it/s] 49%|████▊     | 99/204 [00:01<00:01, 99.28it/s] 54%|█████▍    | 110/204 [00:01<00:00, 101.47it/s] 59%|█████▉    | 121/204 [00:01<00:00, 102.93it/s] 65%|██████▍   | 132/204 [00:01<00:00, 102.95it/s] 70%|███████   | 143/204 [00:01<00:00, 103.97it/s] 75%|███████▌  | 154/204 [00:01<00:00, 104.82it/s] 81%|████████  | 165/204 [00:01<00:00, 105.11it/s] 86%|████████▋ | 176/204 [00:02<00:00, 105.36it/s] 92%|█████████▏| 187/204 [00:02<00:00, 106.41it/s] 97%|█████████▋| 198/204 [00:02<00:00, 107.18it/s]100%|██████████| 204/204 [00:02<00:00, 86.79it/s] 
+26032 images processed, 2.3920514583587646 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:40,  1.94it/s] 15%|█▌        | 12/79 [00:00<00:02, 25.14it/s] 25%|██▌       | 20/79 [00:00<00:01, 37.84it/s] 39%|███▉      | 31/79 [00:00<00:00, 55.49it/s] 51%|█████     | 40/79 [00:00<00:00, 63.68it/s] 62%|██████▏   | 49/79 [00:01<00:00, 69.00it/s] 76%|███████▌  | 60/79 [00:01<00:00, 79.48it/s] 90%|████████▉ | 71/79 [00:01<00:00, 86.78it/s]100%|██████████| 79/79 [00:01<00:00, 60.05it/s]
+10000 images processed, 1.350496530532837 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:28,  2.73it/s] 15%|█▌        | 12/79 [00:00<00:02, 32.15it/s] 27%|██▋       | 21/79 [00:00<00:01, 47.73it/s] 41%|████      | 32/79 [00:00<00:00, 64.52it/s] 54%|█████▍    | 43/79 [00:00<00:00, 76.85it/s] 68%|██████▊   | 54/79 [00:00<00:00, 85.72it/s] 82%|████████▏ | 65/79 [00:00<00:00, 92.29it/s] 96%|█████████▌| 76/79 [00:01<00:00, 96.80it/s]100%|██████████| 79/79 [00:01<00:00, 70.78it/s]
+10000 images processed, 1.1404640674591064 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:25,  2.75it/s] 17%|█▋        | 12/70 [00:00<00:01, 32.56it/s] 33%|███▎      | 23/70 [00:00<00:00, 54.08it/s] 49%|████▊     | 34/70 [00:00<00:00, 69.57it/s] 64%|██████▍   | 45/70 [00:00<00:00, 80.62it/s] 80%|████████  | 56/70 [00:00<00:00, 88.68it/s] 96%|█████████▌| 67/70 [00:00<00:00, 94.70it/s]100%|██████████| 70/70 [00:01<00:00, 67.30it/s]
+8925 images processed, 1.0720951557159424 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:00<00:39,  1.12it/s] 16%|█▌        | 7/45 [00:01<00:04,  8.79it/s] 33%|███▎      | 15/45 [00:01<00:01, 19.80it/s] 44%|████▍     | 20/45 [00:01<00:01, 16.94it/s] 53%|█████▎    | 24/45 [00:01<00:01, 19.25it/s] 73%|███████▎  | 33/45 [00:02<00:00, 18.45it/s] 98%|█████████▊| 44/45 [00:02<00:00, 29.75it/s]100%|██████████| 45/45 [00:02<00:00, 19.54it/s]
+5640 images processed, 2.3277716636657715 seconds used
+
+16.69612169265747
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           2.53  99.36
+places365     67.99  81.23
+LSUN          17.63  96.11
+iSUN          72.53  81.90
+dtd           37.71  91.47
+AVG           39.68  90.01
+Retain-Acc: 0.7418
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 73.00 AUROC: 88.35 AUIN: 99.33
+11.508977890014648
+[umap] visualization failed: No module named 'umap'
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+[peft] loaded adapter 'stage1' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage1
+[peft] loaded adapter 'stage2' from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stack/stage2
+[peft] set_adapter(list) failed: unhashable type: 'list'; fallback to last adapter
+[peft] active adapter set to: stage2
+resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-stage2-seen: Number of model parameters: 22321088
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<03:19,  1.96it/s]  3%|▎         | 12/391 [00:00<00:14, 25.52it/s]  6%|▌         | 23/391 [00:00<00:08, 45.47it/s]  9%|▊         | 34/391 [00:00<00:05, 61.66it/s] 12%|█▏        | 45/391 [00:00<00:04, 73.75it/s] 14%|█▍        | 56/391 [00:01<00:04, 82.66it/s] 17%|█▋        | 67/391 [00:01<00:03, 90.15it/s] 20%|█▉        | 78/391 [00:01<00:03, 95.18it/s] 23%|██▎       | 89/391 [00:01<00:03, 98.17it/s] 26%|██▌       | 100/391 [00:01<00:02, 101.17it/s] 28%|██▊       | 111/391 [00:01<00:02, 103.42it/s] 31%|███       | 122/391 [00:01<00:02, 104.30it/s] 34%|███▍      | 133/391 [00:01<00:02, 105.32it/s] 37%|███▋      | 144/391 [00:01<00:02, 106.15it/s] 40%|███▉      | 155/391 [00:01<00:02, 106.10it/s] 42%|████▏     | 166/391 [00:02<00:02, 106.53it/s] 45%|████▌     | 177/391 [00:02<00:02, 106.80it/s] 48%|████▊     | 188/391 [00:02<00:01, 107.22it/s] 51%|█████     | 199/391 [00:02<00:01, 106.48it/s] 54%|█████▎    | 210/391 [00:02<00:01, 106.88it/s] 57%|█████▋    | 221/391 [00:02<00:01, 105.38it/s] 59%|█████▉    | 232/391 [00:02<00:01, 106.06it/s] 62%|██████▏   | 243/391 [00:02<00:01, 106.54it/s] 65%|██████▍   | 254/391 [00:02<00:01, 106.72it/s] 68%|██████▊   | 265/391 [00:02<00:01, 106.94it/s] 71%|███████   | 276/391 [00:03<00:01, 106.86it/s] 73%|███████▎  | 287/391 [00:03<00:00, 106.97it/s] 76%|███████▌  | 298/391 [00:03<00:00, 106.66it/s] 79%|███████▉  | 309/391 [00:03<00:00, 106.92it/s] 82%|████████▏ | 320/391 [00:03<00:00, 105.75it/s] 85%|████████▍ | 331/391 [00:03<00:00, 105.72it/s] 87%|████████▋ | 342/391 [00:03<00:00, 106.32it/s] 90%|█████████ | 353/391 [00:03<00:00, 106.19it/s] 93%|█████████▎| 364/391 [00:03<00:00, 106.20it/s] 96%|█████████▌| 375/391 [00:04<00:00, 107.28it/s] 99%|█████████▊| 386/391 [00:04<00:00, 108.00it/s]100%|██████████| 391/391 [00:04<00:00, 93.14it/s] 
+50000 images processed, 4.3243772983551025 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:27,  2.84it/s] 11%|█▏        | 9/79 [00:00<00:02, 24.83it/s] 25%|██▌       | 20/79 [00:00<00:01, 48.83it/s] 39%|███▉      | 31/79 [00:00<00:00, 65.17it/s] 53%|█████▎    | 42/79 [00:00<00:00, 77.39it/s] 67%|██████▋   | 53/79 [00:00<00:00, 86.27it/s] 81%|████████  | 64/79 [00:00<00:00, 92.90it/s] 95%|█████████▍| 75/79 [00:01<00:00, 97.67it/s]100%|██████████| 79/79 [00:02<00:00, 32.20it/s]
+10000 images processed, 2.5002129077911377 seconds used
+
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<01:14,  2.71it/s]  6%|▌         | 12/204 [00:00<00:05, 32.01it/s] 11%|█▏        | 23/204 [00:00<00:03, 53.38it/s] 16%|█▌        | 33/204 [00:00<00:02, 65.40it/s] 22%|██▏       | 44/204 [00:00<00:02, 76.65it/s] 27%|██▋       | 55/204 [00:00<00:01, 85.20it/s] 32%|███▏      | 66/204 [00:01<00:01, 91.24it/s] 38%|███▊      | 77/204 [00:01<00:01, 95.69it/s] 43%|████▎     | 88/204 [00:01<00:01, 98.94it/s] 49%|████▊     | 99/204 [00:01<00:01, 101.19it/s] 54%|█████▍    | 110/204 [00:01<00:00, 102.58it/s] 59%|█████▉    | 121/204 [00:01<00:00, 103.54it/s] 65%|██████▍   | 132/204 [00:01<00:00, 104.44it/s] 70%|███████   | 143/204 [00:01<00:00, 105.29it/s] 75%|███████▌  | 154/204 [00:01<00:00, 105.82it/s] 81%|████████  | 165/204 [00:01<00:00, 106.12it/s] 86%|████████▋ | 176/204 [00:02<00:00, 106.41it/s] 92%|█████████▏| 187/204 [00:02<00:00, 106.94it/s] 97%|█████████▋| 198/204 [00:02<00:00, 106.89it/s]100%|██████████| 204/204 [00:02<00:00, 87.54it/s] 
+26032 images processed, 2.380181312561035 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:44,  1.76it/s] 15%|█▌        | 12/79 [00:00<00:02, 23.14it/s] 25%|██▌       | 20/79 [00:00<00:01, 35.02it/s] 39%|███▉      | 31/79 [00:00<00:00, 51.75it/s] 52%|█████▏    | 41/79 [00:00<00:00, 62.77it/s] 63%|██████▎   | 50/79 [00:01<00:00, 69.24it/s] 77%|███████▋  | 61/79 [00:01<00:00, 79.49it/s] 90%|████████▉ | 71/79 [00:01<00:00, 83.38it/s]100%|██████████| 79/79 [00:01<00:00, 57.20it/s]
+10000 images processed, 1.4211347103118896 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:31,  2.48it/s] 13%|█▎        | 10/79 [00:00<00:02, 25.24it/s] 27%|██▋       | 21/79 [00:00<00:01, 47.37it/s] 39%|███▉      | 31/79 [00:00<00:00, 61.01it/s] 53%|█████▎    | 42/79 [00:00<00:00, 72.78it/s] 67%|██████▋   | 53/79 [00:00<00:00, 82.39it/s] 81%|████████  | 64/79 [00:01<00:00, 89.71it/s] 95%|█████████▍| 75/79 [00:01<00:00, 95.19it/s]100%|██████████| 79/79 [00:01<00:00, 67.86it/s]
+10000 images processed, 1.1834192276000977 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:27,  2.55it/s] 16%|█▌        | 11/70 [00:00<00:02, 28.57it/s] 31%|███▏      | 22/70 [00:00<00:00, 50.56it/s] 47%|████▋     | 33/70 [00:00<00:00, 65.67it/s] 63%|██████▎   | 44/70 [00:00<00:00, 77.63it/s] 79%|███████▊  | 55/70 [00:00<00:00, 86.47it/s] 94%|█████████▍| 66/70 [00:01<00:00, 92.84it/s]100%|██████████| 70/70 [00:01<00:00, 64.54it/s]
+8925 images processed, 1.1186420917510986 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<00:44,  1.00s/it]  9%|▉         | 4/45 [00:01<00:08,  4.58it/s] 33%|███▎      | 15/45 [00:01<00:01, 20.37it/s] 47%|████▋     | 21/45 [00:01<00:01, 16.76it/s] 58%|█████▊    | 26/45 [00:01<00:01, 18.45it/s] 73%|███████▎  | 33/45 [00:02<00:00, 18.28it/s] 80%|████████  | 36/45 [00:02<00:00, 19.10it/s]100%|██████████| 45/45 [00:02<00:00, 29.09it/s]100%|██████████| 45/45 [00:02<00:00, 17.94it/s]
+5640 images processed, 2.5287630558013916 seconds used
+
+17.160646677017212
+Disabling PyTorch because PyTorch >= 2.1 is required but found 2.0.1
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           2.53  99.36
+places365     67.89  81.18
+LSUN          17.61  96.07
+iSUN          72.36  81.68
+dtd           37.87  91.39
+AVG           39.65  89.93
+Retain-Acc: 0.7406
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 79.50 AUROC: 86.90 AUIN: 98.36
+8.105157852172852
+[umap] visualization failed: No module named 'umap'

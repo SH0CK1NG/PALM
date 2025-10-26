@@ -4,7 +4,7 @@ from util.loss_functions import *
 from torch.optim.lr_scheduler import MultiStepLR
 from models.resnet import  SupCEResNet, PALMResNet
 from util.lora import apply_lora_to_resnet_head, apply_lora_to_resnet_layer4, apply_lora_to_resnet_layers, load_lora_state_dict
-from util.peft_utils import is_peft_available, apply_peft_lora_to_model, load_peft_adapter, load_peft_adapters, add_trainable_peft_adapter, freeze_peft_adapters, set_active_peft_adapters
+from util.peft_utils import is_peft_available, apply_peft_lora_to_model, load_peft_adapter, load_peft_adapters, freeze_peft_adapters, set_active_peft_adapters
 
 def get_model(args, num_classes, load_ckpt=True):
     method = args.method
@@ -48,42 +48,29 @@ def get_model(args, num_classes, load_ckpt=True):
             try:
                 model, target_modules = apply_peft_lora_to_model(model, target=target, r=r, alpha=alpha, dropout=dropout)
                 applied = len(target_modules) > 0
-                # LoRA loading/stacking logic
-                load_paths_csv = getattr(args, 'adapter_load_paths', None)
+                # LoRA loading/stacking logic (single-path only)
                 load_path_single = getattr(args, 'adapter_load_path', None)
                 stack_enabled = bool(getattr(args, 'lora_stack', False))
                 loaded_names = []
                 if applied:
-                    # Load multiple previous adapters if provided
-                    if load_paths_csv:
-                        paths = [p.strip() for p in str(load_paths_csv).split(',') if p.strip()!='']
-                        try:
-                            model, loaded_names = load_peft_adapters(model, paths)
-                        except Exception as e:
-                            print(f"[peft] failed to load adapters: {e}")
-                    elif load_path_single:
+                    # Load ONLY previous adapter for warm-start when provided as single path
+                    if load_path_single:
                         try:
                             model = load_peft_adapter(model, load_path_single)
                             loaded_names = ["default"]
                             print(f"[peft] adapter loaded from {load_path_single}")
                         except Exception as e:
                             print(f"[peft] failed to load adapter: {e}")
+                    # Multiple adapters via CSV are no longer supported; provide historical refs via --lora_orth_ref_paths
 
-                    if stack_enabled:
-                        # Freeze previously loaded adapters
-                        if len(loaded_names) > 0:
-                            freeze_peft_adapters(model, loaded_names)
-                        # Add a new trainable adapter and activate composition
-                        new_name = getattr(args, 'lora_new_adapter_name', None) or 'trainable'
+                    # Always keep the single loaded adapter trainable and active (warm-start)
+                    if len(loaded_names) > 0:
+                        set_active_peft_adapters(model, loaded_names[-1])
                         try:
-                            model = add_trainable_peft_adapter(model, new_name, target_modules=target_modules, r=r, alpha=alpha, dropout=dropout)
-                            set_active_peft_adapters(model, loaded_names + [new_name])
-                        except Exception as e:
-                            print(f"[peft] failed to add/set new adapter '{new_name}': {e}")
-                    else:
-                        # If not stacking, ensure the last loaded (or default) is active
-                        if len(loaded_names) > 0:
-                            set_active_peft_adapters(model, loaded_names)
+                            setattr(model, '_peft_loaded_adapters', list(loaded_names))
+                            setattr(model, '_peft_trainable_adapter', str(loaded_names[-1]))
+                        except Exception:
+                            pass
             except Exception as e:
                 print(f"[peft] failed to apply lora, fallback to custom: {e}")
                 applied = False

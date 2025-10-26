@@ -89,6 +89,8 @@ def get_args():
     # loss config
     parser.add_argument('--lambda_pcon', default=1., type=float)
     parser.add_argument('--epsilon', default=0.05, type=float)
+    parser.add_argument('--palm_enable', type=str2bool, default=True,
+                        help='enable PALM loss (mle + proto_contra) on retain set; set false to disable PALM entirely')
     
     # incremental learning option only
     parser.add_argument('--incremental', action='store_true', default=False,
@@ -108,12 +110,15 @@ def get_args():
                         help='path to save LoRA adapter; file (.pt) for native, directory for peft (directory name may end with .pt)')
     parser.add_argument('--adapter_load_path', type=str, default=None,
                         help='path to load LoRA adapter; file (.pt) for native, directory for peft')
-    parser.add_argument('--adapter_load_paths', type=str, default=None,
-                        help='CSV list of LoRA adapter directories to load (PEFT only); loaded and kept frozen by default')
-    parser.add_argument('--lora_new_adapter_name', type=str, default=None,
-                        help='name for the newly-added trainable LoRA adapter (PEFT only)')
+    # removed: adapter_load_paths (CSV of multiple adapters). We only support single adapter load via --adapter_load_path.
     parser.add_argument('--lora_stack', action='store_true', default=False,
                         help='enable LoRA stacking: load previous adapters (frozen) and add a new trainable adapter')
+    parser.add_argument('--lora_orth_enable', action='store_true', default=False,
+                        help='enable orthogonal regularization between current LoRA A and previous LoRA A (PEFT only)')
+    parser.add_argument('--lora_orth_lambda', type=float, default=0.1,
+                        help='weight for LoRA orthogonal regularization term')
+    parser.add_argument('--lora_orth_ref_paths', type=str, default=None,
+                        help='CSV list of adapter directories; their lora_A will be read from disk as orthogonal references (no loading into model)')
 
     # Forgetting options
     parser.add_argument('--forget_classes', type=str, default=None,
@@ -124,10 +129,17 @@ def get_args():
                         help='CSV of class ids to forget in the current incremental stage')
     parser.add_argument('--forget_classes_seen', type=str, default=None,
                         help='CSV of class ids already forgotten in previous stages (excluded from retain set)')
+    # Evaluation-only, feature caching controls
+    parser.add_argument('--retain_exclude_csv', type=str, default=None,
+                        help='CSV of class ids to exclude from retain set when building caches (applies to train/val)')
+    parser.add_argument('--forget_csv', type=str, default=None,
+                        help='CSV of class ids to build the val forget subset cache explicitly')
     parser.add_argument('--forget_lambda', type=float, default=0.1,
                         help='loss weight for Mahalanobis forgetting term')
     parser.add_argument('--forget_margin', type=float, default=100.0,
                         help='margin m for hinge forgetting loss: L_forget = lambda_f * ReLU(m - dmin_norm)')
+    parser.add_argument('--forget_strategy', type=str, default='proto', choices=['proto','randlabel','ga'],
+                        help='forgetting strategy: proto (push-away, default), randlabel (random label training), ga (gradient ascent on forget set)')
     parser.add_argument('--centers_path', type=str, default=None,
                         help='path to precomputed class centers tensor (num_classes x D)')
     parser.add_argument('--precision_path', type=str, default=None,

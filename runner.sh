@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # basic info
 id=CIFAR-100
 ood="SVHN places365 LSUN iSUN dtd"
@@ -48,14 +49,32 @@ temp=0.08
 
 forget_avgproto_w=1.0
 
+forget_mode=0
+base_method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}
+case $forget_mode in
+  1)
+    method_tag=${base_method_tag}-temp${temp}-fpw${forget_avgproto_w}
+    adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_avgproto_enable-planB_adapter
+    ;;
+  2)
+    method_tag=${base_method_tag}-fa${forget_attr_w}-fpr${forget_proto_rep_w}-temp${temp}
+    adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_proto_enable-planB_adapter
+    ;;
+  0|*)
+    [ "$forget_mode" != "0" ] && echo "Invalid forget mode, using default forget mode (0)"
+    method_tag=${base_method_tag}-temp${temp}
+    adapter_path=checkpoints/${id}-${backbone}-${method_tag}-planB_adapter
+    ;;
+esac
+
 # tag method for evaluation to avoid overwriting outputs (embed key hparams)
 # method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}
-method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}-fpw${forget_avgproto_w}
+# method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}-fpw${forget_avgproto_w}
 # method_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${forget_lambda}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-fa${forget_attr_w}-fpr${forget_proto_rep_w}-temp${temp}
 
 # where to save adapter only (PEFT uses a directory)
 # adapter_path=checkpoints/${id}-${backbone}-${method_tag}-planB_adapter
-adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_avgproto_enable-planB_adapter
+# adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_avgproto_enable-planB_adapter
 # adapter_path=checkpoints/${id}-${backbone}-${method_tag}-forget_proto_enable-planB_adapter
 
 
@@ -85,7 +104,20 @@ python main.py --in-dataset $id --backbone $backbone --method $method \
   --batch_forget_mode $batch_forget_mode \
   --temp $temp \
   --adapter_save_path $adapter_path \
-  --forget_avgproto_enable --forget_avgproto_w $forget_avgproto_w
+  $(
+    case $forget_mode in
+      1)
+        echo --forget_avgproto_enable --forget_avgproto_w $forget_avgproto_w
+        ;;
+      2)
+        echo --forget_proto_enable --forget_attr_w $forget_attr_w --forget_proto_rep_w $forget_proto_rep_w
+        ;;
+      *)
+        echo ""
+        ;;
+    esac
+  )
+  # --forget_avgproto_enable --forget_avgproto_w $forget_avgproto_w
   # --forget_proto_enable --forget_attr_w $forget_attr_w --forget_proto_rep_w $forget_proto_rep_w
 
 # evaluate with base ckpt + adapter

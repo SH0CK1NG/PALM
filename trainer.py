@@ -5,6 +5,8 @@ import os
 from tqdm import tqdm
 
 from util.train_utils import adjust_learning_rate, AverageMeter
+from util.peft_utils import is_peft_available
+import torch.nn as nn
 
 
 def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=None):
@@ -12,6 +14,30 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
 
     losses = AverageMeter()
     sub_loss = {}
+
+    # Preload historical LoRA-A references once (oLoRA); avoid per-step disk I/O
+    orth_refs_A_map = None
+    if bool(getattr(args, 'lora_orth_enable', False)) and is_peft_available():
+        try:
+            ref_paths_csv = getattr(args, 'lora_orth_ref_paths', None)
+            if ref_paths_csv:
+                orth_refs_A_map = {}
+                try:
+                    from safetensors.numpy import load_file as np_safe_load
+                except Exception:
+                    np_safe_load = None
+                if np_safe_load is not None:
+                    paths = [p.strip() for p in str(ref_paths_csv).split(',') if p.strip()!='']
+                    for p in paths:
+                        try:
+                            ad = np_safe_load(os.path.join(p, 'adapter_model.safetensors'))
+                            for k, v in ad.items():
+                                if ('.lora_A.' in k and k.endswith('.weight')) or k.endswith('.lora_A.weight'):
+                                    orth_refs_A_map[k] = v
+                        except Exception:
+                            continue
+        except Exception:
+            orth_refs_A_map = None
 
     for step, (images, labels) in enumerate((train_loader), start=epoch * len(train_loader)):
         # detect two-crop before any concatenation
@@ -185,6 +211,66 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
                     # no retained samples: zero PALM loss but keep keys consistent
                     loss = features.sum() * 0.0
                     l_dict = {'mle': 0.0, 'proto_contra': 0.0}
+
+                # Orthogonal regularization between current PEFT LoRA A and previous LoRA A (PEFT only)
+                if bool(getattr(args, 'lora_orth_enable', False)) and is_peft_available() and hasattr(model, 'named_parameters'):
+                    try:
+                        current_name = str(getattr(model, '_peft_trainable_adapter', ''))
+                        # Use preloaded historical A references
+                        refs_A_map = orth_refs_A_map if isinstance(orth_refs_A_map, dict) else None
+                        if current_name and refs_A_map and (len(refs_A_map) > 0):
+                            orth_lambda = float(getattr(args, 'lora_orth_lambda', 0.1))
+                            orth_loss = None
+                            # 收集当前 A（模型中）与历史 A（磁盘读取）
+                            a_curr = []
+                            key_curr = f'.lora_A.{current_name}.weight'
+                            for n, p in model.named_parameters():
+                                if key_curr in n and p.requires_grad:
+                                    a_curr.append(p)
+                            if len(a_curr) > 0 and len(refs_A_map) > 0:
+                                # 计算分块和（数值稳定版：禁用 autocast，用 FP32 并在归一化中加入 eps）
+                                orth_sum = 0.0
+                                for Ac in a_curr:
+                                    # flatten 到二维 [r, d]
+                                    Ac_flat = Ac.view(Ac.shape[0], -1) if Ac.dim()>2 else Ac
+                                    # 在 FP32 且禁用 autocast 环境下进行归一化与乘法，避免 FP16 下 0 范数/极小值导致 NaN
+                                    with torch.cuda.amp.autocast(enabled=False):
+                                        Ac32 = Ac_flat.float()
+                                        # 按行归一化（每个基向量）
+                                        Ac32 = nn.functional.normalize(Ac32, dim=1, eps=1e-6)
+                                        # 尝试获取当前参数名以匹配同层历史键
+                                        try:
+                                            cur_name = None
+                                            for _n, _p in model.named_parameters():
+                                                if _p is Ac:
+                                                    cur_name = _n
+                                                    break
+                                            stem = None
+                                            if cur_name and ('.lora_A.' in cur_name):
+                                                stem = cur_name.split('.lora_A.')[0] + '.lora_A'
+                                        except Exception:
+                                            stem = None
+                                        for k_ref, Ap in refs_A_map.items():
+                                            if stem is not None and (stem not in k_ref):
+                                                continue
+                                            Ap_t = torch.from_numpy(Ap).to(Ac32.device, dtype=torch.float32)
+                                            Ap_flat = Ap_t.view(Ap_t.shape[0], -1) if Ap_t.dim()>2 else Ap_t
+                                            Ap32 = nn.functional.normalize(Ap_flat.float(), dim=1, eps=1e-6)
+                                            # 仅在形状一致（同层）时计算
+                                            if Ap32.shape != Ac32.shape:
+                                                continue
+                                            # 相关矩阵 [r_prev, r_curr]，对平方项取均值降低尺度（O3: A_prev @ A_curr^T）
+                                            M = torch.matmul(Ap32, Ac32.t())
+                                            orth_sum = orth_sum + (M.pow(2).mean())
+                                orth_loss = orth_sum * orth_lambda
+                            if orth_loss is not None:
+                                loss = loss + orth_loss
+                                try:
+                                    l_dict['lora_orth'] = float(orth_loss.detach().item())
+                                except Exception:
+                                    l_dict['lora_orth'] = 0.0
+                    except Exception:
+                        pass
                 # Prototype-based forgetting loss on 128-D hypersphere (push away from retained-class prototypes)
                 if getattr(args, 'forget_lambda', 0) > 0 and forget_mask.any():
                     # Determine class count and cache size from criterion
@@ -307,9 +393,10 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
             mle_v = l_dict.get('mle', 0.0)
             pcon_v = l_dict.get('proto_contra', 0.0)
             f_v = l_dict.get('forget', 0.0)
+            orth_v = l_dict.get('lora_orth', 0.0)
             favg_v = l_dict.get('forget_avg', 0.0)
             extra = f" nr={nr_out} nf={nf_out} protos={proto_count} fproto_sim={fproto_sim if fproto_sim is not None else 'NA'}"
-            print(f"[loss] ep {epoch} it {it} total={loss.item():.4f} mle={float(mle_v):.4f} pcon={float(pcon_v):.4f} forget={float(f_v):.4f} favg={float(favg_v):.4f}{extra}")
+            print(f"[loss] ep {epoch} it {it} total={loss.item():.4f} mle={float(mle_v):.4f} pcon={float(pcon_v):.4f} forget={float(f_v):.4f} orth={float(orth_v):.4f} favg={float(favg_v):.4f}{extra}")
             
     for k in sub_loss.keys():
         sub_loss[k] = np.mean(sub_loss[k])
@@ -317,6 +404,206 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
 
     return losses.avg, sub_loss
 
+
+def train_palm_baseline(args, train_loader, model, criterion, optimizer, epoch, scaler=None):
+    """
+    Baselines on PALM encoder with prototype-induced class logits:
+    - randlabel: minimize CE on retain set with true labels + CE on forget set with random labels
+    - ga:        minimize CE on retain set with true labels - lambda * CE on forget set with true labels (gradient ascent)
+    Both use class logits computed via logsumexp over per-class prototypes.
+    """
+    assert str(getattr(args, 'forget_strategy', 'proto')) in ('randlabel', 'ga')
+
+    model.train()
+
+    losses = AverageMeter()
+    sub_loss = {}
+
+    for step, (images, labels) in enumerate((train_loader), start=epoch * len(train_loader)):
+        # detect two-crop before any concatenation
+        twocrop = isinstance(images, (list, tuple)) and len(images) == 2
+
+        # parse forget sets
+        forget_all: set = set()
+        forget_inc: set = set()
+        forget_seen: set = set()
+        if getattr(args, 'forget_classes', None):
+            forget_all |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
+        if getattr(args, 'forget_classes_inc', None):
+            forget_inc |= set(int(x) for x in str(args.forget_classes_inc).split(',') if x!='')
+        if getattr(args, 'forget_classes_seen', None):
+            forget_seen |= set(int(x) for x in str(args.forget_classes_seen).split(',') if x!='')
+
+        # Build masks (CPU)
+        if len(forget_all) > 0 or len(forget_inc) > 0 or len(forget_seen) > 0:
+            f_all = torch.tensor(sorted(list(forget_all)), dtype=torch.long) if len(forget_all)>0 else None
+            f_inc = torch.tensor(sorted(list(forget_inc)), dtype=torch.long) if len(forget_inc)>0 else None
+            f_seen = torch.tensor(sorted(list(forget_seen)), dtype=torch.long) if len(forget_seen)>0 else None
+            if f_inc is not None and f_inc.numel()>0:
+                forget_mask_cpu = (labels.view(-1,1) == f_inc.view(1,-1)).any(dim=1)
+            elif f_all is not None and f_all.numel()>0:
+                forget_mask_cpu = (labels.view(-1,1) == f_all.view(1,-1)).any(dim=1)
+            else:
+                forget_mask_cpu = torch.zeros(labels.shape[0], dtype=torch.bool)
+            # retain excludes seen + current inc
+            excl = set()
+            excl |= forget_seen
+            if len(forget_inc)>0:
+                excl |= forget_inc
+            if len(excl) > 0:
+                excl_t = torch.tensor(sorted(list(excl)), dtype=torch.long)
+                exclude_mask = (labels.view(-1,1) == excl_t.view(1,-1)).any(dim=1)
+                retain_mask_cpu = ~exclude_mask
+            else:
+                retain_mask_cpu = torch.ones(labels.shape[0], dtype=torch.bool)
+        else:
+            forget_mask_cpu = torch.zeros(labels.shape[0], dtype=torch.bool)
+            retain_mask_cpu = torch.ones(labels.shape[0], dtype=torch.bool)
+
+        # within-batch selection to control composition (reuse existing modes)
+        mode = str(getattr(args, 'batch_forget_mode', 'none'))
+        keep_idx = None
+        f_idx = torch.nonzero(forget_mask_cpu, as_tuple=False).squeeze(1)
+        r_idx = torch.nonzero(retain_mask_cpu, as_tuple=False).squeeze(1)
+        if mode == 'retain_only':
+            keep_idx = r_idx
+        elif mode in ('balanced', 'proportional') and (forget_mask_cpu.any() or retain_mask_cpu.any()):
+            if mode == 'balanced':
+                k = min(len(f_idx), len(r_idx))
+                if k > 0:
+                    f_perm = f_idx[torch.randperm(len(f_idx))[:k]]
+                    r_perm = r_idx[torch.randperm(len(r_idx))[:k]]
+                    keep_idx = torch.cat([f_perm, r_perm], dim=0)
+            elif mode == 'proportional':
+                f_count = int(forget_mask_cpu.sum().item())
+                r_count = int(retain_mask_cpu.sum().item())
+                total = f_count + r_count
+                if total > 0:
+                    pf = f_count / total
+                    target_f = int(round(pf * total))
+                    target_r = total - target_f
+                    if f_count > 0 and r_count > 0:
+                        f_take = min(f_count, target_f)
+                        r_take = min(r_count, target_r)
+                        f_perm = f_idx[torch.randperm(len(f_idx))[:f_take]]
+                        r_perm = r_idx[torch.randperm(len(r_idx))[:r_take]]
+                        keep_idx = torch.cat([f_perm, r_perm], dim=0)
+
+        if keep_idx is not None and keep_idx.numel() > 0:
+            labels = labels[keep_idx]
+            if twocrop:
+                images = [images[0][keep_idx], images[1][keep_idx]]
+            else:
+                images = images[keep_idx]
+
+        # move to device and prepare features
+        if torch.cuda.is_available():
+            if twocrop:
+                images = torch.cat([images[0].cuda(non_blocking=True), images[1].cuda(non_blocking=True)], dim=0)
+            else:
+                images = images.cuda(non_blocking=True)
+            labels = labels.cuda(non_blocking=True)
+        else:
+            if twocrop:
+                images = torch.cat([images[0], images[1]], dim=0)
+        bsz = labels.shape[0]
+
+        optimizer.zero_grad()
+
+        with torch.cuda.amp.autocast(enabled=bool(scaler is not None)):
+            # forward features
+            if args.fine_tune:
+                features = model.fine_tune_forward(images)
+            else:
+                features = model(images)
+            if twocrop:
+                f1, f2 = torch.split(features, [bsz, bsz], dim=0)
+                features = torch.cat([f1.unsqueeze(1), f2.unsqueeze(1)], dim=1)
+            else:
+                features = features.unsqueeze(1)
+
+            # class logits via prototypes: logsumexp over R replicas per class
+            # features_mean: [N, D]
+            features_mean = F.normalize(features.mean(dim=1), dim=-1)
+            C = int(getattr(criterion, 'num_classes', 0) or labels.max().item() + 1)
+            R = int(getattr(criterion, 'cache_size', getattr(args, 'cache_size', 1)))
+            P = getattr(criterion, 'protos', None)
+            if P is None:
+                # fallback: use identity-like logits to avoid crash
+                logits = torch.zeros((features_mean.shape[0], C), device=features_mean.device)
+            else:
+                P = F.normalize(P.detach(), dim=1)
+                # shape: [N, R*C]
+                sim_all = torch.matmul(features_mean, P.t())
+                # reshape to [N, R, C]
+                sim_all = sim_all.view(features_mean.shape[0], R, C)
+                temp_f = float(getattr(args, 'temp', 0.1))
+                # logits per class: logsumexp over R
+                logits = torch.logsumexp(sim_all / temp_f, dim=1)
+
+            # masks (GPU)
+            f_mask = torch.zeros(labels.shape[0], dtype=torch.bool, device=labels.device)
+            if len(forget_all) > 0 or len(forget_inc) > 0:
+                f_inc_gpu = torch.tensor(sorted(list(forget_inc)), device=labels.device) if len(forget_inc)>0 else None
+                f_all_gpu = torch.tensor(sorted(list(forget_all)), device=labels.device) if len(forget_all)>0 else None
+                if f_inc_gpu is not None and f_inc_gpu.numel()>0:
+                    f_mask = (labels.unsqueeze(1) == f_inc_gpu.unsqueeze(0)).any(dim=1)
+                elif f_all_gpu is not None and f_all_gpu.numel()>0:
+                    f_mask = (labels.unsqueeze(1) == f_all_gpu.unsqueeze(0)).any(dim=1)
+            r_mask = torch.ones_like(f_mask)
+            # exclude seen + current inc from retain set
+            excl2 = set()
+            excl2 |= forget_seen
+            if len(forget_inc) > 0:
+                excl2 |= forget_inc
+            if len(excl2) > 0:
+                excl_gpu = torch.tensor(sorted(list(excl2)), device=labels.device)
+                r_mask = ~(labels.unsqueeze(1) == excl_gpu.unsqueeze(0)).any(dim=1)
+
+            # compute CE components
+            ce = torch.nn.CrossEntropyLoss(reduction='none')
+            loss_retain = torch.tensor(0.0, device=labels.device)
+            loss_forget = torch.tensor(0.0, device=labels.device)
+
+            if r_mask.any():
+                loss_retain = ce(logits[r_mask], labels[r_mask]).mean()
+
+            if f_mask.any():
+                if str(args.forget_strategy) == 'randlabel':
+                    y_rand = torch.randint(low=0, high=C, size=(int(f_mask.sum().item()),), device=labels.device)
+                    loss_forget = ce(logits[f_mask], y_rand).mean()
+                    loss = loss_retain + float(getattr(args, 'forget_lambda', 1.0)) * loss_forget
+                else:  # 'ga'
+                    loss_forget = ce(logits[f_mask], labels[f_mask]).mean()
+                    loss = loss_retain - float(getattr(args, 'forget_lambda', 1.0)) * loss_forget
+            else:
+                loss = loss_retain
+
+        if scaler:
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+        else:
+            loss.backward()
+            optimizer.step()
+
+        losses.update(loss.item(), bsz)
+
+        if step%len(train_loader) == 0:
+            sub_loss['ce_retain'] = []
+            sub_loss['ce_forget'] = []
+        # track averaged values
+        sub_loss['ce_retain'].append(float(loss_retain.detach().item()))
+        sub_loss['ce_forget'].append(float(loss_forget.detach().item()))
+
+        if getattr(args, 'print_every', 0) and (step % int(args.print_every) == 0):
+            it = step % len(train_loader)
+            print(f"[loss-{args.forget_strategy}] ep {epoch} it {it} total={loss.item():.4f} ce_r={float(loss_retain):.4f} ce_f={float(loss_forget):.4f}")
+
+    for k in sub_loss.keys():
+        sub_loss[k] = np.mean(sub_loss[k])
+
+    return losses.avg, sub_loss
 
 def train_supervised(args, train_loader, model, criterion, optimizer, epoch, warmup_schedular=None, schedular=None, scaler=None, index=None, index_map=None, k=1):
     model.train()
@@ -367,8 +654,11 @@ def train_supervised(args, train_loader, model, criterion, optimizer, epoch, war
 
 def get_trainer(args):
     arch = args.method
-    
+    strategy = str(getattr(args, 'forget_strategy', 'proto'))
     if "palm" in arch:
+        if strategy in ('randlabel', 'ga'):
+            trainer = train_palm_baseline
+        else:
             trainer = train_palm
     else:
         trainer = train_supervised

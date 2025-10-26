@@ -229,7 +229,7 @@ def get_transform_train(dataset: str, arch: str) -> Union[TwoCropTransform, tran
     return transform
 
 
-kwargs = {'num_workers': 8, 'pin_memory': True, 'persistent_workers': True}
+kwargs = {'num_workers': max(2, min((os.cpu_count() or 1) - 2, 16)), 'pin_memory': True, 'persistent_workers': True}
 num_classes_dict = {'CIFAR-100': 100, 'CIFAR-10': 10, 'CIFAR-110': 110, 'imagenet': 1000}
 
 val_shuffle = False
@@ -238,7 +238,7 @@ val_shuffle = False
 def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', 'val', 'csid'), mode: str = 'train') -> Tuple[torch.utils.data.DataLoader, int]:
     base_dir = './data'
     
-    kwargs = {'num_workers': 8, 'pin_memory': True, 'persistent_workers': True}
+    kwargs = {'num_workers': max(2, min((os.cpu_count() or 1) - 2, 16)), 'pin_memory': True, 'persistent_workers': True}
     num_classes_dict = {'CIFAR-100': 100, 'CIFAR-10': 10, 'CIFAR-110': 110, 'imagenet': 1000}
     if mode == 'train':
         transform_train = get_transform_train(args.in_dataset, args.method)
@@ -331,7 +331,10 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
                 root=os.path.join(base_dir, 'cifarpy'), train=True, download=True, transform=transform_train)
             # enable balanced/proportional/retain-only sampling if requested and forget classes specified
             forget_set = set()
-            if getattr(args, 'forget_classes', None):
+            # 优先使用当前阶段增量遗忘子集；若未提供则回退到全局遗忘集
+            if getattr(args, 'forget_classes_inc', None):
+                forget_set |= set(int(x) for x in str(args.forget_classes_inc).split(',') if x!='')
+            elif getattr(args, 'forget_classes', None):
                 forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
             mode = str(getattr(args, 'batch_forget_mode', 'none'))
             if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
@@ -366,7 +369,10 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             trainset = torchvision.datasets.CIFAR100(
                 root=os.path.join(base_dir, 'cifarpy'), train=True, download=True, transform=transform_train)
             forget_set = set()
-            if getattr(args, 'forget_classes', None):
+            # 优先使用当前阶段增量遗忘子集；若未提供则回退到全局遗忘集
+            if getattr(args, 'forget_classes_inc', None):
+                forget_set |= set(int(x) for x in str(args.forget_classes_inc).split(',') if x!='')
+            elif getattr(args, 'forget_classes', None):
                 forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
             mode = str(getattr(args, 'batch_forget_mode', 'none'))
             if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
@@ -403,7 +409,10 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             )
             # enable balanced/proportional/retain-only sampling if requested and forget classes specified
             forget_set = set()
-            if getattr(args, 'forget_classes', None):
+            # 优先使用当前阶段增量遗忘子集；若未提供则回退到全局遗忘集
+            if getattr(args, 'forget_classes_inc', None):
+                forget_set |= set(int(x) for x in str(args.forget_classes_inc).split(',') if x!='')
+            elif getattr(args, 'forget_classes', None):
                 forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
             mode = str(getattr(args, 'batch_forget_mode', 'none'))
             if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
@@ -443,7 +452,7 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
 def get_loader_out(args: argparse.Namespace, dataset: str, split: Sequence[str] = ('train', 'val'), mode: str = 'eval') -> Optional[torch.utils.data.DataLoader]:
     base_dir = './data'
         
-    kwargs = {'num_workers': 8, 'pin_memory': True, 'persistent_workers': True}
+    kwargs = {'num_workers': max(2, min((os.cpu_count() or 1) - 2, 16)), 'pin_memory': True, 'persistent_workers': True}
     if mode == 'train':
         transform_test = get_transform_test(args.in_dataset)
     elif mode == "eval":

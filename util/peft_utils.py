@@ -200,16 +200,27 @@ def set_active_peft_adapters(model: nn.Module, adapter_names: List[str]):
     if not isinstance(model, PeftModel):
         return
     try:
-        # Some PEFT versions accept a list to compose adapters
+        # Some PEFT versions accept a list; if not, we'll try fusion
         model.set_adapter(adapter_names if isinstance(adapter_names, (list, tuple)) else adapter_names)
         print(f"[peft] active adapters set to: {adapter_names}")
     except Exception as e:
-        print(f"[peft] set_adapter(list) failed: {e}; fallback to last adapter")
-        if isinstance(adapter_names, (list, tuple)) and len(adapter_names) > 0:
-            try:
-                model.set_adapter(adapter_names[-1])
-                print(f"[peft] active adapter set to: {adapter_names[-1]}")
-            except Exception as ee:
-                print(f"[peft] set_adapter fallback failed: {ee}")
+        print(f"[peft] set_adapter(list) failed: {e}; try adapter fusion")
+        # Try adapter fusion if API available
+        try:
+            names = list(adapter_names) if isinstance(adapter_names, (list, tuple)) else [adapter_names]
+            if hasattr(model, 'add_adapter_fusion') and hasattr(model, 'set_adapter_fusion') and len(names) > 1:
+                model.add_adapter_fusion(names)
+                model.set_adapter_fusion(names)
+                print(f"[peft] adapter fusion enabled for: {names}")
+            else:
+                raise RuntimeError("adapter fusion API not available or single adapter provided")
+        except Exception as fe:
+            print(f"[peft] adapter fusion failed: {fe}; fallback to last adapter")
+            if isinstance(adapter_names, (list, tuple)) and len(adapter_names) > 0:
+                try:
+                    model.set_adapter(adapter_names[-1])
+                    print(f"[peft] active adapter set to: {adapter_names[-1]}")
+                except Exception as ee:
+                    print(f"[peft] set_adapter fallback failed: {ee}")
 
 

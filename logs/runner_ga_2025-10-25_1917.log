@@ -1,0 +1,167 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:54: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=5, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-baseline_ga_forget.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=0.0, epsilon=0.05, incremental=False, use_lora=False, lora_impl='native', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='head', adapter_save_path=None, adapter_load_path=None, adapter_load_paths=None, lora_new_adapter_name=None, lora_stack=False, lora_orth_enable=False, lora_orth_lambda=0.1, lora_orth_ref_paths=None, forget_classes='0,8,11,40,51,66,67,88,94,57', forget_list_path=None, forget_classes_inc=None, forget_classes_seen=None, retain_exclude_csv=None, forget_csv=None, forget_lambda=1.0, forget_margin=100.0, forget_strategy='ga', centers_path=None, precision_path=None, batch_forget_mode='balanced', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21605312
+[debug] trainable_count = 112
+[debug] trainable: encoder.conv1.weight
+[debug] trainable: encoder.bn1.weight
+[debug] trainable: encoder.bn1.bias
+[debug] trainable: encoder.layer1.0.conv1.weight
+[debug] trainable: encoder.layer1.0.bn1.weight
+[debug] trainable: encoder.layer1.0.bn1.bias
+[debug] trainable: encoder.layer1.0.conv2.weight
+[debug] trainable: encoder.layer1.0.bn2.weight
+[debug] trainable: encoder.layer1.0.bn2.bias
+[debug] trainable: encoder.layer1.1.conv1.weight
+[debug] trainable: encoder.layer1.1.bn1.weight
+[debug] trainable: encoder.layer1.1.bn1.bias
+[debug] trainable: encoder.layer1.1.conv2.weight
+[debug] trainable: encoder.layer1.1.bn2.weight
+[debug] trainable: encoder.layer1.1.bn2.bias
+[debug] trainable: encoder.layer1.2.conv1.weight
+[debug] trainable: encoder.layer1.2.bn1.weight
+[debug] trainable: encoder.layer1.2.bn1.bias
+[debug] trainable: encoder.layer1.2.conv2.weight
+[debug] trainable: encoder.layer1.2.bn2.weight
+[debug] trainable: encoder.layer1.2.bn2.bias
+[debug] trainable: encoder.layer2.0.conv1.weight
+[debug] trainable: encoder.layer2.0.bn1.weight
+[debug] trainable: encoder.layer2.0.bn1.bias
+[debug] trainable: encoder.layer2.0.conv2.weight
+[debug] trainable: encoder.layer2.0.bn2.weight
+[debug] trainable: encoder.layer2.0.bn2.bias
+[debug] trainable: encoder.layer2.0.shortcut.0.weight
+[debug] trainable: encoder.layer2.0.shortcut.1.weight
+[debug] trainable: encoder.layer2.0.shortcut.1.bias
+[debug] trainable: encoder.layer2.1.conv1.weight
+[debug] trainable: encoder.layer2.1.bn1.weight
+[debug] trainable: encoder.layer2.1.bn1.bias
+[debug] trainable: encoder.layer2.1.conv2.weight
+[debug] trainable: encoder.layer2.1.bn2.weight
+[debug] trainable: encoder.layer2.1.bn2.bias
+[debug] trainable: encoder.layer2.2.conv1.weight
+[debug] trainable: encoder.layer2.2.bn1.weight
+[debug] trainable: encoder.layer2.2.bn1.bias
+[debug] trainable: encoder.layer2.2.conv2.weight
+[debug] trainable: encoder.layer2.2.bn2.weight
+[debug] trainable: encoder.layer2.2.bn2.bias
+[debug] trainable: encoder.layer2.3.conv1.weight
+[debug] trainable: encoder.layer2.3.bn1.weight
+[debug] trainable: encoder.layer2.3.bn1.bias
+[debug] trainable: encoder.layer2.3.conv2.weight
+[debug] trainable: encoder.layer2.3.bn2.weight
+[debug] trainable: encoder.layer2.3.bn2.bias
+[debug] trainable: encoder.layer3.0.conv1.weight
+[debug] trainable: encoder.layer3.0.bn1.weight
+[debug][warn] non-LoRA trainables detected: ['encoder.conv1.weight', 'encoder.bn1.weight', 'encoder.bn1.bias', 'encoder.layer1.0.conv1.weight', 'encoder.layer1.0.bn1.weight', 'encoder.layer1.0.bn1.bias', 'encoder.layer1.0.conv2.weight', 'encoder.layer1.0.bn2.weight', 'encoder.layer1.0.bn2.bias', 'encoder.layer1.1.conv1.weight']
+  0%|          | 0/5 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:503: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=bool(scaler is not None)):
+/home/shaokun/PALM/trainer.py:591: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  print(f"[loss-{args.forget_strategy}] ep {epoch} it {it} total={loss.item():.4f} ce_r={float(loss_retain):.4f} ce_f={float(loss_forget):.4f}")
+ 20%|██        | 1/5 [00:49<03:17, 49.32s/it] 40%|████      | 2/5 [01:27<02:07, 42.50s/it] 60%|██████    | 3/5 [02:08<01:23, 41.80s/it] 80%|████████  | 4/5 [02:48<00:41, 41.28s/it]100%|██████████| 5/5 [03:30<00:00, 41.46s/it]100%|██████████| 5/5 [03:30<00:00, 42.06s/it]
+[loss-ga] ep 0 it 0 total=-0.0877 ce_r=0.2465 ce_f=0.3342
+[loss-ga] ep 0 it 50 total=-0.0701 ce_r=0.2595 ce_f=0.3295
+[loss-ga] ep 0 it 100 total=-0.0661 ce_r=0.2868 ce_f=0.3529
+[loss-ga] ep 0 it 150 total=-0.1152 ce_r=0.4720 ce_f=0.5871
+[loss-ga] ep 0 it 200 total=-0.0959 ce_r=0.4269 ce_f=0.5228
+[loss-ga] ep 0 it 250 total=-0.0821 ce_r=0.2874 ce_f=0.3695
+[loss-ga] ep 0 it 300 total=-0.1605 ce_r=0.4557 ce_f=0.6162
+[loss-ga] ep 0 it 350 total=-0.1421 ce_r=0.3861 ce_f=0.5281
+[loss-ga] ep 1 it 10 total=-0.2823 ce_r=0.8185 ce_f=1.1007
+[loss-ga] ep 1 it 60 total=-0.3545 ce_r=1.1546 ce_f=1.5091
+[loss-ga] ep 1 it 110 total=-0.5292 ce_r=1.8209 ce_f=2.3501
+[loss-ga] ep 1 it 160 total=-0.9687 ce_r=3.1912 ce_f=4.1599
+[loss-ga] ep 1 it 210 total=-1.4146 ce_r=3.7698 ce_f=5.1844
+[loss-ga] ep 1 it 260 total=-1.7049 ce_r=4.7199 ce_f=6.4248
+[loss-ga] ep 1 it 310 total=-1.7838 ce_r=5.1871 ce_f=6.9709
+[loss-ga] ep 1 it 360 total=-2.0978 ce_r=5.5220 ce_f=7.6198
+[loss-ga] ep 2 it 20 total=-2.3726 ce_r=6.4184 ce_f=8.7909
+[loss-ga] ep 2 it 70 total=-2.0827 ce_r=6.8747 ce_f=8.9574
+[loss-ga] ep 2 it 120 total=-2.3968 ce_r=7.0075 ce_f=9.4044
+[loss-ga] ep 2 it 170 total=-2.2859 ce_r=7.5464 ce_f=9.8323
+[loss-ga] ep 2 it 220 total=-2.7081 ce_r=7.6137 ce_f=10.3217
+[loss-ga] ep 2 it 270 total=-2.8004 ce_r=8.1159 ce_f=10.9164
+[loss-ga] ep 2 it 320 total=-2.4387 ce_r=9.0489 ce_f=11.4875
+[loss-ga] ep 2 it 370 total=-3.0984 ce_r=9.5251 ce_f=12.6234
+[loss-ga] ep 3 it 30 total=-3.0882 ce_r=8.9646 ce_f=12.0528
+[loss-ga] ep 3 it 80 total=-3.0913 ce_r=8.9434 ce_f=12.0347
+[loss-ga] ep 3 it 130 total=-3.2621 ce_r=9.0738 ce_f=12.3360
+[loss-ga] ep 3 it 180 total=-3.3668 ce_r=8.6140 ce_f=11.9808
+[loss-ga] ep 3 it 230 total=-3.3362 ce_r=9.7135 ce_f=13.0497
+[loss-ga] ep 3 it 280 total=-2.9961 ce_r=9.7182 ce_f=12.7143
+[loss-ga] ep 3 it 330 total=-2.5314 ce_r=10.0123 ce_f=12.5437
+[loss-ga] ep 3 it 380 total=-2.9554 ce_r=10.1929 ce_f=13.1484
+[loss-ga] ep 4 it 40 total=-2.6752 ce_r=10.7517 ce_f=13.4269
+[loss-ga] ep 4 it 90 total=-3.0558 ce_r=10.2507 ce_f=13.3065
+[loss-ga] ep 4 it 140 total=-3.2933 ce_r=10.4542 ce_f=13.7475
+[loss-ga] ep 4 it 190 total=-3.4354 ce_r=10.0925 ce_f=13.5279
+[loss-ga] ep 4 it 240 total=-3.1632 ce_r=10.5567 ce_f=13.7199
+[loss-ga] ep 4 it 290 total=-3.2367 ce_r=10.7742 ce_f=14.0108
+[loss-ga] ep 4 it 340 total=-3.1690 ce_r=10.8976 ce_f=14.0666
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-baseline_ga_forget.pt
+resnet34-top5-palm-cache6-ema0.999-baseline-ga-b128-e5-lr0.001-wd1e-4-fl1: Number of model parameters: 21605312
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:02<13:15,  2.04s/it]  2%|▏         | 6/391 [00:02<01:43,  3.72it/s]  3%|▎         | 13/391 [00:02<00:40,  9.31it/s]  5%|▌         | 20/391 [00:02<00:23, 15.74it/s]  7%|▋         | 27/391 [00:02<00:15, 22.85it/s]  9%|▉         | 36/391 [00:02<00:10, 32.93it/s] 11%|█         | 43/391 [00:02<00:08, 39.62it/s] 13%|█▎        | 51/391 [00:02<00:07, 46.87it/s] 15%|█▍        | 58/391 [00:02<00:06, 50.41it/s] 17%|█▋        | 65/391 [00:03<00:05, 54.36it/s] 19%|█▊        | 73/391 [00:03<00:05, 60.32it/s] 21%|██        | 81/391 [00:03<00:04, 64.49it/s] 23%|██▎       | 89/391 [00:03<00:04, 67.66it/s] 25%|██▌       | 98/391 [00:03<00:04, 72.27it/s] 27%|██▋       | 107/391 [00:03<00:03, 75.25it/s] 29%|██▉       | 115/391 [00:03<00:03, 73.57it/s] 31%|███▏      | 123/391 [00:03<00:03, 71.70it/s] 34%|███▎      | 131/391 [00:03<00:03, 73.91it/s] 36%|███▌      | 139/391 [00:03<00:03, 74.33it/s] 38%|███▊      | 148/391 [00:04<00:03, 76.21it/s] 40%|███▉      | 156/391 [00:04<00:03, 72.41it/s] 42%|████▏     | 164/391 [00:04<00:03, 73.80it/s] 44%|████▍     | 172/391 [00:04<00:02, 75.21it/s] 46%|████▌     | 180/391 [00:04<00:02, 70.79it/s] 48%|████▊     | 188/391 [00:04<00:02, 70.16it/s] 50%|█████     | 196/391 [00:04<00:02, 71.74it/s] 52%|█████▏    | 204/391 [00:04<00:02, 70.65it/s] 54%|█████▍    | 212/391 [00:05<00:02, 69.86it/s] 56%|█████▋    | 220/391 [00:05<00:04, 37.36it/s] 58%|█████▊    | 228/391 [00:05<00:03, 43.94it/s] 60%|██████    | 235/391 [00:05<00:03, 48.46it/s] 62%|██████▏   | 242/391 [00:05<00:02, 52.41it/s] 64%|██████▍   | 250/391 [00:05<00:02, 56.77it/s] 66%|██████▌   | 257/391 [00:05<00:02, 58.28it/s] 68%|██████▊   | 265/391 [00:06<00:01, 63.09it/s] 70%|██████▉   | 273/391 [00:06<00:01, 66.68it/s] 72%|███████▏  | 281/391 [00:06<00:01, 68.98it/s] 74%|███████▍  | 289/391 [00:06<00:01, 69.17it/s] 76%|███████▌  | 298/391 [00:06<00:01, 74.40it/s] 79%|███████▊  | 307/391 [00:06<00:01, 77.79it/s] 81%|████████  | 315/391 [00:06<00:00, 76.78it/s] 83%|████████▎ | 324/391 [00:06<00:00, 78.25it/s] 85%|████████▌ | 333/391 [00:06<00:00, 79.53it/s] 87%|████████▋ | 342/391 [00:07<00:00, 81.07it/s] 90%|████████▉ | 351/391 [00:07<00:00, 81.21it/s] 92%|█████████▏| 360/391 [00:07<00:00, 82.08it/s] 94%|█████████▍| 369/391 [00:07<00:00, 83.81it/s] 97%|█████████▋| 379/391 [00:07<00:00, 84.84it/s] 99%|█████████▉| 389/391 [00:07<00:00, 87.45it/s]100%|██████████| 391/391 [00:07<00:00, 51.19it/s]
+50000 images processed, 7.7789976596832275 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:44,  1.74it/s] 11%|█▏        | 9/79 [00:00<00:04, 17.04it/s] 23%|██▎       | 18/79 [00:00<00:01, 32.05it/s] 34%|███▍      | 27/79 [00:00<00:01, 44.75it/s] 46%|████▌     | 36/79 [00:01<00:00, 54.71it/s] 56%|█████▌    | 44/79 [00:01<00:00, 60.92it/s] 67%|██████▋   | 53/79 [00:01<00:00, 66.65it/s] 80%|███████▉  | 63/79 [00:01<00:00, 74.41it/s] 92%|█████████▏| 73/79 [00:01<00:00, 80.05it/s]100%|██████████| 79/79 [00:01<00:00, 43.52it/s]
+10000 images processed, 1.8585631847381592 seconds used
+
+Saved forget OOD features to cache/resnet34-top5-palm-cache6-ema0.999-baseline-ga-b128-e5-lr0.001-wd1e-4-fl1/CIFAR-100/forget
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<02:30,  1.35it/s]  2%|▏         | 4/204 [00:00<00:33,  5.98it/s]  5%|▌         | 11/204 [00:00<00:10, 17.63it/s]  9%|▉         | 18/204 [00:01<00:06, 28.09it/s] 12%|█▏        | 25/204 [00:01<00:04, 37.53it/s] 16%|█▌        | 33/204 [00:01<00:03, 47.46it/s] 20%|█▉        | 40/204 [00:01<00:03, 51.90it/s] 24%|██▎       | 48/204 [00:01<00:02, 58.74it/s] 27%|██▋       | 56/204 [00:01<00:03, 40.62it/s] 30%|███       | 62/204 [00:01<00:03, 44.29it/s] 34%|███▍      | 70/204 [00:02<00:02, 51.40it/s] 38%|███▊      | 78/204 [00:02<00:02, 57.37it/s] 42%|████▏     | 85/204 [00:02<00:01, 59.73it/s] 46%|████▌     | 93/204 [00:02<00:01, 63.71it/s] 49%|████▉     | 100/204 [00:02<00:01, 61.74it/s] 53%|█████▎    | 108/204 [00:02<00:01, 65.98it/s] 57%|█████▋    | 117/204 [00:02<00:01, 69.93it/s] 61%|██████▏   | 125/204 [00:02<00:01, 69.15it/s] 65%|██████▌   | 133/204 [00:02<00:01, 70.29it/s] 69%|██████▉   | 141/204 [00:03<00:00, 70.40it/s] 74%|███████▎  | 150/204 [00:03<00:00, 73.21it/s] 77%|███████▋  | 158/204 [00:03<00:00, 70.32it/s] 81%|████████▏ | 166/204 [00:03<00:00, 69.80it/s] 85%|████████▌ | 174/204 [00:03<00:00, 66.97it/s] 90%|████████▉ | 183/204 [00:03<00:00, 72.63it/s] 94%|█████████▎| 191/204 [00:03<00:00, 72.63it/s] 98%|█████████▊| 199/204 [00:03<00:00, 69.62it/s]100%|██████████| 204/204 [00:03<00:00, 52.57it/s]
+26032 images processed, 3.946307897567749 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:01<01:22,  1.06s/it]  6%|▋         | 5/79 [00:01<00:13,  5.60it/s] 16%|█▋        | 13/79 [00:01<00:04, 16.26it/s] 28%|██▊       | 22/79 [00:01<00:02, 28.36it/s] 38%|███▊      | 30/79 [00:01<00:01, 37.68it/s] 49%|████▉     | 39/79 [00:01<00:00, 48.64it/s] 59%|█████▉    | 47/79 [00:01<00:00, 54.58it/s] 70%|██████▉   | 55/79 [00:01<00:00, 56.84it/s] 81%|████████  | 64/79 [00:01<00:00, 64.47it/s] 94%|█████████▎| 74/79 [00:02<00:00, 72.84it/s]100%|██████████| 79/79 [00:02<00:00, 37.98it/s]
+10000 images processed, 2.141176700592041 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:57,  1.35it/s]  6%|▋         | 5/79 [00:00<00:10,  7.36it/s] 14%|█▍        | 11/79 [00:00<00:04, 16.92it/s] 24%|██▍       | 19/79 [00:01<00:02, 29.32it/s] 34%|███▍      | 27/79 [00:01<00:01, 39.42it/s] 44%|████▍     | 35/79 [00:01<00:00, 48.22it/s] 54%|█████▍    | 43/79 [00:01<00:00, 54.32it/s] 63%|██████▎   | 50/79 [00:01<00:00, 57.84it/s] 76%|███████▌  | 60/79 [00:01<00:00, 67.69it/s] 86%|████████▌ | 68/79 [00:01<00:00, 69.60it/s] 99%|█████████▊| 78/79 [00:01<00:00, 76.55it/s]100%|██████████| 79/79 [00:01<00:00, 42.97it/s]
+10000 images processed, 1.8880186080932617 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:55,  1.25it/s] 10%|█         | 7/70 [00:00<00:06, 10.08it/s] 21%|██▏       | 15/70 [00:01<00:02, 22.12it/s] 31%|███▏      | 22/70 [00:01<00:01, 31.17it/s] 43%|████▎     | 30/70 [00:01<00:00, 40.88it/s] 54%|█████▍    | 38/70 [00:01<00:00, 49.33it/s] 67%|██████▋   | 47/70 [00:01<00:00, 58.42it/s] 81%|████████▏ | 57/70 [00:01<00:00, 68.52it/s] 96%|█████████▌| 67/70 [00:01<00:00, 76.10it/s]100%|██████████| 70/70 [00:01<00:00, 41.49it/s]
+8925 images processed, 1.73897123336792 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<00:58,  1.33s/it]  4%|▍         | 2/45 [00:01<00:29,  1.44it/s] 24%|██▍       | 11/45 [00:01<00:03, 10.91it/s] 38%|███▊      | 17/45 [00:01<00:02, 13.91it/s] 47%|████▋     | 21/45 [00:02<00:01, 14.96it/s] 58%|█████▊    | 26/45 [00:02<00:00, 19.63it/s] 73%|███████▎  | 33/45 [00:02<00:00, 17.38it/s] 80%|████████  | 36/45 [00:02<00:00, 18.12it/s]100%|██████████| 45/45 [00:03<00:00, 14.94it/s]
+5640 images processed, 3.0340681076049805 seconds used
+
+24.516401052474976
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/shaokun/anaconda3/envs/PPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           4.81  98.93
+places365     72.30  78.73
+LSUN          24.05  95.10
+iSUN          71.01  82.77
+dtd           48.92  87.99
+AVG           44.22  88.70
+Retain-Acc: 0.7198
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 76.10 AUROC: 77.76 AUIN: 96.72
+21.051263570785522
+[umap] saved to figs/umap_CIFAR-100_resnet34_top5-palm-cache6-ema0.999-baseline-ga-b128-e5-lr0.001-wd1e-4-fl1_domain.png
+[umap] saved to figs/umap_CIFAR-100_resnet34_top5-palm-cache6-ema0.999-baseline-ga-b128-e5-lr0.001-wd1e-4-fl1_rf.png

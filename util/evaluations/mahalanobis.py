@@ -33,6 +33,16 @@ def eval_maha(args):
         ood_feat_log = ood_feat_log.astype(np.float32)
         ood_feat_log_all[ood_dataset] = ood_feat_log
 
+    # Try to load explicit forget subset features cached by feature_extract.py (val split)
+    forget_feat_log = None
+    forget_cache_dir = os.path.join("cache", f"{args.backbone}-{args.method}", args.in_dataset, "forget")
+    forget_feat_file = os.path.join(forget_cache_dir, f"{args.backbone}-{args.method}_features.npy")
+    if os.path.exists(forget_feat_file):
+        try:
+            forget_feat_log = np.load(forget_feat_file, allow_pickle=True).astype(np.float32)
+        except Exception:
+            forget_feat_log = None
+
     normalizer = lambda x: x / (np.linalg.norm(x, ord=2, axis=-1, keepdims=True) + 1e-10)
 
     prepos_feat = lambda x: np.ascontiguousarray(normalizer(x))# Last Layer only
@@ -42,6 +52,8 @@ def eval_maha(args):
     food_all = {}
     for ood_dataset in args.out_datasets:
         food_all[ood_dataset] = prepos_feat(ood_feat_log_all[ood_dataset])
+    # preprocessed forget (non-ssd)
+    fforget = prepos_feat(forget_feat_log) if (forget_feat_log is not None and forget_feat_log.size > 0) else None
 
 
 # #################### SSD+ score OOD detection #################
@@ -54,6 +66,8 @@ def eval_maha(args):
     food_ssd_all = {}
     for ood_dataset in args.out_datasets:
         food_ssd_all[ood_dataset] = prepos_feat_ssd(food_all[ood_dataset])
+    # preprocessed forget (ssd)
+    fforget_ssd = prepos_feat_ssd(fforget) if (fforget is not None) else None
     
     cov = lambda x: np.cov(x.T, bias=True)
     # 在标准化空间（_ssd）中计算共享协方差逆
@@ -63,10 +77,12 @@ def eval_maha(args):
     C = int(label_log.max()) + 1
     D = ftrain_ssd.shape[1]
     centers_ssd = np.zeros((C, D), dtype=np.float32)
+    has_train = np.zeros((C,), dtype=bool)
     for c in range(C):
         idx = (label_log == c)
         if np.any(idx):
             centers_ssd[c] = ftrain_ssd[idx].mean(axis=0)
+            has_train[c] = True
 
     # 当存在遗忘类时，一律仅使用保留类中心
     forget_csv = getattr(args, 'forget_classes', None)
@@ -84,9 +100,9 @@ def eval_maha(args):
                     forget_classes = [int(line) for line in data.splitlines() if line.strip()!='']
         except Exception:
             forget_classes = []
-    retain_mask = np.ones((C,), dtype=bool)
+    # 仅保留“训练中实际出现过的类”作为候选中心；并在存在遗忘类时剔除之
+    retain_mask = has_train.copy()
     if len(forget_classes) > 0:
-        # 始终丢弃遗忘类中心，仅保留 retain 类中心
         forget_classes = [x for x in forget_classes if 0 <= x < C]
         if len(forget_classes) > 0:
             retain_mask[np.array(forget_classes, dtype=int)] = False
@@ -121,12 +137,8 @@ def eval_maha(args):
         except Exception:
             forget_classes = []
 
-    if len(forget_classes) > 0:
-        fmask = np.isin(label_log_val, np.array(forget_classes, dtype=int))
-        ftest_retain_ssd = ftest_ssd[~fmask]
-        dtest = maha_score_min_class(ftest_retain_ssd)
-    else:
-        dtest = maha_score_min_class(ftest_ssd)
+    # Known (retain) scores: val 主缓存若已是保留集，直接用全部 ftest_ssd；否则这里也兼容
+    dtest = maha_score_min_class(ftest_ssd)
 
     # 评估 OOD：仅包含 args.out_datasets（不再加入 forget）
     eval_names = list(args.out_datasets)
@@ -158,27 +170,26 @@ def eval_maha(args):
         centers_n = centers / (np.linalg.norm(centers, axis=1, keepdims=True) + 1e-10)
         sims = ftest_n @ centers_n.T
         preds = np.argmax(sims, axis=1)
-        retain_idx = ~fmask
-        if retain_idx.sum() > 0:
-            retain_acc = np.mean(preds[retain_idx] == label_log_val[retain_idx])
+        if ftest_n.shape[0] > 0:
+            retain_acc = np.mean(preds == label_log_val)
             print(f"Retain-Acc: {retain_acc:.4f}")
             try:
                 setattr(args, 'retain_acc', float(retain_acc))
             except Exception:
                 pass
-        # Forget-as-OOD: retain 作为 known，forget 作为 novel（与上面 forget OOD 结果一致）
-        # 这里复用 retain 的 ID 分布分数 dtest，以及 forget 的 dood
-        forget_scores = maha_score_min_class(ftest_ssd[fmask])
-        retain_scores = dtest
-        fr_results = metrics.cal_metric(retain_scores, forget_scores)
-        print('Forget-as-OOD (retain known vs forget novel):')
-        print(f"  FPR: {100.*fr_results['FPR']:.2f} AUROC: {100.*fr_results['AUROC']:.2f} AUIN: {100.*fr_results['AUIN']:.2f}")
-        # expose forget metrics to CSV writer (we do not append to results anymore)
-        try:
-            setattr(args, 'forget_fpr', float(fr_results['FPR']))
-            setattr(args, 'forget_auroc', float(fr_results['AUROC']))
-        except Exception:
-            pass
+        # Forget-as-OOD: 直接使用 forget 缓存特征
+        if fforget_ssd is not None and fforget_ssd.shape[0] > 0:
+            forget_scores = maha_score_min_class(fforget_ssd)
+            retain_scores = dtest
+            fr_results = metrics.cal_metric(retain_scores, forget_scores)
+            print('Forget-as-OOD (retain known vs forget novel):')
+            print(f"  FPR: {100.*fr_results['FPR']:.2f} AUROC: {100.*fr_results['AUROC']:.2f} AUIN: {100.*fr_results['AUIN']:.2f}")
+            # expose forget metrics to CSV writer (we do not append to results anymore)
+            try:
+                setattr(args, 'forget_fpr', float(fr_results['FPR']))
+                setattr(args, 'forget_auroc', float(fr_results['AUROC']))
+            except Exception:
+                pass
     args.score = "mahalanobis"
     write_csv(args, all_results)
     print(time.time() - begin)
@@ -203,10 +214,9 @@ def eval_maha(args):
                     continue
                 X_list.append(food)
                 y_list += [name] * food.shape[0]
-            if len(forget_classes) > 0:
-                # fmask defined earlier for val set
-                X_list.append(ftest[fmask])
-                y_list += ["forget"] * int(fmask.sum())
+            if fforget is not None and fforget.shape[0] > 0:
+                X_list.append(fforget)
+                y_list += ["forget"] * int(fforget.shape[0])
             X = np.concatenate(X_list, axis=0)
             # subsample
             max_points = int(getattr(args, 'umap_max_points', 20000))
@@ -240,17 +250,17 @@ def eval_maha(args):
             print("[umap] saved to", save_path)
 
             # Optional extra figure: retain vs forget only
-            if bool(getattr(args, 'umap_rf_only', False)) and (len(forget_classes) > 0):
+            if bool(getattr(args, 'umap_rf_only', False)) and (fforget is not None and fforget.shape[0] > 0):
                 try:
                     X2_list: List[np.ndarray] = []
                     y2_list: List[str] = []
-                    # retain vs forget from val set split
-                    if (~fmask).sum() > 0:
-                        X2_list.append(ftest[~fmask])
-                        y2_list += ["retain"] * int((~fmask).sum())
-                    if fmask.sum() > 0:
-                        X2_list.append(ftest[fmask])
-                        y2_list += ["forget"] * int(fmask.sum())
+                    # retain vs forget from explicit caches
+                    if ftest.shape[0] > 0:
+                        X2_list.append(ftest)
+                        y2_list += ["retain"] * int(ftest.shape[0])
+                    if fforget is not None and fforget.shape[0] > 0:
+                        X2_list.append(fforget)
+                        y2_list += ["forget"] * int(fforget.shape[0])
                     if len(X2_list) >= 1:
                         X2 = np.concatenate(X2_list, axis=0)
                         max_points2 = int(getattr(args, 'umap_max_points', 20000))
