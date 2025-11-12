@@ -337,7 +337,7 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             elif getattr(args, 'forget_classes', None):
                 forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
             mode = str(getattr(args, 'batch_forget_mode', 'none'))
-            if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
+            if mode in ('balanced', 'proportional', 'retain_only', 'forget_only') and len(forget_set) > 0:
                 if mode == 'balanced':
                     num_batches = len(trainset) // args.batch_size
                     batch_sampler = BalancedBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
@@ -353,6 +353,13 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
                     mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
                     retain_idx = np.where(~mask_forget)[0].tolist()
                     subset = torch.utils.data.Subset(trainset, retain_idx)
+                    train_loader = torch.utils.data.DataLoader(
+                        subset, batch_size=args.batch_size, shuffle=True, **kwargs)
+                elif mode == 'forget_only':
+                    targets = np.array(list(trainset.targets), dtype=np.int64)
+                    mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+                    forget_idx = np.where(mask_forget)[0].tolist()
+                    subset = torch.utils.data.Subset(trainset, forget_idx)
                     train_loader = torch.utils.data.DataLoader(
                         subset, batch_size=args.batch_size, shuffle=True, **kwargs)
             else:
@@ -375,7 +382,7 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             elif getattr(args, 'forget_classes', None):
                 forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
             mode = str(getattr(args, 'batch_forget_mode', 'none'))
-            if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
+            if mode in ('balanced', 'proportional', 'retain_only', 'forget_only') and len(forget_set) > 0:
                 if mode == 'balanced':
                     num_batches = len(trainset) // args.batch_size
                     batch_sampler = BalancedBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
@@ -391,6 +398,13 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
                     mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
                     retain_idx = np.where(~mask_forget)[0].tolist()
                     subset = torch.utils.data.Subset(trainset, retain_idx)
+                    train_loader = torch.utils.data.DataLoader(
+                        subset, batch_size=args.batch_size, shuffle=True, **kwargs)
+                elif mode == 'forget_only':
+                    targets = np.array(list(trainset.targets), dtype=np.int64)
+                    mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+                    forget_idx = np.where(mask_forget)[0].tolist()
+                    subset = torch.utils.data.Subset(trainset, forget_idx)
                     train_loader = torch.utils.data.DataLoader(
                         subset, batch_size=args.batch_size, shuffle=True, **kwargs)
             else:
@@ -415,7 +429,7 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             elif getattr(args, 'forget_classes', None):
                 forget_set |= set(int(x) for x in str(args.forget_classes).split(',') if x!='')
             mode = str(getattr(args, 'batch_forget_mode', 'none'))
-            if mode in ('balanced', 'proportional', 'retain_only') and len(forget_set) > 0:
+            if mode in ('balanced', 'proportional', 'retain_only', 'forget_only') and len(forget_set) > 0:
                 if mode == 'balanced':
                     num_batches = len(trainset) // args.batch_size
                     batch_sampler = BalancedBatchSampler(trainset.targets, forget_set, args.batch_size, num_batches, seed=args.seed)
@@ -431,6 +445,13 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
                     mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
                     retain_idx = np.where(~mask_forget)[0].tolist()
                     subset = torch.utils.data.Subset(trainset, retain_idx)
+                    train_loader = torch.utils.data.DataLoader(
+                        subset, batch_size=args.batch_size, shuffle=True, **kwargs)
+                elif mode == 'forget_only':
+                    targets = np.array(list(trainset.targets), dtype=np.int64)
+                    mask_forget = np.isin(targets, np.array(sorted(list(forget_set)), dtype=np.int64))
+                    forget_idx = np.where(mask_forget)[0].tolist()
+                    subset = torch.utils.data.Subset(trainset, forget_idx)
                     train_loader = torch.utils.data.DataLoader(
                         subset, batch_size=args.batch_size, shuffle=True, **kwargs)
             else:

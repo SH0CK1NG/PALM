@@ -1,0 +1,34 @@
+nohup: ignoring input
+==== Stage 1: inc={0,8,11,40,51}; seen={}; all(union)={0,8,11,40,51,57,66,67,88,94,100,101,102,103,104,105,106,107,108,109} ====
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:61: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-110', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=50, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c90.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, palm_enable=True, pcon_inc=True, incremental=True, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmnone-fl0.2-lora_r8a32d0.05-temp0.08-ol1-continual-from-c90-to-CIFAR-110-ol_c10_false_true-stack/stage1', adapter_load_path=None, lora_stack=False, lora_orth_enable=False, lora_orth_lambda=0.1, lora_orth_ref_paths=None, forget_classes='0,8,11,40,51,57,66,67,88,94,100,101,102,103,104,105,106,107,108,109', forget_list_path=None, forget_classes_inc='0,8,11,40,51', forget_classes_seen=None, retain_exclude_csv=None, forget_csv=None, forget_lambda=0.0, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='none', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c90.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+[trainable] param_count=238592 tensors=16
+[incremental] resumed from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c90.pt
+  0%|          | 0/50 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:163: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+  2%|▏         | 1/50 [00:18<15:22, 18.84s/it]  4%|▍         | 2/50 [00:33<12:58, 16.22s/it]  6%|▌         | 3/50 [00:46<11:32, 14.74s/it]  8%|▊         | 4/50 [00:58<10:42, 13.97s/it] 10%|█         | 5/50 [01:13<10:29, 13.99s/it]Terminated

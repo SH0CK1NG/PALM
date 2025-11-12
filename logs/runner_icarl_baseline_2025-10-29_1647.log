@@ -1,0 +1,55 @@
+nohup: ignoring input
+[Stage] Prepare PyCIL at: /home/shaokun/PALM/third_party/PyCIL
+[Run] PyCIL iCaRL with --config=/home/shaokun/PALM/third_party/PyCIL/exps/icarl_c100_90to10_mem2000_resnet34.json
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+2025-10-29 16:47:06,096 [trainer.py] => config: /home/shaokun/PALM/third_party/PyCIL/exps/icarl_c100_90to10_mem2000_resnet34.json
+2025-10-29 16:47:06,096 [trainer.py] => prefix: reproduce
+2025-10-29 16:47:06,096 [trainer.py] => dataset: cifar100
+2025-10-29 16:47:06,096 [trainer.py] => memory_size: 2000
+2025-10-29 16:47:06,096 [trainer.py] => memory_per_class: 20
+2025-10-29 16:47:06,096 [trainer.py] => fixed_memory: False
+2025-10-29 16:47:06,096 [trainer.py] => shuffle: True
+2025-10-29 16:47:06,096 [trainer.py] => init_cls: 90
+2025-10-29 16:47:06,096 [trainer.py] => increment: 10
+2025-10-29 16:47:06,096 [trainer.py] => model_name: icarl
+2025-10-29 16:47:06,096 [trainer.py] => convnet_type: resnet34
+2025-10-29 16:47:06,096 [trainer.py] => device: [device(type='cuda', index=5)]
+2025-10-29 16:47:06,096 [trainer.py] => seed: 1
+2025-10-29 16:47:06,096 [trainer.py] => logfilename: logs/icarl/cifar100/90/10/reproduce_1_resnet34
+Files already downloaded and verified
+Files already downloaded and verified
+2025-10-29 16:47:07,562 [data_manager.py] => [80, 84, 33, 81, 93, 17, 36, 82, 69, 65, 92, 39, 56, 52, 51, 32, 31, 44, 78, 10, 2, 73, 97, 62, 19, 35, 94, 27, 46, 38, 67, 99, 54, 95, 88, 40, 48, 59, 23, 34, 86, 53, 77, 15, 83, 41, 45, 91, 26, 98, 43, 55, 24, 4, 58, 49, 21, 87, 3, 74, 30, 66, 70, 42, 47, 89, 8, 60, 0, 90, 57, 22, 61, 63, 7, 96, 13, 68, 85, 14, 29, 28, 11, 18, 20, 50, 25, 6, 71, 76, 1, 16, 64, 79, 5, 75, 9, 72, 12, 37]
+2025-10-29 16:47:07,860 [trainer.py] => All params: 21276992
+2025-10-29 16:47:07,860 [trainer.py] => Trainable params: 21276992
+2025-10-29 16:47:07,860 [icarl.py] => Learning on 0-90
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/third_party/PyCIL/main.py", line 31, in <module>
+    main()
+  File "/home/shaokun/PALM/third_party/PyCIL/main.py", line 12, in main
+    train(args)
+  File "/home/shaokun/PALM/third_party/PyCIL/trainer.py", line 20, in train
+    _train(args)
+  File "/home/shaokun/PALM/third_party/PyCIL/trainer.py", line 75, in _train
+    model.incremental_train(data_manager)
+  File "/home/shaokun/PALM/third_party/PyCIL/models/icarl.py", line 71, in incremental_train
+    self._train(self.train_loader, self.test_loader)
+  File "/home/shaokun/PALM/third_party/PyCIL/models/icarl.py", line 77, in _train
+    self._network.to(self._device)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1369, in to
+    return self._apply(convert)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 955, in _apply
+    param_applied = fn(param)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1355, in convert
+    return t.to(
+torch.AcceleratorError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

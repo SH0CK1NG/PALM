@@ -1,0 +1,21 @@
+nohup: ignoring input
+[Stage] Prepare PyCIL at: /home/shaokun/PALM/third_party/PyCIL
+[Eval] Start OOD evaluation (SVHN, places365, LSUN, iSUN, dtd)
+[Eval] Using ckpt: /home/shaokun/PALM/third_party/PyCIL/logs/icarl/cifar100/90/10/reproduce_1_resnet34/model.pt
+[Eval] Extract features and evaluate iCaRL with 5 OOD datasets
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/feature_extract.py", line 28, in <module>
+    model = get_model(args, num_classes, load_ckpt=True)
+  File "/home/shaokun/PALM/util/loaders/model_loader.py", line 49, in get_model
+    net = torch.load(ckpt_path, map_location="cuda:0", weights_only=False)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 1530, in load
+    return _load(
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 2119, in _load
+    result = unpickler.load()
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 2108, in find_class
+    return super().find_class(mod_name, name)
+ModuleNotFoundError: No module named 'utils'

@@ -1,0 +1,23 @@
+nohup: ignoring input
+==== Stage 1: inc={0,8,11,40,51}; seen={}; all(union)={0,8,11,40,51,57,66,67,88,94,100,101,102,103,104,105,106,107,108,109} ====
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Namespace(in_dataset='CIFAR-110', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=50, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/c90-resnet34-top5-palm-cache6-ema0.999-upper-retain-c90.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=1.0, epsilon=0.05, palm_enable=True, pcon_inc=True, incremental=True, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmbalanced-fl0.2-lora_r8a32d0.05-temp0.08-ol1-continual-from-c90-to-CIFAR-110-stack/stage1', adapter_load_path=None, lora_stack=False, lora_orth_enable=False, lora_orth_lambda=0.1, lora_orth_ref_paths=None, forget_classes='0,8,11,40,51,57,66,67,88,94,100,101,102,103,104,105,106,107,108,109', forget_list_path=None, forget_classes_inc='0,8,11,40,51', forget_classes_seen=None, retain_exclude_csv=None, forget_csv=None, forget_lambda=0.0, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='balanced', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/main.py", line 176, in <module>
+    main()
+  File "/home/shaokun/PALM/main.py", line 24, in main
+    model, criterion = set_model(args, num_classes, load_ckpt=load_pretrained)
+  File "/home/shaokun/PALM/util/loaders/model_loader.py", line 193, in set_model
+    model = get_model(args, num_classes, load_ckpt)
+  File "/home/shaokun/PALM/util/loaders/model_loader.py", line 75, in get_model
+    checkpoint = torch.load(ckpt_path, map_location="cuda:0")
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints/c90-resnet34-top5-palm-cache6-ema0.999-upper-retain-c90.pt'

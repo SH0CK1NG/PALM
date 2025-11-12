@@ -166,10 +166,12 @@ def print_all_results(results, datasets, method):
         print('\n{dataset:12s}'.format(dataset=dataset), end='')
         print(' {val:6.2f}'.format(val=100.*result['FPR']), end='')
         print(' {val:6.2f}'.format(val=100.*result['AUROC']), end='')
+        print(' {val:6.2f}'.format(val=100.*result['AUIN']), end='')
 
     print('\nAVG         ', end='')
     print(' {val:6.2f}'.format(val=100.*avg_results['FPR']), end='')
     print(' {val:6.2f}'.format(val=100.*avg_results['AUROC']), end='')
+    print(' {val:6.2f}'.format(val=100.*avg_results['AUIN']), end='')
     print()
 
 

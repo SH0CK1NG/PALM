@@ -91,6 +91,20 @@ def get_args():
     parser.add_argument('--epsilon', default=0.05, type=float)
     parser.add_argument('--palm_enable', type=str2bool, default=True,
                         help='enable PALM loss (mle + proto_contra) on retain set; set false to disable PALM entirely')
+    # MLE 计算模式：
+    # - all: 在全部样本（旧+新）上计算（增量新逻辑）
+    # - retain_only: 仅对 retain 样本计算（老逻辑）
+    # - old_mle_all_update: 仅对旧类样本计算 MLE，但原型用旧+新样本更新（老逻辑增强版）
+    parser.add_argument('--palm_mle_mode', type=str, default='all', choices=['all', 'retain_only', 'old_mle_all_update'],
+                        help='PALM MLE computation mode in incremental setting')
+    # 兼容旧参数：若设置，则等价于 palm_mle_mode=retain_only
+    parser.add_argument('--palm_retain_only', type=str2bool, default=False,
+                        help='[deprecated] same as --palm_mle_mode=retain_only')
+    # p_contra 增量模式选择：split(旧/新分离) | new_only(仅新锚点) | off(标准PALM)
+    # 默认：增量模式下 split；遗忘训练下 off；否则 off
+    parser.add_argument('--pcon_inc', type=str, default=None,
+                        help="proto_contra mode in incremental setting: 'split' | 'new_only' | 'off'. Default: 'split' in incremental mode, 'off' when forgetting is enabled")
+    # 移除：pcon_split_enable/old_class_count；在 --incremental 下自动启用旧/新分离
     
     # incremental learning option only
     parser.add_argument('--incremental', action='store_true', default=False,
@@ -145,8 +159,8 @@ def get_args():
     parser.add_argument('--precision_path', type=str, default=None,
                         help='path to precomputed precision matrix (D x D)')
     # per-batch composition control for forget/retain
-    parser.add_argument('--batch_forget_mode', type=str, default='none', choices=['none', 'balanced', 'proportional', 'retain_only'],
-                        help='how to compose per-batch samples: none=use all; balanced=1:1 forget:retain from available; proportional=match dataset-level forget ratio')
+    parser.add_argument('--batch_forget_mode', type=str, default='none', choices=['none', 'balanced', 'proportional', 'retain_only', 'forget_only'],
+                        help='how to compose per-batch samples: none=use all; balanced=1:1 forget:retain from available; proportional=match dataset-level forget ratio; retain_only=keep only retain; forget_only=keep only forget')
 
     # Forget prototype options (batch-only, non-persistent)
     parser.add_argument('--forget_proto_enable', action='store_true', default=False,

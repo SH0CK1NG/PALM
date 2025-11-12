@@ -1,0 +1,66 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+usage: cider_main.py [-h] [--in-dataset IN_DATASET]
+                     [--out-datasets [OUT_DATASETS ...]] [--backbone BACKBONE]
+                     [--method METHOD] [--seed SEED] [--gpu GPU]
+                     [--epochs EPOCHS] [-b BATCH_SIZE] [--lr LR]
+                     [--weight-decay WEIGHT_DECAY] [--print_every PRINT_EVERY]
+                     [--fine_tune] [--temp TEMP] [--cosine] [--warm]
+                     [--lr_decay_epochs LR_DECAY_EPOCHS]
+                     [--lr_decay_rate LR_DECAY_RATE] [--layers LAYERS]
+                     [--depth DEPTH] [--width WIDTH] [--growth GROWTH]
+                     [--droprate DROPRATE] [--save-path SAVE_PATH]
+                     [--load-path LOAD_PATH] [--reduce REDUCE] [--score SCORE]
+                     [--threshold THRESHOLD] [--k K] [--momentum MOMENTUM]
+                     [--proto_m PROTO_M] [--cache-size CACHE_SIZE]
+                     [--nviews NVIEWS] [--lambda_pcon LAMBDA_PCON]
+                     [--epsilon EPSILON] [--palm_enable PALM_ENABLE]
+                     [--incremental] [--use_lora] [--lora_impl {native,peft}]
+                     [--lora_r LORA_R] [--lora_alpha LORA_ALPHA]
+                     [--lora_dropout LORA_DROPOUT]
+                     [--lora_target {head,encoder,both,encoder_all,both_all}]
+                     [--adapter_save_path ADAPTER_SAVE_PATH]
+                     [--adapter_load_path ADAPTER_LOAD_PATH] [--lora_stack]
+                     [--lora_orth_enable]
+                     [--lora_orth_lambda LORA_ORTH_LAMBDA]
+                     [--lora_orth_ref_paths LORA_ORTH_REF_PATHS]
+                     [--forget_classes FORGET_CLASSES]
+                     [--forget_list_path FORGET_LIST_PATH]
+                     [--forget_classes_inc FORGET_CLASSES_INC]
+                     [--forget_classes_seen FORGET_CLASSES_SEEN]
+                     [--retain_exclude_csv RETAIN_EXCLUDE_CSV]
+                     [--forget_csv FORGET_CSV] [--forget_lambda FORGET_LAMBDA]
+                     [--forget_margin FORGET_MARGIN]
+                     [--forget_strategy {proto,randlabel,ga}]
+                     [--centers_path CENTERS_PATH]
+                     [--precision_path PRECISION_PATH]
+                     [--batch_forget_mode {none,balanced,proportional,retain_only}]
+                     [--forget_proto_enable] [--forget_attr_w FORGET_ATTR_W]
+                     [--forget_proto_rep_w FORGET_PROTO_REP_W]
+                     [--forget_avgproto_enable]
+                     [--forget_avgproto_w FORGET_AVGPROTO_W] [--umap_enable]
+                     [--umap_by {domain,class}]
+                     [--umap_max_points UMAP_MAX_POINTS]
+                     [--umap_neighbors UMAP_NEIGHBORS]
+                     [--umap_min_dist UMAP_MIN_DIST]
+                     [--umap_metric UMAP_METRIC]
+                     [--umap_save_path UMAP_SAVE_PATH] [--umap_rf_only]
+                     [--keep_cache]
+cider_main.py: error: ambiguous option: --w could match --weight-decay, --wd, --warm, --width
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/feature_extract.py", line 28, in <module>
+    model = get_model(args, num_classes, load_ckpt=True)
+  File "/home/shaokun/PALM/util/loaders/model_loader.py", line 75, in get_model
+    checkpoint = torch.load(ckpt_path, map_location="cuda:0")
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints/CIFAR-100/CIFAR-100-resnet34-palm-cider-b512-e200-lr0.5-wd1e-4-fd128-w1-pm0.5-temp0.1-bfmbalanced-fl0.2.pt'

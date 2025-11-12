@@ -33,15 +33,17 @@ batch=128
 wd=1e-4
 
 # Search spaces
-lambda_list=(1.0 0.5 0.2 0.1)
-lr_list=(0.001 0.0005 0.0001)
-epoch_list=(5 10 20 50)
+lambda_list=($(seq 0.1 0.1 1.0))
+lr_list=(0.001)
+# 起始5，步长5，终止50
+epoch_list=($(seq 5 5 50))
 
 # Helper to join OOD list
 join_ood() { local IFS=" "; echo "$*"; }
 
 # Results manifest CSV (append-only)
-results_csv="evaluation_results/${id}-${backbone}-${method}-fullgrid_runs.csv"
+# results_csv="evaluation_results/${id}-${backbone}-${method}-fullgrid_runs.csv"
+results_csv="evaluation_results/${id}-${backbone}-${method}-fullgrid_reruns.csv"
 mkdir -p "evaluation_results"
 if [[ ! -f "$results_csv" ]]; then
   echo "Timestamp,InDataset,Backbone,MethodTag,Epochs,LR,ForgetLambda,Batch,WD,Cache,K,ProtoM,UseLoRA,LoRA_r,LoRA_alpha,LoRA_dropout,LoRA_target,BatchForgetMode,Temp,AdapterPath,PretrainCkpt,OODs" > "$results_csv"
@@ -66,7 +68,7 @@ train_and_eval() {
   # evaluate with base ckpt + adapter
   local ood_joined
   ood_joined=$(join_ood "${ood_datasets[@]}")
-  bash eval.sh "$id" "$ood_joined" "$backbone" "$method_tag" "$pretrain_ckpt" mahalanobis "$cache" 0 "$adapter_path" "$forget_csv" "" "$flambda" "$lora_r" "$lora_alpha" "$lora_dropout" "$lora_target" --umap_enable --umap_rf_only
+  bash eval.sh "$id" "$ood_joined" "$backbone" "$method_tag" "$pretrain_ckpt" mahalanobis "$cache" 0 "$adapter_path" "$forget_csv" "" "$flambda" "$lora_r" "$lora_alpha" "$lora_dropout" "$lora_target" --umap_enable --umap_rf_only ""
 }
 
 best_lambda=""; best_lambda_score="-1"
@@ -76,10 +78,11 @@ fixed_lr=0.001
 echo "[Full Grid] Searching over: lambdas(${lambda_list[*]}) × lrs(${lr_list[*]}) × epochs(${epoch_list[*]})"
 ood_joined=$(join_ood "${ood_datasets[@]}")
 
+# tag_suffix="-fullgrid"
 for fl in "${lambda_list[@]}"; do
   for lr in "${lr_list[@]}"; do
     for ep in "${epoch_list[@]}"; do
-      tag_suffix="-fullgrid"
+      tag_suffix="-fullgrid_reruns"
       method_tag="${method}-b${batch}-e${ep}-lr${lr}-wd${wd}-lt${lora_target}-bfm${batch_forget_mode}-fl${fl}-lora_r${lora_r}a${lora_alpha}d${lora_dropout}-temp${temp}${tag_suffix}"
       adapter_path="checkpoints/${id}-${backbone}-${method_tag}-planB_adapter"
 

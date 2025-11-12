@@ -99,33 +99,37 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
         # pre-forward sub-selection according to batch_forget_mode
         mode = str(getattr(args, 'batch_forget_mode', 'none'))
         keep_idx = None
-        # precompute indices
-        f_idx = torch.nonzero(forget_mask_cpu, as_tuple=False).squeeze(1)
-        r_idx = torch.nonzero(retain_mask_cpu, as_tuple=False).squeeze(1)
-        if mode == 'retain_only':
-            keep_idx = r_idx
-        elif mode in ('balanced', 'proportional') and (forget_mask_cpu.any() or retain_mask_cpu.any()):
-            if mode == 'balanced':
-                k = min(len(f_idx), len(r_idx))
-                if k > 0:
-                    f_perm = f_idx[torch.randperm(len(f_idx))[:k]]
-                    r_perm = r_idx[torch.randperm(len(r_idx))[:k]]
-                    keep_idx = torch.cat([f_perm, r_perm], dim=0)
-            elif mode == 'proportional':
-                # downsample majority side to approximate within-batch ratio, keep total size as current
-                f_count = int(forget_mask_cpu.sum().item())
-                r_count = int(retain_mask_cpu.sum().item())
-                total = f_count + r_count
-                if total > 0:
-                    pf = f_count / total
-                    target_f = int(round(pf * total))
-                    target_r = total - target_f
-                    if f_count > 0 and r_count > 0:
-                        f_take = min(f_count, target_f)
-                        r_take = min(r_count, target_r)
-                        f_perm = f_idx[torch.randperm(len(f_idx))[:f_take]]
-                        r_perm = r_idx[torch.randperm(len(r_idx))[:r_take]]
+        # DataLoader-level sampling active: skip in-trainer sub-selection
+        if mode not in ('balanced', 'proportional', 'retain_only', 'forget_only'):
+            # precompute indices
+            f_idx = torch.nonzero(forget_mask_cpu, as_tuple=False).squeeze(1)
+            r_idx = torch.nonzero(retain_mask_cpu, as_tuple=False).squeeze(1)
+            if mode == 'retain_only':
+                keep_idx = r_idx
+            elif mode == 'forget_only':
+                keep_idx = f_idx
+            elif mode in ('balanced', 'proportional') and (forget_mask_cpu.any() or retain_mask_cpu.any()):
+                if mode == 'balanced':
+                    k = min(len(f_idx), len(r_idx))
+                    if k > 0:
+                        f_perm = f_idx[torch.randperm(len(f_idx))[:k]]
+                        r_perm = r_idx[torch.randperm(len(r_idx))[:k]]
                         keep_idx = torch.cat([f_perm, r_perm], dim=0)
+                elif mode == 'proportional':
+                    # downsample majority side to approximate within-batch ratio, keep total size as current
+                    f_count = int(forget_mask_cpu.sum().item())
+                    r_count = int(retain_mask_cpu.sum().item())
+                    total = f_count + r_count
+                    if total > 0:
+                        pf = f_count / total
+                        target_f = int(round(pf * total))
+                        target_r = total - target_f
+                        if f_count > 0 and r_count > 0:
+                            f_take = min(f_count, target_f)
+                            r_take = min(r_count, target_r)
+                            f_perm = f_idx[torch.randperm(len(f_idx))[:f_take]]
+                            r_perm = r_idx[torch.randperm(len(r_idx))[:r_take]]
+                            keep_idx = torch.cat([f_perm, r_perm], dim=0)
 
         # apply selection if any
         if keep_idx is not None and keep_idx.numel() > 0:
@@ -204,13 +208,43 @@ def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=No
 
                 # note: final retain_mask/forget_mask are on the selected subset only
 
-                # L_PALM only on retained samples; if none retained, use zero loss tied to graph
-                if retain_mask.any():
-                    loss, l_dict = criterion(features[retain_mask], labels[retain_mask])
+                # Incremental mode: choose MLE mode
+                if bool(getattr(args, 'incremental', False)):
+                    # resolve mode with backward compatibility
+                    mle_mode = str(getattr(args, 'palm_mle_mode', 'all'))
+                    if bool(getattr(args, 'palm_retain_only', False)):
+                        mle_mode = 'retain_only'
+                    if mle_mode == 'all':
+                        loss, l_dict = criterion(features, labels)
+                    elif mle_mode == 'retain_only':
+                        if retain_mask.any():
+                            loss, l_dict = criterion(features[retain_mask], labels[retain_mask])
+                        else:
+                            loss = features.sum() * 0.0
+                            l_dict = {'mle': 0.0, 'proto_contra': 0.0}
+                    elif mle_mode == 'old_mle_all_update':
+                        # 临时切换 MLE 子集为 old（seen），但原型更新仍使用全部样本
+                        prev_subset = getattr(args, 'mle_subset', None)
+                        try:
+                            setattr(args, 'mle_subset', 'old')
+                            loss, l_dict = criterion(features, labels)
+                        finally:
+                            try:
+                                if prev_subset is None:
+                                    delattr(args, 'mle_subset')
+                                else:
+                                    setattr(args, 'mle_subset', prev_subset)
+                            except Exception:
+                                pass
+                    else:
+                        loss, l_dict = criterion(features, labels)
                 else:
-                    # no retained samples: zero PALM loss but keep keys consistent
-                    loss = features.sum() * 0.0
-                    l_dict = {'mle': 0.0, 'proto_contra': 0.0}
+                    # Legacy: PALM only on retained samples; if none retained, use zero loss tied to graph
+                    if retain_mask.any():
+                        loss, l_dict = criterion(features[retain_mask], labels[retain_mask])
+                    else:
+                        loss = features.sum() * 0.0
+                        l_dict = {'mle': 0.0, 'proto_contra': 0.0}
 
                 # Orthogonal regularization between current PEFT LoRA A and previous LoRA A (PEFT only)
                 if bool(getattr(args, 'lora_orth_enable', False)) and is_peft_available() and hasattr(model, 'named_parameters'):
@@ -463,31 +497,34 @@ def train_palm_baseline(args, train_loader, model, criterion, optimizer, epoch, 
         # within-batch selection to control composition (reuse existing modes)
         mode = str(getattr(args, 'batch_forget_mode', 'none'))
         keep_idx = None
-        f_idx = torch.nonzero(forget_mask_cpu, as_tuple=False).squeeze(1)
-        r_idx = torch.nonzero(retain_mask_cpu, as_tuple=False).squeeze(1)
-        if mode == 'retain_only':
-            keep_idx = r_idx
-        elif mode in ('balanced', 'proportional') and (forget_mask_cpu.any() or retain_mask_cpu.any()):
-            if mode == 'balanced':
-                k = min(len(f_idx), len(r_idx))
-                if k > 0:
-                    f_perm = f_idx[torch.randperm(len(f_idx))[:k]]
-                    r_perm = r_idx[torch.randperm(len(r_idx))[:k]]
-                    keep_idx = torch.cat([f_perm, r_perm], dim=0)
-            elif mode == 'proportional':
-                f_count = int(forget_mask_cpu.sum().item())
-                r_count = int(retain_mask_cpu.sum().item())
-                total = f_count + r_count
-                if total > 0:
-                    pf = f_count / total
-                    target_f = int(round(pf * total))
-                    target_r = total - target_f
-                    if f_count > 0 and r_count > 0:
-                        f_take = min(f_count, target_f)
-                        r_take = min(r_count, target_r)
-                        f_perm = f_idx[torch.randperm(len(f_idx))[:f_take]]
-                        r_perm = r_idx[torch.randperm(len(r_idx))[:r_take]]
+        if mode not in ('balanced', 'proportional', 'retain_only', 'forget_only'):
+            f_idx = torch.nonzero(forget_mask_cpu, as_tuple=False).squeeze(1)
+            r_idx = torch.nonzero(retain_mask_cpu, as_tuple=False).squeeze(1)
+            if mode == 'retain_only':
+                keep_idx = r_idx
+            elif mode == 'forget_only':
+                keep_idx = f_idx
+            elif mode in ('balanced', 'proportional') and (forget_mask_cpu.any() or retain_mask_cpu.any()):
+                if mode == 'balanced':
+                    k = min(len(f_idx), len(r_idx))
+                    if k > 0:
+                        f_perm = f_idx[torch.randperm(len(f_idx))[:k]]
+                        r_perm = r_idx[torch.randperm(len(r_idx))[:k]]
                         keep_idx = torch.cat([f_perm, r_perm], dim=0)
+                elif mode == 'proportional':
+                    f_count = int(forget_mask_cpu.sum().item())
+                    r_count = int(retain_mask_cpu.sum().item())
+                    total = f_count + r_count
+                    if total > 0:
+                        pf = f_count / total
+                        target_f = int(round(pf * total))
+                        target_r = total - target_f
+                        if f_count > 0 and r_count > 0:
+                            f_take = min(f_count, target_f)
+                            r_take = min(r_count, target_r)
+                            f_perm = f_idx[torch.randperm(len(f_idx))[:f_take]]
+                            r_perm = r_idx[torch.randperm(len(r_idx))[:r_take]]
+                            keep_idx = torch.cat([f_perm, r_perm], dim=0)
 
         if keep_idx is not None and keep_idx.numel() > 0:
             labels = labels[keep_idx]

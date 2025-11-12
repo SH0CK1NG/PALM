@@ -25,6 +25,8 @@ class PALM(nn.Module):
         self.protos = F.normalize(self.protos, dim=-1)
         # global enable switch for PALM loss
         self.palm_enable = bool(getattr(args, 'palm_enable', True))
+        # keep args for incremental split logic
+        self.args = args
         
     def sinkhorn(self, features):
         out = torch.matmul(features, self.protos.detach().T)
@@ -112,7 +114,35 @@ class PALM(nn.Module):
         pos=torch.sum(masked_logits, dim=1)
         neg=torch.log(torch.sum(torch.exp(logits), dim=1, keepdim=True))
         log_prob=pos-neg
-        
+
+        # Optional: restrict MLE reduction to a subset (e.g., old only) while keeping prototype update on all
+        subset = getattr(self.args, 'mle_subset', None)
+        if subset in ('old', 'retain'):
+            # build old/new from args (same as proto_contra)
+            try:
+                def parse_csv(s):
+                    return [int(x) for x in str(s).split(',') if x!='']
+                C = int(self.num_classes)
+                inc_csv = getattr(self.args, 'forget_classes_inc', None)
+                seen_csv = getattr(self.args, 'forget_classes_seen', None)
+                new_set = set(parse_csv(inc_csv)) if inc_csv else set()
+                old_set = set(parse_csv(seen_csv)) if seen_csv else set(range(C))
+            except Exception:
+                C = int(self.num_classes)
+                old_set = set(range(C))
+            anchor_labels = targets.contiguous().repeat(self.nviews).view(-1)
+            dev = anchor_labels.device
+            if len(old_set) > 0:
+                old_t = torch.tensor(sorted(list(old_set)), device=dev, dtype=anchor_labels.dtype)
+                sel_mask = (anchor_labels.unsqueeze(1) == old_t.unsqueeze(0)).any(dim=1)
+            else:
+                sel_mask = torch.zeros_like(anchor_labels, dtype=torch.bool)
+            if torch.any(sel_mask):
+                loss = -torch.mean(log_prob[sel_mask])
+            else:
+                loss = logits.sum() * 0.0
+            return loss
+
         loss = -torch.mean(log_prob)
         return loss   
     
@@ -120,9 +150,10 @@ class PALM(nn.Module):
         
         protos = F.normalize(self.protos, dim=1)
         batch_size = self.num_classes
+        device = protos.device
         
-        proto_labels = torch.arange(self.num_classes).repeat(self.cache_size).view(-1,1).cuda()
-        mask = torch.eq(proto_labels, proto_labels.T).float().cuda()    
+        proto_labels = torch.arange(self.num_classes, device=device).repeat(self.cache_size).view(-1,1)
+        mask = torch.eq(proto_labels, proto_labels.T).float()    
 
         contrast_count = self.cache_size
         contrast_feature = protos
@@ -142,17 +173,114 @@ class PALM(nn.Module):
         logits_mask = torch.scatter(
             torch.ones_like(mask),
             1,
-            torch.arange(batch_size * anchor_count).view(-1, 1).to('cuda'),
+            torch.arange(batch_size * anchor_count, device=device).view(-1, 1),
             0
         )
-        mask = mask*logits_mask
-        
-        pos = torch.sum(F.normalize(mask, dim=1, p=1)*logits, dim=1)
-        neg=torch.log(torch.sum(logits_mask * torch.exp(logits), dim=1))
-        log_prob=pos-neg
+        mask = mask * logits_mask
 
-        # loss
-        loss = - torch.mean(log_prob)
+        # Decide proto_contra mode based on pcon_inc (split | new_only | off)
+        try:
+            inc_flag = bool(getattr(self.args, 'incremental', False))
+            fl = float(getattr(self.args, 'forget_lambda', 0.0))
+            strat = str(getattr(self.args, 'forget_strategy', 'proto'))
+            forget_enabled = (fl > 0.0) or (strat in ('randlabel', 'ga'))
+            pcon_inc_arg = getattr(self.args, 'pcon_inc', None)
+            # Normalize to string mode
+            mode = None
+            if pcon_inc_arg is None:
+                # defaults: incremental -> split; forgetting -> off; else off
+                mode = 'split' if inc_flag and (not forget_enabled) else 'off'
+            else:
+                if isinstance(pcon_inc_arg, bool):
+                    mode = 'split' if pcon_inc_arg else 'off'
+                else:
+                    mode = str(pcon_inc_arg).strip().lower()
+            # guard invalid
+            if mode not in ('split','new_only','off'):
+                mode = 'off'
+        except Exception:
+            mode = 'off'
+
+        if mode == 'off':
+            pos = torch.sum(F.normalize(mask, dim=1, p=1) * logits, dim=1)
+            neg = torch.log(torch.sum(logits_mask * torch.exp(logits), dim=1))
+            log_prob = pos - neg
+            loss = - torch.mean(log_prob)
+            return loss
+
+        # Build old/new sets from args in incremental mode
+        args = getattr(self, 'args', None)
+        def parse_csv(s):
+            return [int(x) for x in str(s).split(',') if x!='']
+        C = int(self.num_classes)
+        fc = getattr(args, 'forget_classes', None)
+        inc_csv = getattr(args, 'forget_classes_inc', None)
+        seen_csv = getattr(args, 'forget_classes_seen', None)
+        new_set = set(parse_csv(inc_csv)) if inc_csv else set()
+        old_set = set(parse_csv(seen_csv)) if seen_csv else set()
+        # fallback: only forget_classes provided => new=forget_classes, old=all\new
+        if (len(new_set) == 0 and len(old_set) == 0) and fc is not None:
+            fc_set = set(parse_csv(fc))
+            new_set = set([c for c in fc_set if 0 <= c < C])
+            old_set = set([c for c in range(C) if c not in new_set])
+        # default fallback when nothing provided
+        if (len(new_set) == 0 and len(old_set) == 0):
+            old_set = set(range(C))
+            new_set = set()
+
+        # Split anchors by old/new classes according to class ids
+        class_ids = proto_labels.view(-1)
+        dev = class_ids.device
+        is_old_proto = torch.zeros_like(class_ids, dtype=torch.float32, device=dev)
+        is_new_proto = torch.zeros_like(class_ids, dtype=torch.float32, device=dev)
+        if len(old_set) > 0:
+            old_t = torch.tensor(sorted(list(old_set)), device=dev, dtype=class_ids.dtype)
+            is_old_proto = (class_ids.unsqueeze(1) == old_t.unsqueeze(0)).any(dim=1).float()
+        if len(new_set) > 0:
+            new_t = torch.tensor(sorted(list(new_set)), device=dev, dtype=class_ids.dtype)
+            is_new_proto = (class_ids.unsqueeze(1) == new_t.unsqueeze(0)).any(dim=1).float()
+
+        # Column selection masks
+        col_old = is_old_proto.view(1, -1)  # [1, N]
+        den_mask_old_cols = logits_mask * col_old  # restrict denominator to old columns
+        den_mask_all = logits_mask               # new denom: all (old+new)
+
+        # Row (anchor) masks
+        row_old = is_old_proto.view(-1, 1)  # [N, 1]
+        row_new = is_new_proto.view(-1, 1)
+
+        # Positive masks (same-class, exclude self), restricted to anchor subsets via row mask
+        pos_mask_old = mask * row_old
+        pos_mask_new = mask * row_new
+
+        # Compute old anchors loss: denom only old
+        pos_old = torch.sum(F.normalize(pos_mask_old, dim=1, p=1) * logits, dim=1)
+        neg_old = torch.log(torch.sum(den_mask_old_cols * torch.exp(logits), dim=1) + 1e-12)
+        log_prob_old = pos_old - neg_old
+        sel_old = is_old_proto.bool()
+        if torch.any(sel_old):
+            loss_old = - torch.mean(log_prob_old[sel_old])
+        else:
+            loss_old = logits.sum() * 0.0
+
+        # Compute new anchors loss: denom includes old+new; numerator only same-class (new)
+        pos_new = torch.sum(F.normalize(pos_mask_new, dim=1, p=1) * logits, dim=1)
+        neg_new = torch.log(torch.sum(den_mask_all * torch.exp(logits), dim=1) + 1e-12)
+        log_prob_new = pos_new - neg_new
+        sel_new = is_new_proto.bool()
+        if torch.any(sel_new):
+            loss_new = - torch.mean(log_prob_new[sel_new])
+        else:
+            loss_new = logits.sum() * 0.0
+        if mode == 'new_only':
+            # 仅使用新锚点；若无新锚点，退回标准 PALM 形态
+            if torch.any(sel_new):
+                return loss_new
+            pos = torch.sum(F.normalize(mask, dim=1, p=1) * logits, dim=1)
+            neg = torch.log(torch.sum(logits_mask * torch.exp(logits), dim=1))
+            return - torch.mean(pos - neg)
+        # split: 使用 old+new
+        loss = loss_old + loss_new
         return loss
     
            

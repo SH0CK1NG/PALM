@@ -1,0 +1,3 @@
+nohup: ignoring input
+[resume] detected last completed stage = 6; seen={0,8,11,40,51,66,67,88,94,57,59,58,44,93,10,64,22,42,9,90,100,101,102,103,104,105,106,107,108,109}
+[done] continual incremental run finished. Adapters at: checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e50-lr0.001-wd1e-4-ltboth-bfmforget_only-fl0.2-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-pcon_split-stack

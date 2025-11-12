@@ -1,0 +1,519 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:61: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-100', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=50, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-baseline-ga-b128-e50-lr0.001-wd1e-4-fl1-CIFAR-100forget15.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=0.0, epsilon=0.05, palm_enable=True, palm_mle_mode='all', palm_retain_only=False, pcon_inc=None, incremental=False, use_lora=False, lora_impl='native', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='head', adapter_save_path=None, adapter_load_path=None, lora_stack=False, lora_orth_enable=False, lora_orth_lambda=0.1, lora_orth_ref_paths=None, forget_classes='0,8,11,40,51,66,67,88,94,57,59,58,44,93,10', forget_list_path=None, forget_classes_inc=None, forget_classes_seen=None, retain_exclude_csv=None, forget_csv=None, forget_lambda=1.0, forget_margin=100.0, forget_strategy='ga', centers_path=None, precision_path=None, batch_forget_mode='balanced', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21605312
+[debug] trainable_count = 112
+[debug] trainable: encoder.conv1.weight
+[debug] trainable: encoder.bn1.weight
+[debug] trainable: encoder.bn1.bias
+[debug] trainable: encoder.layer1.0.conv1.weight
+[debug] trainable: encoder.layer1.0.bn1.weight
+[debug] trainable: encoder.layer1.0.bn1.bias
+[debug] trainable: encoder.layer1.0.conv2.weight
+[debug] trainable: encoder.layer1.0.bn2.weight
+[debug] trainable: encoder.layer1.0.bn2.bias
+[debug] trainable: encoder.layer1.1.conv1.weight
+[debug] trainable: encoder.layer1.1.bn1.weight
+[debug] trainable: encoder.layer1.1.bn1.bias
+[debug] trainable: encoder.layer1.1.conv2.weight
+[debug] trainable: encoder.layer1.1.bn2.weight
+[debug] trainable: encoder.layer1.1.bn2.bias
+[debug] trainable: encoder.layer1.2.conv1.weight
+[debug] trainable: encoder.layer1.2.bn1.weight
+[debug] trainable: encoder.layer1.2.bn1.bias
+[debug] trainable: encoder.layer1.2.conv2.weight
+[debug] trainable: encoder.layer1.2.bn2.weight
+[debug] trainable: encoder.layer1.2.bn2.bias
+[debug] trainable: encoder.layer2.0.conv1.weight
+[debug] trainable: encoder.layer2.0.bn1.weight
+[debug] trainable: encoder.layer2.0.bn1.bias
+[debug] trainable: encoder.layer2.0.conv2.weight
+[debug] trainable: encoder.layer2.0.bn2.weight
+[debug] trainable: encoder.layer2.0.bn2.bias
+[debug] trainable: encoder.layer2.0.shortcut.0.weight
+[debug] trainable: encoder.layer2.0.shortcut.1.weight
+[debug] trainable: encoder.layer2.0.shortcut.1.bias
+[debug] trainable: encoder.layer2.1.conv1.weight
+[debug] trainable: encoder.layer2.1.bn1.weight
+[debug] trainable: encoder.layer2.1.bn1.bias
+[debug] trainable: encoder.layer2.1.conv2.weight
+[debug] trainable: encoder.layer2.1.bn2.weight
+[debug] trainable: encoder.layer2.1.bn2.bias
+[debug] trainable: encoder.layer2.2.conv1.weight
+[debug] trainable: encoder.layer2.2.bn1.weight
+[debug] trainable: encoder.layer2.2.bn1.bias
+[debug] trainable: encoder.layer2.2.conv2.weight
+[debug] trainable: encoder.layer2.2.bn2.weight
+[debug] trainable: encoder.layer2.2.bn2.bias
+[debug] trainable: encoder.layer2.3.conv1.weight
+[debug] trainable: encoder.layer2.3.bn1.weight
+[debug] trainable: encoder.layer2.3.bn1.bias
+[debug] trainable: encoder.layer2.3.conv2.weight
+[debug] trainable: encoder.layer2.3.bn2.weight
+[debug] trainable: encoder.layer2.3.bn2.bias
+[debug] trainable: encoder.layer3.0.conv1.weight
+[debug] trainable: encoder.layer3.0.bn1.weight
+[debug][warn] non-LoRA trainables detected: ['encoder.conv1.weight', 'encoder.bn1.weight', 'encoder.bn1.bias', 'encoder.layer1.0.conv1.weight', 'encoder.layer1.0.bn1.weight', 'encoder.layer1.0.bn1.bias', 'encoder.layer1.0.conv2.weight', 'encoder.layer1.0.bn2.weight', 'encoder.layer1.0.bn2.bias', 'encoder.layer1.1.conv1.weight']
+[trainable] param_count=21605312 tensors=112
+  0%|          | 0/50 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:550: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=bool(scaler is not None)):
+/home/shaokun/PALM/trainer.py:638: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  print(f"[loss-{args.forget_strategy}] ep {epoch} it {it} total={loss.item():.4f} ce_r={float(loss_retain):.4f} ce_f={float(loss_forget):.4f}")
+  2%|▏         | 1/50 [00:28<23:23, 28.64s/it]  4%|▍         | 2/50 [00:44<16:42, 20.88s/it]  6%|▌         | 3/50 [00:59<14:26, 18.44s/it]  8%|▊         | 4/50 [01:15<13:27, 17.55s/it] 10%|█         | 5/50 [01:30<12:29, 16.66s/it] 12%|█▏        | 6/50 [01:46<11:53, 16.21s/it] 14%|█▍        | 7/50 [02:01<11:21, 15.85s/it] 16%|█▌        | 8/50 [02:16<10:53, 15.57s/it] 18%|█▊        | 9/50 [02:31<10:29, 15.35s/it] 20%|██        | 10/50 [02:46<10:08, 15.21s/it] 22%|██▏       | 11/50 [03:01<09:50, 15.15s/it] 24%|██▍       | 12/50 [03:16<09:38, 15.22s/it] 26%|██▌       | 13/50 [03:31<09:20, 15.14s/it] 28%|██▊       | 14/50 [03:46<09:06, 15.18s/it] 30%|███       | 15/50 [04:01<08:51, 15.18s/it] 32%|███▏      | 16/50 [04:17<08:37, 15.23s/it] 34%|███▍      | 17/50 [04:32<08:21, 15.21s/it][loss-ga] ep 0 it 0 total=-0.0085 ce_r=0.0170 ce_f=0.0255
+[loss-ga] ep 0 it 50 total=-0.0152 ce_r=0.0278 ce_f=0.0430
+[loss-ga] ep 0 it 100 total=-0.0045 ce_r=0.0121 ce_f=0.0166
+[loss-ga] ep 0 it 150 total=-0.0404 ce_r=0.0508 ce_f=0.0912
+[loss-ga] ep 0 it 200 total=-0.0052 ce_r=0.0230 ce_f=0.0282
+[loss-ga] ep 0 it 250 total=-0.0273 ce_r=0.0382 ce_f=0.0655
+[loss-ga] ep 0 it 300 total=0.0130 ce_r=0.0245 ce_f=0.0115
+[loss-ga] ep 0 it 350 total=-0.0361 ce_r=0.0669 ce_f=0.1029
+[loss-ga] ep 1 it 10 total=-0.0183 ce_r=0.0424 ce_f=0.0607
+[loss-ga] ep 1 it 60 total=-0.0112 ce_r=0.0464 ce_f=0.0576
+[loss-ga] ep 1 it 110 total=-0.0142 ce_r=0.0245 ce_f=0.0387
+[loss-ga] ep 1 it 160 total=-0.0090 ce_r=0.0319 ce_f=0.0408
+[loss-ga] ep 1 it 210 total=-0.0581 ce_r=0.0708 ce_f=0.1289
+[loss-ga] ep 1 it 260 total=-0.2762 ce_r=0.2862 ce_f=0.5625
+[loss-ga] ep 1 it 310 total=-0.2625 ce_r=0.2757 ce_f=0.5382
+[loss-ga] ep 1 it 360 total=-0.2751 ce_r=0.3004 ce_f=0.5754
+[loss-ga] ep 2 it 20 total=-0.3391 ce_r=0.4336 ce_f=0.7727
+[loss-ga] ep 2 it 70 total=-0.4293 ce_r=0.4354 ce_f=0.8647
+[loss-ga] ep 2 it 120 total=-1.0069 ce_r=1.0229 ce_f=2.0298
+[loss-ga] ep 2 it 170 total=-0.5116 ce_r=0.5223 ce_f=1.0339
+[loss-ga] ep 2 it 220 total=-0.3933 ce_r=0.4026 ce_f=0.7959
+[loss-ga] ep 2 it 270 total=-0.5167 ce_r=0.6358 ce_f=1.1525
+[loss-ga] ep 2 it 320 total=-0.6544 ce_r=0.7620 ce_f=1.4164
+[loss-ga] ep 2 it 370 total=-0.9143 ce_r=1.0481 ce_f=1.9624
+[loss-ga] ep 3 it 30 total=-1.1990 ce_r=1.2180 ce_f=2.4170
+[loss-ga] ep 3 it 80 total=-1.4762 ce_r=1.4996 ce_f=2.9758
+[loss-ga] ep 3 it 130 total=-1.2013 ce_r=1.2150 ce_f=2.4163
+[loss-ga] ep 3 it 180 total=-1.8663 ce_r=2.0602 ce_f=3.9266
+[loss-ga] ep 3 it 230 total=-2.1209 ce_r=2.2512 ce_f=4.3721
+[loss-ga] ep 3 it 280 total=-3.2103 ce_r=3.3425 ce_f=6.5529
+[loss-ga] ep 3 it 330 total=-2.4997 ce_r=2.6228 ce_f=5.1225
+[loss-ga] ep 3 it 380 total=-3.6334 ce_r=3.9060 ce_f=7.5394
+[loss-ga] ep 4 it 40 total=-4.1857 ce_r=4.3322 ce_f=8.5180
+[loss-ga] ep 4 it 90 total=-3.9223 ce_r=4.4356 ce_f=8.3579
+[loss-ga] ep 4 it 140 total=-4.7730 ce_r=5.1909 ce_f=9.9639
+[loss-ga] ep 4 it 190 total=-4.6571 ce_r=4.9453 ce_f=9.6024
+[loss-ga] ep 4 it 240 total=-5.5107 ce_r=5.8782 ce_f=11.3888
+[loss-ga] ep 4 it 290 total=-5.0665 ce_r=5.8283 ce_f=10.8948
+[loss-ga] ep 4 it 340 total=-5.3365 ce_r=5.4793 ce_f=10.8158
+[loss-ga] ep 5 it 0 total=-5.7373 ce_r=5.9340 ce_f=11.6713
+[loss-ga] ep 5 it 50 total=-5.8268 ce_r=6.0565 ce_f=11.8833
+[loss-ga] ep 5 it 100 total=-5.9568 ce_r=6.0644 ce_f=12.0211
+[loss-ga] ep 5 it 150 total=-6.0294 ce_r=6.0499 ce_f=12.0792
+[loss-ga] ep 5 it 200 total=-6.0697 ce_r=6.3491 ce_f=12.4188
+[loss-ga] ep 5 it 250 total=-5.7973 ce_r=6.2417 ce_f=12.0390
+[loss-ga] ep 5 it 300 total=-6.0000 ce_r=6.2060 ce_f=12.2060
+[loss-ga] ep 5 it 350 total=-6.3667 ce_r=6.4667 ce_f=12.8334
+[loss-ga] ep 6 it 10 total=-6.3930 ce_r=6.7533 ce_f=13.1463
+[loss-ga] ep 6 it 60 total=-6.5302 ce_r=6.6223 ce_f=13.1524
+[loss-ga] ep 6 it 110 total=-6.4044 ce_r=6.7069 ce_f=13.1113
+[loss-ga] ep 6 it 160 total=-6.3724 ce_r=6.5306 ce_f=12.9031
+[loss-ga] ep 6 it 210 total=-6.8098 ce_r=6.8446 ce_f=13.6544
+[loss-ga] ep 6 it 260 total=-6.5487 ce_r=6.6439 ce_f=13.1926
+[loss-ga] ep 6 it 310 total=-6.5866 ce_r=6.7365 ce_f=13.3232
+[loss-ga] ep 6 it 360 total=-6.9629 ce_r=7.0702 ce_f=14.0331
+[loss-ga] ep 7 it 20 total=-6.8631 ce_r=6.9534 ce_f=13.8165
+[loss-ga] ep 7 it 70 total=-7.0250 ce_r=7.1046 ce_f=14.1296
+[loss-ga] ep 7 it 120 total=-7.0352 ce_r=7.2460 ce_f=14.2811
+[loss-ga] ep 7 it 170 total=-6.9660 ce_r=7.1255 ce_f=14.0916
+[loss-ga] ep 7 it 220 total=-6.8431 ce_r=6.8742 ce_f=13.7173
+[loss-ga] ep 7 it 270 total=-7.1295 ce_r=7.2070 ce_f=14.3365
+[loss-ga] ep 7 it 320 total=-7.2033 ce_r=7.3502 ce_f=14.5534
+[loss-ga] ep 7 it 370 total=-7.1505 ce_r=7.1901 ce_f=14.3406
+[loss-ga] ep 8 it 30 total=-7.1467 ce_r=7.3128 ce_f=14.4595
+[loss-ga] ep 8 it 80 total=-7.0152 ce_r=7.2926 ce_f=14.3078
+[loss-ga] ep 8 it 130 total=-7.3630 ce_r=7.4740 ce_f=14.8370
+[loss-ga] ep 8 it 180 total=-7.4249 ce_r=7.5448 ce_f=14.9697
+[loss-ga] ep 8 it 230 total=-7.2565 ce_r=7.3426 ce_f=14.5991
+[loss-ga] ep 8 it 280 total=-7.4260 ce_r=7.5279 ce_f=14.9539
+[loss-ga] ep 8 it 330 total=-7.3518 ce_r=7.4426 ce_f=14.7944
+[loss-ga] ep 8 it 380 total=-7.1218 ce_r=7.4384 ce_f=14.5602
+[loss-ga] ep 9 it 40 total=-7.5605 ce_r=7.6815 ce_f=15.2421
+[loss-ga] ep 9 it 90 total=-7.6080 ce_r=7.7101 ce_f=15.3181
+[loss-ga] ep 9 it 140 total=-7.3779 ce_r=7.5615 ce_f=14.9393
+[loss-ga] ep 9 it 190 total=-7.5057 ce_r=7.5770 ce_f=15.0828
+[loss-ga] ep 9 it 240 total=-7.5287 ce_r=7.5828 ce_f=15.1115
+[loss-ga] ep 9 it 290 total=-7.4239 ce_r=7.4884 ce_f=14.9123
+[loss-ga] ep 9 it 340 total=-7.7706 ce_r=7.7963 ce_f=15.5669
+[loss-ga] ep 10 it 0 total=-7.6166 ce_r=7.6936 ce_f=15.3102
+[loss-ga] ep 10 it 50 total=-7.5702 ce_r=7.5820 ce_f=15.1522
+[loss-ga] ep 10 it 100 total=-7.6931 ce_r=7.7754 ce_f=15.4685
+[loss-ga] ep 10 it 150 total=-7.7052 ce_r=7.8225 ce_f=15.5277
+[loss-ga] ep 10 it 200 total=-7.5748 ce_r=7.6912 ce_f=15.2660
+[loss-ga] ep 10 it 250 total=-7.5133 ce_r=7.6081 ce_f=15.1213
+[loss-ga] ep 10 it 300 total=-7.4879 ce_r=7.5516 ce_f=15.0395
+[loss-ga] ep 10 it 350 total=-7.6176 ce_r=7.8664 ce_f=15.4840
+[loss-ga] ep 11 it 10 total=-7.8535 ce_r=7.8877 ce_f=15.7412
+[loss-ga] ep 11 it 60 total=-7.5735 ce_r=7.7980 ce_f=15.3715
+[loss-ga] ep 11 it 110 total=-7.6779 ce_r=7.8274 ce_f=15.5053
+[loss-ga] ep 11 it 160 total=-7.7601 ce_r=7.9522 ce_f=15.7123
+[loss-ga] ep 11 it 210 total=-7.6800 ce_r=7.8007 ce_f=15.4808
+[loss-ga] ep 11 it 260 total=-7.7470 ce_r=7.7969 ce_f=15.5439
+[loss-ga] ep 11 it 310 total=-7.9703 ce_r=7.9957 ce_f=15.9660
+[loss-ga] ep 11 it 360 total=-7.8162 ce_r=7.8902 ce_f=15.7064
+[loss-ga] ep 12 it 20 total=-7.6412 ce_r=7.6741 ce_f=15.3153
+[loss-ga] ep 12 it 70 total=-7.7922 ce_r=7.8221 ce_f=15.6143
+[loss-ga] ep 12 it 120 total=-7.8590 ce_r=8.0021 ce_f=15.8611
+[loss-ga] ep 12 it 170 total=-7.8734 ce_r=7.8903 ce_f=15.7637
+[loss-ga] ep 12 it 220 total=-7.8309 ce_r=7.8607 ce_f=15.6916
+[loss-ga] ep 12 it 270 total=-7.7538 ce_r=7.8090 ce_f=15.5629
+[loss-ga] ep 12 it 320 total=-7.6556 ce_r=7.7591 ce_f=15.4147
+[loss-ga] ep 12 it 370 total=-7.8429 ce_r=7.8640 ce_f=15.7069
+[loss-ga] ep 13 it 30 total=-7.5799 ce_r=7.7179 ce_f=15.2978
+[loss-ga] ep 13 it 80 total=-7.7353 ce_r=7.7641 ce_f=15.4994
+[loss-ga] ep 13 it 130 total=-7.7103 ce_r=7.7350 ce_f=15.4453
+[loss-ga] ep 13 it 180 total=-7.8289 ce_r=7.9359 ce_f=15.7648
+[loss-ga] ep 13 it 230 total=-7.7210 ce_r=7.7846 ce_f=15.5056
+[loss-ga] ep 13 it 280 total=-7.7993 ce_r=7.8440 ce_f=15.6433
+[loss-ga] ep 13 it 330 total=-7.9117 ce_r=8.0490 ce_f=15.9607
+[loss-ga] ep 13 it 380 total=-7.8845 ce_r=7.9273 ce_f=15.8118
+[loss-ga] ep 14 it 40 total=-7.8592 ce_r=7.8908 ce_f=15.7500
+[loss-ga] ep 14 it 90 total=-7.8471 ce_r=7.9142 ce_f=15.7613
+[loss-ga] ep 14 it 140 total=-7.6158 ce_r=7.6420 ce_f=15.2577
+[loss-ga] ep 14 it 190 total=-7.7512 ce_r=7.8476 ce_f=15.5988
+[loss-ga] ep 14 it 240 total=-7.9966 ce_r=8.0347 ce_f=16.0313
+[loss-ga] ep 14 it 290 total=-7.9659 ce_r=8.1468 ce_f=16.1127
+[loss-ga] ep 14 it 340 total=-7.9180 ce_r=7.9468 ce_f=15.8648
+[loss-ga] ep 15 it 0 total=-7.7110 ce_r=7.8633 ce_f=15.5743
+[loss-ga] ep 15 it 50 total=-7.8686 ce_r=7.9988 ce_f=15.8674
+[loss-ga] ep 15 it 100 total=-7.8932 ce_r=7.9122 ce_f=15.8053
+[loss-ga] ep 15 it 150 total=-7.7877 ce_r=7.8374 ce_f=15.6251
+[loss-ga] ep 15 it 200 total=-7.9588 ce_r=7.9994 ce_f=15.9582
+[loss-ga] ep 15 it 250 total=-7.8944 ce_r=8.0579 ce_f=15.9524
+[loss-ga] ep 15 it 300 total=-8.0700 ce_r=8.0923 ce_f=16.1623
+[loss-ga] ep 15 it 350 total=-8.0226 ce_r=8.0869 ce_f=16.1096
+[loss-ga] ep 16 it 10 total=-7.9681 ce_r=7.9983 ce_f=15.9664
+[loss-ga] ep 16 it 60 total=-7.8450 ce_r=7.9995 ce_f=15.8445
+[loss-ga] ep 16 it 110 total=-7.8416 ce_r=8.0539 ce_f=15.8955
+[loss-ga] ep 16 it 160 total=-8.0318 ce_r=8.1420 ce_f=16.1738
+[loss-ga] ep 16 it 210 total=-7.9730 ce_r=8.0324 ce_f=16.0054
+[loss-ga] ep 16 it 260 total=-8.0152 ce_r=8.0590 ce_f=16.0742
+[loss-ga] ep 16 it 310 total=-8.0617 ce_r=8.0791 ce_f=16.1407
+[loss-ga] ep 16 it 360 total=-7.6163 ce_r=7.6406 ce_f=15.2570
+[loss-ga] ep 17 it 20 total=-7.7896 ce_r=7.8832 ce_f=15.6727
+ 36%|███▌      | 18/50 [04:47<08:04, 15.15s/it] 38%|███▊      | 19/50 [05:02<07:50, 15.16s/it] 40%|████      | 20/50 [05:17<07:33, 15.11s/it] 42%|████▏     | 21/50 [05:32<07:18, 15.11s/it] 44%|████▍     | 22/50 [05:47<07:03, 15.12s/it] 46%|████▌     | 23/50 [06:02<06:48, 15.13s/it] 48%|████▊     | 24/50 [06:18<06:32, 15.10s/it] 50%|█████     | 25/50 [06:33<06:17, 15.12s/it] 52%|█████▏    | 26/50 [06:47<06:00, 15.03s/it] 54%|█████▍    | 27/50 [07:03<05:46, 15.05s/it] 56%|█████▌    | 28/50 [07:18<05:31, 15.09s/it] 58%|█████▊    | 29/50 [07:33<05:16, 15.09s/it] 60%|██████    | 30/50 [07:48<05:01, 15.08s/it] 62%|██████▏   | 31/50 [08:04<04:52, 15.42s/it] 64%|██████▍   | 32/50 [08:21<04:42, 15.71s/it] 66%|██████▌   | 33/50 [08:36<04:23, 15.52s/it] 68%|██████▊   | 34/50 [08:50<04:04, 15.27s/it][loss-ga] ep 17 it 70 total=-7.7597 ce_r=7.7938 ce_f=15.5535
+[loss-ga] ep 17 it 120 total=-7.8651 ce_r=7.9795 ce_f=15.8446
+[loss-ga] ep 17 it 170 total=-7.8683 ce_r=8.0705 ce_f=15.9388
+[loss-ga] ep 17 it 220 total=-7.8916 ce_r=7.9743 ce_f=15.8659
+[loss-ga] ep 17 it 270 total=-8.0538 ce_r=8.1294 ce_f=16.1832
+[loss-ga] ep 17 it 320 total=-7.8692 ce_r=7.8965 ce_f=15.7657
+[loss-ga] ep 17 it 370 total=-8.0428 ce_r=8.0672 ce_f=16.1100
+[loss-ga] ep 18 it 30 total=-8.0246 ce_r=8.0493 ce_f=16.0739
+[loss-ga] ep 18 it 80 total=-7.7925 ce_r=7.8331 ce_f=15.6256
+[loss-ga] ep 18 it 130 total=-8.0902 ce_r=8.1050 ce_f=16.1952
+[loss-ga] ep 18 it 180 total=-7.9497 ce_r=7.9785 ce_f=15.9282
+[loss-ga] ep 18 it 230 total=-7.9209 ce_r=7.9654 ce_f=15.8864
+[loss-ga] ep 18 it 280 total=-7.7859 ce_r=7.9158 ce_f=15.7017
+[loss-ga] ep 18 it 330 total=-7.9366 ce_r=7.9706 ce_f=15.9071
+[loss-ga] ep 18 it 380 total=-7.9072 ce_r=8.0005 ce_f=15.9076
+[loss-ga] ep 19 it 40 total=-7.9045 ce_r=8.0081 ce_f=15.9125
+[loss-ga] ep 19 it 90 total=-8.0498 ce_r=8.0742 ce_f=16.1240
+[loss-ga] ep 19 it 140 total=-8.0848 ce_r=8.0977 ce_f=16.1826
+[loss-ga] ep 19 it 190 total=-7.9884 ce_r=8.0132 ce_f=16.0017
+[loss-ga] ep 19 it 240 total=-7.7986 ce_r=7.8787 ce_f=15.6773
+[loss-ga] ep 19 it 290 total=-7.9411 ce_r=8.1838 ce_f=16.1248
+[loss-ga] ep 19 it 340 total=-7.8267 ce_r=8.0118 ce_f=15.8384
+[loss-ga] ep 20 it 0 total=-8.0856 ce_r=8.2946 ce_f=16.3802
+[loss-ga] ep 20 it 50 total=-8.1318 ce_r=8.1714 ce_f=16.3032
+[loss-ga] ep 20 it 100 total=-7.9518 ce_r=7.9857 ce_f=15.9376
+[loss-ga] ep 20 it 150 total=-8.0156 ce_r=8.0886 ce_f=16.1041
+[loss-ga] ep 20 it 200 total=-8.2439 ce_r=8.2601 ce_f=16.5041
+[loss-ga] ep 20 it 250 total=-7.9934 ce_r=8.0110 ce_f=16.0043
+[loss-ga] ep 20 it 300 total=-7.9779 ce_r=8.1007 ce_f=16.0786
+[loss-ga] ep 20 it 350 total=-7.6453 ce_r=7.7379 ce_f=15.3832
+[loss-ga] ep 21 it 10 total=-7.9016 ce_r=8.0097 ce_f=15.9112
+[loss-ga] ep 21 it 60 total=-7.8683 ce_r=8.0314 ce_f=15.8997
+[loss-ga] ep 21 it 110 total=-7.9640 ce_r=8.1021 ce_f=16.0661
+[loss-ga] ep 21 it 160 total=-8.0753 ce_r=8.1146 ce_f=16.1899
+[loss-ga] ep 21 it 210 total=-8.0181 ce_r=8.0938 ce_f=16.1119
+[loss-ga] ep 21 it 260 total=-8.0881 ce_r=8.1458 ce_f=16.2339
+[loss-ga] ep 21 it 310 total=-8.0341 ce_r=8.0480 ce_f=16.0821
+[loss-ga] ep 21 it 360 total=-7.9899 ce_r=8.0375 ce_f=16.0273
+[loss-ga] ep 22 it 20 total=-8.1133 ce_r=8.1432 ce_f=16.2566
+[loss-ga] ep 22 it 70 total=-8.0049 ce_r=8.0840 ce_f=16.0888
+[loss-ga] ep 22 it 120 total=-7.9217 ce_r=8.0342 ce_f=15.9560
+[loss-ga] ep 22 it 170 total=-7.8940 ce_r=7.9933 ce_f=15.8872
+[loss-ga] ep 22 it 220 total=-8.0892 ce_r=8.1200 ce_f=16.2092
+[loss-ga] ep 22 it 270 total=-8.0285 ce_r=8.0456 ce_f=16.0741
+[loss-ga] ep 22 it 320 total=-8.0100 ce_r=8.1304 ce_f=16.1403
+[loss-ga] ep 22 it 370 total=-7.9579 ce_r=8.0533 ce_f=16.0112
+[loss-ga] ep 23 it 30 total=-7.9225 ce_r=7.9946 ce_f=15.9171
+[loss-ga] ep 23 it 80 total=-7.9053 ce_r=8.0669 ce_f=15.9722
+[loss-ga] ep 23 it 130 total=-8.1165 ce_r=8.1742 ce_f=16.2907
+[loss-ga] ep 23 it 180 total=-7.9427 ce_r=8.1398 ce_f=16.0825
+[loss-ga] ep 23 it 230 total=-8.1861 ce_r=8.3086 ce_f=16.4947
+[loss-ga] ep 23 it 280 total=-8.1055 ce_r=8.2514 ce_f=16.3568
+[loss-ga] ep 23 it 330 total=-8.0270 ce_r=8.0620 ce_f=16.0891
+[loss-ga] ep 23 it 380 total=-7.9987 ce_r=8.0175 ce_f=16.0162
+[loss-ga] ep 24 it 40 total=-8.1383 ce_r=8.3456 ce_f=16.4839
+[loss-ga] ep 24 it 90 total=-7.9246 ce_r=8.0309 ce_f=15.9556
+[loss-ga] ep 24 it 140 total=-7.9463 ce_r=8.0017 ce_f=15.9480
+[loss-ga] ep 24 it 190 total=-8.1104 ce_r=8.1505 ce_f=16.2609
+[loss-ga] ep 24 it 240 total=-8.1421 ce_r=8.2308 ce_f=16.3729
+[loss-ga] ep 24 it 290 total=-8.0652 ce_r=8.1720 ce_f=16.2372
+[loss-ga] ep 24 it 340 total=-8.0508 ce_r=8.0788 ce_f=16.1296
+[loss-ga] ep 25 it 0 total=-8.1707 ce_r=8.2315 ce_f=16.4023
+[loss-ga] ep 25 it 50 total=-8.0524 ce_r=8.1438 ce_f=16.1962
+[loss-ga] ep 25 it 100 total=-7.9243 ce_r=7.9856 ce_f=15.9099
+[loss-ga] ep 25 it 150 total=-8.0429 ce_r=8.2851 ce_f=16.3280
+[loss-ga] ep 25 it 200 total=-8.2940 ce_r=8.3199 ce_f=16.6139
+[loss-ga] ep 25 it 250 total=-7.9040 ce_r=8.0264 ce_f=15.9304
+[loss-ga] ep 25 it 300 total=-8.0058 ce_r=8.0955 ce_f=16.1013
+[loss-ga] ep 25 it 350 total=-8.0392 ce_r=8.1432 ce_f=16.1823
+[loss-ga] ep 26 it 10 total=-8.0467 ce_r=8.0943 ce_f=16.1409
+[loss-ga] ep 26 it 60 total=-8.1185 ce_r=8.1581 ce_f=16.2766
+[loss-ga] ep 26 it 110 total=-7.9583 ce_r=8.0785 ce_f=16.0368
+[loss-ga] ep 26 it 160 total=-8.0218 ce_r=8.0730 ce_f=16.0949
+[loss-ga] ep 26 it 210 total=-8.0210 ce_r=8.0353 ce_f=16.0563
+[loss-ga] ep 26 it 260 total=-8.1536 ce_r=8.1672 ce_f=16.3208
+[loss-ga] ep 26 it 310 total=-8.2135 ce_r=8.2413 ce_f=16.4548
+[loss-ga] ep 26 it 360 total=-8.0214 ce_r=8.1182 ce_f=16.1396
+[loss-ga] ep 27 it 20 total=-8.0469 ce_r=8.0999 ce_f=16.1468
+[loss-ga] ep 27 it 70 total=-8.1575 ce_r=8.1986 ce_f=16.3561
+[loss-ga] ep 27 it 120 total=-8.1234 ce_r=8.3259 ce_f=16.4492
+[loss-ga] ep 27 it 170 total=-7.9301 ce_r=7.9721 ce_f=15.9022
+[loss-ga] ep 27 it 220 total=-8.1784 ce_r=8.2889 ce_f=16.4673
+[loss-ga] ep 27 it 270 total=-8.0995 ce_r=8.1138 ce_f=16.2133
+[loss-ga] ep 27 it 320 total=-8.1616 ce_r=8.1885 ce_f=16.3501
+[loss-ga] ep 27 it 370 total=-8.1770 ce_r=8.1879 ce_f=16.3649
+[loss-ga] ep 28 it 30 total=-8.0749 ce_r=8.1339 ce_f=16.2089
+[loss-ga] ep 28 it 80 total=-7.8822 ce_r=8.0236 ce_f=15.9058
+[loss-ga] ep 28 it 130 total=-8.1561 ce_r=8.2422 ce_f=16.3983
+[loss-ga] ep 28 it 180 total=-7.9105 ce_r=8.1145 ce_f=16.0250
+[loss-ga] ep 28 it 230 total=-8.1949 ce_r=8.2292 ce_f=16.4242
+[loss-ga] ep 28 it 280 total=-7.8814 ce_r=8.1429 ce_f=16.0243
+[loss-ga] ep 28 it 330 total=-8.0790 ce_r=8.1982 ce_f=16.2772
+[loss-ga] ep 28 it 380 total=-8.0523 ce_r=8.1527 ce_f=16.2050
+[loss-ga] ep 29 it 40 total=-8.0804 ce_r=8.1109 ce_f=16.1913
+[loss-ga] ep 29 it 90 total=-8.0609 ce_r=8.0876 ce_f=16.1485
+[loss-ga] ep 29 it 140 total=-7.9883 ce_r=8.0664 ce_f=16.0547
+[loss-ga] ep 29 it 190 total=-8.0384 ce_r=8.2444 ce_f=16.2828
+[loss-ga] ep 29 it 240 total=-8.0993 ce_r=8.1099 ce_f=16.2092
+[loss-ga] ep 29 it 290 total=-8.1060 ce_r=8.1289 ce_f=16.2350
+[loss-ga] ep 29 it 340 total=-7.9218 ce_r=7.9808 ce_f=15.9026
+[loss-ga] ep 30 it 0 total=-8.1914 ce_r=8.2080 ce_f=16.3994
+[loss-ga] ep 30 it 50 total=-8.2289 ce_r=8.2431 ce_f=16.4720
+[loss-ga] ep 30 it 100 total=-8.0510 ce_r=8.2108 ce_f=16.2619
+[loss-ga] ep 30 it 150 total=-8.0774 ce_r=8.2146 ce_f=16.2920
+[loss-ga] ep 30 it 200 total=-7.9978 ce_r=8.0663 ce_f=16.0640
+[loss-ga] ep 30 it 250 total=-8.0746 ce_r=8.1405 ce_f=16.2150
+[loss-ga] ep 30 it 300 total=-8.0799 ce_r=8.2181 ce_f=16.2979
+[loss-ga] ep 30 it 350 total=-8.1466 ce_r=8.1719 ce_f=16.3185
+[loss-ga] ep 31 it 10 total=-8.0782 ce_r=8.1526 ce_f=16.2308
+[loss-ga] ep 31 it 60 total=-7.9932 ce_r=8.1685 ce_f=16.1617
+[loss-ga] ep 31 it 110 total=-8.1284 ce_r=8.1344 ce_f=16.2628
+[loss-ga] ep 31 it 160 total=-8.0920 ce_r=8.1960 ce_f=16.2880
+[loss-ga] ep 31 it 210 total=-8.0191 ce_r=8.0770 ce_f=16.0961
+[loss-ga] ep 31 it 260 total=-8.0255 ce_r=8.0785 ce_f=16.1040
+[loss-ga] ep 31 it 310 total=-8.1150 ce_r=8.1435 ce_f=16.2585
+[loss-ga] ep 31 it 360 total=-8.0657 ce_r=8.2589 ce_f=16.3246
+[loss-ga] ep 32 it 20 total=-8.1160 ce_r=8.1743 ce_f=16.2903
+[loss-ga] ep 32 it 70 total=-7.9606 ce_r=8.1525 ce_f=16.1131
+[loss-ga] ep 32 it 120 total=-8.0809 ce_r=8.1795 ce_f=16.2603
+[loss-ga] ep 32 it 170 total=-8.0536 ce_r=8.1127 ce_f=16.1663
+[loss-ga] ep 32 it 220 total=-8.0738 ce_r=8.1135 ce_f=16.1873
+[loss-ga] ep 32 it 270 total=-7.9791 ce_r=8.0149 ce_f=15.9940
+[loss-ga] ep 32 it 320 total=-8.1655 ce_r=8.2296 ce_f=16.3951
+[loss-ga] ep 32 it 370 total=-8.1401 ce_r=8.2743 ce_f=16.4144
+[loss-ga] ep 33 it 30 total=-7.7952 ce_r=8.0159 ce_f=15.8111
+[loss-ga] ep 33 it 80 total=-7.9798 ce_r=8.0590 ce_f=16.0388
+[loss-ga] ep 33 it 130 total=-8.0444 ce_r=8.0675 ce_f=16.1119
+[loss-ga] ep 33 it 180 total=-8.0590 ce_r=8.2811 ce_f=16.3401
+[loss-ga] ep 33 it 230 total=-8.1393 ce_r=8.1822 ce_f=16.3214
+[loss-ga] ep 33 it 280 total=-8.1232 ce_r=8.1579 ce_f=16.2811
+[loss-ga] ep 33 it 330 total=-8.0684 ce_r=8.1645 ce_f=16.2328
+[loss-ga] ep 33 it 380 total=-8.1036 ce_r=8.1955 ce_f=16.2991
+ 70%|███████   | 35/50 [09:05<03:47, 15.14s/it] 72%|███████▏  | 36/50 [09:20<03:29, 14.95s/it] 74%|███████▍  | 37/50 [09:35<03:15, 15.02s/it] 76%|███████▌  | 38/50 [09:49<02:58, 14.89s/it] 78%|███████▊  | 39/50 [10:05<02:44, 14.96s/it] 80%|████████  | 40/50 [10:19<02:28, 14.85s/it] 82%|████████▏ | 41/50 [10:34<02:13, 14.88s/it] 84%|████████▍ | 42/50 [10:49<01:58, 14.83s/it] 86%|████████▌ | 43/50 [11:04<01:43, 14.82s/it] 88%|████████▊ | 44/50 [11:18<01:28, 14.71s/it] 90%|█████████ | 45/50 [11:33<01:13, 14.69s/it] 92%|█████████▏| 46/50 [11:48<00:59, 14.77s/it] 94%|█████████▍| 47/50 [12:03<00:44, 14.90s/it] 96%|█████████▌| 48/50 [12:18<00:30, 15.08s/it] 98%|█████████▊| 49/50 [12:33<00:15, 15.04s/it]100%|██████████| 50/50 [12:48<00:00, 14.92s/it]100%|██████████| 50/50 [12:48<00:00, 15.37s/it]
+[loss-ga] ep 34 it 40 total=-8.1779 ce_r=8.2566 ce_f=16.4345
+[loss-ga] ep 34 it 90 total=-8.0520 ce_r=8.1557 ce_f=16.2077
+[loss-ga] ep 34 it 140 total=-8.0773 ce_r=8.1552 ce_f=16.2325
+[loss-ga] ep 34 it 190 total=-8.1150 ce_r=8.1488 ce_f=16.2638
+[loss-ga] ep 34 it 240 total=-8.0104 ce_r=8.1345 ce_f=16.1449
+[loss-ga] ep 34 it 290 total=-8.0811 ce_r=8.1283 ce_f=16.2094
+[loss-ga] ep 34 it 340 total=-8.1393 ce_r=8.2581 ce_f=16.3974
+[loss-ga] ep 35 it 0 total=-8.1108 ce_r=8.1750 ce_f=16.2859
+[loss-ga] ep 35 it 50 total=-8.1757 ce_r=8.2785 ce_f=16.4543
+[loss-ga] ep 35 it 100 total=-8.1157 ce_r=8.1741 ce_f=16.2898
+[loss-ga] ep 35 it 150 total=-8.0881 ce_r=8.1912 ce_f=16.2794
+[loss-ga] ep 35 it 200 total=-8.0574 ce_r=8.2120 ce_f=16.2694
+[loss-ga] ep 35 it 250 total=-8.0527 ce_r=8.2184 ce_f=16.2711
+[loss-ga] ep 35 it 300 total=-8.0444 ce_r=8.1408 ce_f=16.1852
+[loss-ga] ep 35 it 350 total=-8.0541 ce_r=8.2941 ce_f=16.3481
+[loss-ga] ep 36 it 10 total=-8.0814 ce_r=8.1480 ce_f=16.2294
+[loss-ga] ep 36 it 60 total=-8.2495 ce_r=8.3047 ce_f=16.5542
+[loss-ga] ep 36 it 110 total=-8.1901 ce_r=8.2231 ce_f=16.4133
+[loss-ga] ep 36 it 160 total=-8.1968 ce_r=8.2625 ce_f=16.4594
+[loss-ga] ep 36 it 210 total=-8.1724 ce_r=8.2200 ce_f=16.3925
+[loss-ga] ep 36 it 260 total=-8.2209 ce_r=8.3554 ce_f=16.5763
+[loss-ga] ep 36 it 310 total=-8.0299 ce_r=8.0533 ce_f=16.0832
+[loss-ga] ep 36 it 360 total=-8.0440 ce_r=8.1354 ce_f=16.1794
+[loss-ga] ep 37 it 20 total=-8.0982 ce_r=8.1184 ce_f=16.2166
+[loss-ga] ep 37 it 70 total=-8.1677 ce_r=8.2371 ce_f=16.4048
+[loss-ga] ep 37 it 120 total=-7.8786 ce_r=7.9304 ce_f=15.8090
+[loss-ga] ep 37 it 170 total=-8.1130 ce_r=8.1563 ce_f=16.2693
+[loss-ga] ep 37 it 220 total=-8.1744 ce_r=8.1965 ce_f=16.3709
+[loss-ga] ep 37 it 270 total=-8.2038 ce_r=8.2248 ce_f=16.4285
+[loss-ga] ep 37 it 320 total=-8.1235 ce_r=8.1628 ce_f=16.2863
+[loss-ga] ep 37 it 370 total=-8.1697 ce_r=8.2920 ce_f=16.4617
+[loss-ga] ep 38 it 30 total=-8.1095 ce_r=8.1685 ce_f=16.2780
+[loss-ga] ep 38 it 80 total=-7.9519 ce_r=7.9713 ce_f=15.9232
+[loss-ga] ep 38 it 130 total=-7.9177 ce_r=7.9382 ce_f=15.8559
+[loss-ga] ep 38 it 180 total=-8.1361 ce_r=8.1611 ce_f=16.2971
+[loss-ga] ep 38 it 230 total=-8.0233 ce_r=8.0490 ce_f=16.0723
+[loss-ga] ep 38 it 280 total=-7.9761 ce_r=8.0238 ce_f=15.9998
+[loss-ga] ep 38 it 330 total=-8.1130 ce_r=8.1423 ce_f=16.2553
+[loss-ga] ep 38 it 380 total=-8.0615 ce_r=8.1857 ce_f=16.2472
+[loss-ga] ep 39 it 40 total=-8.1690 ce_r=8.2044 ce_f=16.3734
+[loss-ga] ep 39 it 90 total=-8.1531 ce_r=8.1853 ce_f=16.3384
+[loss-ga] ep 39 it 140 total=-8.0537 ce_r=8.1926 ce_f=16.2463
+[loss-ga] ep 39 it 190 total=-8.0189 ce_r=8.1111 ce_f=16.1300
+[loss-ga] ep 39 it 240 total=-8.0318 ce_r=8.1804 ce_f=16.2122
+[loss-ga] ep 39 it 290 total=-8.1317 ce_r=8.2452 ce_f=16.3768
+[loss-ga] ep 39 it 340 total=-8.2614 ce_r=8.2812 ce_f=16.5425
+[loss-ga] ep 40 it 0 total=-8.0209 ce_r=8.1176 ce_f=16.1385
+[loss-ga] ep 40 it 50 total=-8.1437 ce_r=8.1527 ce_f=16.2964
+[loss-ga] ep 40 it 100 total=-8.1616 ce_r=8.2039 ce_f=16.3656
+[loss-ga] ep 40 it 150 total=-8.0030 ce_r=8.0648 ce_f=16.0678
+[loss-ga] ep 40 it 200 total=-7.9934 ce_r=8.1521 ce_f=16.1455
+[loss-ga] ep 40 it 250 total=-8.0983 ce_r=8.2363 ce_f=16.3345
+[loss-ga] ep 40 it 300 total=-8.3097 ce_r=8.3451 ce_f=16.6548
+[loss-ga] ep 40 it 350 total=-8.1125 ce_r=8.1774 ce_f=16.2898
+[loss-ga] ep 41 it 10 total=-8.1595 ce_r=8.1708 ce_f=16.3303
+[loss-ga] ep 41 it 60 total=-8.2104 ce_r=8.3178 ce_f=16.5282
+[loss-ga] ep 41 it 110 total=-8.1490 ce_r=8.1885 ce_f=16.3375
+[loss-ga] ep 41 it 160 total=-8.2377 ce_r=8.3130 ce_f=16.5507
+[loss-ga] ep 41 it 210 total=-8.2084 ce_r=8.2469 ce_f=16.4553
+[loss-ga] ep 41 it 260 total=-8.2164 ce_r=8.2281 ce_f=16.4445
+[loss-ga] ep 41 it 310 total=-8.1022 ce_r=8.1883 ce_f=16.2905
+[loss-ga] ep 41 it 360 total=-8.0849 ce_r=8.1399 ce_f=16.2248
+[loss-ga] ep 42 it 20 total=-8.1419 ce_r=8.1868 ce_f=16.3287
+[loss-ga] ep 42 it 70 total=-8.2240 ce_r=8.2811 ce_f=16.5052
+[loss-ga] ep 42 it 120 total=-8.3461 ce_r=8.4510 ce_f=16.7971
+[loss-ga] ep 42 it 170 total=-8.1488 ce_r=8.2790 ce_f=16.4278
+[loss-ga] ep 42 it 220 total=-8.0866 ce_r=8.1219 ce_f=16.2085
+[loss-ga] ep 42 it 270 total=-8.1210 ce_r=8.2656 ce_f=16.3866
+[loss-ga] ep 42 it 320 total=-8.1647 ce_r=8.3184 ce_f=16.4830
+[loss-ga] ep 42 it 370 total=-7.9966 ce_r=8.1243 ce_f=16.1209
+[loss-ga] ep 43 it 30 total=-8.2673 ce_r=8.2876 ce_f=16.5549
+[loss-ga] ep 43 it 80 total=-8.1630 ce_r=8.1927 ce_f=16.3557
+[loss-ga] ep 43 it 130 total=-8.0528 ce_r=8.0802 ce_f=16.1331
+[loss-ga] ep 43 it 180 total=-8.0853 ce_r=8.1381 ce_f=16.2233
+[loss-ga] ep 43 it 230 total=-7.9223 ce_r=8.0009 ce_f=15.9232
+[loss-ga] ep 43 it 280 total=-8.0546 ce_r=8.0946 ce_f=16.1492
+[loss-ga] ep 43 it 330 total=-8.2277 ce_r=8.2753 ce_f=16.5030
+[loss-ga] ep 43 it 380 total=-8.2331 ce_r=8.2701 ce_f=16.5031
+[loss-ga] ep 44 it 40 total=-8.0595 ce_r=8.2935 ce_f=16.3530
+[loss-ga] ep 44 it 90 total=-8.1073 ce_r=8.1736 ce_f=16.2809
+[loss-ga] ep 44 it 140 total=-8.1114 ce_r=8.1400 ce_f=16.2514
+[loss-ga] ep 44 it 190 total=-8.0534 ce_r=8.0942 ce_f=16.1476
+[loss-ga] ep 44 it 240 total=-8.0025 ce_r=8.3016 ce_f=16.3041
+[loss-ga] ep 44 it 290 total=-8.0749 ce_r=8.1074 ce_f=16.1823
+[loss-ga] ep 44 it 340 total=-8.2452 ce_r=8.2769 ce_f=16.5221
+[loss-ga] ep 45 it 0 total=-8.1041 ce_r=8.1319 ce_f=16.2359
+[loss-ga] ep 45 it 50 total=-8.0981 ce_r=8.1730 ce_f=16.2711
+[loss-ga] ep 45 it 100 total=-8.2346 ce_r=8.2594 ce_f=16.4941
+[loss-ga] ep 45 it 150 total=-8.1687 ce_r=8.2080 ce_f=16.3767
+[loss-ga] ep 45 it 200 total=-7.9078 ce_r=7.9990 ce_f=15.9068
+[loss-ga] ep 45 it 250 total=-8.1644 ce_r=8.2023 ce_f=16.3667
+[loss-ga] ep 45 it 300 total=-8.1250 ce_r=8.1578 ce_f=16.2828
+[loss-ga] ep 45 it 350 total=-8.1341 ce_r=8.1859 ce_f=16.3199
+[loss-ga] ep 46 it 10 total=-8.1435 ce_r=8.1662 ce_f=16.3096
+[loss-ga] ep 46 it 60 total=-8.1594 ce_r=8.1747 ce_f=16.3341
+[loss-ga] ep 46 it 110 total=-8.1763 ce_r=8.2232 ce_f=16.3995
+[loss-ga] ep 46 it 160 total=-8.1199 ce_r=8.2381 ce_f=16.3579
+[loss-ga] ep 46 it 210 total=-8.0526 ce_r=8.2036 ce_f=16.2562
+[loss-ga] ep 46 it 260 total=-8.0836 ce_r=8.1143 ce_f=16.1978
+[loss-ga] ep 46 it 310 total=-8.0298 ce_r=8.2270 ce_f=16.2568
+[loss-ga] ep 46 it 360 total=-7.9252 ce_r=7.9438 ce_f=15.8690
+[loss-ga] ep 47 it 20 total=-8.1431 ce_r=8.1723 ce_f=16.3153
+[loss-ga] ep 47 it 70 total=-7.9743 ce_r=8.1833 ce_f=16.1577
+[loss-ga] ep 47 it 120 total=-8.2426 ce_r=8.3390 ce_f=16.5816
+[loss-ga] ep 47 it 170 total=-8.1269 ce_r=8.1408 ce_f=16.2677
+[loss-ga] ep 47 it 220 total=-8.1150 ce_r=8.1568 ce_f=16.2718
+[loss-ga] ep 47 it 270 total=-8.1695 ce_r=8.2482 ce_f=16.4178
+[loss-ga] ep 47 it 320 total=-7.9597 ce_r=8.0294 ce_f=15.9890
+[loss-ga] ep 47 it 370 total=-8.0481 ce_r=8.1660 ce_f=16.2141
+[loss-ga] ep 48 it 30 total=-8.0820 ce_r=8.1194 ce_f=16.2014
+[loss-ga] ep 48 it 80 total=-8.1093 ce_r=8.1609 ce_f=16.2702
+[loss-ga] ep 48 it 130 total=-8.1288 ce_r=8.1624 ce_f=16.2912
+[loss-ga] ep 48 it 180 total=-8.1719 ce_r=8.2027 ce_f=16.3745
+[loss-ga] ep 48 it 230 total=-8.0545 ce_r=8.1821 ce_f=16.2366
+[loss-ga] ep 48 it 280 total=-8.0101 ce_r=8.1755 ce_f=16.1856
+[loss-ga] ep 48 it 330 total=-8.1210 ce_r=8.2372 ce_f=16.3582
+[loss-ga] ep 48 it 380 total=-8.2227 ce_r=8.2558 ce_f=16.4784
+[loss-ga] ep 49 it 40 total=-8.0853 ce_r=8.2118 ce_f=16.2971
+[loss-ga] ep 49 it 90 total=-8.2441 ce_r=8.2988 ce_f=16.5429
+[loss-ga] ep 49 it 140 total=-8.1048 ce_r=8.1788 ce_f=16.2836
+[loss-ga] ep 49 it 190 total=-8.0732 ce_r=8.1008 ce_f=16.1740
+[loss-ga] ep 49 it 240 total=-8.1801 ce_r=8.3945 ce_f=16.5746
+[loss-ga] ep 49 it 290 total=-8.2694 ce_r=8.2804 ce_f=16.5498
+[loss-ga] ep 49 it 340 total=-8.2371 ce_r=8.2529 ce_f=16.4901
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-baseline-ga-b128-e50-lr0.001-wd1e-4-fl1-CIFAR-100forget15.pt
+resnet34-top5-palm-cache6-ema0.999-baseline-ga-b128-e50-lr0.001-wd1e-4-fl1-CIFAR-100forget15: Number of model parameters: 21605312
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<05:30,  1.18it/s]  3%|▎         | 11/391 [00:00<00:24, 15.28it/s]  6%|▌         | 22/391 [00:01<00:11, 30.82it/s]  8%|▊         | 33/391 [00:01<00:07, 45.28it/s] 11%|█         | 43/391 [00:01<00:06, 56.28it/s] 14%|█▍        | 54/391 [00:01<00:05, 67.26it/s] 17%|█▋        | 65/391 [00:01<00:04, 76.08it/s] 19%|█▉        | 76/391 [00:01<00:03, 82.99it/s] 22%|██▏       | 87/391 [00:01<00:03, 87.93it/s] 25%|██▌       | 98/391 [00:01<00:03, 91.75it/s] 28%|██▊       | 108/391 [00:01<00:03, 93.82it/s] 30%|███       | 119/391 [00:02<00:02, 96.13it/s] 33%|███▎      | 130/391 [00:02<00:02, 97.41it/s] 36%|███▌      | 141/391 [00:02<00:02, 98.39it/s] 39%|███▉      | 152/391 [00:02<00:02, 99.37it/s] 42%|████▏     | 163/391 [00:02<00:02, 99.68it/s] 45%|████▍     | 174/391 [00:02<00:02, 99.48it/s] 47%|████▋     | 185/391 [00:02<00:02, 100.17it/s] 50%|█████     | 196/391 [00:02<00:01, 100.47it/s] 53%|█████▎    | 207/391 [00:02<00:01, 100.62it/s] 56%|█████▌    | 218/391 [00:03<00:01, 100.61it/s] 59%|█████▊    | 229/391 [00:03<00:01, 100.76it/s] 61%|██████▏   | 240/391 [00:03<00:01, 100.79it/s] 64%|██████▍   | 251/391 [00:03<00:01, 100.10it/s] 67%|██████▋   | 262/391 [00:03<00:01, 100.03it/s] 70%|██████▉   | 273/391 [00:03<00:01, 95.13it/s]  73%|███████▎  | 284/391 [00:03<00:01, 96.79it/s] 75%|███████▌  | 295/391 [00:03<00:00, 98.23it/s] 78%|███████▊  | 306/391 [00:03<00:00, 99.10it/s] 81%|████████  | 317/391 [00:04<00:00, 99.53it/s] 84%|████████▎ | 327/391 [00:04<00:00, 93.71it/s] 86%|████████▌ | 337/391 [00:04<00:00, 89.17it/s] 88%|████████▊ | 346/391 [00:04<00:00, 88.52it/s] 91%|█████████ | 355/391 [00:04<00:00, 83.37it/s] 93%|█████████▎| 364/391 [00:04<00:00, 79.79it/s] 95%|█████████▌| 373/391 [00:04<00:00, 80.24it/s] 98%|█████████▊| 384/391 [00:04<00:00, 86.41it/s]100%|██████████| 391/391 [00:04<00:00, 79.58it/s]
+50000 images processed, 4.995596170425415 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:38,  2.03it/s] 14%|█▍        | 11/79 [00:00<00:02, 23.66it/s] 27%|██▋       | 21/79 [00:00<00:01, 41.40it/s] 39%|███▉      | 31/79 [00:00<00:00, 55.84it/s] 52%|█████▏    | 41/79 [00:00<00:00, 66.42it/s] 65%|██████▍   | 51/79 [00:01<00:00, 74.34it/s] 77%|███████▋  | 61/79 [00:01<00:00, 81.14it/s] 90%|████████▉ | 71/79 [00:01<00:00, 86.09it/s]100%|██████████| 79/79 [00:01<00:00, 42.61it/s]
+10000 images processed, 1.9081840515136719 seconds used
+
+Saved forget OOD features to cache/resnet34-top5-palm-cache6-ema0.999-baseline-ga-b128-e50-lr0.001-wd1e-4-fl1-CIFAR-100forget15/CIFAR-100/forget
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<01:30,  2.25it/s]  5%|▍         | 10/204 [00:00<00:08, 23.31it/s] 10%|▉         | 20/204 [00:00<00:04, 42.23it/s] 14%|█▍        | 29/204 [00:00<00:03, 54.67it/s] 18%|█▊        | 37/204 [00:00<00:03, 55.54it/s] 22%|██▏       | 45/204 [00:01<00:02, 53.61it/s] 25%|██▌       | 52/204 [00:01<00:02, 53.11it/s] 29%|██▉       | 59/204 [00:01<00:02, 56.73it/s] 34%|███▍      | 69/204 [00:01<00:01, 67.60it/s] 39%|███▊      | 79/204 [00:01<00:01, 75.77it/s] 44%|████▎     | 89/204 [00:01<00:01, 82.27it/s] 49%|████▊     | 99/204 [00:01<00:01, 86.51it/s] 53%|█████▎    | 109/204 [00:01<00:01, 88.96it/s] 58%|█████▊    | 119/204 [00:01<00:00, 91.93it/s] 63%|██████▎   | 129/204 [00:02<00:00, 93.92it/s] 68%|██████▊   | 139/204 [00:02<00:00, 95.38it/s] 73%|███████▎  | 149/204 [00:02<00:00, 96.20it/s] 78%|███████▊  | 159/204 [00:02<00:00, 97.08it/s] 83%|████████▎ | 169/204 [00:02<00:00, 97.54it/s] 88%|████████▊ | 179/204 [00:02<00:00, 98.26it/s] 93%|█████████▎| 190/204 [00:02<00:00, 99.47it/s] 99%|█████████▊| 201/204 [00:02<00:00, 100.13it/s]100%|██████████| 204/204 [00:02<00:00, 73.86it/s] 
+26032 images processed, 2.8017165660858154 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:54,  1.44it/s] 10%|█         | 8/79 [00:00<00:06, 11.54it/s] 23%|██▎       | 18/79 [00:00<00:02, 26.81it/s] 30%|███       | 24/79 [00:01<00:01, 32.74it/s] 42%|████▏     | 33/79 [00:01<00:01, 44.17it/s] 54%|█████▍    | 43/79 [00:01<00:00, 55.83it/s] 67%|██████▋   | 53/79 [00:01<00:00, 65.04it/s] 80%|███████▉  | 63/79 [00:01<00:00, 73.56it/s] 94%|█████████▎| 74/79 [00:01<00:00, 81.24it/s]100%|██████████| 79/79 [00:01<00:00, 47.07it/s]
+10000 images processed, 1.7089436054229736 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:40,  1.94it/s] 10%|█         | 8/79 [00:00<00:04, 16.66it/s] 23%|██▎       | 18/79 [00:00<00:01, 35.78it/s] 35%|███▌      | 28/79 [00:00<00:00, 51.12it/s] 46%|████▌     | 36/79 [00:00<00:00, 57.74it/s] 56%|█████▌    | 44/79 [00:01<00:00, 57.34it/s] 67%|██████▋   | 53/79 [00:01<00:00, 63.84it/s] 77%|███████▋  | 61/79 [00:01<00:00, 67.83it/s] 87%|████████▋ | 69/79 [00:01<00:00, 70.49it/s] 97%|█████████▋| 77/79 [00:01<00:00, 66.80it/s]100%|██████████| 79/79 [00:01<00:00, 50.86it/s]
+10000 images processed, 1.5963997840881348 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:32,  2.13it/s] 13%|█▎        | 9/70 [00:00<00:03, 19.87it/s] 27%|██▋       | 19/70 [00:00<00:01, 39.41it/s] 41%|████▏     | 29/70 [00:00<00:00, 55.10it/s] 56%|█████▌    | 39/70 [00:00<00:00, 67.09it/s] 71%|███████▏  | 50/70 [00:00<00:00, 76.94it/s] 87%|████████▋ | 61/70 [00:01<00:00, 84.07it/s]100%|██████████| 70/70 [00:01<00:00, 58.20it/s]
+8925 images processed, 1.2956936359405518 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<00:46,  1.05s/it] 16%|█▌        | 7/45 [00:01<00:05,  7.30it/s] 38%|███▊      | 17/45 [00:01<00:02, 12.88it/s] 53%|█████▎    | 24/45 [00:01<00:01, 19.12it/s] 73%|███████▎  | 33/45 [00:02<00:00, 17.64it/s] 98%|█████████▊| 44/45 [00:02<00:00, 27.25it/s]100%|██████████| 45/45 [00:02<00:00, 17.85it/s]
+5640 images processed, 2.5408432483673096 seconds used
+
+18.55408501625061
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN          18.23  96.45  91.62
+places365     75.97  78.75  75.65
+LSUN          51.22  90.63  91.24
+iSUN          67.22  84.53  86.17
+dtd           54.29  88.01  92.07
+AVG           53.38  87.68  87.35
+Retain-Acc: 0.7352
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 78.87 AUROC: 75.66 AUIN: 94.67
+8.1596519947052
+[umap] saved to figs/umap_CIFAR-100_resnet34_top5-palm-cache6-ema0.999-baseline-ga-b128-e50-lr0.001-wd1e-4-fl1-CIFAR-100forget15_domain.png
+[umap] saved to figs/umap_CIFAR-100_resnet34_top5-palm-cache6-ema0.999-baseline-ga-b128-e50-lr0.001-wd1e-4-fl1-CIFAR-100forget15_rf.png

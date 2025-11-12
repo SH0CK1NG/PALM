@@ -36,6 +36,13 @@ def main():
         others = [n for n in trainable if ('.A' not in n and '.B' not in n and not n.endswith('A.weight') and not n.endswith('B.weight'))]
         if len(others) > 0:
             print(f"[debug][warn] non-LoRA trainables detected: {others[:10]}")
+        # summary numbers: total trainable parameters and tensors
+        try:
+            trainable_param_count = sum(int(p.numel()) for p in model.parameters() if getattr(p, 'requires_grad', False))
+            trainable_tensor_count = sum(1 for p in model.parameters() if getattr(p, 'requires_grad', False))
+            print(f"[trainable] param_count={trainable_param_count} tensors={trainable_tensor_count}")
+        except Exception as e2:
+            print(f"[trainable] summary failed: {e2}")
     except Exception as e:
         print(f"[debug] trainable check failed: {e}")
     

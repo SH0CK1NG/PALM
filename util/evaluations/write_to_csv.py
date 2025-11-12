@@ -30,6 +30,18 @@ def write_csv(args, results):
 
     field_names.append('AVG-FPR')
     field_names.append('AVG-AUROC')
+    # 增量指标（若存在）
+    inc_overall = getattr(args, 'inc_overall_acc', None)
+    inc_new = getattr(args, 'inc_new_acc', None)
+    inc_old = getattr(args, 'inc_old_acc', None)
+    if any(x is not None for x in [inc_overall, inc_new, inc_old]):
+        field_names.append('Inc-Overall')
+        field_names.append('Inc-New')
+        field_names.append('Inc-Old')
+        # 曲线统计（Final / Average）
+        field_names.append('Inc-Final')
+        field_names.append('Inc-Average')
+    # 遗忘评估（仅非增量模式使用）
     if has_forget:
         field_names.append('forget-FPR')
         field_names.append('forget-AUROC')
@@ -46,8 +58,26 @@ def write_csv(args, results):
     dict[f"AVG-FPR"] = 100.*avg['FPR']
     dict[f"AVG-AUROC"] = 100.*avg['AUROC']
 
-    # append forget-as-OOD metrics if available (from args)
-    if has_forget:
+    # 增量指标写出（若存在）
+    if any(x is not None for x in [inc_overall, inc_new, inc_old]):
+        try:
+            if inc_overall is not None:
+                dict['Inc-Overall'] = 100.*float(inc_overall)
+            if inc_new is not None:
+                dict['Inc-New'] = 100.*float(inc_new)
+            if inc_old is not None:
+                dict['Inc-Old'] = 100.*float(inc_old)
+            # 同步 Final / Average（若已由评估打印并缓存曲线，可缺省；这里尝试从 args 读）
+            inc_final = getattr(args, 'inc_final', None)
+            inc_avg = getattr(args, 'inc_average', None)
+            if inc_final is not None:
+                dict['Inc-Final'] = 100.*float(inc_final)
+            if inc_avg is not None:
+                dict['Inc-Average'] = 100.*float(inc_avg)
+        except Exception:
+            pass
+    # 遗忘 OOD 指标写出（仅在非增量模式）
+    if has_forget and (not getattr(args, 'incremental', False)):
         try:
             if forget_fpr is not None:
                 dict['forget-FPR'] = 100.*float(forget_fpr)

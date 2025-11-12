@@ -1,0 +1,27 @@
+[Stage] Prepare PyCIL at: /home/shaokun/PALM/third_party/PyCIL
+[Run] PyCIL LwF with --config=/home/shaokun/PALM/third_party/PyCIL/exps/lwf_c80to110_mem2000_resnet34.json
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+2025-11-04 18:09:22,012 [trainer.py] => config: /home/shaokun/PALM/third_party/PyCIL/exps/lwf_c80to110_mem2000_resnet34.json
+2025-11-04 18:09:22,012 [trainer.py] => prefix: reproduce
+2025-11-04 18:09:22,012 [trainer.py] => dataset: cifar110
+2025-11-04 18:09:22,012 [trainer.py] => memory_size: 2000
+2025-11-04 18:09:22,013 [trainer.py] => memory_per_class: 20
+2025-11-04 18:09:22,013 [trainer.py] => fixed_memory: False
+2025-11-04 18:09:22,013 [trainer.py] => shuffle: False
+2025-11-04 18:09:22,013 [trainer.py] => init_cls: 80
+2025-11-04 18:09:22,013 [trainer.py] => increment: 5
+2025-11-04 18:09:22,013 [trainer.py] => model_name: lwf
+2025-11-04 18:09:22,013 [trainer.py] => convnet_type: resnet34
+2025-11-04 18:09:22,013 [trainer.py] => device: [device(type='cuda', index=0)]
+2025-11-04 18:09:22,013 [trainer.py] => seed: 1
+2025-11-04 18:09:22,013 [trainer.py] => logfilename: logs/lwf/cifar110/80/5/reproduce_1_resnet34
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+2025-11-04 18:09:26,549 [data_manager.py] => [1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 41, 43, 45, 46, 47, 48, 49, 50, 52, 53, 54, 55, 56, 60, 61, 62, 63, 65, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 91, 92, 95, 96, 97, 98, 99, 0, 8, 11, 40, 51, 66, 67, 88, 94, 57, 59, 58, 44, 93, 10, 64, 22, 42, 9, 90, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109]
+2025-11-04 18:09:27,745 [trainer.py] => All params: 21276992
+2025-11-04 18:09:27,746 [trainer.py] => Trainable params: 21276992
+2025-11-04 18:09:27,746 [lwf.py] => Learning on 0-80
+  0%|          | 0/200 [00:00<?, ?it/s]Task 0, Epoch 1/200 => Loss 3.916, Train_accy 9.19, Test_accy 14.32:   0%|          | 0/200 [00:28<?, ?it/s]Task 0, Epoch 1/200 => Loss 3.916, Train_accy 9.19, Test_accy 14.32:   0%|          | 1/200 [00:28<1:33:14, 28.11s/it]runner-pycil-lwf-c80to110.sh: line 33: 4191648 Killed                  ( cd "${PYCL_DIR}"; python main.py --config="${CONFIG_PATH}" )

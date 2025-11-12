@@ -4,7 +4,7 @@ set -e
 # Usage:
 #   bash eval.sh <in_dataset> "<out_datasets>" <backbone> <method> <ckpt_path> [score] [cache_size] [epochs]
 # Example:
-#   bash eval.sh CIFAR-10 "SVHN places365 LSUN iSUN dtd" resnet34 top5-palm-cache6-ema0.999 checkpoints/C10-...pt mahalanobis 6 0 [adapter_path] [forget_csv] [forget_list_path] [forget_lambda] [lora_r] [lora_alpha] [lora_dropout] [lora_target] [umap_enable] [umap_rf_only] [retain_exclude_csv]
+#   bash eval.sh CIFAR-10 "SVHN places365 LSUN iSUN dtd" resnet34 top5-palm-cache6-ema0.999 checkpoints/C10-...pt mahalanobis 6 0 [adapter_path] [forget_csv] [forget_list_path] [forget_lambda] [lora_r] [lora_alpha] [lora_dropout] [lora_target] [umap_enable] [umap_rf_only] [retain_exclude_csv] [forget_classes_inc] [forget_classes_seen]
 
 id="$1"
 ood_list="$2"      # pass as quoted string so it becomes multiple args when expanded below
@@ -25,6 +25,8 @@ lora_target="${16:-}"
 umap_enable="${17:-}"
 umap_rf_only="${18:-}"
 retain_exclude_csv="${19:-}"
+inc_csv="${20:-}"
+seen_csv="${21:-}"
 
 # 1) extract features for IN/OOD using the provided checkpoint
 python feature_extract.py \
@@ -35,10 +37,13 @@ python feature_extract.py \
   --epochs "$epochs" \
   --save-path "$ckpt" \
   --cache-size "$cache" \
-  $(if [ -n "$retain_exclude_csv" ]; then echo --retain_exclude_csv "$retain_exclude_csv"; elif [ -n "$forget_csv" ]; then echo --retain_exclude_csv "$forget_csv"; fi) \
+  $(if [ -n "$retain_exclude_csv" ]; then echo --retain_exclude_csv "$retain_exclude_csv"; fi) \
   $(if [ -n "$forget_csv" ]; then echo --forget_csv "$forget_csv"; fi) \
   $(if [ -n "$adapter_path" ]; then echo --use_lora --lora_impl peft --adapter_load_path "$adapter_path"; fi) \
-  $(if [ -n "$lora_target" ]; then echo --lora_target "$lora_target"; fi)
+  $(if [ -n "$lora_target" ]; then echo --lora_target "$lora_target"; fi) \
+  $(if [ -n "$inc_csv" ]; then echo --forget_classes_inc "$inc_csv"; fi) \
+  $(if [ -n "$seen_csv" ]; then echo --forget_classes_seen "$seen_csv"; fi) \
+  $(if [ -n "$retain_exclude_csv" ] || [ -n "$inc_csv" ] || [ -n "$seen_csv" ]; then echo --incremental; fi)
 
 # 2) run evaluation using the same checkpoint and cached features
 python eval_cifar.py \
@@ -59,7 +64,10 @@ python eval_cifar.py \
   $(if [ -n "$lora_alpha" ]; then echo --lora_alpha "$lora_alpha"; fi) \
   $(if [ -n "$lora_dropout" ]; then echo --lora_dropout "$lora_dropout"; fi) \
   $(if [ -n "$umap_enable" ]; then echo --umap_enable; fi) \
-  $(if [ -n "$umap_rf_only" ]; then echo --umap_rf_only; fi)
+  $(if [ -n "$umap_rf_only" ]; then echo --umap_rf_only; fi) \
+  $(if [ -n "$inc_csv" ]; then echo --forget_classes_inc "$inc_csv"; fi) \
+  $(if [ -n "$seen_csv" ]; then echo --forget_classes_seen "$seen_csv"; fi) \
+  $(if [ -n "$retain_exclude_csv" ] || [ -n "$inc_csv" ] || [ -n "$seen_csv" ]; then echo --incremental; fi)
 
 
 

@@ -1,4 +1,6 @@
 import torch
+import sys
+import os
 import torch.nn as nn
 from util.loss_functions import *
 from torch.optim.lr_scheduler import MultiStepLR
@@ -6,8 +8,63 @@ from models.resnet import  SupCEResNet, PALMResNet
 from util.lora import apply_lora_to_resnet_head, apply_lora_to_resnet_layer4, apply_lora_to_resnet_layers, load_lora_state_dict
 from util.peft_utils import is_peft_available, apply_peft_lora_to_model, load_peft_adapter, load_peft_adapters, freeze_peft_adapters, set_active_peft_adapters
 
+
+class PyCILEncoder(nn.Module):
+    """A thin wrapper so that `feature_extract.py` can call encoder(x) to get features.
+
+    It forwards to the loaded PyCIL network's `extract_vector` which returns penultimate features.
+    """
+    def __init__(self, net: nn.Module) -> None:
+        super().__init__()
+        self.net = net
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # PyCIL nets expose `extract_vector(x)` returning features
+        return self.net.extract_vector(x)
+
+
+class PyCILAdapter(nn.Module):
+    """Adapter that exposes a unified interface (has `.encoder`) for PALM's evaluation pipeline.
+
+    This wraps a PyCIL incremental network (e.g., IncrementalNet/DERNet) that was saved by PyCIL.
+    """
+    def __init__(self, net: nn.Module) -> None:
+        super().__init__()
+        self.net = net
+        self.encoder = PyCILEncoder(net)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # Not used in our eval path; kept for completeness
+        return self.encoder(x)
+
 def get_model(args, num_classes, load_ckpt=True):
     method = args.method
+    # Support loading PyCIL-saved models (e.g., method startswith 'pycil-')
+    if isinstance(method, str) and method.lower().startswith('pycil-'):
+        if not load_ckpt:
+            raise ValueError("PyCIL adapter requires a load_path to the saved PyCIL model.")
+        ckpt_path = getattr(args, 'load_path', None) or getattr(args, 'save_path', None)
+        if ckpt_path is None:
+            raise ValueError("Please provide --load-path pointing to PyCIL logs/.../model.pt")
+        # PyTorch 2.6+ defaults weights_only=True; we need full object unpickle for PyCIL nets
+        # Ensure PyCIL modules (e.g., 'utils', 'models') are importable during unpickle
+        try:
+            # infer PyCIL root from ckpt path: .../third_party/PyCIL/logs/.../model.pt
+            pycil_root = ckpt_path.split('/logs/')[0]
+            if os.path.isdir(pycil_root) and pycil_root not in sys.path:
+                sys.path.insert(0, pycil_root)
+        except Exception:
+            pass
+        try:
+            net = torch.load(ckpt_path, map_location="cuda:0", weights_only=False)
+        except TypeError:
+            # Older PyTorch without weights_only argument
+            net = torch.load(ckpt_path, map_location="cuda:0")
+        # net is a PyCIL network module with methods convnet/fc/extract_vector
+        model = PyCILAdapter(net)
+        print(f"[pycil] loaded PyCIL model from {ckpt_path}")
+        print(f"{args.backbone}-{args.method}: Number of model parameters: {sum(p.data.nelement() for p in model.parameters())}")
+        return model
     if 'palm' in method:
         model = PALMResNet(name=args.backbone)
     else:

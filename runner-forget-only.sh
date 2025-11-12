@@ -7,8 +7,8 @@ ood="SVHN places365 LSUN iSUN dtd"
 
 # Training info
 batch=128
-epochs=50
-lr=0.001
+epochs=5
+lr=0.0005
 wd=1e-4
 
 backbone=resnet34
