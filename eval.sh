@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-
+# 遗忘学习的备份
 # Usage:
 #   bash eval.sh <in_dataset> "<out_datasets>" <backbone> <method> <ckpt_path> [score] [cache_size] [epochs]
 # Example:

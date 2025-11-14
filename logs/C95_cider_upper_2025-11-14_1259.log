@@ -1,0 +1,54 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+[ckpt] unexpected keys: ['fc.weight', 'fc.bias']
+ckpt loaded from /home/shaokun/cider-master/checkpoints/CIFAR-100/14_11_04:06_cider_resnet34_lr_0.5_cosine_True_bsz_512_cider_wd_1.0_300_128_trial_0_temp_0.1_CIFAR-100_pm_0.5/checkpoint_300.pth.tar
+[peft] adapter loaded from checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[peft] active adapters set to: default
+resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2: Number of model parameters: 21843904
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<04:31,  1.44it/s]  3%|▎         | 11/391 [00:00<00:21, 18.04it/s]  5%|▌         | 21/391 [00:00<00:11, 33.47it/s]  8%|▊         | 31/391 [00:01<00:07, 47.26it/s] 10%|█         | 41/391 [00:01<00:05, 58.60it/s] 13%|█▎        | 51/391 [00:01<00:05, 67.81it/s] 16%|█▌        | 61/391 [00:01<00:04, 75.04it/s] 18%|█▊        | 71/391 [00:01<00:03, 80.73it/s] 21%|██        | 81/391 [00:01<00:03, 84.83it/s] 23%|██▎       | 91/391 [00:01<00:03, 87.75it/s] 26%|██▌       | 101/391 [00:01<00:03, 89.91it/s] 28%|██▊       | 111/391 [00:01<00:03, 91.15it/s] 31%|███       | 121/391 [00:01<00:02, 92.22it/s] 34%|███▎      | 131/391 [00:02<00:02, 92.23it/s] 36%|███▌      | 141/391 [00:02<00:02, 93.14it/s] 39%|███▊      | 151/391 [00:02<00:02, 93.63it/s] 41%|████      | 161/391 [00:02<00:02, 93.89it/s] 44%|████▎     | 171/391 [00:02<00:02, 75.00it/s] 46%|████▋     | 181/391 [00:02<00:02, 80.12it/s] 49%|████▉     | 191/391 [00:02<00:02, 84.07it/s] 51%|█████▏    | 201/391 [00:02<00:02, 86.78it/s] 54%|█████▍    | 211/391 [00:03<00:02, 89.12it/s] 57%|█████▋    | 221/391 [00:03<00:01, 90.42it/s] 59%|█████▉    | 231/391 [00:03<00:01, 91.61it/s] 62%|██████▏   | 241/391 [00:03<00:01, 91.77it/s] 64%|██████▍   | 251/391 [00:03<00:01, 92.68it/s] 67%|██████▋   | 261/391 [00:03<00:01, 93.63it/s] 69%|██████▉   | 271/391 [00:03<00:01, 94.28it/s] 72%|███████▏  | 281/391 [00:03<00:01, 93.48it/s] 74%|███████▍  | 291/391 [00:03<00:01, 93.77it/s] 77%|███████▋  | 301/391 [00:03<00:00, 94.09it/s] 80%|███████▉  | 311/391 [00:04<00:00, 93.39it/s] 82%|████████▏ | 321/391 [00:04<00:00, 88.77it/s] 84%|████████▍ | 330/391 [00:04<00:00, 88.20it/s] 87%|████████▋ | 339/391 [00:04<00:00, 84.37it/s] 89%|████████▉ | 348/391 [00:04<00:00, 83.08it/s] 91%|█████████▏| 357/391 [00:04<00:00, 83.24it/s] 94%|█████████▎| 366/391 [00:04<00:00, 84.69it/s] 96%|█████████▌| 376/391 [00:04<00:00, 88.17it/s] 99%|█████████▊| 386/391 [00:04<00:00, 90.78it/s]100%|██████████| 391/391 [00:05<00:00, 78.04it/s]
+50000 images processed, 5.111877679824829 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:56,  1.39it/s] 11%|█▏        | 9/79 [00:00<00:04, 14.33it/s] 22%|██▏       | 17/79 [00:00<00:02, 26.57it/s] 32%|███▏      | 25/79 [00:01<00:01, 37.15it/s] 43%|████▎     | 34/79 [00:01<00:00, 48.49it/s] 53%|█████▎    | 42/79 [00:01<00:00, 56.10it/s] 65%|██████▍   | 51/79 [00:01<00:00, 63.91it/s] 77%|███████▋  | 61/79 [00:01<00:00, 71.61it/s] 90%|████████▉ | 71/79 [00:01<00:00, 77.09it/s]100%|██████████| 79/79 [00:01<00:00, 47.46it/s]
+10000 images processed, 1.6944618225097656 seconds used
+
+Saved forget OOD features to cache/resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2/CIFAR-100/forget
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<02:27,  1.37it/s]  1%|▏         | 3/204 [00:00<00:46,  4.34it/s]  6%|▌         | 12/204 [00:00<00:09, 19.91it/s]  9%|▉         | 19/204 [00:01<00:06, 30.28it/s] 13%|█▎        | 27/204 [00:01<00:04, 41.39it/s] 17%|█▋        | 35/204 [00:01<00:03, 50.71it/s] 21%|██        | 43/204 [00:01<00:02, 57.91it/s] 25%|██▌       | 51/204 [00:01<00:02, 60.96it/s] 29%|██▉       | 59/204 [00:01<00:02, 64.36it/s] 33%|███▎      | 67/204 [00:01<00:02, 64.53it/s] 37%|███▋      | 75/204 [00:01<00:01, 66.91it/s] 41%|████      | 83/204 [00:01<00:01, 70.37it/s] 45%|████▍     | 91/204 [00:02<00:01, 67.00it/s] 49%|████▊     | 99/204 [00:02<00:01, 68.94it/s] 52%|█████▏    | 107/204 [00:02<00:01, 70.77it/s] 56%|█████▋    | 115/204 [00:02<00:01, 73.00it/s] 60%|██████    | 123/204 [00:02<00:01, 74.02it/s] 64%|██████▍   | 131/204 [00:02<00:01, 72.68it/s] 68%|██████▊   | 139/204 [00:02<00:00, 73.62it/s] 73%|███████▎  | 148/204 [00:02<00:00, 76.77it/s] 76%|███████▋  | 156/204 [00:02<00:00, 77.29it/s] 80%|████████  | 164/204 [00:03<00:00, 72.13it/s] 85%|████████▍ | 173/204 [00:03<00:00, 74.32it/s] 89%|████████▉ | 182/204 [00:03<00:00, 78.21it/s] 94%|█████████▍| 192/204 [00:03<00:00, 83.35it/s] 99%|█████████▉| 202/204 [00:03<00:00, 86.37it/s]100%|██████████| 204/204 [00:03<00:00, 57.88it/s]
+26032 images processed, 3.5674428939819336 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<01:05,  1.18it/s]  5%|▌         | 4/79 [00:00<00:14,  5.35it/s] 16%|█▋        | 13/79 [00:01<00:03, 19.72it/s] 28%|██▊       | 22/79 [00:01<00:01, 33.45it/s] 38%|███▊      | 30/79 [00:01<00:01, 42.91it/s] 49%|████▉     | 39/79 [00:01<00:00, 53.64it/s] 61%|██████    | 48/79 [00:01<00:00, 61.60it/s] 71%|███████   | 56/79 [00:01<00:00, 65.01it/s] 82%|████████▏ | 65/79 [00:01<00:00, 70.06it/s] 95%|█████████▍| 75/79 [00:01<00:00, 77.34it/s]100%|██████████| 79/79 [00:01<00:00, 43.36it/s]
+10000 images processed, 1.8646495342254639 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:53,  1.45it/s]  6%|▋         | 5/79 [00:00<00:09,  7.89it/s] 15%|█▌        | 12/79 [00:00<00:03, 19.47it/s] 27%|██▋       | 21/79 [00:01<00:01, 34.06it/s] 37%|███▋      | 29/79 [00:01<00:01, 44.39it/s] 47%|████▋     | 37/79 [00:01<00:00, 52.45it/s] 58%|█████▊    | 46/79 [00:01<00:00, 61.96it/s] 70%|██████▉   | 55/79 [00:01<00:00, 68.66it/s] 81%|████████  | 64/79 [00:01<00:00, 73.16it/s] 94%|█████████▎| 74/79 [00:01<00:00, 78.24it/s]100%|██████████| 79/79 [00:01<00:00, 46.34it/s]
+10000 images processed, 1.7411785125732422 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:49,  1.40it/s]  7%|▋         | 5/70 [00:00<00:08,  7.83it/s] 21%|██▏       | 15/70 [00:00<00:02, 25.19it/s] 34%|███▍      | 24/70 [00:01<00:01, 38.87it/s] 49%|████▊     | 34/70 [00:01<00:00, 52.22it/s] 63%|██████▎   | 44/70 [00:01<00:00, 63.12it/s] 77%|███████▋  | 54/70 [00:01<00:00, 71.15it/s] 91%|█████████▏| 64/70 [00:01<00:00, 77.84it/s]100%|██████████| 70/70 [00:01<00:00, 46.05it/s]
+8925 images processed, 1.5773112773895264 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<00:55,  1.25s/it]  4%|▍         | 2/45 [00:01<00:28,  1.49it/s] 27%|██▋       | 12/45 [00:01<00:02, 12.37it/s] 38%|███▊      | 17/45 [00:01<00:01, 14.57it/s] 47%|████▋     | 21/45 [00:02<00:01, 12.58it/s] 69%|██████▉   | 31/45 [00:02<00:00, 23.01it/s] 80%|████████  | 36/45 [00:03<00:00, 15.23it/s]100%|██████████| 45/45 [00:03<00:00, 14.43it/s]
+5640 images processed, 3.141934871673584 seconds used
+
+20.597660779953003
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Traceback (most recent call last):
+  File "/home/shaokun/PALM/eval_cifar.py", line 19, in <module>
+    eval_maha(args)
+  File "/home/shaokun/PALM/util/evaluations/mahalanobis.py", line 75, in eval_maha
+    inv_sigma = np.linalg.pinv(cov(ftrain_ssd))
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/numpy/linalg/linalg.py", line 2022, in pinv
+    u, s, vt = svd(a, full_matrices=False, hermitian=hermitian)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/numpy/linalg/linalg.py", line 1681, in svd
+    u, s, vh = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/numpy/linalg/linalg.py", line 121, in _raise_linalgerror_svd_nonconvergence
+    raise LinAlgError("SVD did not converge")
+numpy.linalg.LinAlgError: SVD did not converge

@@ -1,0 +1,344 @@
+nohup: ignoring input
+[Grid Search Continual] Searching over: lambda_pcon(0.1) × lrs(0.001) × epochs(5) × lora_r(8)
+[Grid Search Continual] Stages: 0,8,11,40,51 66,67,88,94,57 59,58,44,93,10 64,22,42,9,90
+
+==========================================
+[Run] lambda_pcon=0.1 lr=0.001 epochs=5 lora_r=8
+==========================================
+==== Stage 1: inc={0,8,11,40,51}; seen={}; all(union)={0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94} ====
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:61: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-110', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=5, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=0.1, epsilon=0.05, palm_enable=True, palm_mle_mode='all', palm_retain_only=False, pcon_inc='split', incremental=True, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1', adapter_load_path=None, lora_stack=False, lora_orth_enable=False, lora_orth_lambda=0.1, lora_orth_ref_paths=None, forget_classes='0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94', forget_list_path=None, forget_classes_inc='0,8,11,40,51', forget_classes_seen=None, retain_exclude_csv=None, forget_csv=None, forget_lambda=0.0, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='none', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+[trainable] param_count=238592 tensors=16
+[incremental] resumed from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+  0%|          | 0/5 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:167: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+ 20%|██        | 1/5 [00:25<01:40, 25.01s/it] 40%|████      | 2/5 [00:40<00:57, 19.18s/it] 60%|██████    | 3/5 [00:55<00:34, 17.31s/it] 80%|████████  | 4/5 [01:09<00:16, 16.24s/it]100%|██████████| 5/5 [01:24<00:00, 15.73s/it]100%|██████████| 5/5 [01:24<00:00, 16.92s/it]
+[loss] ep 0 it 0 total=4.6429 mle=4.0804 pcon=0.5626 forget=0.0000 orth=0.0000 favg=0.0000 nr=122 nf=6 protos=None fproto_sim=NA
+[loss] ep 0 it 50 total=5.0014 mle=4.4386 pcon=0.5628 forget=0.0000 orth=0.0000 favg=0.0000 nr=123 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 100 total=5.0626 mle=4.4997 pcon=0.5629 forget=0.0000 orth=0.0000 favg=0.0000 nr=123 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 150 total=5.6153 mle=5.0522 pcon=0.5631 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 0 it 200 total=4.3043 mle=3.7410 pcon=0.5634 forget=0.0000 orth=0.0000 favg=0.0000 nr=118 nf=10 protos=None fproto_sim=NA
+[loss] ep 0 it 250 total=4.8996 mle=4.3360 pcon=0.5635 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 0 it 300 total=4.5206 mle=3.9569 pcon=0.5637 forget=0.0000 orth=0.0000 favg=0.0000 nr=120 nf=8 protos=None fproto_sim=NA
+[loss] ep 0 it 350 total=4.9445 mle=4.3806 pcon=0.5638 forget=0.0000 orth=0.0000 favg=0.0000 nr=117 nf=11 protos=None fproto_sim=NA
+[loss] ep 0 it 400 total=4.8928 mle=4.3288 pcon=0.5640 forget=0.0000 orth=0.0000 favg=0.0000 nr=117 nf=11 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1
+[loss] ep 1 it 20 total=4.3620 mle=3.7978 pcon=0.5642 forget=0.0000 orth=0.0000 favg=0.0000 nr=119 nf=9 protos=None fproto_sim=NA
+[loss] ep 1 it 70 total=5.0155 mle=4.4512 pcon=0.5643 forget=0.0000 orth=0.0000 favg=0.0000 nr=121 nf=7 protos=None fproto_sim=NA
+[loss] ep 1 it 120 total=4.0646 mle=3.5001 pcon=0.5645 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 1 it 170 total=4.8383 mle=4.2736 pcon=0.5646 forget=0.0000 orth=0.0000 favg=0.0000 nr=120 nf=8 protos=None fproto_sim=NA
+[loss] ep 1 it 220 total=4.2062 mle=3.6414 pcon=0.5648 forget=0.0000 orth=0.0000 favg=0.0000 nr=127 nf=1 protos=None fproto_sim=NA
+[loss] ep 1 it 270 total=4.1413 mle=3.5763 pcon=0.5650 forget=0.0000 orth=0.0000 favg=0.0000 nr=126 nf=2 protos=None fproto_sim=NA
+[loss] ep 1 it 320 total=4.8612 mle=4.2961 pcon=0.5651 forget=0.0000 orth=0.0000 favg=0.0000 nr=122 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 370 total=4.5409 mle=3.9756 pcon=0.5653 forget=0.0000 orth=0.0000 favg=0.0000 nr=121 nf=7 protos=None fproto_sim=NA
+[loss] ep 1 it 420 total=4.3955 mle=3.8301 pcon=0.5654 forget=0.0000 orth=0.0000 favg=0.0000 nr=121 nf=7 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1
+[loss] ep 2 it 40 total=4.0850 mle=3.5194 pcon=0.5656 forget=0.0000 orth=0.0000 favg=0.0000 nr=121 nf=7 protos=None fproto_sim=NA
+[loss] ep 2 it 90 total=4.7819 mle=4.2162 pcon=0.5657 forget=0.0000 orth=0.0000 favg=0.0000 nr=123 nf=5 protos=None fproto_sim=NA
+[loss] ep 2 it 140 total=4.3353 mle=3.7695 pcon=0.5658 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 2 it 190 total=3.1462 mle=2.5802 pcon=0.5660 forget=0.0000 orth=0.0000 favg=0.0000 nr=121 nf=7 protos=None fproto_sim=NA
+[loss] ep 2 it 240 total=3.4813 mle=2.9152 pcon=0.5661 forget=0.0000 orth=0.0000 favg=0.0000 nr=122 nf=6 protos=None fproto_sim=NA
+[loss] ep 2 it 290 total=3.2080 mle=2.6419 pcon=0.5662 forget=0.0000 orth=0.0000 favg=0.0000 nr=125 nf=3 protos=None fproto_sim=NA
+[loss] ep 2 it 340 total=3.5841 mle=3.0179 pcon=0.5662 forget=0.0000 orth=0.0000 favg=0.0000 nr=117 nf=11 protos=None fproto_sim=NA
+[loss] ep 2 it 390 total=3.6311 mle=3.0648 pcon=0.5663 forget=0.0000 orth=0.0000 favg=0.0000 nr=119 nf=9 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1
+[loss] ep 3 it 10 total=3.2301 mle=2.6637 pcon=0.5664 forget=0.0000 orth=0.0000 favg=0.0000 nr=123 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 60 total=3.1798 mle=2.6132 pcon=0.5666 forget=0.0000 orth=0.0000 favg=0.0000 nr=122 nf=6 protos=None fproto_sim=NA
+[loss] ep 3 it 110 total=3.0579 mle=2.4912 pcon=0.5667 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 3 it 160 total=3.3283 mle=2.7616 pcon=0.5667 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 3 it 210 total=3.4597 mle=2.8929 pcon=0.5669 forget=0.0000 orth=0.0000 favg=0.0000 nr=117 nf=11 protos=None fproto_sim=NA
+[loss] ep 3 it 260 total=3.0591 mle=2.4921 pcon=0.5670 forget=0.0000 orth=0.0000 favg=0.0000 nr=119 nf=9 protos=None fproto_sim=NA
+[loss] ep 3 it 310 total=3.0260 mle=2.4589 pcon=0.5671 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 3 it 360 total=3.0987 mle=2.5315 pcon=0.5672 forget=0.0000 orth=0.0000 favg=0.0000 nr=123 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 410 total=3.1389 mle=2.5715 pcon=0.5673 forget=0.0000 orth=0.0000 favg=0.0000 nr=122 nf=6 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1
+[loss] ep 4 it 30 total=2.8733 mle=2.3058 pcon=0.5675 forget=0.0000 orth=0.0000 favg=0.0000 nr=124 nf=4 protos=None fproto_sim=NA
+[loss] ep 4 it 80 total=3.2380 mle=2.6704 pcon=0.5677 forget=0.0000 orth=0.0000 favg=0.0000 nr=120 nf=8 protos=None fproto_sim=NA
+[loss] ep 4 it 130 total=3.0297 mle=2.4619 pcon=0.5678 forget=0.0000 orth=0.0000 favg=0.0000 nr=121 nf=7 protos=None fproto_sim=NA
+[loss] ep 4 it 180 total=3.2157 mle=2.6478 pcon=0.5679 forget=0.0000 orth=0.0000 favg=0.0000 nr=122 nf=6 protos=None fproto_sim=NA
+[loss] ep 4 it 230 total=3.0801 mle=2.5121 pcon=0.5681 forget=0.0000 orth=0.0000 favg=0.0000 nr=125 nf=3 protos=None fproto_sim=NA
+[loss] ep 4 it 280 total=3.0690 mle=2.5008 pcon=0.5682 forget=0.0000 orth=0.0000 favg=0.0000 nr=118 nf=10 protos=None fproto_sim=NA
+[loss] ep 4 it 330 total=3.0893 mle=2.5210 pcon=0.5683 forget=0.0000 orth=0.0000 favg=0.0000 nr=120 nf=8 protos=None fproto_sim=NA
+[loss] ep 4 it 380 total=3.0561 mle=2.4876 pcon=0.5685 forget=0.0000 orth=0.0000 favg=0.0000 nr=116 nf=12 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1
+==== Stage 2: inc={66,67,88,94,57}; seen={0,8,11,40,51}; all(union)={0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94} ====
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:61: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-110', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=5, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=0.1, epsilon=0.05, palm_enable=True, palm_mle_mode='all', palm_retain_only=False, pcon_inc='split', incremental=True, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2', adapter_load_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1', lora_stack=False, lora_orth_enable=True, lora_orth_lambda=1.0, lora_orth_ref_paths='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1', forget_classes='0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94', forget_list_path=None, forget_classes_inc='66,67,88,94,57', forget_classes_seen='0,8,11,40,51', retain_exclude_csv=None, forget_csv=None, forget_lambda=0.0, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='none', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+[peft] adapter loaded from checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1
+[peft] active adapters set to: default
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+[trainable] param_count=238592 tensors=16
+[incremental] resumed from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+  0%|          | 0/5 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:167: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/shaokun/PALM/trainer.py:271: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+ 20%|██        | 1/5 [00:31<02:04, 31.03s/it] 40%|████      | 2/5 [00:50<01:13, 24.44s/it] 60%|██████    | 3/5 [01:08<00:43, 21.55s/it] 80%|████████  | 4/5 [01:27<00:20, 20.35s/it]100%|██████████| 5/5 [01:46<00:00, 19.94s/it]100%|██████████| 5/5 [01:46<00:00, 21.34s/it]
+[loss] ep 0 it 0 total=4.6943 mle=2.7497 pcon=0.8978 forget=0.0000 orth=1.0469 favg=0.0000 nr=117 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 50 total=4.8909 mle=2.9461 pcon=0.8980 forget=0.0000 orth=1.0468 favg=0.0000 nr=118 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 100 total=4.8736 mle=2.9286 pcon=0.8982 forget=0.0000 orth=1.0467 favg=0.0000 nr=114 nf=9 protos=None fproto_sim=NA
+[loss] ep 0 it 150 total=5.0506 mle=3.1055 pcon=0.8985 forget=0.0000 orth=1.0465 favg=0.0000 nr=118 nf=6 protos=None fproto_sim=NA
+[loss] ep 0 it 200 total=4.4370 mle=2.4918 pcon=0.8988 forget=0.0000 orth=1.0464 favg=0.0000 nr=117 nf=1 protos=None fproto_sim=NA
+[loss] ep 0 it 250 total=4.8140 mle=2.8688 pcon=0.8990 forget=0.0000 orth=1.0461 favg=0.0000 nr=116 nf=8 protos=None fproto_sim=NA
+[loss] ep 0 it 300 total=4.6541 mle=2.7090 pcon=0.8992 forget=0.0000 orth=1.0459 favg=0.0000 nr=114 nf=6 protos=None fproto_sim=NA
+[loss] ep 0 it 350 total=4.8085 mle=2.8636 pcon=0.8993 forget=0.0000 orth=1.0456 favg=0.0000 nr=110 nf=7 protos=None fproto_sim=NA
+[loss] ep 0 it 400 total=4.7402 mle=2.7954 pcon=0.8994 forget=0.0000 orth=1.0453 favg=0.0000 nr=109 nf=8 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2
+[loss] ep 1 it 20 total=4.4373 mle=2.4928 pcon=0.8995 forget=0.0000 orth=1.0451 favg=0.0000 nr=116 nf=3 protos=None fproto_sim=NA
+[loss] ep 1 it 70 total=4.7350 mle=2.7907 pcon=0.8996 forget=0.0000 orth=1.0447 favg=0.0000 nr=117 nf=4 protos=None fproto_sim=NA
+[loss] ep 1 it 120 total=4.4658 mle=2.5217 pcon=0.8997 forget=0.0000 orth=1.0444 favg=0.0000 nr=118 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 170 total=4.6324 mle=2.6886 pcon=0.8998 forget=0.0000 orth=1.0441 favg=0.0000 nr=114 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 220 total=4.4186 mle=2.4750 pcon=0.8999 forget=0.0000 orth=1.0438 favg=0.0000 nr=121 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 270 total=4.3787 mle=2.4355 pcon=0.8999 forget=0.0000 orth=1.0432 favg=0.0000 nr=119 nf=7 protos=None fproto_sim=NA
+[loss] ep 1 it 320 total=4.7434 mle=2.8008 pcon=0.8999 forget=0.0000 orth=1.0427 favg=0.0000 nr=116 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 370 total=4.6234 mle=2.6812 pcon=0.9000 forget=0.0000 orth=1.0421 favg=0.0000 nr=115 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 420 total=4.4143 mle=2.4727 pcon=0.9000 forget=0.0000 orth=1.0416 favg=0.0000 nr=116 nf=5 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2
+[loss] ep 2 it 40 total=4.4964 mle=2.5554 pcon=0.9000 forget=0.0000 orth=1.0410 favg=0.0000 nr=117 nf=4 protos=None fproto_sim=NA
+[loss] ep 2 it 90 total=4.7511 mle=2.8107 pcon=0.9001 forget=0.0000 orth=1.0403 favg=0.0000 nr=114 nf=9 protos=None fproto_sim=NA
+[loss] ep 2 it 140 total=4.7227 mle=2.7828 pcon=0.9001 forget=0.0000 orth=1.0398 favg=0.0000 nr=121 nf=3 protos=None fproto_sim=NA
+[loss] ep 2 it 190 total=4.0354 mle=2.0962 pcon=0.9002 forget=0.0000 orth=1.0391 favg=0.0000 nr=119 nf=2 protos=None fproto_sim=NA
+[loss] ep 2 it 240 total=4.2860 mle=2.3474 pcon=0.9002 forget=0.0000 orth=1.0384 favg=0.0000 nr=116 nf=6 protos=None fproto_sim=NA
+[loss] ep 2 it 290 total=4.3175 mle=2.3800 pcon=0.9002 forget=0.0000 orth=1.0374 favg=0.0000 nr=122 nf=3 protos=None fproto_sim=NA
+[loss] ep 2 it 340 total=4.6677 mle=2.7308 pcon=0.9002 forget=0.0000 orth=1.0367 favg=0.0000 nr=111 nf=6 protos=None fproto_sim=NA
+[loss] ep 2 it 390 total=4.8602 mle=2.9240 pcon=0.9002 forget=0.0000 orth=1.0360 favg=0.0000 nr=110 nf=9 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2
+[loss] ep 3 it 10 total=4.4425 mle=2.5074 pcon=0.9002 forget=0.0000 orth=1.0348 favg=0.0000 nr=117 nf=6 protos=None fproto_sim=NA
+[loss] ep 3 it 60 total=4.4627 mle=2.5284 pcon=0.9003 forget=0.0000 orth=1.0340 favg=0.0000 nr=116 nf=6 protos=None fproto_sim=NA
+[loss] ep 3 it 110 total=4.4263 mle=2.4930 pcon=0.9003 forget=0.0000 orth=1.0330 favg=0.0000 nr=120 nf=4 protos=None fproto_sim=NA
+[loss] ep 3 it 160 total=4.6444 mle=2.7121 pcon=0.9003 forget=0.0000 orth=1.0320 favg=0.0000 nr=113 nf=11 protos=None fproto_sim=NA
+[loss] ep 3 it 210 total=4.8077 mle=2.8762 pcon=0.9004 forget=0.0000 orth=1.0311 favg=0.0000 nr=111 nf=6 protos=None fproto_sim=NA
+[loss] ep 3 it 260 total=4.4215 mle=2.4910 pcon=0.9004 forget=0.0000 orth=1.0301 favg=0.0000 nr=114 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 310 total=4.3003 mle=2.3709 pcon=0.9004 forget=0.0000 orth=1.0290 favg=0.0000 nr=122 nf=2 protos=None fproto_sim=NA
+[loss] ep 3 it 360 total=4.4877 mle=2.5592 pcon=0.9005 forget=0.0000 orth=1.0280 favg=0.0000 nr=116 nf=7 protos=None fproto_sim=NA
+[loss] ep 3 it 410 total=4.4911 mle=2.5638 pcon=0.9005 forget=0.0000 orth=1.0269 favg=0.0000 nr=118 nf=4 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2
+[loss] ep 4 it 30 total=4.2633 mle=2.3372 pcon=0.9005 forget=0.0000 orth=1.0256 favg=0.0000 nr=118 nf=6 protos=None fproto_sim=NA
+[loss] ep 4 it 80 total=4.5965 mle=2.6715 pcon=0.9006 forget=0.0000 orth=1.0243 favg=0.0000 nr=116 nf=4 protos=None fproto_sim=NA
+[loss] ep 4 it 130 total=4.4237 mle=2.4999 pcon=0.9007 forget=0.0000 orth=1.0232 favg=0.0000 nr=113 nf=8 protos=None fproto_sim=NA
+[loss] ep 4 it 180 total=4.5561 mle=2.6333 pcon=0.9008 forget=0.0000 orth=1.0221 favg=0.0000 nr=117 nf=5 protos=None fproto_sim=NA
+[loss] ep 4 it 230 total=4.4366 mle=2.5149 pcon=0.9008 forget=0.0000 orth=1.0209 favg=0.0000 nr=120 nf=5 protos=None fproto_sim=NA
+[loss] ep 4 it 280 total=4.4561 mle=2.5355 pcon=0.9009 forget=0.0000 orth=1.0197 favg=0.0000 nr=114 nf=4 protos=None fproto_sim=NA
+[loss] ep 4 it 330 total=4.4826 mle=2.5634 pcon=0.9009 forget=0.0000 orth=1.0183 favg=0.0000 nr=112 nf=8 protos=None fproto_sim=NA
+[loss] ep 4 it 380 total=4.4678 mle=2.5497 pcon=0.9011 forget=0.0000 orth=1.0170 favg=0.0000 nr=110 nf=6 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2
+==== Stage 3: inc={59,58,44,93,10}; seen={0,8,11,40,51,66,67,88,94,57}; all(union)={0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94} ====
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:61: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-110', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=5, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=0.1, epsilon=0.05, palm_enable=True, palm_mle_mode='all', palm_retain_only=False, pcon_inc='split', incremental=True, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3', adapter_load_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2', lora_stack=False, lora_orth_enable=True, lora_orth_lambda=1.0, lora_orth_ref_paths='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1,checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2', forget_classes='0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94', forget_list_path=None, forget_classes_inc='59,58,44,93,10', forget_classes_seen='0,8,11,40,51,66,67,88,94,57', retain_exclude_csv=None, forget_csv=None, forget_lambda=0.0, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='none', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+[peft] adapter loaded from checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2
+[peft] active adapters set to: default
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+[trainable] param_count=238592 tensors=16
+[incremental] resumed from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+  0%|          | 0/5 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:167: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/shaokun/PALM/trainer.py:271: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+ 20%|██        | 1/5 [00:25<01:41, 25.29s/it] 40%|████      | 2/5 [00:43<01:02, 20.93s/it] 60%|██████    | 3/5 [01:00<00:38, 19.47s/it] 80%|████████  | 4/5 [01:18<00:18, 18.82s/it]100%|██████████| 5/5 [01:43<00:00, 21.07s/it]100%|██████████| 5/5 [01:43<00:00, 20.76s/it]
+[loss] ep 0 it 0 total=4.7332 mle=2.7497 pcon=0.9689 forget=0.0000 orth=1.0145 favg=0.0000 nr=112 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 50 total=4.9037 mle=2.9200 pcon=0.9693 forget=0.0000 orth=1.0145 favg=0.0000 nr=111 nf=7 protos=None fproto_sim=NA
+[loss] ep 0 it 100 total=4.8536 mle=2.8696 pcon=0.9696 forget=0.0000 orth=1.0144 favg=0.0000 nr=109 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 150 total=5.0279 mle=3.0437 pcon=0.9699 forget=0.0000 orth=1.0143 favg=0.0000 nr=107 nf=11 protos=None fproto_sim=NA
+[loss] ep 0 it 200 total=4.4909 mle=2.5066 pcon=0.9702 forget=0.0000 orth=1.0142 favg=0.0000 nr=109 nf=8 protos=None fproto_sim=NA
+[loss] ep 0 it 250 total=4.7976 mle=2.8131 pcon=0.9704 forget=0.0000 orth=1.0141 favg=0.0000 nr=111 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 300 total=4.6544 mle=2.6698 pcon=0.9707 forget=0.0000 orth=1.0140 favg=0.0000 nr=107 nf=7 protos=None fproto_sim=NA
+[loss] ep 0 it 350 total=4.7881 mle=2.8033 pcon=0.9709 forget=0.0000 orth=1.0139 favg=0.0000 nr=105 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 400 total=4.7683 mle=2.7834 pcon=0.9711 forget=0.0000 orth=1.0138 favg=0.0000 nr=106 nf=3 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3
+[loss] ep 1 it 20 total=4.4476 mle=2.4626 pcon=0.9712 forget=0.0000 orth=1.0137 favg=0.0000 nr=112 nf=4 protos=None fproto_sim=NA
+[loss] ep 1 it 70 total=4.7530 mle=2.7679 pcon=0.9714 forget=0.0000 orth=1.0137 favg=0.0000 nr=114 nf=3 protos=None fproto_sim=NA
+[loss] ep 1 it 120 total=4.4607 mle=2.4755 pcon=0.9715 forget=0.0000 orth=1.0136 favg=0.0000 nr=115 nf=3 protos=None fproto_sim=NA
+[loss] ep 1 it 170 total=4.6572 mle=2.6719 pcon=0.9717 forget=0.0000 orth=1.0136 favg=0.0000 nr=108 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 220 total=4.4470 mle=2.4616 pcon=0.9718 forget=0.0000 orth=1.0136 favg=0.0000 nr=118 nf=3 protos=None fproto_sim=NA
+[loss] ep 1 it 270 total=4.4295 mle=2.4441 pcon=0.9719 forget=0.0000 orth=1.0135 favg=0.0000 nr=114 nf=5 protos=None fproto_sim=NA
+[loss] ep 1 it 320 total=4.7583 mle=2.7728 pcon=0.9720 forget=0.0000 orth=1.0134 favg=0.0000 nr=110 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 370 total=4.6685 mle=2.6830 pcon=0.9721 forget=0.0000 orth=1.0134 favg=0.0000 nr=109 nf=6 protos=None fproto_sim=NA
+[loss] ep 1 it 420 total=4.4521 mle=2.4666 pcon=0.9722 forget=0.0000 orth=1.0133 favg=0.0000 nr=108 nf=8 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3
+[loss] ep 2 it 40 total=4.5403 mle=2.5548 pcon=0.9722 forget=0.0000 orth=1.0133 favg=0.0000 nr=110 nf=7 protos=None fproto_sim=NA
+[loss] ep 2 it 90 total=4.7468 mle=2.7613 pcon=0.9723 forget=0.0000 orth=1.0132 favg=0.0000 nr=107 nf=7 protos=None fproto_sim=NA
+[loss] ep 2 it 140 total=4.7252 mle=2.7395 pcon=0.9724 forget=0.0000 orth=1.0132 favg=0.0000 nr=117 nf=4 protos=None fproto_sim=NA
+[loss] ep 2 it 190 total=4.0647 mle=2.0790 pcon=0.9726 forget=0.0000 orth=1.0131 favg=0.0000 nr=117 nf=2 protos=None fproto_sim=NA
+[loss] ep 2 it 240 total=4.3099 mle=2.3242 pcon=0.9727 forget=0.0000 orth=1.0131 favg=0.0000 nr=110 nf=6 protos=None fproto_sim=NA
+[loss] ep 2 it 290 total=4.3409 mle=2.3553 pcon=0.9728 forget=0.0000 orth=1.0129 favg=0.0000 nr=120 nf=2 protos=None fproto_sim=NA
+[loss] ep 2 it 340 total=4.6920 mle=2.7062 pcon=0.9729 forget=0.0000 orth=1.0129 favg=0.0000 nr=106 nf=5 protos=None fproto_sim=NA
+[loss] ep 2 it 390 total=4.8993 mle=2.9136 pcon=0.9729 forget=0.0000 orth=1.0128 favg=0.0000 nr=101 nf=9 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3
+[loss] ep 3 it 10 total=4.4656 mle=2.4800 pcon=0.9730 forget=0.0000 orth=1.0126 favg=0.0000 nr=108 nf=9 protos=None fproto_sim=NA
+[loss] ep 3 it 60 total=4.4939 mle=2.5084 pcon=0.9730 forget=0.0000 orth=1.0126 favg=0.0000 nr=108 nf=8 protos=None fproto_sim=NA
+[loss] ep 3 it 110 total=4.4744 mle=2.4888 pcon=0.9731 forget=0.0000 orth=1.0124 favg=0.0000 nr=112 nf=8 protos=None fproto_sim=NA
+[loss] ep 3 it 160 total=4.6832 mle=2.6977 pcon=0.9732 forget=0.0000 orth=1.0123 favg=0.0000 nr=109 nf=4 protos=None fproto_sim=NA
+[loss] ep 3 it 210 total=4.8462 mle=2.8607 pcon=0.9733 forget=0.0000 orth=1.0122 favg=0.0000 nr=103 nf=8 protos=None fproto_sim=NA
+[loss] ep 3 it 260 total=4.4667 mle=2.4812 pcon=0.9734 forget=0.0000 orth=1.0121 favg=0.0000 nr=106 nf=8 protos=None fproto_sim=NA
+[loss] ep 3 it 310 total=4.3335 mle=2.3481 pcon=0.9734 forget=0.0000 orth=1.0120 favg=0.0000 nr=117 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 360 total=4.5319 mle=2.5465 pcon=0.9735 forget=0.0000 orth=1.0119 favg=0.0000 nr=113 nf=3 protos=None fproto_sim=NA
+[loss] ep 3 it 410 total=4.5397 mle=2.5543 pcon=0.9736 forget=0.0000 orth=1.0118 favg=0.0000 nr=113 nf=5 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3
+[loss] ep 4 it 30 total=4.3276 mle=2.3423 pcon=0.9737 forget=0.0000 orth=1.0115 favg=0.0000 nr=116 nf=2 protos=None fproto_sim=NA
+[loss] ep 4 it 80 total=4.6468 mle=2.6616 pcon=0.9738 forget=0.0000 orth=1.0113 favg=0.0000 nr=111 nf=5 protos=None fproto_sim=NA
+[loss] ep 4 it 130 total=4.4806 mle=2.4954 pcon=0.9739 forget=0.0000 orth=1.0112 favg=0.0000 nr=110 nf=3 protos=None fproto_sim=NA
+[loss] ep 4 it 180 total=4.5954 mle=2.6102 pcon=0.9741 forget=0.0000 orth=1.0111 favg=0.0000 nr=110 nf=7 protos=None fproto_sim=NA
+[loss] ep 4 it 230 total=4.4924 mle=2.5074 pcon=0.9741 forget=0.0000 orth=1.0109 favg=0.0000 nr=114 nf=6 protos=None fproto_sim=NA
+[loss] ep 4 it 280 total=4.5179 mle=2.5330 pcon=0.9742 forget=0.0000 orth=1.0107 favg=0.0000 nr=105 nf=9 protos=None fproto_sim=NA
+[loss] ep 4 it 330 total=4.5363 mle=2.5515 pcon=0.9744 forget=0.0000 orth=1.0104 favg=0.0000 nr=107 nf=5 protos=None fproto_sim=NA
+[loss] ep 4 it 380 total=4.5297 mle=2.5450 pcon=0.9745 forget=0.0000 orth=1.0102 favg=0.0000 nr=104 nf=6 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3
+==== Stage 4: inc={64,22,42,9,90}; seen={0,8,11,40,51,66,67,88,94,57,59,58,44,93,10}; all(union)={0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94} ====
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/PALM/main.py:61: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Namespace(in_dataset='CIFAR-110', out_datasets=['inat', 'sun50', 'places50', 'dtd'], backbone='resnet34', method='top5-palm-cache6-ema0.999', seed=1, gpu='0', epochs=5, batch_size=128, lr=0.001, weight_decay=0.0001, print_every=50, fine_tune=False, temp=0.08, cosine=True, warm=False, lr_decay_epochs='700,800,900', lr_decay_rate=0.1, layers=100, depth=40, width=4, growth=12, droprate=0.0, save_path='CIFAR-10-ResNet18.pt', load_path='checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt', reduce=0.5, score='mahalanobis', threshold=1.0, k=5, momentum=0.9, proto_m=0.999, cache_size=6, nviews=2, lambda_pcon=0.1, epsilon=0.05, palm_enable=True, palm_mle_mode='all', palm_retain_only=False, pcon_inc='split', incremental=True, use_lora=True, lora_impl='peft', lora_r=8, lora_alpha=32, lora_dropout=0.05, lora_target='both', adapter_save_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage4', adapter_load_path='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3', lora_stack=False, lora_orth_enable=True, lora_orth_lambda=1.0, lora_orth_ref_paths='checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage1,checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage2,checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3', forget_classes='0,8,9,10,11,22,40,42,44,51,57,58,59,64,66,67,88,90,93,94', forget_list_path=None, forget_classes_inc='64,22,42,9,90', forget_classes_seen='0,8,11,40,51,66,67,88,94,57,59,58,44,93,10', retain_exclude_csv=None, forget_csv=None, forget_lambda=0.0, forget_margin=100.0, forget_strategy='proto', centers_path=None, precision_path=None, batch_forget_mode='none', forget_proto_enable=False, forget_attr_w=1.0, forget_proto_rep_w=1.0, forget_avgproto_enable=False, forget_avgproto_w=1.0, umap_enable=False, umap_by='domain', umap_max_points=20000, umap_neighbors=15, umap_min_dist=0.05, umap_metric='cosine', umap_save_path=None, umap_rf_only=False, keep_cache=False, argument=True)
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+[peft] adapter loaded from checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage3
+[peft] active adapters set to: default
+resnet34-top5-palm-cache6-ema0.999: Number of model parameters: 21843904
+[debug] trainable_count = 16
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.1.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv1.lora_B.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_A.default.weight
+[debug] trainable: base_model.model.encoder.layer4.2.conv2.lora_B.default.weight
+[debug] trainable: base_model.model.head.2.lora_A.default.weight
+[debug] trainable: base_model.model.head.2.lora_B.default.weight
+[debug][warn] non-LoRA trainables detected: ['base_model.model.encoder.layer4.0.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.0.conv2.lora_B.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_A.default.weight', 'base_model.model.encoder.layer4.0.shortcut.0.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv1.lora_B.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_A.default.weight', 'base_model.model.encoder.layer4.1.conv2.lora_B.default.weight']
+[trainable] param_count=238592 tensors=16
+[incremental] resumed from checkpoints/CIFAR-100-resnet34-top5-palm-cache6-ema0.999-upper-retain-c80.pt
+  0%|          | 0/5 [00:00<?, ?it/s]/home/shaokun/PALM/trainer.py:167: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/shaokun/PALM/trainer.py:271: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+ 20%|██        | 1/5 [00:26<01:44, 26.18s/it] 40%|████      | 2/5 [00:43<01:02, 20.84s/it] 60%|██████    | 3/5 [01:00<00:38, 19.06s/it] 80%|████████  | 4/5 [01:17<00:18, 18.29s/it]100%|██████████| 5/5 [01:35<00:00, 18.20s/it]100%|██████████| 5/5 [01:35<00:00, 19.07s/it]
+[loss] ep 0 it 0 total=4.7697 mle=2.7517 pcon=1.0090 forget=0.0000 orth=1.0090 favg=0.0000 nr=105 nf=7 protos=None fproto_sim=NA
+[loss] ep 0 it 50 total=4.9289 mle=2.9106 pcon=1.0093 forget=0.0000 orth=1.0090 favg=0.0000 nr=103 nf=8 protos=None fproto_sim=NA
+[loss] ep 0 it 100 total=4.8769 mle=2.8584 pcon=1.0096 forget=0.0000 orth=1.0089 favg=0.0000 nr=105 nf=4 protos=None fproto_sim=NA
+[loss] ep 0 it 150 total=5.0424 mle=3.0237 pcon=1.0099 forget=0.0000 orth=1.0088 favg=0.0000 nr=100 nf=7 protos=None fproto_sim=NA
+[loss] ep 0 it 200 total=4.5205 mle=2.5016 pcon=1.0101 forget=0.0000 orth=1.0088 favg=0.0000 nr=106 nf=3 protos=None fproto_sim=NA
+[loss] ep 0 it 250 total=4.8166 mle=2.7976 pcon=1.0103 forget=0.0000 orth=1.0086 favg=0.0000 nr=106 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 300 total=4.6755 mle=2.6564 pcon=1.0105 forget=0.0000 orth=1.0086 favg=0.0000 nr=102 nf=5 protos=None fproto_sim=NA
+[loss] ep 0 it 350 total=4.8102 mle=2.7910 pcon=1.0107 forget=0.0000 orth=1.0085 favg=0.0000 nr=99 nf=6 protos=None fproto_sim=NA
+[loss] ep 0 it 400 total=4.8064 mle=2.7871 pcon=1.0109 forget=0.0000 orth=1.0084 favg=0.0000 nr=97 nf=9 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage4
+[loss] ep 1 it 20 total=4.4741 mle=2.4546 pcon=1.0110 forget=0.0000 orth=1.0084 favg=0.0000 nr=102 nf=10 protos=None fproto_sim=NA
+[loss] ep 1 it 70 total=4.7780 mle=2.7584 pcon=1.0112 forget=0.0000 orth=1.0084 favg=0.0000 nr=109 nf=5 protos=None fproto_sim=NA
+[loss] ep 1 it 120 total=4.4817 mle=2.4621 pcon=1.0113 forget=0.0000 orth=1.0083 favg=0.0000 nr=110 nf=5 protos=None fproto_sim=NA
+[loss] ep 1 it 170 total=4.6889 mle=2.6691 pcon=1.0115 forget=0.0000 orth=1.0083 favg=0.0000 nr=99 nf=9 protos=None fproto_sim=NA
+[loss] ep 1 it 220 total=4.4778 mle=2.4578 pcon=1.0116 forget=0.0000 orth=1.0084 favg=0.0000 nr=109 nf=9 protos=None fproto_sim=NA
+[loss] ep 1 it 270 total=4.4671 mle=2.4471 pcon=1.0117 forget=0.0000 orth=1.0083 favg=0.0000 nr=110 nf=4 protos=None fproto_sim=NA
+[loss] ep 1 it 320 total=4.7828 mle=2.7628 pcon=1.0118 forget=0.0000 orth=1.0082 favg=0.0000 nr=99 nf=11 protos=None fproto_sim=NA
+[loss] ep 1 it 370 total=4.7045 mle=2.6843 pcon=1.0119 forget=0.0000 orth=1.0082 favg=0.0000 nr=101 nf=8 protos=None fproto_sim=NA
+[loss] ep 1 it 420 total=4.4862 mle=2.4660 pcon=1.0120 forget=0.0000 orth=1.0082 favg=0.0000 nr=103 nf=5 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage4
+[loss] ep 2 it 40 total=4.5695 mle=2.5492 pcon=1.0121 forget=0.0000 orth=1.0082 favg=0.0000 nr=106 nf=4 protos=None fproto_sim=NA
+[loss] ep 2 it 90 total=4.7625 mle=2.7422 pcon=1.0122 forget=0.0000 orth=1.0081 favg=0.0000 nr=104 nf=3 protos=None fproto_sim=NA
+[loss] ep 2 it 140 total=4.7398 mle=2.7194 pcon=1.0123 forget=0.0000 orth=1.0081 favg=0.0000 nr=110 nf=7 protos=None fproto_sim=NA
+[loss] ep 2 it 190 total=4.0932 mle=2.0727 pcon=1.0124 forget=0.0000 orth=1.0081 favg=0.0000 nr=113 nf=4 protos=None fproto_sim=NA
+[loss] ep 2 it 240 total=4.3329 mle=2.3124 pcon=1.0125 forget=0.0000 orth=1.0081 favg=0.0000 nr=106 nf=4 protos=None fproto_sim=NA
+[loss] ep 2 it 290 total=4.3636 mle=2.3431 pcon=1.0125 forget=0.0000 orth=1.0080 favg=0.0000 nr=112 nf=8 protos=None fproto_sim=NA
+[loss] ep 2 it 340 total=4.7163 mle=2.6958 pcon=1.0126 forget=0.0000 orth=1.0080 favg=0.0000 nr=100 nf=6 protos=None fproto_sim=NA
+[loss] ep 2 it 390 total=4.9290 mle=2.9084 pcon=1.0126 forget=0.0000 orth=1.0080 favg=0.0000 nr=96 nf=5 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage4
+[loss] ep 3 it 10 total=4.4874 mle=2.4668 pcon=1.0127 forget=0.0000 orth=1.0079 favg=0.0000 nr=105 nf=3 protos=None fproto_sim=NA
+[loss] ep 3 it 60 total=4.5172 mle=2.4966 pcon=1.0127 forget=0.0000 orth=1.0079 favg=0.0000 nr=106 nf=2 protos=None fproto_sim=NA
+[loss] ep 3 it 110 total=4.5046 mle=2.4840 pcon=1.0128 forget=0.0000 orth=1.0078 favg=0.0000 nr=107 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 160 total=4.7092 mle=2.6886 pcon=1.0128 forget=0.0000 orth=1.0077 favg=0.0000 nr=104 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 210 total=4.8702 mle=2.8495 pcon=1.0129 forget=0.0000 orth=1.0077 favg=0.0000 nr=98 nf=5 protos=None fproto_sim=NA
+[loss] ep 3 it 260 total=4.4964 mle=2.4757 pcon=1.0129 forget=0.0000 orth=1.0077 favg=0.0000 nr=100 nf=6 protos=None fproto_sim=NA
+[loss] ep 3 it 310 total=4.3613 mle=2.3406 pcon=1.0131 forget=0.0000 orth=1.0076 favg=0.0000 nr=111 nf=6 protos=None fproto_sim=NA
+[loss] ep 3 it 360 total=4.5582 mle=2.5375 pcon=1.0131 forget=0.0000 orth=1.0076 favg=0.0000 nr=105 nf=8 protos=None fproto_sim=NA
+[loss] ep 3 it 410 total=4.5661 mle=2.5453 pcon=1.0132 forget=0.0000 orth=1.0076 favg=0.0000 nr=107 nf=6 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage4
+[loss] ep 4 it 30 total=4.3630 mle=2.3422 pcon=1.0133 forget=0.0000 orth=1.0075 favg=0.0000 nr=108 nf=8 protos=None fproto_sim=NA
+[loss] ep 4 it 80 total=4.6782 mle=2.6574 pcon=1.0134 forget=0.0000 orth=1.0073 favg=0.0000 nr=104 nf=7 protos=None fproto_sim=NA
+[loss] ep 4 it 130 total=4.5110 mle=2.4902 pcon=1.0135 forget=0.0000 orth=1.0073 favg=0.0000 nr=104 nf=6 protos=None fproto_sim=NA
+[loss] ep 4 it 180 total=4.6187 mle=2.5978 pcon=1.0136 forget=0.0000 orth=1.0073 favg=0.0000 nr=103 nf=7 protos=None fproto_sim=NA
+[loss] ep 4 it 230 total=4.5221 mle=2.5011 pcon=1.0137 forget=0.0000 orth=1.0072 favg=0.0000 nr=106 nf=8 protos=None fproto_sim=NA
+[loss] ep 4 it 280 total=4.5508 mle=2.5299 pcon=1.0138 forget=0.0000 orth=1.0071 favg=0.0000 nr=100 nf=5 protos=None fproto_sim=NA
+[loss] ep 4 it 330 total=4.5639 mle=2.5431 pcon=1.0139 forget=0.0000 orth=1.0069 favg=0.0000 nr=101 nf=6 protos=None fproto_sim=NA
+[loss] ep 4 it 380 total=4.5615 mle=2.5407 pcon=1.0140 forget=0.0000 orth=1.0069 favg=0.0000 nr=100 nf=4 protos=None fproto_sim=NA
+[peft] adapter saved to checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-b128-e5-lr0.001-wd1e-4-ltboth-bfmnone-pcon0.1-lora_r8a32d0.05-temp0.08-ol1-continual-from-c80-to-CIFAR-110-palm_mle_all-pcon_split-stack/stage4
+grid_search_continual.sh: line 417: local: can only be used in a function

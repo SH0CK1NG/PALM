@@ -79,27 +79,43 @@ stages=()
 if [ -n "${STAGES_FILE:-}" ] && [ -f "$STAGES_FILE" ]; then
   mapfile -t stages < <(sed -e 's/#.*//' -e '/^\s*$/d' "$STAGES_FILE")
 else
-  # 从 CIFAR-80 开始的增量学习，扩展到 CIFAR-110：
-  # Stage 1-4：补齐 CIFAR-100（学习被排除的20个类）
-  # Stage 5-6：扩展到 CIFAR-110（学习 CIFAR-10 的10个类，映射为类别 100-109）
-  if [ "$base_task" = "c80" ]; then
-    stages=(
-      "0,8,11,40,51"        # Stage 1: CIFAR-100 的5个类
-      "66,67,88,94,57"      # Stage 2: CIFAR-100 的另外5个类
-      "59,58,44,93,10"
-      "64,22,42,9,90"
-      "100,101,102,103,104" # Stage 5: CIFAR-10 的前5个类（100-104）
-      "105,106,107,108,109" # Stage 6: CIFAR-10 的后5个类（105-109）
-    )
-  elif [ "$base_task" = "c90" ]; then
-    stages=(
-      "0,8,11,40,51"
-      "66,67,88,94,57"
-      "100,101,102,103,104" # Stage 5: CIFAR-10 的前5个类（100-104）
-      "105,106,107,108,109" # Stage 6: CIFAR-10 的后5个类（105-109）
-    )
-  fi
-  # 如果只想到 CIFAR-100，可删除最后两行
+  if [$incremental_flag = "false"]; then
+    if [ "$base_task" = "c80" ]; then
+      stages=(
+        "0,8,11,40,51"
+        "66,67,88,94,57"
+      )
+    elif [ "$base_task" = "c90" ]; then
+      stages=(
+        "0,8,11,40,51"        # Stage 1: CIFAR-100 的5个类
+        "66,67,88,94,57"      # Stage 2: CIFAR-100 的另外5个类
+        "59,58,44,93,10"
+        "64,22,42,9,90"
+      )
+    fi
+  else
+    # 从 CIFAR-80 开始的增量学习，扩展到 CIFAR-110：
+    # Stage 1-4：补齐 CIFAR-100（学习被排除的20个类）
+    # Stage 5-6：扩展到 CIFAR-110（学习 CIFAR-10 的10个类，映射为类别 100-109）
+    if [ "$base_task" = "c80" ]; then
+      stages=(
+        "0,8,11,40,51"        # Stage 1: CIFAR-100 的5个类
+        "66,67,88,94,57"      # Stage 2: CIFAR-100 的另外5个类
+        "59,58,44,93,10"
+        "64,22,42,9,90"
+        "100,101,102,103,104" # Stage 5: CIFAR-10 的前5个类（100-104）
+        "105,106,107,108,109" # Stage 6: CIFAR-10 的后5个类（105-109）
+      )
+    elif [ "$base_task" = "c90" ]; then
+      stages=(
+        "0,8,11,40,51"
+        "66,67,88,94,57"
+        "100,101,102,103,104" # Stage 5: CIFAR-10 的前5个类（100-104）
+        "105,106,107,108,109" # Stage 6: CIFAR-10 的后5个类（105-109）
+      )
+    fi
+    # 如果只想到 CIFAR-100，可删除最后两行
+  fi  
 fi
 
 if [ "${#stages[@]}" -eq 0 ]; then
@@ -127,7 +143,12 @@ base_tag=${method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-lt${lora_target}-bfm${ba
 if [ "$orth_enable_before_c10" = "true" ] || [ "$orth_enable_after_c10" = "true" ]; then
   base_tag="${base_tag}-ol${lora_orth_lambda}"
 fi
-base_tag="${base_tag}-continual-from-${base_task}-to-${id}"
+if [ "$incremental_flag" = "false" ]; then
+  base_tag="${base_tag}-forget-from-${id}-to-${base_task}"
+elif [ "$incremental_flag" = "true" ]; then
+  base_tag="${base_tag}-continual-from-${base_task}-to-${id}"
+fi
+
 
 
 if [ -n "$palm_mle_mode" ]; then
@@ -212,7 +233,11 @@ for idx in $(seq $start_idx $((${#stages[@]} - 1))); do
         if [ -d "$prev_dir" ]; then echo --adapter_load_path "$prev_dir"; fi
       fi
     ) \
-    --incremental \
+    $(
+      if [ "$incremental_flag" = "true" ]; then
+        echo --incremental
+      fi
+    )\
     --forget_classes "$forget_classes_all" --forget_classes_inc "$inc_csv" $(if [ -n "$seen" ]; then echo --forget_classes_seen "$seen"; fi) \
     --batch_forget_mode $batch_forget_mode \
     $(

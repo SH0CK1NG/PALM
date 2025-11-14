@@ -1,0 +1,472 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+[ckpt] unexpected keys: ['fc.weight', 'fc.bias']
+[cider] base weights loaded from /home/shaokun/cider-master/checkpoints/CIFAR-100/30_10_18:17_cider_resnet34_lr_0.5_cosine_True_bsz_512_cider_wd_1.0_500_128_trial_0_temp_0.1_CIFAR-100_pm_0.5/checkpoint_500.pth.tar
+[cider] prototypes loaded from base ckpt
+[cider] save to checkpoints/CIFAR-100/CIFAR-100-resnet34-cider-b128-e50-lr0.001-wd0.0001-fd128-w1.0-pm0.999-temp0.08-bfmbalanced-fl0.2.pt
+/home/shaokun/PALM/cider_main.py:238: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+[cider] ep 0 it 0 total=1.0194 comp=0.1780 dis=-0.0599 forget=0.9013
+[cider] ep 0 it 50 total=1.0081 comp=0.1846 dis=-0.0744 forget=0.8979
+[cider] ep 0 it 100 total=1.0818 comp=0.2571 dis=-0.0842 forget=0.9089
+[cider] ep 0 it 150 total=0.9893 comp=0.1798 dis=-0.0919 forget=0.9014
+[cider] ep 0 it 200 total=0.9924 comp=0.1858 dis=-0.0976 forget=0.9041
+[cider] ep 0 it 250 total=0.9125 comp=0.1430 dis=-0.1018 forget=0.8712
+[cider] ep 0 it 300 total=0.9218 comp=0.1461 dis=-0.1053 forget=0.8811
+[cider] ep 0 it 350 total=1.0751 comp=0.2900 dis=-0.1085 forget=0.8936
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 1 it 10 total=1.0834 comp=0.2723 dis=-0.1107 forget=0.9218
+[cider] ep 1 it 60 total=0.8746 comp=0.1048 dis=-0.1126 forget=0.8824
+[cider] ep 1 it 110 total=1.0008 comp=0.2098 dis=-0.1142 forget=0.9053
+[cider] ep 1 it 160 total=1.0082 comp=0.2241 dis=-0.1156 forget=0.8996
+[cider] ep 1 it 210 total=0.9051 comp=0.1333 dis=-0.1167 forget=0.8885
+[cider] ep 1 it 260 total=0.8950 comp=0.1413 dis=-0.1176 forget=0.8714
+[cider] ep 1 it 310 total=1.0188 comp=0.2296 dis=-0.1184 forget=0.9076
+[cider] ep 1 it 360 total=1.0373 comp=0.2414 dis=-0.1190 forget=0.9149
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 2 it 20 total=0.9091 comp=0.1495 dis=-0.1196 forget=0.8792
+[cider] ep 2 it 70 total=1.0491 comp=0.2621 dis=-0.1200 forget=0.9071
+[cider] ep 2 it 120 total=0.8614 comp=0.1003 dis=-0.1204 forget=0.8815
+[cider] ep 2 it 170 total=1.0723 comp=0.2873 dis=-0.1207 forget=0.9057
+[cider] ep 2 it 220 total=0.8950 comp=0.1183 dis=-0.1210 forget=0.8976
+[cider] ep 2 it 270 total=0.8873 comp=0.1180 dis=-0.1212 forget=0.8904
+[cider] ep 2 it 320 total=0.8989 comp=0.1362 dis=-0.1214 forget=0.8841
+[cider] ep 2 it 370 total=0.8680 comp=0.1108 dis=-0.1216 forget=0.8787
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 3 it 30 total=1.0245 comp=0.2440 dis=-0.1217 forget=0.9022
+[cider] ep 3 it 80 total=0.8699 comp=0.1152 dis=-0.1218 forget=0.8766
+[cider] ep 3 it 130 total=1.0139 comp=0.2422 dis=-0.1219 forget=0.8937
+[cider] ep 3 it 180 total=0.9045 comp=0.1347 dis=-0.1220 forget=0.8918
+[cider] ep 3 it 230 total=1.0415 comp=0.2534 dis=-0.1221 forget=0.9101
+[cider] ep 3 it 280 total=0.9713 comp=0.2013 dis=-0.1222 forget=0.8922
+[cider] ep 3 it 330 total=0.9217 comp=0.1395 dis=-0.1222 forget=0.9044
+[cider] ep 3 it 380 total=1.1757 comp=0.3810 dis=-0.1222 forget=0.9169
+[cider] ep 4 it 40 total=0.8900 comp=0.1142 dis=-0.1223 forget=0.8981
+[cider] ep 4 it 90 total=0.9530 comp=0.1847 dis=-0.1223 forget=0.8906
+[cider] ep 4 it 140 total=0.9038 comp=0.1495 dis=-0.1223 forget=0.8766
+[cider] ep 4 it 190 total=0.9531 comp=0.1771 dis=-0.1223 forget=0.8983
+[cider] ep 4 it 240 total=0.8923 comp=0.1325 dis=-0.1224 forget=0.8822
+[cider] ep 4 it 290 total=0.9647 comp=0.2046 dis=-0.1224 forget=0.8826
+[cider] ep 4 it 340 total=0.9762 comp=0.2064 dis=-0.1225 forget=0.8923
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 5 it 0 total=0.8606 comp=0.1079 dis=-0.1225 forget=0.8752
+[cider] ep 5 it 50 total=0.8476 comp=0.0779 dis=-0.1225 forget=0.8922
+[cider] ep 5 it 100 total=0.9840 comp=0.2251 dis=-0.1224 forget=0.8813
+[cider] ep 5 it 150 total=1.0326 comp=0.2478 dis=-0.1225 forget=0.9072
+[cider] ep 5 it 200 total=0.8855 comp=0.1188 dis=-0.1225 forget=0.8892
+[cider] ep 5 it 250 total=0.8651 comp=0.0978 dis=-0.1225 forget=0.8898
+[cider] ep 5 it 300 total=0.9010 comp=0.1361 dis=-0.1225 forget=0.8875
+[cider] ep 5 it 350 total=0.8928 comp=0.1363 dis=-0.1226 forget=0.8791
+[cider] ep 6 it 10 total=0.9680 comp=0.2137 dis=-0.1225 forget=0.8768
+[cider] ep 6 it 60 total=0.9029 comp=0.1548 dis=-0.1225 forget=0.8706
+[cider] ep 6 it 110 total=1.0415 comp=0.2734 dis=-0.1225 forget=0.8906
+[cider] ep 6 it 160 total=0.8754 comp=0.0993 dis=-0.1225 forget=0.8986
+[cider] ep 6 it 210 total=0.8647 comp=0.1099 dis=-0.1225 forget=0.8773
+[cider] ep 6 it 260 total=1.0273 comp=0.2501 dis=-0.1225 forget=0.8997
+[cider] ep 6 it 310 total=1.0020 comp=0.2326 dis=-0.1225 forget=0.8919
+[cider] ep 6 it 360 total=0.9470 comp=0.1654 dis=-0.1225 forget=0.9040
+[cider] ep 7 it 20 total=1.0076 comp=0.2191 dis=-0.1224 forget=0.9109
+[cider] ep 7 it 70 total=0.8530 comp=0.1123 dis=-0.1224 forget=0.8631
+[cider] ep 7 it 120 total=0.9076 comp=0.1302 dis=-0.1223 forget=0.8998
+[cider] ep 7 it 170 total=0.9845 comp=0.2193 dis=-0.1222 forget=0.8874
+[cider] ep 7 it 220 total=1.0668 comp=0.2887 dis=-0.1221 forget=0.9002
+[cider] ep 7 it 270 total=0.9394 comp=0.1806 dis=-0.1219 forget=0.8806
+[cider] ep 7 it 320 total=0.9177 comp=0.1577 dis=-0.1216 forget=0.8815
+[cider] ep 7 it 370 total=0.9856 comp=0.2246 dis=-0.1214 forget=0.8823
+[cider] ep 8 it 30 total=1.0621 comp=0.2756 dis=-0.1210 forget=0.9074
+[cider] ep 8 it 80 total=1.0385 comp=0.2716 dis=-0.1205 forget=0.8873
+[cider] ep 8 it 130 total=0.9815 comp=0.1980 dis=-0.1198 forget=0.9034
+[cider] ep 8 it 180 total=0.9635 comp=0.1856 dis=-0.1190 forget=0.8969
+[cider] ep 8 it 230 total=0.9179 comp=0.1499 dis=-0.1180 forget=0.8860
+[cider] ep 8 it 280 total=0.9533 comp=0.1668 dis=-0.1167 forget=0.9032
+[cider] ep 8 it 330 total=0.9262 comp=0.1494 dis=-0.1151 forget=0.8919
+[cider] ep 8 it 380 total=0.8996 comp=0.1275 dis=-0.1131 forget=0.8852
+[cider] ep 9 it 40 total=0.9254 comp=0.1357 dis=-0.1105 forget=0.9002
+[cider] ep 9 it 90 total=0.8612 comp=0.0895 dis=-0.1073 forget=0.8790
+[cider] ep 9 it 140 total=0.8572 comp=0.0649 dis=-0.1035 forget=0.8958
+[cider] ep 9 it 190 total=0.9639 comp=0.1533 dis=-0.0989 forget=0.9095
+[cider] ep 9 it 240 total=1.0411 comp=0.2490 dis=-0.0935 forget=0.8856
+[cider] ep 9 it 290 total=1.0502 comp=0.2316 dis=-0.0878 forget=0.9064
+[cider] ep 9 it 340 total=0.9210 comp=0.1090 dis=-0.0817 forget=0.8936
+[cider] ep 10 it 0 total=1.0211 comp=0.1772 dis=-0.0749 forget=0.9188
+[cider] ep 10 it 50 total=0.9729 comp=0.1343 dis=-0.0682 forget=0.9068
+[cider] ep 10 it 100 total=1.0282 comp=0.1916 dis=-0.0609 forget=0.8975
+[cider] ep 10 it 150 total=1.0813 comp=0.2362 dis=-0.0541 forget=0.8993
+[cider] ep 10 it 200 total=0.9303 comp=0.0676 dis=-0.0473 forget=0.9100
+[cider] ep 10 it 250 total=0.9905 comp=0.1245 dis=-0.0407 forget=0.9067
+[cider] ep 10 it 300 total=0.9960 comp=0.1290 dis=-0.0350 forget=0.9020
+[cider] ep 10 it 350 total=0.9838 comp=0.1112 dis=-0.0295 forget=0.9021
+[cider] ep 11 it 10 total=1.0377 comp=0.1441 dis=-0.0251 forget=0.9186
+[cider] ep 11 it 60 total=1.0764 comp=0.1936 dis=-0.0208 forget=0.9037
+[cider] ep 11 it 110 total=1.0588 comp=0.1663 dis=-0.0172 forget=0.9097
+[cider] ep 11 it 160 total=1.0162 comp=0.1161 dis=-0.0140 forget=0.9141
+[cider] ep 11 it 210 total=1.1169 comp=0.2165 dis=-0.0110 forget=0.9115
+[cider] ep 11 it 260 total=0.9985 comp=0.0937 dis=-0.0089 forget=0.9137
+[cider] ep 11 it 310 total=1.1139 comp=0.1926 dis=-0.0072 forget=0.9285
+[cider] ep 11 it 360 total=1.0211 comp=0.1107 dis=-0.0064 forget=0.9168
+[cider] ep 12 it 20 total=1.0379 comp=0.1244 dis=-0.0049 forget=0.9184
+[cider] ep 12 it 70 total=1.1799 comp=0.2473 dis=-0.0038 forget=0.9364
+[cider] ep 12 it 120 total=1.1155 comp=0.1924 dis=-0.0036 forget=0.9268
+[cider] ep 12 it 170 total=1.1637 comp=0.2349 dis=-0.0040 forget=0.9328
+[cider] ep 12 it 220 total=1.0785 comp=0.1527 dis=-0.0039 forget=0.9297
+[cider] ep 12 it 270 total=1.0833 comp=0.1654 dis=-0.0042 forget=0.9222
+[cider] ep 12 it 320 total=1.0408 comp=0.1279 dis=-0.0047 forget=0.9177
+[cider] ep 12 it 370 total=0.9545 comp=0.0523 dis=-0.0055 forget=0.9077
+[cider] ep 13 it 30 total=1.0673 comp=0.1370 dis=-0.0058 forget=0.9360
+[cider] ep 13 it 80 total=1.0940 comp=0.1791 dis=-0.0062 forget=0.9211
+[cider] ep 13 it 130 total=1.0528 comp=0.1435 dis=-0.0072 forget=0.9165
+[cider] ep 13 it 180 total=1.0965 comp=0.1686 dis=-0.0083 forget=0.9362
+[cider] ep 13 it 230 total=1.0576 comp=0.1396 dis=-0.0089 forget=0.9269
+[cider] ep 13 it 280 total=1.1366 comp=0.1972 dis=-0.0101 forget=0.9495
+[cider] ep 13 it 330 total=1.0512 comp=0.1276 dis=-0.0113 forget=0.9348
+[cider] ep 13 it 380 total=1.1039 comp=0.1859 dis=-0.0124 forget=0.9304
+[cider] ep 14 it 40 total=1.0602 comp=0.1472 dis=-0.0140 forget=0.9270
+[cider] ep 14 it 90 total=1.0492 comp=0.1459 dis=-0.0153 forget=0.9186
+[cider] ep 14 it 140 total=1.0037 comp=0.0987 dis=-0.0167 forget=0.9217
+[cider] ep 14 it 190 total=0.9796 comp=0.0783 dis=-0.0180 forget=0.9193
+[cider] ep 14 it 240 total=1.0959 comp=0.1825 dis=-0.0194 forget=0.9328
+[cider] ep 14 it 290 total=1.0146 comp=0.1066 dis=-0.0202 forget=0.9282
+[cider] ep 14 it 340 total=1.0981 comp=0.1741 dis=-0.0206 forget=0.9447
+[cider] ep 15 it 0 total=1.1024 comp=0.2030 dis=-0.0214 forget=0.9209
+[cider] ep 15 it 50 total=1.0983 comp=0.1978 dis=-0.0227 forget=0.9232
+[cider] ep 15 it 100 total=1.1659 comp=0.2551 dis=-0.0234 forget=0.9341
+[cider] ep 15 it 150 total=1.0679 comp=0.1586 dis=-0.0243 forget=0.9336
+[cider] ep 15 it 200 total=1.0421 comp=0.1540 dis=-0.0255 forget=0.9136
+[cider] ep 15 it 250 total=0.9949 comp=0.0983 dis=-0.0265 forget=0.9231
+[cider] ep 15 it 300 total=0.9921 comp=0.1016 dis=-0.0279 forget=0.9184
+[cider] ep 15 it 350 total=1.0315 comp=0.1295 dis=-0.0289 forget=0.9309
+[cider] ep 16 it 10 total=1.0267 comp=0.1233 dis=-0.0298 forget=0.9332
+[cider] ep 16 it 60 total=1.0215 comp=0.1297 dis=-0.0308 forget=0.9226
+[cider] ep 16 it 110 total=1.1703 comp=0.2615 dis=-0.0322 forget=0.9410
+[cider] ep 16 it 160 total=1.0324 comp=0.1437 dis=-0.0332 forget=0.9219
+[cider] ep 16 it 210 total=1.0099 comp=0.1329 dis=-0.0344 forget=0.9114
+[cider] ep 16 it 260 total=1.0394 comp=0.1555 dis=-0.0353 forget=0.9192
+[cider] ep 16 it 310 total=1.0349 comp=0.1481 dis=-0.0366 forget=0.9234
+[cider] ep 16 it 360 total=1.0348 comp=0.1538 dis=-0.0375 forget=0.9185
+[cider] ep 17 it 20 total=1.0796 comp=0.1918 dis=-0.0380 forget=0.9259
+[cider] ep 17 it 70 total=1.0790 comp=0.1903 dis=-0.0387 forget=0.9275
+[cider] ep 17 it 120 total=0.9631 comp=0.0775 dis=-0.0394 forget=0.9250
+[cider] ep 17 it 170 total=0.9790 comp=0.1042 dis=-0.0405 forget=0.9154
+[cider] ep 17 it 220 total=1.0745 comp=0.1974 dis=-0.0416 forget=0.9186
+[cider] ep 17 it 270 total=1.0084 comp=0.1355 dis=-0.0426 forget=0.9155
+[cider] ep 17 it 320 total=0.9441 comp=0.0583 dis=-0.0437 forget=0.9296
+[cider] ep 17 it 370 total=1.1141 comp=0.2381 dis=-0.0445 forget=0.9206
+[cider] ep 18 it 30 total=1.1149 comp=0.2346 dis=-0.0457 forget=0.9260
+[cider] ep 18 it 80 total=1.1194 comp=0.2381 dis=-0.0470 forget=0.9282
+[cider] ep 18 it 130 total=0.9569 comp=0.0927 dis=-0.0483 forget=0.9125
+[cider] ep 18 it 180 total=1.0400 comp=0.1726 dis=-0.0492 forget=0.9167
+[cider] ep 18 it 230 total=1.0105 comp=0.1441 dis=-0.0507 forget=0.9170
+[cider] ep 18 it 280 total=1.2423 comp=0.3402 dis=-0.0520 forget=0.9541
+[cider] ep 18 it 330 total=0.9091 comp=0.0626 dis=-0.0535 forget=0.9000
+[cider] ep 18 it 380 total=0.9212 comp=0.0733 dis=-0.0551 forget=0.9030
+[cider] ep 19 it 40 total=1.0217 comp=0.1664 dis=-0.0564 forget=0.9116
+[cider] ep 19 it 90 total=1.0372 comp=0.1822 dis=-0.0578 forget=0.9128
+[cider] ep 19 it 140 total=1.0497 comp=0.2045 dis=-0.0596 forget=0.9047
+[cider] ep 19 it 190 total=0.9262 comp=0.0824 dis=-0.0611 forget=0.9049
+[cider] ep 19 it 240 total=0.9534 comp=0.1087 dis=-0.0631 forget=0.9078
+[cider] ep 19 it 290 total=1.0082 comp=0.1653 dis=-0.0649 forget=0.9077
+[cider] ep 19 it 340 total=0.9978 comp=0.1487 dis=-0.0671 forget=0.9161
+[cider] ep 20 it 0 total=0.9074 comp=0.0815 dis=-0.0695 forget=0.8955
+[cider] ep 20 it 50 total=1.0127 comp=0.1836 dis=-0.0721 forget=0.9013
+[cider] ep 20 it 100 total=1.0357 comp=0.2026 dis=-0.0748 forget=0.9079
+[cider] ep 20 it 150 total=0.9894 comp=0.1693 dis=-0.0775 forget=0.8976
+[cider] ep 20 it 200 total=0.9990 comp=0.1651 dis=-0.0804 forget=0.9143
+[cider] ep 20 it 250 total=1.0004 comp=0.1870 dis=-0.0834 forget=0.8967
+[cider] ep 20 it 300 total=1.0237 comp=0.2047 dis=-0.0868 forget=0.9058
+[cider] ep 20 it 350 total=0.9980 comp=0.1978 dis=-0.0902 forget=0.8904
+[cider] ep 21 it 10 total=0.9382 comp=0.1492 dis=-0.0939 forget=0.8829
+[cider] ep 21 it 60 total=0.9529 comp=0.1651 dis=-0.0975 forget=0.8853
+[cider] ep 21 it 110 total=0.8684 comp=0.0938 dis=-0.1015 forget=0.8762
+[cider] ep 21 it 160 total=0.9838 comp=0.1979 dis=-0.1056 forget=0.8915
+[cider] ep 21 it 210 total=0.9010 comp=0.1230 dis=-0.1094 forget=0.8874
+[cider] ep 21 it 260 total=0.9588 comp=0.1935 dis=-0.1131 forget=0.8783
+[cider] ep 21 it 310 total=0.9038 comp=0.1516 dis=-0.1164 forget=0.8686
+[cider] ep 21 it 360 total=0.8758 comp=0.1212 dis=-0.1191 forget=0.8737
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 22 it 20 total=0.9138 comp=0.1648 dis=-0.1209 forget=0.8699
+[cider] ep 22 it 70 total=0.7983 comp=0.0521 dis=-0.1213 forget=0.8676
+[cider] ep 22 it 120 total=0.9116 comp=0.1597 dis=-0.1201 forget=0.8719
+[cider] ep 22 it 170 total=0.7980 comp=0.0618 dis=-0.1167 forget=0.8529
+[cider] ep 22 it 220 total=0.9217 comp=0.1565 dis=-0.1106 forget=0.8758
+[cider] ep 22 it 270 total=0.9650 comp=0.1903 dis=-0.1016 forget=0.8763
+[cider] ep 22 it 320 total=1.0535 comp=0.2646 dis=-0.0903 forget=0.8792
+[cider] ep 22 it 370 total=1.0070 comp=0.1977 dis=-0.0767 forget=0.8860
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 23 it 30 total=0.9133 comp=0.0927 dis=-0.0611 forget=0.8817
+[cider] ep 23 it 80 total=0.8871 comp=0.0551 dis=-0.0454 forget=0.8774
+[cider] ep 23 it 130 total=0.9243 comp=0.0746 dis=-0.0297 forget=0.8794
+[cider] ep 23 it 180 total=1.0879 comp=0.1919 dis=-0.0152 forget=0.9111
+[cider] ep 23 it 230 total=1.0791 comp=0.1855 dis=-0.0026 forget=0.8962
+[cider] ep 23 it 280 total=1.3191 comp=0.3946 dis=0.0081 forget=0.9164
+[cider] ep 23 it 330 total=1.0750 comp=0.1645 dis=0.0157 forget=0.8949
+[cider] ep 23 it 380 total=1.0364 comp=0.1191 dis=0.0222 forget=0.8951
+[cider] ep 24 it 40 total=1.0236 comp=0.0940 dis=0.0264 forget=0.9032
+[cider] ep 24 it 90 total=1.0917 comp=0.1543 dis=0.0296 forget=0.9078
+[cider] ep 24 it 140 total=1.1669 comp=0.2200 dis=0.0308 forget=0.9161
+[cider] ep 24 it 190 total=1.0262 comp=0.1011 dis=0.0306 forget=0.8945
+[cider] ep 24 it 240 total=1.0558 comp=0.1299 dis=0.0282 forget=0.8976
+[cider] ep 24 it 290 total=1.0344 comp=0.1123 dis=0.0260 forget=0.8961
+[cider] ep 24 it 340 total=1.0735 comp=0.1413 dis=0.0241 forget=0.9082
+[cider] ep 25 it 0 total=0.9924 comp=0.0586 dis=0.0208 forget=0.9130
+[cider] ep 25 it 50 total=1.1732 comp=0.2345 dis=0.0168 forget=0.9218
+[cider] ep 25 it 100 total=1.1495 comp=0.2211 dis=0.0121 forget=0.9163
+[cider] ep 25 it 150 total=1.3249 comp=0.3561 dis=0.0076 forget=0.9611
+[cider] ep 25 it 200 total=1.0147 comp=0.1016 dis=0.0028 forget=0.9103
+[cider] ep 25 it 250 total=1.1326 comp=0.2213 dis=-0.0027 forget=0.9140
+[cider] ep 25 it 300 total=1.1424 comp=0.2454 dis=-0.0074 forget=0.9045
+[cider] ep 25 it 350 total=0.9892 comp=0.0948 dis=-0.0120 forget=0.9064
+[cider] ep 26 it 10 total=1.0233 comp=0.1212 dis=-0.0166 forget=0.9187
+[cider] ep 26 it 60 total=0.9625 comp=0.0798 dis=-0.0204 forget=0.9031
+[cider] ep 26 it 110 total=1.0374 comp=0.1580 dis=-0.0244 forget=0.9039
+[cider] ep 26 it 160 total=1.0562 comp=0.1713 dis=-0.0283 forget=0.9132
+[cider] ep 26 it 210 total=1.0074 comp=0.1382 dis=-0.0322 forget=0.9015
+[cider] ep 26 it 260 total=0.9657 comp=0.0957 dis=-0.0360 forget=0.9060
+[cider] ep 26 it 310 total=0.9883 comp=0.1287 dis=-0.0400 forget=0.8995
+[cider] ep 26 it 360 total=1.0029 comp=0.1368 dis=-0.0435 forget=0.9096
+[cider] ep 27 it 20 total=1.0050 comp=0.1359 dis=-0.0468 forget=0.9159
+[cider] ep 27 it 70 total=0.9882 comp=0.1454 dis=-0.0501 forget=0.8929
+[cider] ep 27 it 120 total=0.9778 comp=0.1304 dis=-0.0531 forget=0.9004
+[cider] ep 27 it 170 total=1.0390 comp=0.1851 dis=-0.0558 forget=0.9097
+[cider] ep 27 it 220 total=0.9187 comp=0.0757 dis=-0.0586 forget=0.9016
+[cider] ep 27 it 270 total=1.0821 comp=0.2319 dis=-0.0613 forget=0.9115
+[cider] ep 27 it 320 total=0.9746 comp=0.1360 dis=-0.0642 forget=0.9028
+[cider] ep 27 it 370 total=1.0168 comp=0.1859 dis=-0.0667 forget=0.8976
+[cider] ep 28 it 30 total=0.9784 comp=0.1502 dis=-0.0694 forget=0.8976
+[cider] ep 28 it 80 total=0.9485 comp=0.1227 dis=-0.0719 forget=0.8976
+[cider] ep 28 it 130 total=1.0375 comp=0.2083 dis=-0.0743 forget=0.9035
+[cider] ep 28 it 180 total=1.0093 comp=0.1822 dis=-0.0765 forget=0.9036
+[cider] ep 28 it 230 total=1.0524 comp=0.2207 dis=-0.0788 forget=0.9104
+[cider] ep 28 it 280 total=0.9250 comp=0.1054 dis=-0.0808 forget=0.9005
+[cider] ep 28 it 330 total=0.8827 comp=0.0682 dis=-0.0828 forget=0.8972
+[cider] ep 28 it 380 total=0.9501 comp=0.1289 dis=-0.0847 forget=0.9059
+[cider] ep 29 it 40 total=1.0287 comp=0.2090 dis=-0.0864 forget=0.9060
+[cider] ep 29 it 90 total=0.8860 comp=0.0689 dis=-0.0882 forget=0.9053
+[cider] ep 29 it 140 total=0.9305 comp=0.1206 dis=-0.0898 forget=0.8997
+[cider] ep 29 it 190 total=0.8930 comp=0.1013 dis=-0.0913 forget=0.8830
+[cider] ep 29 it 240 total=1.0143 comp=0.2075 dis=-0.0926 forget=0.8994
+[cider] ep 29 it 290 total=0.9432 comp=0.1455 dis=-0.0939 forget=0.8916
+[cider] ep 29 it 340 total=0.9251 comp=0.1298 dis=-0.0952 forget=0.8905
+[cider] ep 30 it 0 total=1.0639 comp=0.2440 dis=-0.0964 forget=0.9163
+[cider] ep 30 it 50 total=0.9963 comp=0.2073 dis=-0.0976 forget=0.8866
+[cider] ep 30 it 100 total=1.0267 comp=0.2350 dis=-0.0987 forget=0.8904
+[cider] ep 30 it 150 total=0.8750 comp=0.0844 dis=-0.0996 forget=0.8902
+[cider] ep 30 it 200 total=0.9814 comp=0.1918 dis=-0.1006 forget=0.8902
+[cider] ep 30 it 250 total=0.9453 comp=0.1506 dis=-0.1014 forget=0.8961
+[cider] ep 30 it 300 total=0.9889 comp=0.1998 dis=-0.1022 forget=0.8914
+[cider] ep 30 it 350 total=0.8590 comp=0.0723 dis=-0.1031 forget=0.8898
+[cider] ep 31 it 10 total=0.9098 comp=0.1251 dis=-0.1039 forget=0.8886
+[cider] ep 31 it 60 total=1.0113 comp=0.2299 dis=-0.1046 forget=0.8861
+[cider] ep 31 it 110 total=0.9132 comp=0.1371 dis=-0.1053 forget=0.8814
+[cider] ep 31 it 160 total=0.8419 comp=0.0613 dis=-0.1059 forget=0.8865
+[cider] ep 31 it 210 total=0.9262 comp=0.1424 dis=-0.1064 forget=0.8902
+[cider] ep 31 it 260 total=0.8747 comp=0.0965 dis=-0.1070 forget=0.8852
+[cider] ep 31 it 310 total=0.8879 comp=0.1115 dis=-0.1074 forget=0.8839
+[cider] ep 31 it 360 total=0.9978 comp=0.2115 dis=-0.1079 forget=0.8942
+[cider] ep 32 it 20 total=0.9817 comp=0.2023 dis=-0.1083 forget=0.8878
+[cider] ep 32 it 70 total=0.9005 comp=0.1248 dis=-0.1088 forget=0.8844
+[cider] ep 32 it 120 total=0.9372 comp=0.1595 dis=-0.1091 forget=0.8868
+[cider] ep 32 it 170 total=1.0726 comp=0.2881 dis=-0.1094 forget=0.8940
+[cider] ep 32 it 220 total=0.8477 comp=0.0757 dis=-0.1097 forget=0.8817
+[cider] ep 32 it 270 total=0.9863 comp=0.2072 dis=-0.1100 forget=0.8890
+[cider] ep 32 it 320 total=0.9004 comp=0.1356 dis=-0.1103 forget=0.8751
+[cider] ep 32 it 370 total=0.9355 comp=0.1541 dis=-0.1105 forget=0.8920
+[cider] ep 33 it 30 total=0.8940 comp=0.1297 dis=-0.1107 forget=0.8749
+[cider] ep 33 it 80 total=0.9673 comp=0.1866 dis=-0.1108 forget=0.8916
+[cider] ep 33 it 130 total=1.0580 comp=0.2820 dis=-0.1110 forget=0.8869
+[cider] ep 33 it 180 total=0.9010 comp=0.1226 dis=-0.1110 forget=0.8894
+[cider] ep 33 it 230 total=0.8476 comp=0.0831 dis=-0.1112 forget=0.8757
+[cider] ep 33 it 280 total=1.0010 comp=0.2145 dis=-0.1113 forget=0.8977
+[cider] ep 33 it 330 total=0.8997 comp=0.1317 dis=-0.1114 forget=0.8794
+[cider] ep 33 it 380 total=0.8776 comp=0.1137 dis=-0.1114 forget=0.8754
+[cider] ep 34 it 40 total=0.9125 comp=0.1347 dis=-0.1115 forget=0.8894
+[cider] ep 34 it 90 total=0.8637 comp=0.1000 dis=-0.1116 forget=0.8753
+[cider] ep 34 it 140 total=0.8649 comp=0.0981 dis=-0.1117 forget=0.8785
+[cider] ep 34 it 190 total=0.9908 comp=0.2030 dis=-0.1117 forget=0.8995
+[cider] ep 34 it 240 total=0.9445 comp=0.1810 dis=-0.1117 forget=0.8752
+[cider] ep 34 it 290 total=0.8962 comp=0.1163 dis=-0.1117 forget=0.8916
+[cider] ep 34 it 340 total=1.0048 comp=0.2134 dis=-0.1117 forget=0.9031
+[peft] adapter saved to checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[cider] ep 35 it 0 total=0.9682 comp=0.1975 dis=-0.1117 forget=0.8825
+[cider] ep 35 it 50 total=0.8377 comp=0.0644 dis=-0.1117 forget=0.8850
+[cider] ep 35 it 100 total=0.9691 comp=0.1865 dis=-0.1117 forget=0.8942
+[cider] ep 35 it 150 total=0.8504 comp=0.0805 dis=-0.1116 forget=0.8815
+[cider] ep 35 it 200 total=0.9234 comp=0.1633 dis=-0.1115 forget=0.8717
+[cider] ep 35 it 250 total=0.9221 comp=0.1478 dis=-0.1115 forget=0.8858
+[cider] ep 35 it 300 total=0.8553 comp=0.0936 dis=-0.1113 forget=0.8730
+[cider] ep 35 it 350 total=0.8755 comp=0.1088 dis=-0.1112 forget=0.8779
+[cider] ep 36 it 10 total=0.8826 comp=0.1080 dis=-0.1111 forget=0.8856
+[cider] ep 36 it 60 total=0.9362 comp=0.1567 dis=-0.1110 forget=0.8905
+[cider] ep 36 it 110 total=1.0204 comp=0.2444 dis=-0.1109 forget=0.8869
+[cider] ep 36 it 160 total=0.9005 comp=0.1312 dis=-0.1108 forget=0.8802
+[cider] ep 36 it 210 total=0.8916 comp=0.1351 dis=-0.1108 forget=0.8673
+[cider] ep 36 it 260 total=0.8452 comp=0.0758 dis=-0.1107 forget=0.8801
+[cider] ep 36 it 310 total=0.8908 comp=0.1185 dis=-0.1106 forget=0.8829
+[cider] ep 36 it 360 total=0.9068 comp=0.1244 dis=-0.1104 forget=0.8929
+[cider] ep 37 it 20 total=0.9002 comp=0.1284 dis=-0.1103 forget=0.8822
+[cider] ep 37 it 70 total=0.8157 comp=0.0534 dis=-0.1102 forget=0.8725
+[cider] ep 37 it 120 total=0.9087 comp=0.1404 dis=-0.1099 forget=0.8783
+[cider] ep 37 it 170 total=0.9880 comp=0.2241 dis=-0.1098 forget=0.8737
+[cider] ep 37 it 220 total=0.9181 comp=0.1417 dis=-0.1096 forget=0.8861
+[cider] ep 37 it 270 total=1.0515 comp=0.2782 dis=-0.1096 forget=0.8829
+[cider] ep 37 it 320 total=0.9596 comp=0.1904 dis=-0.1094 forget=0.8785
+[cider] ep 37 it 370 total=0.8043 comp=0.0416 dis=-0.1092 forget=0.8718
+[cider] ep 38 it 30 total=0.9135 comp=0.1420 dis=-0.1091 forget=0.8806
+[cider] ep 38 it 80 total=1.0186 comp=0.2415 dis=-0.1089 forget=0.8861
+[cider] ep 38 it 130 total=0.9424 comp=0.1712 dis=-0.1088 forget=0.8800
+[cider] ep 38 it 180 total=0.9112 comp=0.1373 dis=-0.1087 forget=0.8827
+[cider] ep 38 it 230 total=0.9525 comp=0.1747 dis=-0.1086 forget=0.8864
+[cider] ep 38 it 280 total=0.8774 comp=0.1112 dis=-0.1084 forget=0.8746
+[cider] ep 38 it 330 total=0.8813 comp=0.1171 dis=-0.1083 forget=0.8725
+[cider] ep 38 it 380 total=1.1421 comp=0.3716 dis=-0.1081 forget=0.8787
+[cider] ep 39 it 40 total=0.8856 comp=0.1176 dis=-0.1080 forget=0.8760
+[cider] ep 39 it 90 total=0.9077 comp=0.1422 dis=-0.1077 forget=0.8732
+[cider] ep 39 it 140 total=0.8586 comp=0.0892 dis=-0.1076 forget=0.8770
+[cider] ep 39 it 190 total=0.9312 comp=0.1505 dis=-0.1074 forget=0.8880
+[cider] ep 39 it 240 total=0.9084 comp=0.1440 dis=-0.1073 forget=0.8717
+[cider] ep 39 it 290 total=0.9553 comp=0.1868 dis=-0.1072 forget=0.8757
+[cider] ep 39 it 340 total=1.0432 comp=0.2640 dis=-0.1071 forget=0.8864
+[cider] ep 40 it 0 total=0.8303 comp=0.0604 dis=-0.1070 forget=0.8769
+[cider] ep 40 it 50 total=0.8406 comp=0.0723 dis=-0.1068 forget=0.8751
+[cider] ep 40 it 100 total=0.9335 comp=0.1623 dis=-0.1066 forget=0.8778
+[cider] ep 40 it 150 total=0.9260 comp=0.1578 dis=-0.1064 forget=0.8746
+[cider] ep 40 it 200 total=0.9229 comp=0.1560 dis=-0.1062 forget=0.8731
+[cider] ep 40 it 250 total=0.9506 comp=0.1749 dis=-0.1060 forget=0.8817
+[cider] ep 40 it 300 total=0.8942 comp=0.1224 dis=-0.1059 forget=0.8777
+[cider] ep 40 it 350 total=0.9753 comp=0.1847 dis=-0.1057 forget=0.8963
+[cider] ep 41 it 10 total=0.9079 comp=0.1440 dis=-0.1057 forget=0.8697
+[cider] ep 41 it 60 total=0.9418 comp=0.1740 dis=-0.1056 forget=0.8735
+[cider] ep 41 it 110 total=0.8858 comp=0.1239 dis=-0.1056 forget=0.8675
+[cider] ep 41 it 160 total=0.9411 comp=0.1659 dis=-0.1054 forget=0.8806
+[cider] ep 41 it 210 total=0.9562 comp=0.1866 dis=-0.1052 forget=0.8748
+[cider] ep 41 it 260 total=0.8479 comp=0.0641 dis=-0.1051 forget=0.8889
+[cider] ep 41 it 310 total=0.9114 comp=0.1432 dis=-0.1050 forget=0.8733
+[cider] ep 41 it 360 total=0.9630 comp=0.1794 dis=-0.1049 forget=0.8885
+[cider] ep 42 it 20 total=0.9257 comp=0.1535 dis=-0.1048 forget=0.8770
+[cider] ep 42 it 70 total=0.9899 comp=0.2101 dis=-0.1046 forget=0.8844
+[cider] ep 42 it 120 total=0.8987 comp=0.1328 dis=-0.1044 forget=0.8703
+[cider] ep 42 it 170 total=0.8722 comp=0.1117 dis=-0.1042 forget=0.8648
+[cider] ep 42 it 220 total=0.9260 comp=0.1439 dis=-0.1042 forget=0.8863
+[cider] ep 42 it 270 total=0.8440 comp=0.0780 dis=-0.1041 forget=0.8702
+[cider] ep 42 it 320 total=0.8872 comp=0.1183 dis=-0.1039 forget=0.8728
+[cider] ep 42 it 370 total=0.9136 comp=0.1297 dis=-0.1040 forget=0.8879
+[cider] ep 43 it 30 total=0.9096 comp=0.1276 dis=-0.1039 forget=0.8859
+[cider] ep 43 it 80 total=0.8732 comp=0.1041 dis=-0.1038 forget=0.8729
+[cider] ep 43 it 130 total=0.9418 comp=0.1647 dis=-0.1037 forget=0.8809
+[cider] ep 43 it 180 total=0.8725 comp=0.1078 dis=-0.1036 forget=0.8683
+[cider] ep 43 it 230 total=0.8723 comp=0.0957 dis=-0.1034 forget=0.8801
+[cider] ep 43 it 280 total=0.9060 comp=0.1387 dis=-0.1033 forget=0.8705
+[cider] ep 43 it 330 total=0.9546 comp=0.1726 dis=-0.1032 forget=0.8852
+[cider] ep 43 it 380 total=1.0176 comp=0.2340 dis=-0.1030 forget=0.8866
+[cider] ep 44 it 40 total=0.8726 comp=0.0932 dis=-0.1030 forget=0.8824
+[cider] ep 44 it 90 total=0.9094 comp=0.1266 dis=-0.1028 forget=0.8856
+[cider] ep 44 it 140 total=0.9123 comp=0.1383 dis=-0.1028 forget=0.8768
+[cider] ep 44 it 190 total=0.9378 comp=0.1703 dis=-0.1027 forget=0.8702
+[cider] ep 44 it 240 total=0.9599 comp=0.1679 dis=-0.1027 forget=0.8947
+[cider] ep 44 it 290 total=0.8751 comp=0.1004 dis=-0.1027 forget=0.8774
+[cider] ep 44 it 340 total=0.8803 comp=0.1104 dis=-0.1027 forget=0.8726
+[cider] ep 45 it 0 total=0.9289 comp=0.1531 dis=-0.1027 forget=0.8785
+[cider] ep 45 it 50 total=0.9692 comp=0.1850 dis=-0.1027 forget=0.8869
+[cider] ep 45 it 100 total=0.9375 comp=0.1596 dis=-0.1025 forget=0.8803
+[cider] ep 45 it 150 total=0.9126 comp=0.1380 dis=-0.1024 forget=0.8771
+[cider] ep 45 it 200 total=0.8433 comp=0.0757 dis=-0.1024 forget=0.8699
+[cider] ep 45 it 250 total=0.8956 comp=0.1147 dis=-0.1023 forget=0.8833
+[cider] ep 45 it 300 total=0.8983 comp=0.1295 dis=-0.1023 forget=0.8711
+[cider] ep 45 it 350 total=0.8860 comp=0.1034 dis=-0.1023 forget=0.8848
+[cider] ep 46 it 10 total=0.9504 comp=0.1662 dis=-0.1021 forget=0.8864
+[cider] ep 46 it 60 total=0.7927 comp=0.0295 dis=-0.1022 forget=0.8655
+[cider] ep 46 it 110 total=0.9236 comp=0.1545 dis=-0.1020 forget=0.8711
+[cider] ep 46 it 160 total=0.9181 comp=0.1521 dis=-0.1021 forget=0.8681
+[cider] ep 46 it 210 total=0.9069 comp=0.1361 dis=-0.1020 forget=0.8727
+[cider] ep 46 it 260 total=0.9693 comp=0.1931 dis=-0.1019 forget=0.8781
+[cider] ep 46 it 310 total=0.9788 comp=0.2093 dis=-0.1019 forget=0.8714
+[cider] ep 46 it 360 total=1.0798 comp=0.3036 dis=-0.1018 forget=0.8780
+[cider] ep 47 it 20 total=0.8757 comp=0.0923 dis=-0.1018 forget=0.8851
+[cider] ep 47 it 70 total=0.9586 comp=0.1817 dis=-0.1018 forget=0.8786
+[cider] ep 47 it 120 total=0.9671 comp=0.1853 dis=-0.1017 forget=0.8836
+[cider] ep 47 it 170 total=0.8708 comp=0.0922 dis=-0.1017 forget=0.8803
+[cider] ep 47 it 220 total=0.9009 comp=0.1112 dis=-0.1015 forget=0.8912
+[cider] ep 47 it 270 total=0.8665 comp=0.0987 dis=-0.1014 forget=0.8692
+[cider] ep 47 it 320 total=0.8842 comp=0.1075 dis=-0.1015 forget=0.8783
+[cider] ep 47 it 370 total=0.9384 comp=0.1623 dis=-0.1016 forget=0.8777
+[cider] ep 48 it 30 total=1.0020 comp=0.2170 dis=-0.1016 forget=0.8866
+[cider] ep 48 it 80 total=0.8937 comp=0.1270 dis=-0.1015 forget=0.8682
+[cider] ep 48 it 130 total=0.8558 comp=0.0750 dis=-0.1014 forget=0.8822
+[cider] ep 48 it 180 total=0.9570 comp=0.1803 dis=-0.1015 forget=0.8782
+[cider] ep 48 it 230 total=1.0411 comp=0.2599 dis=-0.1016 forget=0.8827
+[cider] ep 48 it 280 total=0.8562 comp=0.0867 dis=-0.1016 forget=0.8711
+[cider] ep 48 it 330 total=0.9866 comp=0.2135 dis=-0.1016 forget=0.8747
+[cider] ep 48 it 380 total=0.9441 comp=0.1642 dis=-0.1015 forget=0.8815
+[cider] ep 49 it 40 total=0.9687 comp=0.2032 dis=-0.1015 forget=0.8669
+[cider] ep 49 it 90 total=0.9842 comp=0.2077 dis=-0.1015 forget=0.8780
+[cider] ep 49 it 140 total=0.9182 comp=0.1377 dis=-0.1015 forget=0.8819
+[cider] ep 49 it 190 total=0.8954 comp=0.1257 dis=-0.1013 forget=0.8710
+[cider] ep 49 it 240 total=0.9720 comp=0.1933 dis=-0.1013 forget=0.8800
+[cider] ep 49 it 290 total=0.9603 comp=0.1842 dis=-0.1014 forget=0.8775
+[cider] ep 49 it 340 total=1.0281 comp=0.2305 dis=-0.1014 forget=0.8989
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+[ckpt] unexpected keys: ['fc.weight', 'fc.bias']
+ckpt loaded from /home/shaokun/cider-master/checkpoints/CIFAR-100/30_10_18:17_cider_resnet34_lr_0.5_cosine_True_bsz_512_cider_wd_1.0_500_128_trial_0_temp_0.1_CIFAR-100_pm_0.5/checkpoint_500.pth.tar
+[peft] adapter loaded from checkpoints/CIFAR-100-resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2-adapter
+[peft] active adapters set to: default
+resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2: Number of model parameters: 21843904
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<04:03,  1.60it/s]  2%|▏         | 6/391 [00:00<00:36, 10.46it/s]  3%|▎         | 13/391 [00:00<00:16, 22.67it/s]  5%|▌         | 21/391 [00:00<00:10, 35.21it/s]  7%|▋         | 27/391 [00:01<00:09, 40.31it/s]  8%|▊         | 33/391 [00:01<00:08, 41.46it/s] 11%|█         | 42/391 [00:01<00:06, 52.23it/s] 13%|█▎        | 52/391 [00:01<00:05, 63.00it/s] 16%|█▌        | 62/391 [00:01<00:04, 70.91it/s] 18%|█▊        | 70/391 [00:01<00:04, 70.11it/s] 20%|█▉        | 78/391 [00:01<00:04, 70.99it/s] 22%|██▏       | 86/391 [00:01<00:04, 69.08it/s] 24%|██▍       | 94/391 [00:01<00:04, 70.22it/s] 26%|██▌       | 102/391 [00:02<00:04, 68.76it/s] 28%|██▊       | 109/391 [00:02<00:04, 68.34it/s] 30%|██▉       | 116/391 [00:02<00:04, 67.15it/s] 32%|███▏      | 124/391 [00:02<00:03, 69.62it/s] 34%|███▍      | 132/391 [00:02<00:03, 71.50it/s] 36%|███▌      | 140/391 [00:02<00:03, 68.39it/s] 38%|███▊      | 147/391 [00:02<00:03, 67.72it/s] 40%|███▉      | 155/391 [00:02<00:03, 69.29it/s] 42%|████▏     | 163/391 [00:02<00:03, 70.83it/s] 44%|████▎     | 171/391 [00:03<00:03, 72.74it/s] 46%|████▌     | 180/391 [00:03<00:02, 75.11it/s] 48%|████▊     | 188/391 [00:03<00:02, 70.45it/s] 50%|█████     | 196/391 [00:03<00:02, 70.22it/s] 52%|█████▏    | 204/391 [00:03<00:03, 61.84it/s] 54%|█████▍    | 212/391 [00:03<00:02, 65.20it/s] 56%|█████▌    | 219/391 [00:03<00:02, 62.53it/s] 58%|█████▊    | 226/391 [00:03<00:02, 63.48it/s] 60%|█████▉    | 233/391 [00:04<00:02, 60.17it/s] 61%|██████▏   | 240/391 [00:04<00:02, 59.75it/s] 63%|██████▎   | 247/391 [00:04<00:02, 56.25it/s] 65%|██████▌   | 255/391 [00:04<00:02, 61.91it/s] 68%|██████▊   | 264/391 [00:04<00:01, 68.67it/s] 70%|██████▉   | 273/391 [00:04<00:01, 74.13it/s] 72%|███████▏  | 282/391 [00:04<00:01, 76.81it/s] 74%|███████▍  | 291/391 [00:04<00:01, 78.94it/s] 76%|███████▋  | 299/391 [00:04<00:01, 76.87it/s] 79%|███████▊  | 307/391 [00:05<00:01, 73.79it/s] 81%|████████  | 315/391 [00:05<00:01, 74.25it/s] 83%|████████▎ | 323/391 [00:05<00:00, 73.06it/s] 85%|████████▍ | 331/391 [00:05<00:00, 73.42it/s] 87%|████████▋ | 339/391 [00:05<00:00, 74.75it/s] 89%|████████▊ | 347/391 [00:05<00:00, 74.17it/s] 91%|█████████ | 355/391 [00:05<00:00, 69.66it/s] 93%|█████████▎| 364/391 [00:05<00:00, 73.30it/s] 96%|█████████▌| 374/391 [00:05<00:00, 78.45it/s] 98%|█████████▊| 384/391 [00:06<00:00, 82.75it/s]100%|██████████| 391/391 [00:06<00:00, 63.34it/s]
+50000 images processed, 6.254986763000488 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:49,  1.58it/s]  9%|▉         | 7/79 [00:00<00:05, 12.20it/s] 19%|█▉        | 15/79 [00:00<00:02, 26.09it/s] 27%|██▋       | 21/79 [00:00<00:01, 33.24it/s] 37%|███▋      | 29/79 [00:01<00:01, 44.47it/s] 48%|████▊     | 38/79 [00:01<00:00, 54.95it/s] 58%|█████▊    | 46/79 [00:01<00:00, 56.50it/s] 68%|██████▊   | 54/79 [00:01<00:00, 62.04it/s] 80%|███████▉  | 63/79 [00:01<00:00, 69.00it/s] 91%|█████████ | 72/79 [00:01<00:00, 74.54it/s]100%|██████████| 79/79 [00:01<00:00, 46.88it/s]
+10000 images processed, 1.7159628868103027 seconds used
+
+Saved forget OOD features to cache/resnet34-test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2/CIFAR-100/forget
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<02:06,  1.61it/s]  2%|▏         | 5/204 [00:00<00:23,  8.58it/s]  5%|▍         | 10/204 [00:00<00:11, 16.27it/s]  9%|▉         | 18/204 [00:00<00:06, 29.41it/s] 13%|█▎        | 27/204 [00:01<00:04, 43.20it/s] 18%|█▊        | 36/204 [00:01<00:03, 53.55it/s] 22%|██▏       | 44/204 [00:01<00:02, 60.19it/s] 25%|██▌       | 52/204 [00:01<00:02, 65.33it/s] 29%|██▉       | 60/204 [00:01<00:02, 69.28it/s] 33%|███▎      | 68/204 [00:01<00:01, 72.02it/s] 37%|███▋      | 76/204 [00:01<00:01, 73.16it/s] 41%|████      | 84/204 [00:01<00:01, 71.04it/s] 45%|████▌     | 92/204 [00:01<00:01, 73.03it/s] 50%|████▉     | 101/204 [00:02<00:01, 75.47it/s] 54%|█████▍    | 110/204 [00:02<00:01, 78.68it/s] 58%|█████▊    | 118/204 [00:02<00:01, 74.79it/s] 62%|██████▏   | 126/204 [00:02<00:01, 71.94it/s] 66%|██████▌   | 134/204 [00:02<00:01, 68.28it/s] 69%|██████▉   | 141/204 [00:02<00:00, 64.12it/s] 73%|███████▎  | 149/204 [00:02<00:00, 66.80it/s] 77%|███████▋  | 158/204 [00:02<00:00, 72.29it/s] 81%|████████▏ | 166/204 [00:02<00:00, 74.22it/s] 85%|████████▌ | 174/204 [00:03<00:00, 75.62it/s] 89%|████████▉ | 182/204 [00:03<00:00, 67.78it/s] 94%|█████████▍| 192/204 [00:03<00:00, 75.42it/s] 99%|█████████▉| 202/204 [00:03<00:00, 81.04it/s]100%|██████████| 204/204 [00:03<00:00, 59.36it/s]
+26032 images processed, 3.485901355743408 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:01<01:35,  1.22s/it]  5%|▌         | 4/79 [00:01<00:19,  3.86it/s] 11%|█▏        | 9/79 [00:01<00:07,  9.78it/s] 23%|██▎       | 18/79 [00:01<00:02, 22.05it/s] 33%|███▎      | 26/79 [00:01<00:01, 32.36it/s] 42%|████▏     | 33/79 [00:01<00:01, 39.79it/s] 51%|█████     | 40/79 [00:01<00:00, 44.30it/s] 59%|█████▉    | 47/79 [00:01<00:00, 46.85it/s] 68%|██████▊   | 54/79 [00:02<00:00, 51.13it/s] 78%|███████▊  | 62/79 [00:02<00:00, 57.11it/s] 91%|█████████ | 72/79 [00:02<00:00, 66.99it/s]100%|██████████| 79/79 [00:02<00:00, 32.97it/s]
+10000 images processed, 2.4250729084014893 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:47,  1.64it/s]  9%|▉         | 7/79 [00:00<00:05, 12.61it/s] 20%|██        | 16/79 [00:00<00:02, 28.92it/s] 29%|██▉       | 23/79 [00:00<00:01, 38.32it/s] 38%|███▊      | 30/79 [00:01<00:01, 44.33it/s] 48%|████▊     | 38/79 [00:01<00:00, 52.40it/s] 57%|█████▋    | 45/79 [00:01<00:00, 55.25it/s] 68%|██████▊   | 54/79 [00:01<00:00, 63.40it/s] 81%|████████  | 64/79 [00:01<00:00, 72.40it/s] 94%|█████████▎| 74/79 [00:01<00:00, 78.86it/s]100%|██████████| 79/79 [00:01<00:00, 48.63it/s]
+10000 images processed, 1.6449110507965088 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:46,  1.49it/s]  9%|▊         | 6/70 [00:00<00:06,  9.82it/s] 16%|█▌        | 11/70 [00:00<00:03, 16.77it/s] 24%|██▍       | 17/70 [00:01<00:02, 25.33it/s] 34%|███▍      | 24/70 [00:01<00:01, 35.47it/s] 46%|████▌     | 32/70 [00:01<00:00, 46.17it/s] 57%|█████▋    | 40/70 [00:01<00:00, 54.49it/s] 71%|███████▏  | 50/70 [00:01<00:00, 65.74it/s] 86%|████████▌ | 60/70 [00:01<00:00, 73.95it/s]100%|██████████| 70/70 [00:01<00:00, 78.49it/s]100%|██████████| 70/70 [00:01<00:00, 42.41it/s]
+8925 images processed, 1.6819605827331543 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<00:52,  1.19s/it]  4%|▍         | 2/45 [00:01<00:29,  1.45it/s] 20%|██        | 9/45 [00:01<00:04,  8.87it/s] 38%|███▊      | 17/45 [00:01<00:01, 16.93it/s] 47%|████▋     | 21/45 [00:02<00:01, 12.44it/s] 58%|█████▊    | 26/45 [00:02<00:01, 16.57it/s] 73%|███████▎  | 33/45 [00:02<00:00, 22.24it/s] 82%|████████▏ | 37/45 [00:02<00:00, 19.99it/s] 98%|█████████▊| 44/45 [00:02<00:00, 27.37it/s]100%|██████████| 45/45 [00:02<00:00, 15.01it/s]
+5640 images processed, 3.0371599197387695 seconds used
+
+22.272992372512817
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN          15.25  96.34  89.04
+places365     78.12  77.30  74.81
+LSUN          30.49  94.56  94.11
+iSUN          64.61  85.96  86.82
+dtd           40.55  91.07  93.64
+AVG           45.80  89.05  87.68
+Retain-Acc: 0.7379
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 86.85 AUROC: 77.40 AUIN: 93.83
+39.50630211830139
+[umap] saved to figs/umap_CIFAR-100_resnet34_test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2_domain.png
+[umap] saved to figs/umap_CIFAR-100_resnet34_test-palm-cider-b128-e50-lr0.001-wd1e-4-fd128-w1-pm0.999-temp0.08-bfmbalanced-fl0.2_rf.png

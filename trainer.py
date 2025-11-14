@@ -7,7 +7,7 @@ from tqdm import tqdm
 from util.train_utils import adjust_learning_rate, AverageMeter
 from util.peft_utils import is_peft_available
 import torch.nn as nn
-
+# 增量学习的备份
 
 def train_palm(args, train_loader, model, criterion, optimizer, epoch, scaler=None):
     model.train()

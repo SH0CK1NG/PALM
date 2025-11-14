@@ -5,7 +5,7 @@ ood="SVHN places365 LSUN iSUN dtd"
 
 # training info
 batch=128
-epochs=25
+epochs=50
 lr=0.001
 wd=1e-4
 
@@ -33,7 +33,7 @@ pretrain_ckpt=checkpoints/$id-$backbone-$method-with-prototypes.pt
 #CIFAR100 Plan B
 # forget_csv="0,8,11,40,51,66,67,88,94,57" 
 
-forget_class_num=5
+forget_class_num=10
 case $forget_class_num in
   5)
     forget_csv="0,8,11,40,51"
@@ -55,7 +55,7 @@ lora_r=8
 lora_alpha=32
 lora_dropout=0.05
 # where to inject lora: head|encoder|both|encoder_all|both_all
-lora_target=both
+lora_target=head
 # per-batch forget/retain composition: none|balanced|proportional
 batch_forget_mode=balanced
 
@@ -118,7 +118,7 @@ python main.py --in-dataset $id --backbone $backbone --method $method \
   --epochs $epochs --load-path $pretrain_ckpt -b $batch --lr $lr --wd $wd \
   --cache-size $cache --lambda_pcon $pcon --proto_m $m --k $k \
   --use_lora --lora_impl peft --lora_r $lora_r --lora_alpha $lora_alpha --lora_dropout $lora_dropout --lora_target $lora_target \
-  --forget_classes $forget_csv --forget_lambda $forget_lambda \
+  --forget_classes_inc $forget_csv --forget_lambda $forget_lambda \
   --batch_forget_mode $batch_forget_mode \
   --temp $temp \
   --adapter_save_path $adapter_path \

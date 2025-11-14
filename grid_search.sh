@@ -1,3 +1,4 @@
+# 旧版网格搜索脚本，不能自动填结果，需要re_eval
 #!/usr/bin/env bash
 set -euo pipefail
 

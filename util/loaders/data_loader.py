@@ -263,6 +263,8 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
             if len(self.forget_idx) == 0 or len(self.retain_idx) == 0:
                 self.forget_idx = np.arange(len(self.targets))
                 self.retain_idx = np.arange(len(self.targets))
+            # print(f"[DEBUG] forget={len(self.forget_idx)}, retain={len(self.retain_idx)}, half_f={self.half_f}, half_r={self.half_r}")
+
         def __iter__(self):
             for _ in range(self.num_batches):
                 f_take = self.rng.choice(self.forget_idx, size=min(self.half_f, len(self.forget_idx)), replace=(len(self.forget_idx) < self.half_f))
@@ -276,6 +278,8 @@ def get_loader_in(args: argparse.Namespace, split: Tuple[str, ...] = ('train', '
                     batch = np.concatenate([f_take, r_take])
                 self.rng.shuffle(batch)
                 yield batch.tolist()
+                # print(f"[BATCH] f_take={len(f_take)}, r_take={len(r_take)}, need={need}")
+
         def __len__(self):
             return self.num_batches
 
