@@ -32,7 +32,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # 基本信息（可按需修改或通过环境变量覆盖）
-id=${ID:-CIFAR-110}
+id=${ID:-CIFAR-100}
 base_id=${BASE_ID:-CIFAR-100}
 ood=${OOD_LIST:-"SVHN places365 LSUN iSUN dtd"}
 
@@ -53,13 +53,14 @@ method=top${k}-palm-cache${cache}-ema${m}
 
 # 网格搜索空间（lambda_list 用于搜索 lambda_pcon）
 # lambda_list=($(seq 0.5 0.1 1.5))
-lambda_list=(0.1)
+lambda_list=(1)
 lr_list=(0.001)
-# epoch_list=($(seq 5 5 50))
-epoch_list=(1)
+epoch_list=($(seq 5 5 50))
+# epoch_list=(50)
 lora_r_list=(8)
 
-tag_suffix="-continual-grid_runs"
+# tag_suffix="-continual-epoch50-lambda_grid_runs"
+tag_suffix="-continual-lambda1.0-epoch_grid_runs"
 
 #####
 base_task=c80 # c80 or c90

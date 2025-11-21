@@ -52,17 +52,18 @@ score="mahalanobis"
 method_tag=${method}-baseline-${baseline_method}-b${batch}-e${epochs}-lr${lr}-wd${wd}-fl${forget_lambda}-${id}forget${forget_class_num}
 save_ckpt=checkpoints/${id}-${backbone}-${method_tag}.pt
 
-python main.py --in-dataset $id --backbone $backbone --method $method \
-  --epochs $epochs --load-path $pretrain_ckpt -b $batch --lr $lr --wd $wd \
-  --cache-size $cache --lambda_pcon 0.0 --proto_m $m --k $k \
-  --forget_classes "$forget_csv" --forget_lambda $forget_lambda \
-  --batch_forget_mode $batch_forget_mode \
-  --temp $temp \
-  --save-path $save_ckpt \
-  --forget_strategy ${baseline_method}
+# python main.py --in-dataset $id --backbone $backbone --method $method \
+#   --epochs $epochs --load-path $pretrain_ckpt -b $batch --lr $lr --wd $wd \
+#   --cache-size $cache --lambda_pcon 0.0 --proto_m $m --k $k \
+#   --forget_classes "$forget_csv" --forget_lambda $forget_lambda \
+#   --batch_forget_mode $batch_forget_mode \
+#   --temp $temp \
+#   --save-path $save_ckpt \
+#   --forget_strategy ${baseline_method}
 
+save_ckpt=/home/shaokun/PALM/checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
 # 评估（不使用 LoRA 适配器，直接评估保存的完整权重）
-bash eval.sh $id "$ood" $backbone $method_tag $save_ckpt $score $cache 0 "" "$forget_csv" "" "$forget_lambda" "" "" "" "" --umap_enable --umap_rf_only ""
+bash eval4CL.sh $id "$ood" $backbone $method_tag "$save_ckpt" $score $cache 0 "" "$forget_csv" "" "$forget_lambda" "" "" "" "" --umap_enable --umap_rf_only ""
 # # 直接调用 feature_extract.py 和 eval_cifar.py，避免在 eval.sh 中触发增量路径导致遗忘集缓存缺失
 # python feature_extract.py \
 #   --in-dataset "$id" \

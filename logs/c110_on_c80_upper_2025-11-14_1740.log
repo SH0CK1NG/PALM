@@ -1,0 +1,62 @@
+nohup: ignoring input
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+Files already downloaded and verified
+Files already downloaded and verified
+ckpt loaded from /home/shaokun/PALM/checkpoints/CIFAR-110-resnet34-top5-palm-cache6-ema0.999-with-prototypes.pt
+resnet34-top5-palm-cache6-ema0.999-baseline-randlabel-b128-e25-lr0.001-wd1e-4-fl1-CIFAR-100forget5: Number of model parameters: 21605312
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/391 [00:00<?, ?it/s]  0%|          | 1/391 [00:00<04:03,  1.60it/s]  2%|▏         | 9/391 [00:00<00:23, 16.18it/s]  4%|▍         | 17/391 [00:00<00:12, 28.99it/s]  6%|▋         | 25/391 [00:00<00:09, 40.55it/s]  8%|▊         | 32/391 [00:01<00:07, 47.73it/s] 10%|█         | 41/391 [00:01<00:06, 57.07it/s] 13%|█▎        | 50/391 [00:01<00:05, 64.07it/s] 15%|█▍        | 58/391 [00:01<00:05, 66.34it/s] 17%|█▋        | 66/391 [00:01<00:04, 69.93it/s] 19%|█▉        | 74/391 [00:01<00:04, 66.69it/s] 21%|██        | 82/391 [00:01<00:04, 68.44it/s] 23%|██▎       | 90/391 [00:01<00:04, 68.74it/s] 25%|██▌       | 98/391 [00:01<00:04, 68.81it/s] 27%|██▋       | 107/391 [00:02<00:03, 72.46it/s] 30%|██▉       | 116/391 [00:02<00:03, 75.37it/s] 32%|███▏      | 124/391 [00:02<00:03, 74.09it/s] 34%|███▍      | 133/391 [00:02<00:03, 76.53it/s] 36%|███▌      | 141/391 [00:02<00:03, 77.43it/s] 38%|███▊      | 150/391 [00:02<00:03, 78.52it/s] 40%|████      | 158/391 [00:02<00:03, 76.47it/s] 42%|████▏     | 166/391 [00:02<00:02, 77.02it/s] 45%|████▍     | 175/391 [00:02<00:02, 78.50it/s] 47%|████▋     | 184/391 [00:03<00:02, 79.53it/s] 49%|████▉     | 193/391 [00:03<00:02, 79.72it/s] 52%|█████▏    | 202/391 [00:03<00:02, 78.34it/s] 54%|█████▎    | 210/391 [00:03<00:02, 78.74it/s] 56%|█████▌    | 218/391 [00:03<00:02, 76.51it/s] 58%|█████▊    | 226/391 [00:03<00:02, 76.46it/s] 60%|█████▉    | 234/391 [00:03<00:02, 73.86it/s] 62%|██████▏   | 242/391 [00:03<00:02, 73.55it/s] 64%|██████▍   | 250/391 [00:03<00:01, 72.39it/s] 66%|██████▌   | 258/391 [00:04<00:01, 71.39it/s] 68%|██████▊   | 266/391 [00:04<00:01, 73.26it/s] 70%|███████   | 274/391 [00:04<00:01, 72.73it/s] 72%|███████▏  | 282/391 [00:04<00:01, 74.25it/s] 74%|███████▍  | 290/391 [00:04<00:01, 73.52it/s] 76%|███████▌  | 298/391 [00:04<00:01, 74.59it/s] 78%|███████▊  | 306/391 [00:04<00:01, 74.17it/s] 80%|████████  | 314/391 [00:04<00:01, 75.32it/s] 82%|████████▏ | 322/391 [00:04<00:00, 74.81it/s] 84%|████████▍ | 330/391 [00:04<00:00, 76.19it/s] 86%|████████▋ | 338/391 [00:05<00:00, 75.09it/s] 88%|████████▊ | 346/391 [00:05<00:00, 76.50it/s] 91%|█████████ | 355/391 [00:05<00:00, 77.52it/s] 93%|█████████▎| 363/391 [00:05<00:00, 70.90it/s] 95%|█████████▍| 371/391 [00:05<00:00, 63.31it/s] 97%|█████████▋| 380/391 [00:05<00:00, 68.59it/s] 99%|█████████▉| 389/391 [00:05<00:00, 72.58it/s]100%|██████████| 391/391 [00:05<00:00, 66.84it/s]
+50000 images processed, 6.003671646118164 seconds used
+
+Processing in-distribution CIFAR-100 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:46,  1.69it/s] 10%|█         | 8/79 [00:00<00:04, 14.81it/s] 20%|██        | 16/79 [00:00<00:02, 28.37it/s] 30%|███       | 24/79 [00:00<00:01, 39.40it/s] 39%|███▉      | 31/79 [00:01<00:01, 46.33it/s] 49%|████▉     | 39/79 [00:01<00:00, 54.07it/s] 58%|█████▊    | 46/79 [00:01<00:00, 58.26it/s] 68%|██████▊   | 54/79 [00:01<00:00, 63.61it/s] 78%|███████▊  | 62/79 [00:01<00:00, 54.57it/s] 87%|████████▋ | 69/79 [00:01<00:00, 56.17it/s] 96%|█████████▌| 76/79 [00:01<00:00, 53.42it/s]100%|██████████| 79/79 [00:01<00:00, 41.91it/s]
+10000 images processed, 1.9212477207183838 seconds used
+
+Saved forget OOD features to cache/resnet34-top5-palm-cache6-ema0.999-baseline-randlabel-b128-e25-lr0.001-wd1e-4-fl1-CIFAR-100forget5/CIFAR-100/forget
+Processing out-of-distribution SVHN images
+  0%|          | 0/204 [00:00<?, ?it/s]  0%|          | 1/204 [00:00<02:04,  1.63it/s]  4%|▍         | 8/204 [00:00<00:13, 14.35it/s]  7%|▋         | 15/204 [00:00<00:07, 25.66it/s] 11%|█▏        | 23/204 [00:00<00:04, 36.91it/s] 15%|█▍        | 30/204 [00:01<00:03, 43.97it/s] 19%|█▊        | 38/204 [00:01<00:03, 52.96it/s] 22%|██▏       | 45/204 [00:01<00:02, 57.12it/s] 26%|██▌       | 53/204 [00:01<00:02, 62.53it/s] 30%|██▉       | 61/204 [00:01<00:02, 63.72it/s] 33%|███▎      | 68/204 [00:01<00:02, 62.91it/s] 37%|███▋      | 76/204 [00:01<00:01, 65.74it/s] 41%|████      | 84/204 [00:01<00:01, 68.80it/s] 45%|████▌     | 92/204 [00:01<00:01, 69.42it/s] 49%|████▉     | 100/204 [00:02<00:01, 71.93it/s] 53%|█████▎    | 108/204 [00:02<00:01, 70.90it/s] 57%|█████▋    | 116/204 [00:02<00:01, 70.46it/s] 61%|██████    | 124/204 [00:02<00:01, 70.69it/s] 65%|██████▍   | 132/204 [00:02<00:00, 72.13it/s] 69%|██████▊   | 140/204 [00:02<00:00, 71.79it/s] 73%|███████▎  | 148/204 [00:02<00:00, 73.32it/s] 76%|███████▋  | 156/204 [00:02<00:00, 68.68it/s] 80%|███████▉  | 163/204 [00:02<00:00, 65.90it/s] 83%|████████▎ | 170/204 [00:03<00:00, 59.97it/s] 87%|████████▋ | 177/204 [00:03<00:00, 57.29it/s] 90%|████████▉ | 183/204 [00:03<00:00, 49.47it/s] 93%|█████████▎| 189/204 [00:03<00:00, 46.60it/s] 96%|█████████▌| 195/204 [00:03<00:00, 47.97it/s] 99%|█████████▊| 201/204 [00:03<00:00, 48.83it/s]100%|██████████| 204/204 [00:03<00:00, 53.04it/s]
+26032 images processed, 3.893634080886841 seconds used
+
+Processing out-of-distribution places365 images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<01:00,  1.29it/s]  6%|▋         | 5/79 [00:00<00:10,  6.75it/s] 15%|█▌        | 12/79 [00:01<00:03, 17.44it/s] 25%|██▌       | 20/79 [00:01<00:01, 29.53it/s] 34%|███▍      | 27/79 [00:01<00:01, 37.64it/s] 44%|████▍     | 35/79 [00:01<00:00, 45.95it/s] 53%|█████▎    | 42/79 [00:01<00:00, 51.11it/s] 63%|██████▎   | 50/79 [00:01<00:00, 57.44it/s] 72%|███████▏  | 57/79 [00:01<00:00, 54.23it/s] 82%|████████▏ | 65/79 [00:01<00:00, 60.66it/s] 92%|█████████▏| 73/79 [00:01<00:00, 63.91it/s]100%|██████████| 79/79 [00:01<00:00, 39.65it/s]
+10000 images processed, 2.028838872909546 seconds used
+
+Processing out-of-distribution LSUN images
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<00:43,  1.81it/s]  9%|▉         | 7/79 [00:00<00:05, 13.74it/s] 16%|█▋        | 13/79 [00:00<00:02, 23.08it/s] 24%|██▍       | 19/79 [00:00<00:01, 31.56it/s] 34%|███▍      | 27/79 [00:00<00:01, 42.34it/s] 42%|████▏     | 33/79 [00:01<00:00, 46.72it/s] 49%|████▉     | 39/79 [00:01<00:00, 42.48it/s] 59%|█████▉    | 47/79 [00:01<00:00, 50.58it/s] 70%|██████▉   | 55/79 [00:01<00:00, 57.97it/s] 81%|████████  | 64/79 [00:01<00:00, 65.29it/s] 92%|█████████▏| 73/79 [00:01<00:00, 70.31it/s]100%|██████████| 79/79 [00:01<00:00, 45.16it/s]
+10000 images processed, 1.7775249481201172 seconds used
+
+Processing out-of-distribution iSUN images
+  0%|          | 0/70 [00:00<?, ?it/s]  1%|▏         | 1/70 [00:00<00:52,  1.33it/s] 11%|█▏        | 8/70 [00:00<00:05, 11.84it/s] 17%|█▋        | 12/70 [00:01<00:03, 15.73it/s] 23%|██▎       | 16/70 [00:01<00:02, 19.50it/s] 31%|███▏      | 22/70 [00:01<00:01, 27.33it/s] 41%|████▏     | 29/70 [00:01<00:01, 36.57it/s] 49%|████▊     | 34/70 [00:01<00:00, 37.13it/s] 60%|██████    | 42/70 [00:01<00:00, 47.42it/s] 70%|███████   | 49/70 [00:01<00:00, 53.10it/s] 83%|████████▎ | 58/70 [00:01<00:00, 61.32it/s] 94%|█████████▍| 66/70 [00:01<00:00, 65.98it/s]100%|██████████| 70/70 [00:01<00:00, 35.74it/s]
+8925 images processed, 1.9966344833374023 seconds used
+
+Processing out-of-distribution dtd images
+  0%|          | 0/45 [00:00<?, ?it/s]  2%|▏         | 1/45 [00:01<00:58,  1.32s/it] 11%|█         | 5/45 [00:01<00:08,  4.56it/s] 31%|███       | 14/45 [00:01<00:02, 14.79it/s] 42%|████▏     | 19/45 [00:02<00:02, 12.95it/s] 60%|██████    | 27/45 [00:02<00:00, 20.78it/s] 73%|███████▎  | 33/45 [00:02<00:00, 17.38it/s] 82%|████████▏ | 37/45 [00:02<00:00, 15.60it/s]100%|██████████| 45/45 [00:03<00:00, 23.05it/s]100%|██████████| 45/45 [00:03<00:00, 14.91it/s]
+5640 images processed, 3.038058042526245 seconds used
+
+22.707104206085205
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/shaokun/anaconda3/envs/CILPALM/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Evaluating SVHN
+Evaluating places365
+Evaluating LSUN
+Evaluating iSUN
+Evaluating dtd
+ OOD detection method: SSD+
+              FPR    AUROC  AUIN  
+SVHN           3.37  99.10  97.21
+places365     72.63  79.32  78.28
+LSUN          12.07  97.17  97.01
+iSUN          72.99  82.28  85.00
+dtd           51.97  86.71  91.66
+AVG           42.61  88.92  89.84
+Retain-Acc: 0.7486
+Forget-as-OOD (retain known vs forget novel):
+  FPR: 44.00 AUROC: 89.04 AUIN: 99.26
+11.31350827217102
+[umap] saved to figs/umap_CIFAR-100_resnet34_top5-palm-cache6-ema0.999-baseline-randlabel-b128-e25-lr0.001-wd1e-4-fl1-CIFAR-100forget5_domain.png
+[umap] saved to figs/umap_CIFAR-100_resnet34_top5-palm-cache6-ema0.999-baseline-randlabel-b128-e25-lr0.001-wd1e-4-fl1-CIFAR-100forget5_rf.png

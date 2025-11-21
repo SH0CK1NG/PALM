@@ -43,7 +43,7 @@ python feature_extract.py \
   $(if [ -n "$lora_target" ]; then echo --lora_target "$lora_target"; fi) \
   $(if [ -n "$inc_csv" ]; then echo --forget_classes_inc "$inc_csv"; fi) \
   $(if [ -n "$seen_csv" ]; then echo --forget_classes_seen "$seen_csv"; fi) \
-  $(if [ -n "$retain_exclude_csv" ] || [ -n "$inc_csv" ] || [ -n "$seen_csv" ]; then echo --incremental; fi)
+  --incremental
 
 # 2) run evaluation using the same checkpoint and cached features
 python eval_cifar.py \
@@ -67,7 +67,7 @@ python eval_cifar.py \
   $(if [ -n "$umap_rf_only" ]; then echo --umap_rf_only; fi) \
   $(if [ -n "$inc_csv" ]; then echo --forget_classes_inc "$inc_csv"; fi) \
   $(if [ -n "$seen_csv" ]; then echo --forget_classes_seen "$seen_csv"; fi) \
-  $(if [ -n "$retain_exclude_csv" ] || [ -n "$inc_csv" ] || [ -n "$seen_csv" ]; then echo --incremental; fi)
+  --incremental
 
 
 

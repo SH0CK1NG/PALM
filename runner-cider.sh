@@ -80,9 +80,10 @@ score="mahalanobis"
 cache=6
 eval_epochs=0
 
-# 遗忘学习的备份
-bash eval.sh $id "$ood" $backbone $method_tag "$pretrain_ckpt" $score $cache 0 "$adapter_path" "$forget_csv" "" "$forget_lambda" "$lora_r" "$lora_alpha" "$lora_dropout" "$lora_target" --umap_enable --umap_rf_only ""
-
+# 遗忘学习的备份,用于评估lora
+# bash eval.sh $id "$ood" $backbone $method_tag "$pretrain_ckpt" $score $cache 0 "$adapter_path" "$forget_csv" "" "$forget_lambda" "$lora_r" "$lora_alpha" "$lora_dropout" "$lora_target" --umap_enable --umap_rf_only ""
+# 用于评估上限
+bash eval.sh $id "$ood" $backbone $method_tag "$pretrain_ckpt" $score $cache 0 "" "$forget_csv" "" "$forget_lambda" "" "" "" "" --umap_enable --umap_rf_only ""
 # # 手动调用特征提取与评估，避免在 eval.sh 中触发增量路径导致遗忘集缓存缺失
 # python feature_extract.py \
 #   --in-dataset "$id" \
